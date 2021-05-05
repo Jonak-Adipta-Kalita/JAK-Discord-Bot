@@ -1,17 +1,8 @@
-import discord
-import json
-import random
-import os
-
+import discord, random
 from discord.ext import commands
-from discord.ext import tasks
 
-def get_prefix(client, message):
-    with open('prefixes.json', 'r') as f:
-        prefixes = json.load(f)
-    return prefixes[str(message.guild.id)]
-
-client = commands.Bot(command_prefix = get_prefix)
+prefix = "!JAK "
+client = commands.Bot(command_prefix = prefix)
 client.remove_command('help')
 
 def read_token():
@@ -19,22 +10,6 @@ def read_token():
         lines = f.readlines()
         return lines[0].strip()
 token = read_token()
-
-@client.event
-async def on_guild_join(guild):
-    with open('prefixes.json', 'r') as f:
-        prefixes = json.load(f)
-    prefixes[str(guild.id)] = '!JAK '
-    with open('prefixes.json', 'w') as f:
-        json.dump('prefixes', 'f', indent=4)
-
-@client.event
-async def on_guild_remove(guild):
-    with open('prefixes.json', 'r') as f:
-        prefixes = json.load(f)
-    prefixes.pop(str(guild.id))
-    with open('prefixes.json', 'w') as f:
-        json.dump('prefixes', 'f', indent=4)
 
 @client.event
 async def on_ready():
@@ -123,7 +98,8 @@ async def _8ball(ctx, *, question):
                 'My sources say no.',
                 'Outlook not so good.',
                 'Very doubtfut.',
-                'Kinda Lazy to answer.']
+                'Kinda Lazy to answer.'
+    ]
     await ctx.send(f'Question: {question}\nAnswer: {random.choice(responses)}')
 
 client.run(token)
