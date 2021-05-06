@@ -46,7 +46,7 @@ async def kick(ctx, member : discord.Member, *, reason=None):
 @client.command()
 async def ban(ctx, member : discord.Member, *, reason=None):
     await member.ban(reason=reason)
-    await ctx.send(f'{member.mention} is banned')
+    await ctx.send(f'{member.mention} is Banned!!')
 
 @client.command()
 async def unban(ctx, *, member):
@@ -56,7 +56,7 @@ async def unban(ctx, *, member):
         user = ban_entry.user
         if (user.name, user.discriminator) == (member_name, member_discriminator) :
             await ctx.guild.unban(user)
-            await ctx.send(f'{member.mention} is unbanned')
+            await ctx.send(f'{member.mention} is UnBanned!!')
             return
 
 @client.command()
@@ -70,11 +70,11 @@ async def ping(ctx):
 
 @client.event
 async def on_member_join(member, ctx):
-    await ctx.send(f'{member} Just Joined')
+    await ctx.send(f'{member} Just Joined, Awesome!!')
 
 @client.event
 async def on_member_remove(member, ctx):
-    await ctx.send(f'{member} Just Left What A Shame 🤣🤣🤣')
+    await ctx.send(f'{member} Just Left, What A Shame!!')
 
 @client.command(aliases = ['8ball'])
 async def _8ball(ctx, *, question):
