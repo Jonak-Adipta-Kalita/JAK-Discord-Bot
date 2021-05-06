@@ -21,14 +21,14 @@ async def on_ready():
 @client.command()
 async def help(ctx):
     await ctx.send(r"""1. `!JAK ` :Default Prefix
-2. `!JAK help` :Show all the commands
-3. `!JAK ping` :Show the ping
+2. `!JAK help` :Show all the Commands
+3. `!JAK ping` :Show the PING
 4. `!JAK 8ball <question>` :Play 8ball game
 5. `!JAK clear <amount>` :Delete messages as given amount
-6. `!JAK kick <@member> reason=<reason>` :kick member/bot
-7. `!JAK ban <@member> reason=<reason>` :ban member/bot
-8. `!JAK unban <member,tag>` :unban member/bot
-9. `!JAK show_rules` :Show the rules """)
+6. `!JAK kick <@member> reason=<reason>` :Kick Member/Bot
+7. `!JAK ban <@member> reason=<reason>` :Ban Member/Bot
+8. `!JAK unban <member,tag>` :UnBan Member/Bot
+9. `!JAK show_rules` :Show the Rules """)
 
 @client.command()
 async def show_rules(ctx):
