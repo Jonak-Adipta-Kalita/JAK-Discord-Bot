@@ -63,7 +63,6 @@ async def unban(ctx, *, member):
 async def clear(ctx, amount : int):
     await ctx.channel.purge(limit=amount)
 
-
 @client.command()
 async def ping(ctx):
     await ctx.send(f'Ping: {round(client.latency * 1000)}')
