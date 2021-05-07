@@ -30,17 +30,17 @@ async def on_ready():
 
 @client.command()
 async def help(ctx):
-    await ctx.send(r"""1. `!JAK ` :Default Prefix
-2. `!JAK help` :Show all the Commands
-3. `!JAK ping` :Show the PING
-4. `!JAK 8ball <question>` :Play 8ball game
-5. `!JAK clear <amount>` :Delete messages as given amount
-6. `!JAK kick <@member> reason=<reason>` :Kick Member/Bot
-7. `!JAK ban <@member> reason=<reason>` :Ban Member/Bot
-8. `!JAK unban <member,tag>` :UnBan Member/Bot
-9. `!JAK show_rules` :Show the Rules
-10. `!JAK tictactoe @<player1> @<player2>` :Starts Tic-Tac-Toe
-``. `!JAK tictactoe_place <Position in Integer>` :Place your position for tictactoe""")
+    await ctx.send(r"""1. `!JAK `: Default Prefix
+2. `!JAK help`: Show all the Commands
+3. `!JAK ping`: Show the PING
+4. `!JAK 8ball <question>`: Play 8ball game
+5. `!JAK clear <amount>`: Delete messages as given amount
+6. `!JAK kick <@member> reason=<reason>`: Kick Member/Bot
+7. `!JAK ban <@member> reason=<reason>`: Ban Member/Bot
+8. `!JAK unban <member,tag>`: UnBan Member/Bot
+9. `!JAK show_rules`: Show the Rules
+10. `!JAK tictactoe @<player1> @<player2>`: Starts Tic-Tac-Toe
+11. `!JAK tictactoe_place <Position in Integer>`: Place your position for Tic-Tac-Toe """)
 
 @client.command()
 async def show_rules(ctx):
