@@ -1,5 +1,15 @@
 import discord, random
 from discord.ext import commands
+import tictactoe_variables
+
+### Tic-Tac-Toe Varialbles ###
+player1 = tictactoe_variables.player1
+player2 = tictactoe_variables.player2
+turn = tictactoe_variables.turn
+gameOver = tictactoe_variables.gameOver
+board = tictactoe_variables.board
+winningConditions = tictactoe_variables.winningConditions
+##############################
 
 prefix = "!JAK "
 client = commands.Bot(command_prefix = prefix)
@@ -28,7 +38,9 @@ async def help(ctx):
 6. `!JAK kick <@member> reason=<reason>` :Kick Member/Bot
 7. `!JAK ban <@member> reason=<reason>` :Ban Member/Bot
 8. `!JAK unban <member,tag>` :UnBan Member/Bot
-9. `!JAK show_rules` :Show the Rules """)
+9. `!JAK show_rules` :Show the Rules
+10. `!JAK tictactoe @<player1> @<player2>` :Starts Tic-Tac-Toe
+``. `!JAK tictactoe_place <Position in Integer>` :Place your position for tictactoe""")
 
 @client.command()
 async def show_rules(ctx):
@@ -100,5 +112,105 @@ async def _8ball(ctx, *, question):
                 'Kinda Lazy to answer.'
     ]
     await ctx.send(f'Question: {question}\nAnswer: {random.choice(responses)}')
+
+@client.command()
+async def tictactoe(ctx, p1: discord.Member, p2: discord.Member):
+    global count
+    global player1
+    global player2
+    global turn
+    global gameOver
+
+    if gameOver:
+        global board
+        board = [":white_large_square:", ":white_large_square:", ":white_large_square:",
+                 ":white_large_square:", ":white_large_square:", ":white_large_square:",
+                 ":white_large_square:", ":white_large_square:", ":white_large_square:"]
+        turn = ""
+        gameOver = False
+        count = 0
+        player1 = p1
+        player2 = p2
+        line = ""
+        for x in range(len(board)):
+            if x == 2 or x == 5 or x == 8:
+                line += " " + board[x]
+                await ctx.send(line)
+                line = ""
+            else:
+                line += " " + board[x]
+        num = random.randint(1, 2)
+        if num == 1:
+            turn = player1
+            await ctx.send("Its <@" + str(player1.id) + ">'s turn!!")
+        elif num == 2:
+            turn = player2
+            await ctx.send("Its <@" + str(player2.id) + ">'s turn!!")
+    else:
+        await ctx.send("A game is already in progress!! Finish it before starting a new one!!")
+
+@client.command()
+async def tictactoe_place(ctx, pos: int):
+    global turn
+    global player1
+    global player2
+    global board
+    global count
+    global gameOver
+    if not gameOver:
+        mark = ""
+        if turn == ctx.author:
+            if turn == player1:
+                mark = ":regional_indicator_x:"
+            elif turn == player2:
+                mark = ":o2:"
+            if 0 < pos < 10 and board[pos - 1] == ":white_large_square:" :
+                board[pos - 1] = mark
+                count += 1
+                line = ""
+                for x in range(len(board)):
+                    if x == 2 or x == 5 or x == 8:
+                        line += " " + board[x]
+                        await ctx.send(line)
+                        line = ""
+                    else:
+                        line += " " + board[x]
+                tictactoe_checkWinner(winningConditions, mark)
+                if gameOver == True:
+                    await ctx.send(mark + " WINS!!")
+                elif count >= 9:
+                    gameOver = True
+                    await ctx.send("It's a TIE!!")
+                if turn == player1:
+                    turn = player2
+                elif turn == player2:
+                    turn = player1
+            else:
+                await ctx.send("Be sure to choose an integer between 1 and 9 (inclusive) and an unmarked tile!!")
+        else:
+            await ctx.send("It is not your turn!!")
+    else:
+        await ctx.send("Please start a new game using the !tictactoe command!!")
+
+
+def tictactoe_checkWinner(winningConditions, mark):
+    global gameOver
+    for condition in winningConditions:
+        if board[condition[0]] == mark and board[condition[1]] == mark and board[condition[2]] == mark:
+            gameOver = True
+
+@tictactoe.error
+async def tictactoe_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Please mention 2 players for this command!!")
+    elif isinstance(error, commands.BadArgument):
+        await ctx.send("Please make sure to mention/ping players (ie. <@688534433879556134>)!!")
+
+@tictactoe_place.error
+async def tictactoe_place_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Please enter a position you would like to mark!")
+    elif isinstance(error, commands.BadArgument):
+        await ctx.send("Please make sure to enter an integer!!")
 
 client.run(token)
