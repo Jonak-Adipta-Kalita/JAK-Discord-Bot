@@ -12,7 +12,9 @@ winningConditions = tictactoe_variables.winningConditions
 ##############################
 
 prefix = "!JAK "
-client = commands.Bot(command_prefix = prefix)
+intents = discord.Intents()
+intents.members = True
+client = commands.Bot(command_prefix = prefix, intents=intents)
 client.remove_command('help')
 
 def read_token():
@@ -80,14 +82,12 @@ async def ping(ctx):
     await ctx.send(f'Ping: {round(client.latency * 1000)}')
 
 @client.event
-async def on_member_join(member, ctx):
-    await ctx.send(f'{member} Just Joined, Awesome!!')
-    await ctx.member.send(f"Welcome to the Server!!")
+async def on_member_join(member):
+    await member.send(f"Welcome to the Server!!")
 
 @client.event
-async def on_member_remove(member, ctx):
-    await ctx.send(f'{member} Just Left, What A Shame!!')
-    await ctx.member.send(f"You left the Server, What a Shame!!")
+async def on_member_remove(member):
+    await member.send(f"You left the Server, What a Shame!!")
 
 @client.command(aliases = ['8ball'])
 async def _8ball(ctx, *, question):
