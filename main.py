@@ -82,10 +82,12 @@ async def ping(ctx):
 @client.event
 async def on_member_join(member, ctx):
     await ctx.send(f'{member} Just Joined, Awesome!!')
+    await ctx.member.send(f"Welcome to the Server!!")
 
 @client.event
 async def on_member_remove(member, ctx):
     await ctx.send(f'{member} Just Left, What A Shame!!')
+    await ctx.member.send(f"You left the Server, What a Shame!!")
 
 @client.command(aliases = ['8ball'])
 async def _8ball(ctx, *, question):
