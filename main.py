@@ -25,9 +25,6 @@ token = read_token()
 @client.event
 async def on_ready():
     await client.change_presence(status=discord.Status.online, activity=discord.Game('!JAK help'))
-    print('Starting The Bot...')
-    print('Bot Started...')
-    print('Running Bot...')
 
 @client.command()
 async def help(ctx):
