@@ -14,7 +14,7 @@ winningConditions = tictactoe_variables.winningConditions
 prefix = "!JAK "
 intents = discord.Intents()
 intents.members = True
-client = commands.Bot(command_prefix = prefix, intents=intents)
+client = commands.Bot(command_prefix = prefix, intents = intents)
 client.remove_command('help')
 
 def read_token():
@@ -206,7 +206,7 @@ async def tictactoe_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Please mention 2 players for this command!!")
     elif isinstance(error, commands.BadArgument):
-        await ctx.send("Please make sure to mention/ping players (ie. <@688534433879556134>)!!")
+        await ctx.send("Please make sure to mention/ping players!!")
 
 @tictactoe_place.error
 async def tictactoe_place_error(ctx, error):
