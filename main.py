@@ -113,7 +113,7 @@ async def _8ball(ctx, *, question):
                 'Very doubtfut.',
                 'Kinda Lazy to answer.'
     ]
-    await ctx.send(f'Question: {question}\nAnswer: {random.choice(responses)}')
+    await ctx.send(f'Question: {question}\nAnswer: {random.choice(responses)}\n:)')
 
 @client.command()
 async def tictactoe(ctx, p1: discord.Member, p2: discord.Member):
@@ -211,7 +211,7 @@ async def tictactoe_error(ctx, error):
 @tictactoe_place.error
 async def tictactoe_place_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Please enter a position you would like to mark!")
+        await ctx.send("Please enter a position you would like to mark!!")
     elif isinstance(error, commands.BadArgument):
         await ctx.send("Please make sure to enter an integer!!")
 
