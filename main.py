@@ -33,21 +33,21 @@ async def help(ctx):
 3. `!JAK ping`: Show the PING
 4. `!JAK 8ball <question>`: Play 8ball game
 5. `!JAK clear <amount>`: Delete messages as given amount
-6. `!JAK kick <@member> reason=<reason>`: Kick Member/Bot
-7. `!JAK ban <@member> reason=<reason>`: Ban Member/Bot
-8. `!JAK unban <member,tag>`: UnBan Member/Bot
+6. `!JAK kick @<member> reason=<reason>`: Kick Member/Bot
+7. `!JAK ban @<member> reason=<reason>`: Ban Member/Bot
+8. `!JAK unban <member, tag>`: Unban Member/Bot
 9. `!JAK show_rules`: Show the Rules
-10. `!JAK tictactoe @<player1> @<player2>`: Starts Tic-Tac-Toe
+10. `!JAK tictactoe @<1st Player> @<2nd Player>`: Starts Tic-Tac-Toe
 11. `!JAK tictactoe_place <Position in Integer>`: Place your position for Tic-Tac-Toe """)
 
 @client.command()
 async def show_rules(ctx):
     await ctx.send(r"""1. Be Cool
-2. Be Awesome
-3. Support Each Other
-4. Don't Betray Anybody
-5. Always Support YOUTUBE not TIKTOK
-6. Dont Ask For Roles """)
+2. Be Awesome!!
+3. Support Each Other!!
+4. Don't Betray Anybody!!
+5. Always Support YOUTUBE not TIKTOK!!
+6. Dont Ask For Roles!! """)
 
 @client.command()
 async def kick(ctx, member : discord.Member, *, reason=None):
@@ -66,7 +66,7 @@ async def unban(ctx, *, member):
         user = ban_entry.user
         if (user.name, user.discriminator) == (member_name, member_discriminator) :
             await ctx.guild.unban(user)
-            await ctx.send(f'{member.mention} is UnBanned!!')
+            await ctx.send(f'{member.mention} is Unbanned!!')
             return
 
 @client.command()
