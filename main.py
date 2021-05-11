@@ -54,7 +54,7 @@ async def help_tictactoe(ctx):
 
 @client.command()
 async def show_rules(ctx):
-    await ctx.send(r"""1. Be Cool
+    await ctx.send(r"""1. Be Cool!!
 2. Be Awesome!!
 3. Support Each Other!!
 4. Don't Betray Anybody!!
