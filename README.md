@@ -1,6 +1,7 @@
 <div>
 
 # JAK-Discord-Bot
+![Discord](https://img.shields.io/discord/752800104112717826?style=for-the-badge)
 
 </div>
 
@@ -38,5 +39,5 @@ python main.py
 
 ## Contributors
 <a href = "https://github.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/graphs/contributors">
-  <img src = "https://contrib.rocks/image?repo=Jonak-Adipta-Kalita/JAK-Discord-Bot"/>
+	<img src = "https://contrib.rocks/image?repo=Jonak-Adipta-Kalita/JAK-Discord-Bot"/>
 </a>
