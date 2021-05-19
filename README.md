@@ -25,6 +25,11 @@ pip install -r .\requirements.txt
 ``` 
 and hit enter.
 
+### Enabling Intents
+Go to [Discord Developers Portal]
+(https://discord.com/developers/applications) and Click on your Application. Now got to Bot 
+Section and Enable `PRESENCE INTENT` and `SERVER MEMBERS INTENT` in `Privileged Gateway Intents`.
+
 ### Starting the Bot:
 Create `token.txt`. Now go to [Discord Developers Portal]
 (https://discord.com/developers/applications) and create a new application. Now go to the Bot 
