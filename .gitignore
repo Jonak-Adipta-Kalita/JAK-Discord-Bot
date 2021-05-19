@@ -153,4 +153,4 @@ Thumbs.db #thumbnail cache on Windows
 !.vscode/extensions.json
 *.code-workspace
 
-token.txt
+# token.txt
