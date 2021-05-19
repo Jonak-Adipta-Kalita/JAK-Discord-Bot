@@ -115,6 +115,7 @@ ENV/
 env.bak/
 venv.bak/
 pythonenv*
+token.txt
 
 # Spyder project settings
 .spyderproject
@@ -152,5 +153,3 @@ Thumbs.db #thumbnail cache on Windows
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
-
-# token.txt
