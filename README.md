@@ -1,4 +1,4 @@
-<div>
+<div align='center'>
 
 # JAK-Discord-Bot
 ![Discord](https://img.shields.io/discord/752800104112717826?style=for-the-badge)
