@@ -1,5 +1,5 @@
 from discord.ext import commands
-import discord, random, tictactoe_variables
+import discord, random, tictactoe_variables, credentials
 
 ### Tic-Tac-Toe Varialbles ###
 player1 = tictactoe_variables.player1
@@ -16,11 +16,7 @@ intents.members = True
 client = commands.Bot(command_prefix = prefix, intents = intents)
 client.remove_command('help')
 
-def read_token():
-    with open("token.txt", "r") as f:
-        lines = f.readlines()
-        return lines[0].strip()
-token = read_token()
+token = credentials.TOKEN
 
 @client.event
 async def on_ready():
