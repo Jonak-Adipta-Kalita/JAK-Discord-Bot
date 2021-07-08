@@ -1,9 +1,12 @@
 <div align='center'>
 
 # JAK-Discord-Bot
-![Discord](https://img.shields.io/discord/752800104112717826?style=for-the-badge)
+[![Discord](https://img.shields.io/discord/752800104112717826?style=for-the-badge)](https://discord.gg/S3UfGkW)
+[![Code Style: Black](https://img.shields.io/badge/Code%20Style-Black-000000.svg?style=for-the-badge)](https://github.com/psf/black)
 
 </div>
+
+- 	Note: Formatting the Code before Pushing is Important!!
 
 Invite [Bot](https://discord.com/oauth2/authorize?client_id=756402881913028689&scope=bot) to your Server
 
@@ -43,6 +46,15 @@ directory and type
 ```bash
 python main.py
 ```
+
+## Format Code
+In a terminal, type
+```bash
+.\venv\Scripts\activate
+black .
+deactivate
+```
+and press Enter.
 
 ## Contributors
 <a href = "https://github.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/graphs/contributors">
