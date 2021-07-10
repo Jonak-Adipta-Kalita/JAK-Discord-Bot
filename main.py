@@ -21,6 +21,7 @@ token = credentials.TOKEN
 
 @client.event
 async def on_ready():
+    print("Bot Started!!")
     await client.change_presence(
         status=discord.Status.online, activity=discord.Game("!JAK help")
     )
