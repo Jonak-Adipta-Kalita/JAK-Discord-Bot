@@ -6,7 +6,7 @@
 
 </div>
 
-- 	Note: Formatting the Code before Pushing is Important!!
+- 	Note: [Formatting](#format-code) the Code before Pushing is Important!!
 
 Invite [Bot](https://discord.com/oauth2/authorize?client_id=756402881913028689&scope=bot) to your Server
 
