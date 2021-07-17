@@ -16,8 +16,6 @@ intents.members = True
 client = commands.Bot(command_prefix=prefix, intents=intents)
 client.remove_command("help")
 
-token = credentials.TOKEN
-
 
 @client.event
 async def on_ready():
@@ -268,4 +266,4 @@ async def tictactoe_place_error(ctx, error):
         await ctx.send("Please make sure to enter an integer!!")
 
 
-client.run(token)
+client.run(credentials.TOKEN)
