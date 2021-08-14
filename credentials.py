@@ -1,1 +1,3 @@
-TOKEN = "NzU2NDAyODgxOTEzMDI4Njg5.X2RVFA.w4b87_5o2umzat9OT9MRODcX7ys"
+from decouple import config
+
+TOKEN = config("TOKEN")
