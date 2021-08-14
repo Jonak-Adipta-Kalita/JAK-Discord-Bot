@@ -33,11 +33,11 @@ Go to [Discord Developers Portal](https://discord.com/developers/applications) a
 Section and Enable `PRESENCE INTENT` and `SERVER MEMBERS INTENT` in `Privileged Gateway Intents`.
 
 ### Starting the Bot:
-Create `credentials.py`. Now go to [Discord Developers Portal](https://discord.com/developers/applications) and create a new application. Now go to the Bot 
+Create `.env`. Now go to [Discord Developers Portal](https://discord.com/developers/applications) and create a new application. Now go to the Bot 
 section and create a new Bot. Now copy the Token given in the redirected page and paste it in 
-the `credentials.py` file 
-```python
-TOKEN = "<YOUR_BOT_TOKEN>"
+the `.env` file 
+```env
+TOKEN=<YOUR_BOT_TOKEN>
 ```
 like this. Now go to the OAuth2 section and copy the CLIENT ID. Now open a new tab 
 in your browser and type `https://discord.com/api/oauth2/authorize?client_id=<YOUR_CLIENT_ID>&scope=bot` 
