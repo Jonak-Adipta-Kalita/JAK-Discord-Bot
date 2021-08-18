@@ -59,6 +59,7 @@ and press Enter.
 ## Technology(s) Used
 
 -   Language: [Python](https://python.org/)
+-   Hosted: [Heroku](https://heroku.com/)
 
 ## Contributors
 <a href = "https://github.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/graphs/contributors">
