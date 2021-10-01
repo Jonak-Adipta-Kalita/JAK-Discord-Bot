@@ -1,5 +1,6 @@
 from discord.ext import commands
-import discord, random, tictactoe_variables, credentials
+import discord, random, credentials
+import src.tictactoe_variables as tictactoe_variables
 
 ### Tic-Tac-Toe Varialbles ###
 player1 = tictactoe_variables.player1
