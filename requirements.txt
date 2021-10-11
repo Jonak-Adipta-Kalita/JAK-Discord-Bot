@@ -4,7 +4,7 @@ async-timeout==3.0.1
 attrs==21.2.0
 black==21.9b0
 chardet==4.0.0
-click==8.0.1
+click==8.0.3
 colorama==0.4.4
 discord.py==1.7.3
 idna==3.2
