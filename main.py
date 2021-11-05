@@ -42,7 +42,7 @@ async def on_member_remove(member):
     await member.send(f"You just left {member.server}, What a Shame!!")
 
 
-@bot.command()
+@bot.command(pass_context=True)
 async def help(ctx):
     embed = discord.Embed(
         title="!JAK help",
@@ -65,60 +65,7 @@ async def help(ctx):
     await ctx.send(embed=embed)
 
 
-@bot.command()
-async def help_moderation(ctx):
-    embed = discord.Embed(
-        title="!JAK help_moderation",
-        description="Shows all the Moderation Commands!!",
-        color=discord.Color.blue(),
-    )
-    embed.add_field(
-        name="!JAK clear <amount>",
-        value="Delete messages as given amount",
-        inline=False,
-    )
-    embed.add_field(
-        name="!JAK kick @<member> reason=<reason>",
-        value="Kick Member or Bot",
-        inline=False,
-    )
-    embed.add_field(
-        name="!JAK ban @<member> reason=<reason>",
-        value="Ban Member or Bot",
-        inline=False,
-    )
-    embed.add_field(
-        name="!JAK unban <member, tag>", value="Unban Member or Bot", inline=False
-    )
-    embed.add_field(name="!JAK show_rules", value="Show the Rules", inline=False)
-    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
-
-    await ctx.send(embed=embed)
-
-
-@bot.command()
-async def help_tictactoe(ctx):
-    embed = discord.Embed(
-        title="!JAK help_tictactoe",
-        description="Shows all the Tic-Tac-Toe Game Commands!!",
-        color=discord.Color.blue(),
-    )
-    embed.add_field(
-        name="!JAK tictactoe @<1st Player> @<2nd Player>",
-        value="Start Tic-Tac-Toe",
-        inline=False,
-    )
-    embed.add_field(
-        name="!JAK tictactoe_place <Position in Integer>",
-        value="Place your position for Tic-Tac-Toe",
-        inline=False,
-    )
-    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
-
-    await ctx.send(embed=embed)
-
-
-@bot.command()
+@bot.command(pass_context=True)
 async def show_rules(ctx):
     embed = discord.Embed(
         title="!JAK show_rules",
@@ -175,24 +122,78 @@ async def show_rules(ctx):
         name="Do not advertise without permission.", value=blank_value, inline=False
     )
     embed.add_field(name="Raiding is not allowed.", value=blank_value, inline=False)
+    embed.set_footer(text="Please Follow all the RULES!!")
 
     await ctx.send(embed=embed)
 
 
-@bot.command()
+@bot.command(pass_context=True)
+async def help_moderation(ctx):
+    embed = discord.Embed(
+        title="!JAK help_moderation",
+        description="Shows all the Moderation Commands!!",
+        color=discord.Color.blue(),
+    )
+    embed.add_field(
+        name="!JAK clear <amount>",
+        value="Delete messages as given amount",
+        inline=False,
+    )
+    embed.add_field(
+        name="!JAK kick @<member> reason=<reason>",
+        value="Kick Member or Bot",
+        inline=False,
+    )
+    embed.add_field(
+        name="!JAK ban @<member> reason=<reason>",
+        value="Ban Member or Bot",
+        inline=False,
+    )
+    embed.add_field(
+        name="!JAK unban <member, tag>", value="Unban Member or Bot", inline=False
+    )
+    embed.add_field(name="!JAK show_rules", value="Show the Rules", inline=False)
+    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
+
+    await ctx.send(embed=embed)
+
+
+@bot.command(pass_context=True)
+async def help_tictactoe(ctx):
+    embed = discord.Embed(
+        title="!JAK help_tictactoe",
+        description="Shows all the Tic-Tac-Toe Game Commands!!",
+        color=discord.Color.blue(),
+    )
+    embed.add_field(
+        name="!JAK tictactoe @<1st Player> @<2nd Player>",
+        value="Start Tic-Tac-Toe",
+        inline=False,
+    )
+    embed.add_field(
+        name="!JAK tictactoe_place <Position in Integer>",
+        value="Place your position for Tic-Tac-Toe",
+        inline=False,
+    )
+    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
+
+    await ctx.send(embed=embed)
+
+
+@bot.command(pass_context=True)
 @commands.has_permissions(kick_members=True)
 async def kick(ctx, member: discord.Member, *, reason=None):
     await member.kick(reason=reason)
 
 
-@bot.command()
+@bot.command(pass_context=True)
 @commands.has_permissions(kick_members=True, ban_members=True)
 async def ban(ctx, member: discord.Member, *, reason=None):
     await member.ban(reason=reason)
     await ctx.send(f"{member.mention} is Banned!!")
 
 
-@bot.command()
+@bot.command(pass_context=True)
 @commands.has_permissions(kick_members=True, ban_members=True)
 async def unban(ctx, *, member):
     banned_user = await ctx.guild.bans()
@@ -205,17 +206,17 @@ async def unban(ctx, *, member):
             return
 
 
-@bot.command()
+@bot.command(pass_context=True)
 async def clear(ctx, amount: int):
     await ctx.channel.purge(limit=amount)
 
 
-@bot.command()
+@bot.command(pass_context=True)
 async def ping(ctx):
     await ctx.send(f"Ping: {round(bot.latency * 1000)}")
 
 
-@bot.command(aliases=["8ball"])
+@bot.command(pass_context=True, aliases=["8ball"])
 async def _8ball(ctx, *, question):
     responses = [
         "It is certain.",
@@ -243,7 +244,7 @@ async def _8ball(ctx, *, question):
     await ctx.send(f"Question: {question}\nAnswer: {random.choice(responses)}\n:)")
 
 
-@bot.command()
+@bot.command(pass_context=True)
 async def tictactoe(ctx, p1: discord.Member, p2: discord.Member):
     global count
     global player1
@@ -290,7 +291,7 @@ async def tictactoe(ctx, p1: discord.Member, p2: discord.Member):
         )
 
 
-@bot.command()
+@bot.command(pass_context=True)
 async def tictactoe_place(ctx, pos: int):
     global turn
     global player1
