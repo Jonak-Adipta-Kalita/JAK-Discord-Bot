@@ -33,11 +33,7 @@ pip install -r .\requirements.txt
 ``` 
 and hit enter.
 
-### Enabling Intents
-Go to [Discord Developers Portal](https://discord.com/developers/applications) and Click on your Application. Now got to Bot 
-Section and Enable `PRESENCE INTENT` and `SERVER MEMBERS INTENT` in `Privileged Gateway Intents`.
-
-### Starting the Bot:
+### Creating the Bot:
 Create `.env`. Now go to [Discord Developers Portal](https://discord.com/developers/applications) and create a new application. Now go to the Bot 
 section and create a new Bot. Now copy the Token given in the redirected page and paste it in 
 the `.env` file 
@@ -46,8 +42,14 @@ TOKEN=<YOUR_BOT_TOKEN>
 ```
 like this. Now go to the OAuth2 section and copy the CLIENT ID. Now open a new tab 
 in your browser and type `https://discord.com/api/oauth2/authorize?client_id=<YOUR_CLIENT_ID>&scope=bot` 
-and hit enter. Now add the Bot to your server. After you added the bot, open any terminal in the 
-directory and type 
+and hit enter. Now add the Bot to your server.
+
+### Enabling Intents
+Go to [Discord Developers Portal](https://discord.com/developers/applications) and Click on your Application. Now got to Bot 
+Section and Enable Everything under `Privileged Gateway Intents`.
+
+### Starting the Bot:
+Open any terminal in the directory and type 
 ```bash
 python main.py
 ```
