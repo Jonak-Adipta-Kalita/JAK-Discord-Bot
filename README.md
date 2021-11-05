@@ -13,7 +13,8 @@
 
 - 	Note: [Formatting](#format-code) the Code before Pushing is Important!!
 
-Invite [Bot](https://discord.com/oauth2/authorize?client_id=756402881913028689&scope=bot) to your Server
+Invite [Bot](https://discord.com/api/oauth2/authorize?client_id=756402881913028689&permissions=8&scope=bot) 
+to your Server
 
 ## Steps
 
