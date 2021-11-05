@@ -30,7 +30,8 @@ async def on_ready():
             type=discord.ActivityType.listening, name="!JAK help"
         ),
     )
-    
+
+
 @bot.event
 async def on_member_join(member):
     await member.send(f"Welcome to {member.server}!!")
