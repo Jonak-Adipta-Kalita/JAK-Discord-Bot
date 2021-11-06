@@ -34,12 +34,12 @@ async def on_ready():
 
 @bot.event
 async def on_member_join(member):
-    await member.send(f"Welcome to {member.server}!!")
+    await member.send(f"Welcome to {member.guild}!!")
 
 
 @bot.event
 async def on_member_remove(member):
-    await member.send(f"You just left {member.server}, What a Shame!!")
+    await member.send(f"You just left {member.guild}, What a Shame!!")
 
 
 @bot.command(pass_context=True)
@@ -182,15 +182,16 @@ async def help_tictactoe(ctx):
 
 @bot.command(pass_context=True)
 @commands.has_permissions(kick_members=True)
-async def kick(ctx, member: discord.Member, *, reason=None):
+async def kick(ctx, member: discord.Member, *, reason="Nothing"):
     await member.kick(reason=reason)
+    await ctx.send(f"{member.mention} is Kicked!! Reason: {reason}")
 
 
 @bot.command(pass_context=True)
 @commands.has_permissions(kick_members=True, ban_members=True)
-async def ban(ctx, member: discord.Member, *, reason=None):
+async def ban(ctx, member: discord.Member, *, reason="Nothing!!"):
     await member.ban(reason=reason)
-    await ctx.send(f"{member.mention} is Banned!!")
+    await ctx.send(f"{member.mention} is Banned!! Reason: {reason}")
 
 
 @bot.command(pass_context=True)
@@ -241,7 +242,8 @@ async def _8ball(ctx, *, question):
         "Very doubtfut.",
         "Kinda Lazy to answer.",
     ]
-    await ctx.send(f"Question: {question}\nAnswer: {random.choice(responses)}\n:)")
+
+    await ctx.send(f"Question: {question}\nAnswer: {random.choice(responses)} :relieved:")
 
 
 @bot.command(pass_context=True)
@@ -349,6 +351,38 @@ def tictactoe_checkWinner(winningConditions, mark):
         ):
             gameOver = True
 
+@kick.error
+async def kick_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send("You don't have the Appropriate Permissions to run this command!!")
+    elif isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Please provide the required Arguments!!")
+
+@ban.error
+async def ban_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send("You don't have the Appropriate Permissions to run this command!!")
+    elif isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Please provide the required Arguments!!")
+        
+@unban.error
+async def ban_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send("You don't have the Appropriate Permissions to run this command!!")
+    elif isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Please provide the required Arguments!!")
+
+@clear.error
+async def clear_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send("You don't have the Appropriate Permissions to run this command!!")
+    elif isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Please provide the required Arguments!!")
+        
+@_8ball.error
+async def _8ball_error(ctx, error):
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Please provide your Question!!")
 
 @tictactoe.error
 async def tictactoe_error(ctx, error):
