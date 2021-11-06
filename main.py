@@ -1,18 +1,18 @@
 from discord.ext import commands
 import discord, random, credentials
-import src.tictactoe_variables as tictactoe_variables
+import src.variables as variables
+
+prefix = variables.PREFIX
+embed_blank_value = variables.EMBED_BLANK_VALUE
 
 ### Tic-Tac-Toe Varialbles ###
-player1 = tictactoe_variables.player1
-player2 = tictactoe_variables.player2
-turn = tictactoe_variables.turn
-gameOver = tictactoe_variables.gameOver
-board = tictactoe_variables.board
-winningConditions = tictactoe_variables.winningConditions
+player1 = variables.player1
+player2 = variables.player2
+turn = variables.turn
+gameOver = variables.gameOver
+board = variables.board
+winningConditions = variables.winningConditions
 ##############################
-
-prefix = "!JAK "
-blank_value = "\u200b"
 
 intents = discord.Intents.default()
 intents.members = True
@@ -73,55 +73,55 @@ async def show_rules(ctx):
         color=discord.Color.blue(),
     )
     embed.add_field(
-        name="Be respectful, civil, and welcoming.", value=blank_value, inline=False
+        name="Be respectful, civil, and welcoming.", value=embed_blank_value, inline=False
     )
     embed.add_field(
-        name="No inappropriate or unsafe content.", value=blank_value, inline=False
+        name="No inappropriate or unsafe content.", value=embed_blank_value, inline=False
     )
     embed.add_field(
         name="Do not misuse or spam in any of the channels.",
-        value=blank_value,
+        value=embed_blank_value,
         inline=False,
     )
     embed.add_field(
         name="Any content that is NSFW is not allowed under any circumstances.",
-        value=blank_value,
+        value=embed_blank_value,
         inline=False,
     )
     embed.add_field(
         name="The primary language of this server is English.",
-        value=blank_value,
+        value=embed_blank_value,
         inline=False,
     )
     embed.add_field(
         name="Discord names and avatars must be appropriate.",
-        value=blank_value,
+        value=embed_blank_value,
         inline=False,
     )
     embed.add_field(
         name="Controversial topics such as religion or politics are not allowed.",
-        value=blank_value,
+        value=embed_blank_value,
         inline=False,
     )
     embed.add_field(
         name="Do not attempt to bypass any blocked words.",
-        value=blank_value,
+        value=embed_blank_value,
         inline=False,
     )
     embed.add_field(
         name="Don’t ping without legitimate reasoning behind them.",
-        value=blank_value,
+        value=embed_blank_value,
         inline=False,
     )
     embed.add_field(
         name="Catfishing and any sort of fake identities are forbidden.",
-        value=blank_value,
+        value=embed_blank_value,
         inline=False,
     )
     embed.add_field(
-        name="Do not advertise without permission.", value=blank_value, inline=False
+        name="Do not advertise without permission.", value=embed_blank_value, inline=False
     )
-    embed.add_field(name="Raiding is not allowed.", value=blank_value, inline=False)
+    embed.add_field(name="Raiding is not allowed.", value=embed_blank_value, inline=False)
     embed.set_footer(text="Please Follow all the RULES!!")
 
     await ctx.send(embed=embed)

@@ -1,3 +1,7 @@
+PREFIX = "!JAK "
+EMBED_BLANK_VALUE = "\u200b"
+
+### Tic-Tac-Toe Varialbles ###
 player1 = ""
 player2 = ""
 turn = ""
@@ -13,3 +17,4 @@ winningConditions = [
     [0, 4, 8],
     [2, 4, 6],
 ]
+##############################
