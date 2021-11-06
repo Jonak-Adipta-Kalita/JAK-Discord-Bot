@@ -50,7 +50,7 @@ async def on_message(message):
             await message.delete()
             break
             return
-    
+
     await bot.process_commands(message)
 
 
@@ -238,7 +238,7 @@ async def unban(ctx, *, member):
 
 
 @bot.command(pass_context=True)
-@commands.has_permissions() # TODO: Check Permissions!!
+@commands.has_permissions()  # TODO: Check Permissions!!
 async def clear(ctx, amount: int):
     await ctx.channel.purge(limit=amount)
 
