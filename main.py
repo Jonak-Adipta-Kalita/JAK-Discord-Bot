@@ -20,6 +20,10 @@ intents.members = True
 bot = commands.Bot(command_prefix=prefix, intents=intents)
 bot.remove_command("help")
 
+with open("src/bad_words.txt", "r") as f:
+    global bad_words
+    bad_words = f.read().splitlines()
+
 
 @bot.event
 async def on_ready():
@@ -33,13 +37,31 @@ async def on_ready():
 
 
 @bot.event
+async def on_message(message):
+    msg = message.content.lower()
+    member = message.author
+
+    if member == bot.user:
+        return
+
+    for word in bad_words:
+        if word in msg:
+            await member.send(f"Dont use that word!! {member.mention}")
+            await message.delete()
+            break
+            return
+    
+    await bot.process_commands(message)
+
+
+@bot.event
 async def on_member_join(member):
-    await member.send(f"Welcome to {member.guild}!!")
+    await member.send(f"Welcome to **{member.guild}**!!")
 
 
 @bot.event
 async def on_member_remove(member):
-    await member.send(f"You just left {member.guild}, What a Shame!!")
+    await member.send(f"You just left **{member.guild}**, What a Shame!!")
 
 
 @bot.command(pass_context=True)
@@ -73,10 +95,14 @@ async def show_rules(ctx):
         color=discord.Color.blue(),
     )
     embed.add_field(
-        name="Be respectful, civil, and welcoming.", value=embed_blank_value, inline=False
+        name="Be respectful, civil, and welcoming.",
+        value=embed_blank_value,
+        inline=False,
     )
     embed.add_field(
-        name="No inappropriate or unsafe content.", value=embed_blank_value, inline=False
+        name="No inappropriate or unsafe content.",
+        value=embed_blank_value,
+        inline=False,
     )
     embed.add_field(
         name="Do not misuse or spam in any of the channels.",
@@ -119,9 +145,13 @@ async def show_rules(ctx):
         inline=False,
     )
     embed.add_field(
-        name="Do not advertise without permission.", value=embed_blank_value, inline=False
+        name="Do not advertise without permission.",
+        value=embed_blank_value,
+        inline=False,
     )
-    embed.add_field(name="Raiding is not allowed.", value=embed_blank_value, inline=False)
+    embed.add_field(
+        name="Raiding is not allowed.", value=embed_blank_value, inline=False
+    )
     embed.set_footer(text="Please Follow all the RULES!!")
 
     await ctx.send(embed=embed)
@@ -208,6 +238,7 @@ async def unban(ctx, *, member):
 
 
 @bot.command(pass_context=True)
+@commands.has_permissions() # TODO: Check Permissions!!
 async def clear(ctx, amount: int):
     await ctx.channel.purge(limit=amount)
 
@@ -243,7 +274,9 @@ async def _8ball(ctx, *, question):
         "Kinda Lazy to answer.",
     ]
 
-    await ctx.send(f"Question: {question}\nAnswer: {random.choice(responses)} :relieved:")
+    await ctx.send(
+        f"Question: {question}\nAnswer: {random.choice(responses)} :relieved:"
+    )
 
 
 @bot.command(pass_context=True)
@@ -351,38 +384,52 @@ def tictactoe_checkWinner(winningConditions, mark):
         ):
             gameOver = True
 
+
 @kick.error
 async def kick_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
-        await ctx.send("You don't have the Appropriate Permissions to run this command!!")
+        await ctx.send(
+            "You don't have the Appropriate Permissions to run this command!!"
+        )
     elif isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Please provide the required Arguments!!")
+
 
 @ban.error
 async def ban_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
-        await ctx.send("You don't have the Appropriate Permissions to run this command!!")
+        await ctx.send(
+            "You don't have the Appropriate Permissions to run this command!!"
+        )
     elif isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Please provide the required Arguments!!")
-        
+
+
 @unban.error
-async def ban_error(ctx, error):
+async def unban_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
-        await ctx.send("You don't have the Appropriate Permissions to run this command!!")
+        await ctx.send(
+            "You don't have the Appropriate Permissions to run this command!!"
+        )
     elif isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Please provide the required Arguments!!")
+
 
 @clear.error
 async def clear_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
-        await ctx.send("You don't have the Appropriate Permissions to run this command!!")
+        await ctx.send(
+            "You don't have the Appropriate Permissions to run this command!!"
+        )
     elif isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Please provide the required Arguments!!")
-        
+
+
 @_8ball.error
 async def _8ball_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Please provide your Question!!")
+
 
 @tictactoe.error
 async def tictactoe_error(ctx, error):
