@@ -11,7 +11,7 @@ player2 = variables.player2
 turn = variables.turn
 gameOver = variables.gameOver
 board = variables.board
-winningConditions = variables.winningConditions
+winning_conditions = variables.winning_conditions
 ##############################
 
 intents = discord.Intents.all()
@@ -74,6 +74,16 @@ async def on_member_remove(member):
         await member.send(f"You just left **{member.guild}**, What a Shame!!")
     except Exception:
         pass
+
+
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send("You don't have the Appropriate Permissions to run this command!!")
+    if isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("Please make sure to provide all the required Arguments!!")
+    elif isinstance(error, commands.BadArgument):
+        await ctx.send("Please make sure to provide the Arguments correctly!!")
 
 
 @bot.command(pass_context=True)
@@ -364,7 +374,7 @@ async def tictactoe_place(ctx, pos: int):
                         line = ""
                     else:
                         line += " " + board[x]
-                tictactoe_checkWinner(winningConditions, mark)
+                tictactoe_check_winner(winning_conditions, mark)
                 if gameOver == True:
                     await ctx.send(mark + " WINS!!")
                 elif count >= 9:
@@ -386,77 +396,15 @@ async def tictactoe_place(ctx, pos: int):
         )
 
 
-def tictactoe_checkWinner(winningConditions, mark):
+def tictactoe_check_winner(winning_conditions, mark):
     global gameOver
-    for condition in winningConditions:
+    for condition in winning_conditions:
         if (
             board[condition[0]] == mark
             and board[condition[1]] == mark
             and board[condition[2]] == mark
         ):
             gameOver = True
-
-
-@kick.error
-async def kick_error(ctx, error):
-    if isinstance(error, commands.MissingPermissions):
-        await ctx.send(
-            "You don't have the Appropriate Permissions to run this command!!"
-        )
-    elif isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Please provide the required Arguments!!")
-
-
-@ban.error
-async def ban_error(ctx, error):
-    if isinstance(error, commands.MissingPermissions):
-        await ctx.send(
-            "You don't have the Appropriate Permissions to run this command!!"
-        )
-    elif isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Please provide the required Arguments!!")
-
-
-@unban.error
-async def unban_error(ctx, error):
-    if isinstance(error, commands.MissingPermissions):
-        await ctx.send(
-            "You don't have the Appropriate Permissions to run this command!!"
-        )
-    elif isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Please provide the required Arguments!!")
-
-
-@clear.error
-async def clear_error(ctx, error):
-    if isinstance(error, commands.MissingPermissions):
-        await ctx.send(
-            "You don't have the Appropriate Permissions to run this command!!"
-        )
-    elif isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Please provide the required Arguments!!")
-
-
-@_8ball.error
-async def _8ball_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Please provide your Question!!")
-
-
-@tictactoe.error
-async def tictactoe_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Please mention 2 players for this command!!")
-    elif isinstance(error, commands.BadArgument):
-        await ctx.send("Please make sure to mention/ping players!!")
-
-
-@tictactoe_place.error
-async def tictactoe_place_error(ctx, error):
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Please enter a position you would like to mark!!")
-    elif isinstance(error, commands.BadArgument):
-        await ctx.send("Please make sure to enter an integer!!")
 
 
 bot.run(credentials.TOKEN)
