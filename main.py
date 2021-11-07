@@ -38,14 +38,19 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    msg = message.content.lower()
     member = message.author
 
     if member == bot.user:
         return
 
+    msg_list = []
+    msg = message.content.lower()
+
+    for msg_ in msg.split(" "):
+        msg_list.append(msg_)
+
     for word in bad_words:
-        if word in msg:
+        if word in msg_list:
             embed = discord.Embed(
                 title="YOU HAVE BEEN WARNED!!",
                 description=f"The word `{word}` is banned!! Watch your Language",
