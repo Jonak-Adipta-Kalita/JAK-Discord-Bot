@@ -9,7 +9,7 @@ embed_blank_value = variables.EMBED_BLANK_VALUE
 player1 = variables.player1
 player2 = variables.player2
 turn = variables.turn
-gameOver = variables.gameOver
+game_over = variables.game_over
 board = variables.board
 winning_conditions = variables.winning_conditions
 ##############################
@@ -79,7 +79,9 @@ async def on_member_remove(member):
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingPermissions):
-        await ctx.send("You don't have the Appropriate Permissions to run this command!!")
+        await ctx.send(
+            "You don't have the Appropriate Permissions to run this command!!"
+        )
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Please make sure to provide all the required Arguments!!")
     elif isinstance(error, commands.BadArgument):
@@ -307,9 +309,9 @@ async def tictactoe(ctx, p1: discord.Member, p2: discord.Member):
     global player1
     global player2
     global turn
-    global gameOver
+    global game_over
 
-    if gameOver:
+    if game_over:
         global board
         board = [
             ":white_large_square:",
@@ -323,7 +325,7 @@ async def tictactoe(ctx, p1: discord.Member, p2: discord.Member):
             ":white_large_square:",
         ]
         turn = ""
-        gameOver = False
+        game_over = False
         count = 0
         player1 = p1
         player2 = p2
@@ -355,8 +357,8 @@ async def tictactoe_place(ctx, pos: int):
     global player2
     global board
     global count
-    global gameOver
-    if not gameOver:
+    global game_over
+    if not game_over:
         mark = ""
         if turn == ctx.author:
             if turn == player1:
@@ -375,10 +377,10 @@ async def tictactoe_place(ctx, pos: int):
                     else:
                         line += " " + board[x]
                 tictactoe_check_winner(winning_conditions, mark)
-                if gameOver == True:
+                if game_over == True:
                     await ctx.send(mark + " WINS!!")
                 elif count >= 9:
-                    gameOver = True
+                    game_over = True
                     await ctx.send("It's a TIE!!")
                 if turn == player1:
                     turn = player2
@@ -397,14 +399,14 @@ async def tictactoe_place(ctx, pos: int):
 
 
 def tictactoe_check_winner(winning_conditions, mark):
-    global gameOver
+    global game_over
     for condition in winning_conditions:
         if (
             board[condition[0]] == mark
             and board[condition[1]] == mark
             and board[condition[2]] == mark
         ):
-            gameOver = True
+            game_over = True
 
 
 bot.run(credentials.TOKEN)
