@@ -83,14 +83,22 @@ async def on_member_remove(member):
 
 @bot.event
 async def on_command_error(ctx, error):
-    if isinstance(error, commands.MissingPermissions):
+    member = ctx.message.author
+
+    if isinstance(error, commands.CommandNotFound):
+        await ctx.send(f"{member.mention} Its not a valid Command!!")
+    elif isinstance(error, commands.MissingPermissions):
         await ctx.send(
-            "You don't have the Appropriate Permissions to run this command!!"
+            f"{member.mention} You don't have the Appropriate Permissions to run this command!!"
         )
-    if isinstance(error, commands.MissingRequiredArgument):
-        await ctx.send("Please make sure to provide all the required Arguments!!")
+    elif isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send(
+            f"{member.mention} Please make sure to provide all the required Arguments!!"
+        )
     elif isinstance(error, commands.BadArgument):
-        await ctx.send("Please make sure to provide the Arguments correctly!!")
+        await ctx.send(
+            f"{member.mention} Please make sure to provide the Arguments correctly!!"
+        )
 
 
 @bot.command(pass_context=True)
