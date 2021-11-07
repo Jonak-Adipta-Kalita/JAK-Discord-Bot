@@ -14,7 +14,7 @@ board = variables.board
 winningConditions = variables.winningConditions
 ##############################
 
-intents = discord.Intents.default()
+intents = discord.Intents.all()
 intents.members = True
 
 bot = commands.Bot(command_prefix=prefix, intents=intents)
@@ -62,12 +62,18 @@ async def on_message(message):
 
 @bot.event
 async def on_member_join(member):
-    await member.send(f"Welcome to **{member.guild}**!!")
+    try:
+        await member.send(f"Welcome to **{member.guild}**!!")
+    except Exception:
+        pass
 
 
 @bot.event
 async def on_member_remove(member):
-    await member.send(f"You just left **{member.guild}**, What a Shame!!")
+    try:
+        await member.send(f"You just left **{member.guild}**, What a Shame!!")
+    except Exception:
+        pass
 
 
 @bot.command(pass_context=True)
