@@ -51,7 +51,7 @@ async def on_message(message):
                 description=f"The word `{word}` is banned!! Watch your Language",
                 color=discord.Color.blue(),
             )
-        
+
             await member.send(embed=embed)
             await message.delete()
             break
