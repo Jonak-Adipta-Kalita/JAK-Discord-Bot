@@ -46,7 +46,13 @@ async def on_message(message):
 
     for word in bad_words:
         if word in msg:
-            await member.send(f"Dont use that word!! {member.mention}")
+            embed = discord.Embed(
+                title="YOU HAVE BEEN WARNED!!",
+                description=f"The word `{word}` is banned!! Watch your Language",
+                color=discord.Color.blue(),
+            )
+        
+            await member.send(embed=embed)
             await message.delete()
             break
             return
