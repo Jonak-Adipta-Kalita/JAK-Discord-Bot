@@ -83,6 +83,7 @@ async def on_member_remove(member):
 
 @bot.event
 async def on_command_error(ctx, error):
+    print(error)
     member = ctx.message.author
 
     if isinstance(error, commands.CommandNotFound):
@@ -113,6 +114,9 @@ async def help(ctx):
     embed.add_field(name="!JAK 8ball <question>", value="Play 8ball Game", inline=False)
     embed.add_field(
         name="!JAK help_moderation", value="Show the Moderation Commands", inline=False
+    )
+    embed.add_field(
+        name="!JAK help_music", value="Show the Music Commands", inline=False
     )
     embed.add_field(
         name="!JAK help_tictactoe",
@@ -226,6 +230,48 @@ async def help_moderation(ctx):
 
 
 @bot.command(pass_context=True)
+async def help_music(ctx):
+    embed = discord.Embed(
+        title="!JAK help_music",
+        description="Shows all the Music Commands!!",
+        color=discord.Color.blue(),
+    )
+    embed.add_field(
+        name="!JAK join_vc",
+        value="Joins the VC you are currently in",
+        inline=False,
+    )
+    embed.add_field(
+        name="!JAK leave_vc",
+        value="Leaves VC",
+        inline=False,
+    )
+    embed.add_field(
+        name="!JAK play_music <music_name>",
+        value="Plays the Music",
+        inline=False,
+    )
+    embed.add_field(
+        name="!JAK pause_music",
+        value="Pauses the Music",
+        inline=False,
+    )
+    embed.add_field(
+        name="!JAK resume_music",
+        value="Resumes the Music",
+        inline=False,
+    )
+    embed.add_field(
+        name="!JAK stop_music",
+        value="Stops the Music",
+        inline=False,
+    )
+    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
+
+    await ctx.send(embed=embed)
+
+
+@bot.command(pass_context=True)
 async def help_tictactoe(ctx):
     embed = discord.Embed(
         title="!JAK help_tictactoe",
@@ -283,6 +329,19 @@ async def clear(ctx, amount: int):
 @bot.command(pass_context=True)
 async def ping(ctx):
     await ctx.send(f"Ping: {round(bot.latency * 1000)}")
+
+
+@bot.command(pass_context=True)
+# @commands.has_permissions(connect=True)
+async def join_vc(ctx):
+    channel = ctx.author.voice.channel
+    await channel.connect()
+
+
+@bot.command(pass_context=True)
+# @commands.has_permissions(connect=True)
+async def leave_vc(ctx):
+    await ctx.voice_client.disconnect()
 
 
 @bot.command(pass_context=True, aliases=["8ball"])
@@ -422,4 +481,5 @@ def tictactoe_check_winner(winning_conditions, mark):
             game_over = True
 
 
-bot.run(credentials.TOKEN)
+if __name__ == "__main__":
+    bot.run(credentials.TOKEN)
