@@ -48,7 +48,7 @@ class Music(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(pass_context=True)
-    @commands.has_permissions(connect=True)
+    # @commands.has_permissions(connect=True)
     async def join_vc(self, ctx):
         member = ctx.message.author
 
@@ -64,27 +64,27 @@ class Music(commands.Cog):
             await ctx.send(f"{member.mention} I am already in a Voice Channel!!")
 
     @commands.command(pass_context=True)
-    @commands.has_permissions(connect=True)
+    # @commands.has_permissions(connect=True)
     async def leave_vc(self, ctx):
         await ctx.voice_client.disconnect()
 
     @commands.command(pass_context=True)
-    @commands.has_permissions(connect=True)
+    # @commands.has_permissions(connect=True)
     async def play_music(self, ctx, music_name):
         pass
 
     @commands.command(pass_context=True)
-    @commands.has_permissions(connect=True)
+    # @commands.has_permissions(connect=True)
     async def pause_music(self, ctx):
         pass
 
     @commands.command(pass_context=True)
-    @commands.has_permissions(connect=True)
+    # @commands.has_permissions(connect=True)
     async def resume_music(self, ctx):
         pass
 
     @commands.command(pass_context=True)
-    @commands.has_permissions(connect=True)
+    # @commands.has_permissions(connect=True)
     async def stop_music(self, ctx):
         pass
 
