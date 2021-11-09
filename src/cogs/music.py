@@ -78,21 +78,24 @@ class Music(commands.Cog):
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)
     async def play_music(self, ctx, music_name):
-        url = music_name
-
-        FFMPEG_OPTIONS = {
-            "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
-            "options": "-vn",
-        }
-        YDL_OPTIONS = {"formats": "bestaudio"}
-
         vc = ctx.voice_client
-        with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
-            info = ydl.extract_info(url, download=False)
-            url_ = info["formats"][0]["url"]
-            source = await discord.FFmpegOpusAudio.from_probe(url_, **FFMPEG_OPTIONS)
+        
+        if vc:
+            url = music_name
 
-            vc.play(source)
+            FFMPEG_OPTIONS = {
+                "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
+                "options": "-vn",
+            }
+            YDL_OPTIONS = {"formats": "bestaudio"}
+            with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
+                info = ydl.extract_info(url, download=False)
+                url_ = info["formats"][0]["url"]
+                source = await discord.FFmpegOpusAudio.from_probe(url_, **FFMPEG_OPTIONS)
+
+                vc.play(source)
+        else:
+            print(f"{member.mention} I am not Connected to any Voice Channel!!")
 
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)
@@ -109,7 +112,8 @@ class Music(commands.Cog):
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)
     async def stop_music(self, ctx):
-        pass
+        await ctx.voice_client.stop()
+        await ctx.send("Song Stopped!!")
 
 
 def setup(bot):
