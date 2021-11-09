@@ -31,7 +31,16 @@ class Moderation(commands.Cog):
         embed.add_field(
             name="!JAK unban <member, tag>", value="Unban Member or Bot", inline=False
         )
-        embed.add_field(name="!JAK show_rules", value="Show the Rules", inline=False)
+        embed.add_field(
+            name="!JAK mute @<member> reason=<reason>",
+            value="Mute Member or Bot",
+            inline=False,
+        )
+        embed.add_field(
+            name="!JAK unmute @<member> reason=<reason>",
+            value="UnMute Member or Bot",
+            inline=False,
+        )
         embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
 
         await ctx.send(embed=embed)
@@ -64,6 +73,16 @@ class Moderation(commands.Cog):
     @commands.has_permissions(manage_messages=True)
     async def clear(self, ctx, amount: int):
         await ctx.channel.purge(limit=amount)
+
+    @commands.command(pass_context=True)
+    @commands.has_permissions(manage_messages=True)
+    async def mute(ctx, member: discord.Member, *, reason=None):
+        pass
+
+    @commands.command(pass_context=True)
+    @commands.has_permissions(manage_messages=True)
+    async def unmute(ctx, member: discord.Member):
+        pass
 
 
 def setup(bot):

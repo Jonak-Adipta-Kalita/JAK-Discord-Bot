@@ -16,6 +16,7 @@ class Normal(commands.Cog):
         )
         embed.add_field(name="!JAK help", value="Show Commands", inline=False)
         embed.add_field(name="!JAK ping", value="Show the Ping", inline=False)
+        embed.add_field(name="!JAK show_rules", value="Show the Rules", inline=False)
         embed.add_field(
             name="!JAK 8ball <question>", value="Play 8ball Game", inline=False
         )
