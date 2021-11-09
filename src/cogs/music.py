@@ -1,4 +1,4 @@
-import discord
+import discord, youtube_dl
 from discord.ext import commands
 
 
@@ -66,22 +66,45 @@ class Music(commands.Cog):
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)
     async def leave_vc(self, ctx):
-        await ctx.voice_client.disconnect()
+        member = ctx.message.author
+
+        if ctx.voice_client:
+            await ctx.voice_client.disconnect()
+        else:
+            await ctx.send(
+                f"{member.mention} I am not Connected to any Voice Channel!!"
+            )
 
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)
     async def play_music(self, ctx, music_name):
-        pass
+        url = music_name
+
+        FFMPEG_OPTIONS = {
+            "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
+            "options": "-vn",
+        }
+        YDL_OPTIONS = {"formats": "bestaudio"}
+
+        vc = ctx.voice_client
+        with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
+            info = ydl.extract_info(url, download=False)
+            url_ = info["formats"][0]["url"]
+            source = await discord.FFmpegOpusAudio.from_probe(url_, **FFMPEG_OPTIONS)
+
+            vc.play(source)
 
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)
     async def pause_music(self, ctx):
-        pass
+        await ctx.voice_client.pause()
+        await ctx.send("Song Paused!!")
 
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)
     async def resume_music(self, ctx):
-        pass
+        await ctx.voice_client.resume()
+        await ctx.send("Song Paused!!")
 
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)

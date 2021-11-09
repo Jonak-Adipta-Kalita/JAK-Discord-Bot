@@ -8,8 +8,15 @@ class Events(commands.Cog):
         self.bad_words = bad_words
 
     @commands.Cog.listener()
+    async def on_connect(self):
+        print("Bot is Connected!!")
+
+    @commands.Cog.listener()
+    async def on_disconnect(self):
+        print("Bot is Disconnected!!")
+
+    @commands.Cog.listener()
     async def on_ready(self):
-        print("Bot Started!!")
         await self.bot.change_presence(
             status=discord.Status.online,
             activity=discord.Activity(
