@@ -50,13 +50,43 @@ class Music(commands.Cog):
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)
     async def join_vc(self, ctx):
-        channel = ctx.author.voice.channel
-        await channel.connect()
+        member = ctx.message.author
+
+        if ctx.author.voice is None:
+            await ctx.send(
+                f"{member.mention} You are not Connected to a Voice Channel!!"
+            )
+            return
+        if ctx.voice_client is None:
+            voice_channel = ctx.author.voice.channel
+            await voice_channel.connect()
+        else:
+            await ctx.send(f"{member.mention} I am already in a Voice Channel!!")
 
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)
     async def leave_vc(self, ctx):
         await ctx.voice_client.disconnect()
+        
+    @commands.command(pass_context=True)
+    # @commands.has_permissions(connect=True)
+    async def play_music(self, ctx, music_name):
+        pass
+    
+    @commands.command(pass_context=True)
+    # @commands.has_permissions(connect=True)
+    async def pause_music(self, ctx):
+        pass
+        
+    @commands.command(pass_context=True)
+    # @commands.has_permissions(connect=True)
+    async def resume_music(self, ctx):
+        pass
+    
+    @commands.command(pass_context=True)
+    # @commands.has_permissions(connect=True)
+    async def stop_music(self, ctx):
+        pass
 
 
 def setup(bot):
