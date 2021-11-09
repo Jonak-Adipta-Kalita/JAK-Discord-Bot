@@ -79,7 +79,7 @@ class Music(commands.Cog):
     # @commands.has_permissions(connect=True)
     async def play_music(self, ctx, music_name):
         vc = ctx.voice_client
-        
+
         if vc:
             url = music_name
 
@@ -91,7 +91,9 @@ class Music(commands.Cog):
             with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
                 info = ydl.extract_info(url, download=False)
                 url_ = info["formats"][0]["url"]
-                source = await discord.FFmpegOpusAudio.from_probe(url_, **FFMPEG_OPTIONS)
+                source = await discord.FFmpegOpusAudio.from_probe(
+                    url_, **FFMPEG_OPTIONS
+                )
 
                 vc.play(source)
         else:
