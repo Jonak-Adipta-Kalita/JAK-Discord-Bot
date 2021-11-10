@@ -1,4 +1,5 @@
 import discord
+import src.variables as variables
 from discord.ext import commands
 
 
@@ -9,35 +10,37 @@ class Moderation(commands.Cog):
     @commands.command(pass_context=True)
     async def help_moderation(self, ctx):
         embed = discord.Embed(
-            title="!JAK help_moderation",
+            title=f"{variables.PREFIX} help_moderation",
             description="Shows all the Moderation Commands!!",
             color=discord.Color.blue(),
         )
         embed.add_field(
-            name="!JAK clear <amount>",
+            name=f"{variables.PREFIX} clear <amount>",
             value="Delete messages as given amount",
             inline=False,
         )
         embed.add_field(
-            name="!JAK kick @<member> reason=<reason>",
+            name=f"{variables.PREFIX} kick @<member> reason=<reason>",
             value="Kick Member or Bot",
             inline=False,
         )
         embed.add_field(
-            name="!JAK ban @<member> reason=<reason>",
+            name=f"{variables.PREFIX} ban @<member> reason=<reason>",
             value="Ban Member or Bot",
             inline=False,
         )
         embed.add_field(
-            name="!JAK unban <member, tag>", value="Unban Member or Bot", inline=False
+            name=f"{variables.PREFIX} unban <member, tag>",
+            value="Unban Member or Bot",
+            inline=False,
         )
         embed.add_field(
-            name="!JAK mute @<member> reason=<reason>",
+            name=f"{variables.PREFIX} mute @<member> reason=<reason>",
             value="Mute Member or Bot",
             inline=False,
         )
         embed.add_field(
-            name="!JAK unmute @<member> reason=<reason>",
+            name=f"{variables.PREFIX} unmute @<member> reason=<reason>",
             value="UnMute Member or Bot",
             inline=False,
         )

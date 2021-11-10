@@ -1,4 +1,5 @@
 import discord
+import src.variables as variables
 from discord.ext import commands
 
 
@@ -10,26 +11,36 @@ class Normal(commands.Cog):
     @commands.command(pass_context=True)
     async def help(self, ctx):
         embed = discord.Embed(
-            title="!JAK help",
+            title=f"{variables.PREFIX} help",
             description="Shows all the Commands!!",
             color=discord.Color.blue(),
         )
-        embed.add_field(name="!JAK help", value="Show Commands", inline=False)
-        embed.add_field(name="!JAK ping", value="Show the Ping", inline=False)
-        embed.add_field(name="!JAK show_rules", value="Show the Rules", inline=False)
         embed.add_field(
-            name="!JAK 8ball <question>", value="Play 8ball Game", inline=False
+            name=f"{variables.PREFIX} help", value="Show Commands", inline=False
         )
         embed.add_field(
-            name="!JAK help_moderation",
+            name=f"{variables.PREFIX} ping", value="Show the Ping", inline=False
+        )
+        embed.add_field(
+            name=f"{variables.PREFIX} show_rules", value="Show the Rules", inline=False
+        )
+        embed.add_field(
+            name=f"{variables.PREFIX} 8ball <question>",
+            value="Play 8ball Game",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"{variables.PREFIX} help_moderation",
             value="Show the Moderation Commands",
             inline=False,
         )
         embed.add_field(
-            name="!JAK help_music", value="Show the Music Commands", inline=False
+            name=f"{variables.PREFIX} help_music",
+            value="Show the Music Commands",
+            inline=False,
         )
         embed.add_field(
-            name="!JAK help_tictactoe",
+            name=f"{variables.PREFIX} help_tictactoe",
             value="Show the commands for Tic-Tac-Toe Game",
             inline=False,
         )
@@ -40,7 +51,7 @@ class Normal(commands.Cog):
     @commands.command(pass_context=True)
     async def show_rules(self, ctx):
         embed = discord.Embed(
-            title="!JAK show_rules",
+            title=f"{variables.PREFIX} show_rules",
             description="Show all the Rules!!",
             color=discord.Color.blue(),
         )

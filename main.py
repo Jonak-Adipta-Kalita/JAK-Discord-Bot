@@ -1,5 +1,6 @@
 from discord.ext import commands
 import discord, credentials
+import src.variables as variables
 
 
 class JAKDiscordBot(commands.Bot):
@@ -9,12 +10,8 @@ class JAKDiscordBot(commands.Bot):
 
 if __name__ == "__main__":
     extensions = ["normal", "events", "moderation", "tictactoe", "8ball", "music"]
-    prefix = "!JAK "
 
-    intents = discord.Intents.all()
-    intents.members = True
-
-    bot = JAKDiscordBot(command_prefix=prefix, intents=intents)
+    bot = JAKDiscordBot(command_prefix=variables.PREFIX, intents=discord.Intents.all())
     bot.remove_command("help")
 
     for extension in extensions:

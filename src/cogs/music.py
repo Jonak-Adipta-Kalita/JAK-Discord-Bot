@@ -1,4 +1,5 @@
 import discord, youtube_dl
+import src.variables as variables
 from discord.ext import commands
 
 
@@ -9,37 +10,37 @@ class Music(commands.Cog):
     @commands.command(pass_context=True)
     async def help_music(self, ctx):
         embed = discord.Embed(
-            title="!JAK help_music",
+            title=f"{variables.PREFIX} help_music",
             description="Shows all the Music Commands!!",
             color=discord.Color.blue(),
         )
         embed.add_field(
-            name="!JAK join_vc",
+            name=f"{variables.PREFIX} join_vc",
             value="Joins the VC you are currently in",
             inline=False,
         )
         embed.add_field(
-            name="!JAK leave_vc",
+            name=f"{variables.PREFIX} leave_vc",
             value="Leaves VC",
             inline=False,
         )
         embed.add_field(
-            name="!JAK play_music <music_name>",
+            name=f"{variables.PREFIX} play_music <music_name>",
             value="Plays the Music",
             inline=False,
         )
         embed.add_field(
-            name="!JAK pause_music",
+            name=f"{variables.PREFIX} pause_music",
             value="Pauses the Music",
             inline=False,
         )
         embed.add_field(
-            name="!JAK resume_music",
+            name=f"{variables.PREFIX} resume_music",
             value="Resumes the Music",
             inline=False,
         )
         embed.add_field(
-            name="!JAK stop_music",
+            name=f"{variables.PREFIX} stop_music",
             value="Stops the Music",
             inline=False,
         )

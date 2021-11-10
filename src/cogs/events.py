@@ -1,4 +1,5 @@
 import discord
+import src.variables as variables
 from discord.ext import commands
 
 
@@ -20,7 +21,7 @@ class Events(commands.Cog):
         await self.bot.change_presence(
             status=discord.Status.online,
             activity=discord.Activity(
-                type=discord.ActivityType.listening, name="!JAK help"
+                type=discord.ActivityType.listening, name=f"{variables.PREFIX} help"
             ),
         )
 

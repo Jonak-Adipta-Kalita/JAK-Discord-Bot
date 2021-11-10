@@ -1,4 +1,5 @@
 import discord, random
+import src.variables as variables
 from discord.ext import commands
 
 
@@ -24,22 +25,22 @@ class TicTacToe(commands.Cog):
     @commands.command(pass_context=True)
     async def help_tictactoe(self, ctx):
         embed = discord.Embed(
-            title="!JAK help_tictactoe",
+            title=f"{variables.PREFIX} help_tictactoe",
             description="Shows all the Tic-Tac-Toe Game Commands!!",
             color=discord.Color.blue(),
         )
         embed.add_field(
-            name="!JAK tictactoe @<1st Player> @<2nd Player>",
+            name=f"{variables.PREFIX} tictactoe @<1st Player> @<2nd Player>",
             value="Start Tic-Tac-Toe",
             inline=False,
         )
         embed.add_field(
-            name="!JAK tictactoe_place <Position in Integer>",
+            name=f"{variables.PREFIX} tictactoe_place <Position in Integer>",
             value="Place your position for Tic-Tac-Toe",
             inline=False,
         )
         embed.add_field(
-            name="!JAK tictactoe_stop",
+            name=f"{variables.PREFIX} tictactoe_stop",
             value="Stops Tic-Tac-Toe",
             inline=False,
         )
@@ -112,7 +113,7 @@ class TicTacToe(commands.Cog):
                             line = ""
                         else:
                             line += " " + self.board[x]
-                    tictactoe_check_winner(self.winning_conditions, mark)
+                    self.tictactoe_check_winner(self.winning_conditions, mark)
                     if self.game_over == True:
                         await ctx.send(mark + " WINS!!")
                     elif count >= 9:
@@ -130,7 +131,7 @@ class TicTacToe(commands.Cog):
                 await ctx.send(f"{member.mention} It is not your turn!!")
         else:
             await ctx.send(
-                f"{member.mention} Please start a new game using the `!JAK tictactoe @<1st Member> @<2nd Member>` command!!"
+                f"{member.mention} Please start a new game using the `{variables.PREFIX} tictactoe @<1st Member> @<2nd Member>` command!!"
             )
 
     @commands.command(pass_context=True)
