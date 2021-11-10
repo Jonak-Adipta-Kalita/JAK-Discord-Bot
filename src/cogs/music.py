@@ -91,9 +91,9 @@ class Music(commands.Cog):
             YDL_OPTIONS = {"formats": "bestaudio"}
             with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
                 info = ydl.extract_info(f"ytsearch:{music_name}", download=False)
-                url_ = info["entries"][0]["webpage_url"]
+                url = info["entries"][0]["webpage_url"]
                 source = await discord.FFmpegOpusAudio.from_probe(
-                    url_, **FFMPEG_OPTIONS
+                    url, **FFMPEG_OPTIONS
                 )
 
                 vc.play(source)
