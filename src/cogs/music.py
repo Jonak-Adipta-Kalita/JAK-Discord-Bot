@@ -80,18 +80,17 @@ class Music(commands.Cog):
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)
     async def play_music(self, ctx, music_name):
+        member = ctx.message.author
         vc = ctx.voice_client
 
         if vc:
-            url = music_name
-
             FFMPEG_OPTIONS = {
                 "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
                 "options": "-vn",
             }
             YDL_OPTIONS = {"formats": "bestaudio"}
             with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
-                info = ydl.extract_info(url, download=False)
+                info = ydl.extract_info(f"ytsearch:{music_name}", download=False)
                 url_ = info["formats"][0]["url"]
                 source = await discord.FFmpegOpusAudio.from_probe(
                     url_, **FFMPEG_OPTIONS
@@ -99,24 +98,30 @@ class Music(commands.Cog):
 
                 vc.play(source)
         else:
-            print(f"{member.mention} I am not Connected to any Voice Channel!!")
+            await ctx.send(f"{member.mention} I am not Connected to any Voice Channel!!")
 
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)
     async def pause_music(self, ctx):
-        await ctx.send("Song Paused!!")
+        member = ctx.message.author
+
+        await ctx.send(f"{member.mention} Song Paused!!")
         await ctx.voice_client.pause()
 
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)
     async def resume_music(self, ctx):
-        await ctx.send("Song Resumed!!")
+        member = ctx.message.author
+
+        await ctx.send(f"{member.mention} Song Resumed!!")
         await ctx.voice_client.resume()
 
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)
     async def stop_music(self, ctx):
-        await ctx.send("Song Stopped!!")
+        member = ctx.message.author
+
+        await ctx.send(f"{member.mention} Song Stopped!!")
         await ctx.voice_client.stop()
 
 
