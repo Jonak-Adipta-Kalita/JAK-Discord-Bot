@@ -59,6 +59,7 @@ class Music(commands.Cog):
             return
         if ctx.voice_client is None:
             voice_channel = ctx.author.voice.channel
+            await ctx.send(f"{member.mention} Connected!!")
             await voice_channel.connect()
         else:
             await ctx.send(f"{member.mention} I am already in a Voice Channel!!")
@@ -69,6 +70,7 @@ class Music(commands.Cog):
         member = ctx.message.author
 
         if ctx.voice_client:
+            await ctx.send(f"{member.mention} Disconnected!!")
             await ctx.voice_client.disconnect()
         else:
             await ctx.send(
@@ -102,20 +104,20 @@ class Music(commands.Cog):
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)
     async def pause_music(self, ctx):
-        await ctx.voice_client.pause()
         await ctx.send("Song Paused!!")
+        await ctx.voice_client.pause()
 
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)
     async def resume_music(self, ctx):
+        await ctx.send("Song Resumed!!")
         await ctx.voice_client.resume()
-        await ctx.send("Song Paused!!")
 
     @commands.command(pass_context=True)
     # @commands.has_permissions(connect=True)
     async def stop_music(self, ctx):
-        await ctx.voice_client.stop()
         await ctx.send("Song Stopped!!")
+        await ctx.voice_client.stop()
 
 
 def setup(bot):
