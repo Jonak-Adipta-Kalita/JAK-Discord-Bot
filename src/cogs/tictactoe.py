@@ -10,7 +10,6 @@ class TicTacToe(commands.Cog):
         self.player1 = ""
         self.player2 = ""
         self.turn = ""
-        self.count = 0
         self.game_over = True
         self.board = []
         self.winning_conditions = [
@@ -54,6 +53,7 @@ class TicTacToe(commands.Cog):
     async def tictactoe(
         self, ctx: commands.Context, p1: discord.Member, p2: discord.Member
     ):
+        global count
         member = ctx.message.author
 
         if self.game_over:
@@ -95,6 +95,7 @@ class TicTacToe(commands.Cog):
 
     @commands.command()
     async def tictactoe_place(self, ctx: commands.Context, pos: int):
+        global count
         member = ctx.message.author
 
         if not self.game_over:
@@ -106,7 +107,7 @@ class TicTacToe(commands.Cog):
                     mark = ":o2:"
                 if 0 < pos < 10 and self.board[pos - 1] == ":white_large_square:":
                     self.board[pos - 1] = mark
-                    self.count += 1
+                    count += 1
                     line = ""
                     for x in range(len(self.board)):
                         if x == 2 or x == 5 or x == 8:
