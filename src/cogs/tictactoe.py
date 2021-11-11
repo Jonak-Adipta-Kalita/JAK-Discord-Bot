@@ -136,9 +136,7 @@ class TicTacToe(commands.Cog):
             else:
                 await ctx.send(f"{member.mention} It is not your turn!!")
         else:
-            await ctx.send(
-                f"{member.mention} Please start a new game!!"
-            )
+            await ctx.send(f"{member.mention} Please start a new game!!")
 
     @commands.command()
     async def tictactoe_stop(self, ctx: commands.Context):
