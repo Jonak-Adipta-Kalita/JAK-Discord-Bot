@@ -9,8 +9,6 @@ class JAKDiscordBot(commands.Bot):
             command_prefix=command_prefix, intents=intents, help_command=None
         )
 
-        self.COGS: list = list()
-
         for files in os.listdir(f"./src/cogs/"):
             if files.endswith(".py"):
                 self.load_extension(f"src.cogs.{files[:-3]}")
