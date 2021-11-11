@@ -1,11 +1,12 @@
 import discord
-import src.variables as variables
 from discord.ext import commands
+from functions import get_prefix
 
 
 class Events(commands.Cog):
-    def __init__(self, bot, bad_words):
+    def __init__(self, bot: commands.Bot, bad_words):
         self.bot = bot
+        self.prefix = get_prefix
         self.bad_words = bad_words
 
     @commands.Cog.listener()
@@ -21,52 +22,52 @@ class Events(commands.Cog):
         await self.bot.change_presence(
             status=discord.Status.online,
             activity=discord.Activity(
-                type=discord.ActivityType.listening, name=f"{variables.PREFIX} help"
+                type=discord.ActivityType.listening, name=f"{self.prefix} help"
             ),
         )
 
     @commands.Cog.listener()
-    async def on_message(self, message):
+    async def on_message(self, message: discord.Message):
         member = message.author
 
-        if member == self.bot.user:
+        if member == member.bot:
             return
 
-        msg_list = []
         msg = message.content.lower()
 
-        for msg_ in msg.split(" "):
-            msg_list.append(msg_)
-
         for word in self.bad_words:
-            if word in msg_list:
+            if word in msg.split(" "):
                 embed = discord.Embed(
                     title="YOU HAVE BEEN WARNED!!",
                     description=f"The word `{word}` is banned!! Watch your Language",
                     color=discord.Color.blue(),
                 )
 
-                await member.send(embed=embed)
-                await message.delete()
+                try:
+                    await member.send(embed=embed)
+                    await message.delete()
+                except discord.HTTPException:
+                    await message.delete()
                 break
-                return
 
     @commands.Cog.listener()
-    async def on_member_join(self, member):
+    async def on_member_join(self, member: discord.Member):
         try:
             await member.send(f"Welcome to **{member.guild}**!!")
-        except Exception:
+        except discord.HTTPException:
             pass
 
     @commands.Cog.listener()
-    async def on_member_remove(member):
+    async def on_member_remove(member: discord.Member):
         try:
             await member.send(f"You just left **{member.guild}**, What a Shame!!")
-        except Exception:
+        except discord.HTTPException:
             pass
 
     @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
+    async def on_command_error(
+        self, ctx: commands.Context, error: discord.HTTPException
+    ):
         print(error)
         member = ctx.message.author
 
@@ -89,7 +90,7 @@ class Events(commands.Cog):
 def setup(bot):
     bad_words = []
 
-    with open("src/bad_words.txt", "r") as f:
+    with open("src/filters/profanity.txt", "r") as f:
         bad_words = f.read().splitlines()
 
     bot.add_cog(Events(bot, bad_words))

@@ -1,4 +1,4 @@
-import discord, random
+import random
 from discord.ext import commands
 
 
@@ -6,8 +6,8 @@ class _8Ball(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(pass_context=True, aliases=["8ball"])
-    async def _8ball(self, ctx, *, question):
+    @commands.command(name="8ball")
+    async def _8ball(self, ctx: commands.Context, *, question):
         responses = [
             "It is certain.",
             "It is decidedly so.",

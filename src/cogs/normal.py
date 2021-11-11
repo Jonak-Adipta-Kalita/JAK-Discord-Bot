@@ -1,46 +1,43 @@
 import discord
-import src.variables as variables
 from discord.ext import commands
+from functions import get_prefix
 
 
 class Normal(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.prefix = get_prefix
         self.embed_blank_value = "\u200b"
 
-    @commands.command(pass_context=True)
-    async def help(self, ctx):
+    @commands.command()
+    async def help(self, ctx: commands.Context):
         embed = discord.Embed(
-            title=f"{variables.PREFIX} help",
+            title=f"{self.prefix} help",
             description="Shows all the Commands!!",
             color=discord.Color.blue(),
         )
+        embed.add_field(name=f"{self.prefix} help", value="Show Commands", inline=False)
+        embed.add_field(name=f"{self.prefix} ping", value="Show the Ping", inline=False)
         embed.add_field(
-            name=f"{variables.PREFIX} help", value="Show Commands", inline=False
+            name=f"{self.prefix} show_rules", value="Show the Rules", inline=False
         )
         embed.add_field(
-            name=f"{variables.PREFIX} ping", value="Show the Ping", inline=False
-        )
-        embed.add_field(
-            name=f"{variables.PREFIX} show_rules", value="Show the Rules", inline=False
-        )
-        embed.add_field(
-            name=f"{variables.PREFIX} 8ball <question>",
+            name=f"{self.prefix} 8ball <question>",
             value="Play 8ball Game",
             inline=False,
         )
         embed.add_field(
-            name=f"{variables.PREFIX} help_moderation",
+            name=f"{self.prefix} help_moderation",
             value="Show the Moderation Commands",
             inline=False,
         )
         embed.add_field(
-            name=f"{variables.PREFIX} help_music",
+            name=f"{self.prefix} help_music",
             value="Show the Music Commands",
             inline=False,
         )
         embed.add_field(
-            name=f"{variables.PREFIX} help_tictactoe",
+            name=f"{self.prefix} help_tictactoe",
             value="Show the commands for Tic-Tac-Toe Game",
             inline=False,
         )
@@ -48,10 +45,10 @@ class Normal(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(pass_context=True)
-    async def show_rules(self, ctx):
+    @commands.command()
+    async def show_rules(self, ctx: commands.Context):
         embed = discord.Embed(
-            title=f"{variables.PREFIX} show_rules",
+            title=f"{self.prefix} show_rules",
             description="Show all the Rules!!",
             color=discord.Color.blue(),
         )
@@ -117,8 +114,8 @@ class Normal(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(pass_context=True)
-    async def ping(self, ctx):
+    @commands.command()
+    async def ping(self, ctx: commands.Context):
         await ctx.send(f"Ping: {round(self.bot.latency * 1000)}")
 
 

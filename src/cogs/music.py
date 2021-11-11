@@ -1,46 +1,47 @@
 import discord, youtube_dl
-import src.variables as variables
 from discord.ext import commands
+from functions import get_prefix
 
 
 class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.prefix = get_prefix
 
-    @commands.command(pass_context=True)
-    async def help_music(self, ctx):
+    @commands.command()
+    async def help_music(self, ctx: commands.Context):
         embed = discord.Embed(
-            title=f"{variables.PREFIX} help_music",
+            title=f"{self.prefix} help_music",
             description="Shows all the Music Commands!!",
             color=discord.Color.blue(),
         )
         embed.add_field(
-            name=f"{variables.PREFIX} join_vc",
+            name=f"{self.prefix} join_vc",
             value="Joins the VC you are currently in",
             inline=False,
         )
         embed.add_field(
-            name=f"{variables.PREFIX} leave_vc",
+            name=f"{self.prefix} leave_vc",
             value="Leaves VC",
             inline=False,
         )
         embed.add_field(
-            name=f"{variables.PREFIX} play_music <music_name>",
+            name=f"{self.prefix} play_music <music_name>",
             value="Plays the Music",
             inline=False,
         )
         embed.add_field(
-            name=f"{variables.PREFIX} pause_music",
+            name=f"{self.prefix} pause_music",
             value="Pauses the Music",
             inline=False,
         )
         embed.add_field(
-            name=f"{variables.PREFIX} resume_music",
+            name=f"{self.prefix} resume_music",
             value="Resumes the Music",
             inline=False,
         )
         embed.add_field(
-            name=f"{variables.PREFIX} stop_music",
+            name=f"{self.prefix} stop_music",
             value="Stops the Music",
             inline=False,
         )
@@ -48,9 +49,9 @@ class Music(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(pass_context=True)
+    @commands.command()
     # @commands.has_permissions(connect=True)
-    async def join_vc(self, ctx):
+    async def join_vc(self, ctx: commands.Context):
         member = ctx.message.author
 
         if ctx.author.voice is None:
@@ -65,9 +66,9 @@ class Music(commands.Cog):
         else:
             await ctx.send(f"{member.mention} I am already in a Voice Channel!!")
 
-    @commands.command(pass_context=True)
+    @commands.command()
     # @commands.has_permissions(connect=True)
-    async def leave_vc(self, ctx):
+    async def leave_vc(self, ctx: commands.Context):
         member = ctx.message.author
 
         if ctx.voice_client:
@@ -78,9 +79,9 @@ class Music(commands.Cog):
                 f"{member.mention} I am not Connected to any Voice Channel!!"
             )
 
-    @commands.command(pass_context=True)
+    @commands.command()
     # @commands.has_permissions(connect=True)
-    async def play_music(self, ctx, music_name):
+    async def play_music(self, ctx: commands.Context, music_name: str):
         member = ctx.message.author
         vc = ctx.voice_client
 
@@ -101,25 +102,25 @@ class Music(commands.Cog):
                 f"{member.mention} I am not Connected to any Voice Channel!!"
             )
 
-    @commands.command(pass_context=True)
+    @commands.command()
     # @commands.has_permissions(connect=True)
-    async def pause_music(self, ctx):
+    async def pause_music(self, ctx: commands.Context):
         member = ctx.message.author
 
         await ctx.send(f"{member.mention} Song Paused!!")
         await ctx.voice_client.pause()
 
-    @commands.command(pass_context=True)
+    @commands.command()
     # @commands.has_permissions(connect=True)
-    async def resume_music(self, ctx):
+    async def resume_music(self, ctx: commands.Context):
         member = ctx.message.author
 
         await ctx.send(f"{member.mention} Song Resumed!!")
         await ctx.voice_client.resume()
 
-    @commands.command(pass_context=True)
+    @commands.command()
     # @commands.has_permissions(connect=True)
-    async def stop_music(self, ctx):
+    async def stop_music(self, ctx: commands.Context):
         member = ctx.message.author
 
         await ctx.send(f"{member.mention} Song Stopped!!")

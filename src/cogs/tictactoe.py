@@ -1,14 +1,16 @@
 import discord, random
-import src.variables as variables
 from discord.ext import commands
+from functions import get_prefix
 
 
 class TicTacToe(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.prefix = get_prefix
         self.player1 = ""
         self.player2 = ""
         self.turn = ""
+        self.count = 0
         self.game_over = True
         self.board = []
         self.winning_conditions = [
@@ -22,25 +24,25 @@ class TicTacToe(commands.Cog):
             [2, 4, 6],
         ]
 
-    @commands.command(pass_context=True)
-    async def help_tictactoe(self, ctx):
+    @commands.command()
+    async def help_tictactoe(self, ctx: commands.Context):
         embed = discord.Embed(
-            title=f"{variables.PREFIX} help_tictactoe",
+            title=f"{self.prefix} help_tictactoe",
             description="Shows all the Tic-Tac-Toe Game Commands!!",
             color=discord.Color.blue(),
         )
         embed.add_field(
-            name=f"{variables.PREFIX} tictactoe @<1st Player> @<2nd Player>",
+            name=f"{self.prefix} tictactoe @<1st Player> @<2nd Player>",
             value="Start Tic-Tac-Toe",
             inline=False,
         )
         embed.add_field(
-            name=f"{variables.PREFIX} tictactoe_place <Position in Integer>",
+            name=f"{self.prefix} tictactoe_place <Position in Integer>",
             value="Place your position for Tic-Tac-Toe",
             inline=False,
         )
         embed.add_field(
-            name=f"{variables.PREFIX} tictactoe_stop",
+            name=f"{self.prefix} tictactoe_stop",
             value="Stops Tic-Tac-Toe",
             inline=False,
         )
@@ -48,9 +50,10 @@ class TicTacToe(commands.Cog):
 
         await ctx.send(embed=embed)
 
-    @commands.command(pass_context=True)
-    async def tictactoe(self, ctx, p1: discord.Member, p2: discord.Member):
-        global count
+    @commands.command()
+    async def tictactoe(
+        self, ctx: commands.Context, p1: discord.Member, p2: discord.Member
+    ):
         member = ctx.message.author
 
         if self.game_over:
@@ -90,9 +93,8 @@ class TicTacToe(commands.Cog):
                 f"{member.mention} A game is already in progress!! Finish it before starting a new one!!"
             )
 
-    @commands.command(pass_context=True)
-    async def tictactoe_place(self, ctx, pos: int):
-        global count
+    @commands.command()
+    async def tictactoe_place(self, ctx: commands.Context, pos: int):
         member = ctx.message.author
 
         if not self.game_over:
@@ -104,7 +106,7 @@ class TicTacToe(commands.Cog):
                     mark = ":o2:"
                 if 0 < pos < 10 and self.board[pos - 1] == ":white_large_square:":
                     self.board[pos - 1] = mark
-                    count += 1
+                    self.count += 1
                     line = ""
                     for x in range(len(self.board)):
                         if x == 2 or x == 5 or x == 8:
@@ -116,7 +118,7 @@ class TicTacToe(commands.Cog):
                     self.tictactoe_check_winner(self.winning_conditions, mark)
                     if self.game_over == True:
                         await ctx.send(mark + " WINS!!")
-                    elif count >= 9:
+                    elif self.count >= 9:
                         self.game_over = True
                         await ctx.send("It's a TIE!!")
                     if self.turn == self.player1:
@@ -131,11 +133,11 @@ class TicTacToe(commands.Cog):
                 await ctx.send(f"{member.mention} It is not your turn!!")
         else:
             await ctx.send(
-                f"{member.mention} Please start a new game using the `{variables.PREFIX} tictactoe @<1st Member> @<2nd Member>` command!!"
+                f"{member.mention} Please start a new game using the `{self.prefix} tictactoe @<1st Member> @<2nd Member>` command!!"
             )
 
-    @commands.command(pass_context=True)
-    async def tictactoe_stop(self, ctx):
+    @commands.command()
+    async def tictactoe_stop(self, ctx: commands.Context):
         member = ctx.message.author
         if not self.game_over:
             self.game_over = True
