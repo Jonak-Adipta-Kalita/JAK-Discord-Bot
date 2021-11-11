@@ -120,9 +120,10 @@ class TicTacToe(commands.Cog):
                     self.tictactoe_check_winner(self.winning_conditions, mark)
                     if self.game_over == True:
                         await ctx.send(mark + " WINS!!")
-                    elif self.count >= 9:
+                    elif count >= 9:
                         self.game_over = True
                         await ctx.send("It's a TIE!!")
+
                     if self.turn == self.player1:
                         self.turn = self.player2
                         await ctx.send(f"Its {self.player2.mention}'s turn!!")
