@@ -1,6 +1,6 @@
 import discord, youtube_dl
 from discord.ext import commands
-from functions import get_prefix
+from src.functions import get_prefix
 
 
 class Music(commands.Cog):
