@@ -4,6 +4,7 @@ from src.functions import get_prefix
 
 prefix = get_prefix()
 
+
 class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot

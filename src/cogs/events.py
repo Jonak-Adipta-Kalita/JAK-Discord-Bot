@@ -5,6 +5,7 @@ from src.functions import get_prefix
 
 prefix = get_prefix()
 
+
 class Events(commands.Cog):
     def __init__(self, bot: commands.Bot, bad_words):
         self.bot = bot
