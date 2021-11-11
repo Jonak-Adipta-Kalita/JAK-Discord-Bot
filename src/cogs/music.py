@@ -43,6 +43,11 @@ class Music(commands.Cog):
             inline=False,
         )
         embed.add_field(
+            name=f"{prefix}volume_music <volume>",
+            value="Adjusts the Volume as per given amount",
+            inline=False,
+        )
+        embed.add_field(
             name=f"{prefix}stop_music",
             value="Stops the Music",
             inline=False,
@@ -105,9 +110,8 @@ class Music(commands.Cog):
                     url_ = info_["entries"][0]["webpage_url"]
                     info = ydl.extract_info(url_, download=False)
                     url = info["formats"][0]["url"]
-                print(url)
-                source = await discord.FFmpegOpusAudio.from_probe(url, **FFMPEG_OPTIONS)
 
+                source = await discord.FFmpegOpusAudio.from_probe(url, **FFMPEG_OPTIONS)
                 vc.play(source)
         else:
             await ctx.send(
@@ -118,34 +122,58 @@ class Music(commands.Cog):
     # @commands.has_permissions(connect=True)
     async def pause_music(self, ctx: commands.Context):
         member = ctx.message.author
+        vc = ctx.voice_client
 
-        if ctx.voice_client.is_playing():
-            await ctx.send(f"{member.mention} Song Paused!!")
-            await ctx.voice_client.pause()
+        if vc:
+            if ctx.voice_client.is_playing():
+                await ctx.send(f"{member.mention} Song Paused!!")
+                await ctx.voice_client.pause()
+            else:
+                await ctx.send(f"{member.mention} No Song is Playing!!")
         else:
-            await ctx.send(f"{member.mention} No Song is Playing!!")
+            await ctx.send(f"{member.mention} I am not Connected to any Voice Channel!!")
 
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def resume_music(self, ctx: commands.Context):
         member = ctx.message.author
+        vc = ctx.voice_client
 
-        if ctx.voice_client.is_paused():
-            await ctx.send(f"{member.mention} Song Resumed!!")
-            await ctx.voice_client.resume()
+        if vc:
+            if ctx.voice_client.is_paused():
+                await ctx.send(f"{member.mention} Song Resumed!!")
+                await ctx.voice_client.resume()
+            else:
+                await ctx.send(f"{member.mention} No Song is Paused!!")
         else:
-            await ctx.send(f"{member.mention} No Song is Paused!!")
+            await ctx.send(f"{member.mention} I am not Connected to any Voice Channel!!")
+
+    @commands.command()
+    # @commands.has_permissions(connect=True)
+    async def volume_music(self, ctx: commands.Context, volume: int):
+        member = ctx.message.author
+        vc = ctx.voice_client
+
+        if vc:
+            vc.source.volume = volume / 100
+            await ctx.send(f"{member.mention} Changed volume to {volume}%")
+        else:
+            await ctx.send(f"{member.mention} I am not Connected to any Voice Channel!!")
 
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def stop_music(self, ctx: commands.Context):
         member = ctx.message.author
+        vc = ctx.voice_client
 
-        if ctx.voice_client.is_playing() or ctx.voice_client.is_paused():
-            await ctx.send(f"{member.mention} Song Stopped!!")
-            await ctx.voice_client.stop()
+        if vc:
+            if ctx.voice_client.is_playing() or ctx.voice_client.is_paused():
+                await ctx.send(f"{member.mention} Song Stopped!!")
+                await ctx.voice_client.stop()
+            else:
+                await ctx.send(f"{member.mention} No Song is Playing")
         else:
-            await ctx.send(f"{member.mention} No Song is Playing")
+            await ctx.send(f"{member.mention} I am not Connected to any Voice Channel!!")
 
 
 def setup(bot):
