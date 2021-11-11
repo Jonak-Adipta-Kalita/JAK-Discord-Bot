@@ -85,10 +85,10 @@ class TicTacToe(commands.Cog):
             num = random.randint(1, 2)
             if num == 1:
                 self.turn = self.player1
-                await ctx.send("Its <@" + str(self.player1.id) + ">'s turn!!")
+                await ctx.send(f"Its {self.player1.mention}'s turn!!")
             elif num == 2:
                 self.turn = self.player2
-                await ctx.send("Its <@" + str(self.player2.id) + ">'s turn!!")
+                await ctx.send(f"Its {self.player2.mention}'s turn!!")
         else:
             await ctx.send(
                 f"{member.mention} A game is already in progress!! Finish it before starting a new one!!"
@@ -125,8 +125,10 @@ class TicTacToe(commands.Cog):
                         await ctx.send("It's a TIE!!")
                     if self.turn == self.player1:
                         self.turn = self.player2
+                        await ctx.send(f"Its {self.player2.mention}'s turn!!")
                     elif self.turn == self.player2:
                         self.turn = self.player1
+                        await ctx.send(f"Its {self.player1.mention}'s turn!!")
                 else:
                     await ctx.send(
                         f"{member.mention} Be sure to choose an integer between 1 and 9 (inclusive) and an unmarked tile!!"
@@ -135,7 +137,7 @@ class TicTacToe(commands.Cog):
                 await ctx.send(f"{member.mention} It is not your turn!!")
         else:
             await ctx.send(
-                f"{member.mention} Please start a new game using the `{prefix} tictactoe @<1st Member> @<2nd Member>` command!!"
+                f"{member.mention} Please start a new game!!"
             )
 
     @commands.command()
@@ -143,7 +145,7 @@ class TicTacToe(commands.Cog):
         member = ctx.message.author
         if not self.game_over:
             self.game_over = True
-            await ctx.send(f"{member.mention} Stopped Game!!")
+            await ctx.send(f"{member.mention} Stopped the Game!!")
         else:
             await ctx.send(f"{member.mention} No game is currently running!!")
 
