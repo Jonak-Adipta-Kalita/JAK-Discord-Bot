@@ -1,4 +1,5 @@
 import discord, youtube_dl
+from discord.ext.commands.converter import MemberConverter
 from discord.ext import commands
 from src.functions import get_prefix
 
@@ -118,24 +119,33 @@ class Music(commands.Cog):
     async def pause_music(self, ctx: commands.Context):
         member = ctx.message.author
 
-        await ctx.send(f"{member.mention} Song Paused!!")
-        await ctx.voice_client.pause()
+        if ctx.voice_client.is_playing():
+            await ctx.send(f"{member.mention} Song Paused!!")
+            await ctx.voice_client.pause()
+        else:
+            await ctx.send(f"{member.mention} No Song is Playing!!")
 
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def resume_music(self, ctx: commands.Context):
         member = ctx.message.author
 
-        await ctx.send(f"{member.mention} Song Resumed!!")
-        await ctx.voice_client.resume()
+        if ctx.voice_client.is_paused():
+            await ctx.send(f"{member.mention} Song Resumed!!")
+            await ctx.voice_client.resume()
+        else:
+            await ctx.send(f"{member.mention} No Song is Paused!!")
 
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def stop_music(self, ctx: commands.Context):
         member = ctx.message.author
 
-        await ctx.send(f"{member.mention} Song Stopped!!")
-        await ctx.voice_client.stop()
+        if ctx.voice_client.is_playing() or ctx.voice_client.is_paused():
+            await ctx.send(f"{member.mention} Song Stopped!!")
+            await ctx.voice_client.stop()
+        else:
+            await ctx.send(f"{member.mention} No Song is Playing")
 
 
 def setup(bot):
