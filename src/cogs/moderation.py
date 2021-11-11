@@ -12,37 +12,37 @@ class Moderation(commands.Cog):
     @commands.command()
     async def help_moderation(self, ctx: commands.Context):
         embed = discord.Embed(
-            title=f"{prefix} help_moderation",
+            title=f"{prefix}help_moderation",
             description="Shows all the Moderation Commands!!",
             color=discord.Color.blue(),
         )
         embed.add_field(
-            name=f"{prefix} clear <amount>",
+            name=f"{prefix}clear <amount>",
             value="Delete messages as given amount",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix} kick @<member> reason=<reason>",
+            name=f"{prefix}kick @<member> reason=<reason>",
             value="Kick Member or Bot",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix} ban @<member> reason=<reason>",
+            name=f"{prefix}ban @<member> reason=<reason>",
             value="Ban Member or Bot",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix} unban <member, tag>",
+            name=f"{prefix}unban <member, tag>",
             value="Unban Member or Bot",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix} mute @<member> reason=<reason>",
+            name=f"{prefix}mute @<member> reason=<reason>",
             value="Mute Member or Bot",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix} unmute @<member> reason=<reason>",
+            name=f"{prefix}unmute @<member> reason=<reason>",
             value="UnMute Member or Bot",
             inline=False,
         )

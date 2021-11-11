@@ -27,22 +27,22 @@ class TicTacToe(commands.Cog):
     @commands.command()
     async def help_tictactoe(self, ctx: commands.Context):
         embed = discord.Embed(
-            title=f"{prefix} help_tictactoe",
+            title=f"{prefix}help_tictactoe",
             description="Shows all the Tic-Tac-Toe Game Commands!!",
             color=discord.Color.blue(),
         )
         embed.add_field(
-            name=f"{prefix} tictactoe @<1st Player> @<2nd Player>",
+            name=f"{prefix}tictactoe @<1st Player> @<2nd Player>",
             value="Start Tic-Tac-Toe",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix} tictactoe_place <Position in Integer>",
+            name=f"{prefix}tictactoe_place <Position in Integer>",
             value="Place your position for Tic-Tac-Toe",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix} tictactoe_stop",
+            name=f"{prefix}tictactoe_stop",
             value="Stops Tic-Tac-Toe",
             inline=False,
         )
@@ -91,7 +91,7 @@ class TicTacToe(commands.Cog):
                 await ctx.send(f"Its {self.player2.mention}'s turn!!")
         else:
             await ctx.send(
-                f"{member.mention} A game is already in progress!! Finish it before starting a new one!!"
+                f"{member.mention} A game is already in progress!! Finish it or Stop it!!"
             )
 
     @commands.command()

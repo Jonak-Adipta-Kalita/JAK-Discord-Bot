@@ -12,37 +12,37 @@ class Music(commands.Cog):
     @commands.command()
     async def help_music(self, ctx: commands.Context):
         embed = discord.Embed(
-            title=f"{prefix} help_music",
+            title=f"{prefix}help_music",
             description="Shows all the Music Commands!!",
             color=discord.Color.blue(),
         )
         embed.add_field(
-            name=f"{prefix} join_vc",
+            name=f"{prefix}join_vc",
             value="Joins the VC you are currently in",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix} leave_vc",
+            name=f"{prefix}leave_vc",
             value="Leaves VC",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix} play_music <music_name>/<url>",
+            name=f"{prefix}play_music <music_name>/<url>",
             value="Plays the Music",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix} pause_music",
+            name=f"{prefix}pause_music",
             value="Pauses the Music",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix} resume_music",
+            name=f"{prefix}resume_music",
             value="Resumes the Music",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix} stop_music",
+            name=f"{prefix}stop_music",
             value="Stops the Music",
             inline=False,
         )
