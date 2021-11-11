@@ -6,7 +6,7 @@ from src.functions import get_prefix
 class TicTacToe(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.prefix = get_prefix
+        self.prefix = get_prefix()
         self.player1 = ""
         self.player2 = ""
         self.turn = ""

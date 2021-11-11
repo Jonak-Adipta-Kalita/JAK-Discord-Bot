@@ -6,7 +6,7 @@ from src.functions import get_prefix
 class Events(commands.Cog):
     def __init__(self, bot: commands.Bot, bad_words):
         self.bot = bot
-        self.prefix = get_prefix
+        self.prefix = get_prefix()
         self.bad_words = bad_words
 
     @commands.Cog.listener()

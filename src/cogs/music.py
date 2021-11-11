@@ -6,7 +6,7 @@ from src.functions import get_prefix
 class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.prefix = get_prefix
+        self.prefix = get_prefix()
 
     @commands.command()
     async def help_music(self, ctx: commands.Context):
@@ -26,7 +26,7 @@ class Music(commands.Cog):
             inline=False,
         )
         embed.add_field(
-            name=f"{self.prefix} play_music <music_name>",
+            name=f"{self.prefix} play_music <music_name>/<url>",
             value="Plays the Music",
             inline=False,
         )
@@ -92,8 +92,15 @@ class Music(commands.Cog):
             }
             YDL_OPTIONS = {"formats": "bestaudio"}
             with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
-                info = ydl.extract_info(f"ytsearch:{music_name}", download=False)
-                url = info["entries"][0]["webpage_url"]
+                info = {}
+                url = ""
+
+                if music_name.startswith("https://"):
+                    info = ydl.extract_info(music_name, download=False)
+                    url = info["formats"][0]["url"]
+                else:
+                    info = ydl.extract_info(f"ytsearch:{music_name}", download=False)
+                    url = info["entries"][0]["webpage_url"]
                 source = await discord.FFmpegOpusAudio.from_probe(url, **FFMPEG_OPTIONS)
 
                 vc.play(source)

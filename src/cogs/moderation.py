@@ -6,7 +6,7 @@ from src.functions import get_prefix
 class Moderation(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.prefix = get_prefix
+        self.prefix = get_prefix()
 
     @commands.command()
     async def help_moderation(self, ctx: commands.Context):
