@@ -3,10 +3,11 @@ from discord.ext import commands
 from src.functions import get_prefix
 
 
+prefix = get_prefix()
+
 class Events(commands.Cog):
     def __init__(self, bot: commands.Bot, bad_words):
         self.bot = bot
-        self.prefix = get_prefix()
         self.bad_words = bad_words
 
     @commands.Cog.listener()
@@ -22,7 +23,7 @@ class Events(commands.Cog):
         await self.bot.change_presence(
             status=discord.Status.online,
             activity=discord.Activity(
-                type=discord.ActivityType.listening, name=f"{self.prefix} help"
+                type=discord.ActivityType.listening, name=f"{prefix} help"
             ),
         )
 

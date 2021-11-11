@@ -15,5 +15,5 @@ class JAKDiscordBot(commands.Bot):
 
 
 if __name__ == "__main__":
-    bot = JAKDiscordBot(command_prefix=get_prefix, intents=discord.Intents.all())
+    bot = JAKDiscordBot(command_prefix=get_prefix(), intents=discord.Intents.all())
     bot.run(credentials.TOKEN)

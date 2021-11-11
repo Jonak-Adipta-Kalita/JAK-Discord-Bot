@@ -2,42 +2,42 @@ import discord
 from discord.ext import commands
 from src.functions import get_prefix
 
+prefix = get_prefix()
 
 class Normal(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.prefix = get_prefix()
         self.embed_blank_value = "\u200b"
 
     @commands.command()
     async def help(self, ctx: commands.Context):
         embed = discord.Embed(
-            title=f"{self.prefix} help",
+            title=f"{prefix} help",
             description="Shows all the Commands!!",
             color=discord.Color.blue(),
         )
-        embed.add_field(name=f"{self.prefix} help", value="Show Commands", inline=False)
-        embed.add_field(name=f"{self.prefix} ping", value="Show the Ping", inline=False)
+        embed.add_field(name=f"{prefix} help", value="Show Commands", inline=False)
+        embed.add_field(name=f"{prefix} ping", value="Show the Ping", inline=False)
         embed.add_field(
-            name=f"{self.prefix} show_rules", value="Show the Rules", inline=False
+            name=f"{prefix} show_rules", value="Show the Rules", inline=False
         )
         embed.add_field(
-            name=f"{self.prefix} 8ball <question>",
+            name=f"{prefix} 8ball <question>",
             value="Play 8ball Game",
             inline=False,
         )
         embed.add_field(
-            name=f"{self.prefix} help_moderation",
+            name=f"{prefix} help_moderation",
             value="Show the Moderation Commands",
             inline=False,
         )
         embed.add_field(
-            name=f"{self.prefix} help_music",
+            name=f"{prefix} help_music",
             value="Show the Music Commands",
             inline=False,
         )
         embed.add_field(
-            name=f"{self.prefix} help_tictactoe",
+            name=f"{prefix} help_tictactoe",
             value="Show the commands for Tic-Tac-Toe Game",
             inline=False,
         )
@@ -48,7 +48,7 @@ class Normal(commands.Cog):
     @commands.command()
     async def show_rules(self, ctx: commands.Context):
         embed = discord.Embed(
-            title=f"{self.prefix} show_rules",
+            title=f"{prefix} show_rules",
             description="Show all the Rules!!",
             color=discord.Color.blue(),
         )

@@ -2,11 +2,11 @@ import discord, random
 from discord.ext import commands
 from src.functions import get_prefix
 
+prefix = get_prefix()
 
 class TicTacToe(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.prefix = get_prefix()
         self.player1 = ""
         self.player2 = ""
         self.turn = ""
@@ -27,22 +27,22 @@ class TicTacToe(commands.Cog):
     @commands.command()
     async def help_tictactoe(self, ctx: commands.Context):
         embed = discord.Embed(
-            title=f"{self.prefix} help_tictactoe",
+            title=f"{prefix} help_tictactoe",
             description="Shows all the Tic-Tac-Toe Game Commands!!",
             color=discord.Color.blue(),
         )
         embed.add_field(
-            name=f"{self.prefix} tictactoe @<1st Player> @<2nd Player>",
+            name=f"{prefix} tictactoe @<1st Player> @<2nd Player>",
             value="Start Tic-Tac-Toe",
             inline=False,
         )
         embed.add_field(
-            name=f"{self.prefix} tictactoe_place <Position in Integer>",
+            name=f"{prefix} tictactoe_place <Position in Integer>",
             value="Place your position for Tic-Tac-Toe",
             inline=False,
         )
         embed.add_field(
-            name=f"{self.prefix} tictactoe_stop",
+            name=f"{prefix} tictactoe_stop",
             value="Stops Tic-Tac-Toe",
             inline=False,
         )
@@ -133,7 +133,7 @@ class TicTacToe(commands.Cog):
                 await ctx.send(f"{member.mention} It is not your turn!!")
         else:
             await ctx.send(
-                f"{member.mention} Please start a new game using the `{self.prefix} tictactoe @<1st Member> @<2nd Member>` command!!"
+                f"{member.mention} Please start a new game using the `{prefix} tictactoe @<1st Member> @<2nd Member>` command!!"
             )
 
     @commands.command()
