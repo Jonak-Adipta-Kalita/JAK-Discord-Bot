@@ -100,8 +100,11 @@ class Music(commands.Cog):
                     info = ydl.extract_info(music_name, download=False)
                     url = info["formats"][0]["url"]
                 else:
-                    info = ydl.extract_info(f"ytsearch:{music_name}", download=False)
-                    url = info["entries"][0]["webpage_url"]
+                    info_ = ydl.extract_info(f"ytsearch:{music_name}", download=False)
+                    url_ = info_["entries"][0]["webpage_url"]
+                    info = ydl.extract_info(url_, download=False)
+                    url = info["formats"][0]["url"]
+                print(url)
                 source = await discord.FFmpegOpusAudio.from_probe(url, **FFMPEG_OPTIONS)
 
                 vc.play(source)
