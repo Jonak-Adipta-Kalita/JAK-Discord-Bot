@@ -31,37 +31,39 @@ class Events(commands.Cog):
         )
 
     @commands.Cog.listener()
-    @commands.has_permissions(manage_server=True)
     async def on_message(self, message: discord.Message):
         member = message.author
 
-        if member == member.bot:
+        if member == self.bot.user:
             return
 
         msg = message.content
+        perms = message.channel.permissions_for(message.guild.me)
 
-        for word in self.bad_words:
-            if word in msg.lower().split(" "):
-                try:
-                    await member.send(embed=warning_embed(word))
-                    await message.delete()
-                except discord.HTTPException:
-                    await message.delete()
-                break
+        if perms.manage_guild or perms.manage_messages:
+            for word in self.bad_words:
+                if word in msg.lower().split(" "):
+                    try:
+                        await member.send(embed=warning_embed(word))
+                        await message.delete()
+                    except discord.HTTPException:
+                        await message.delete()
+                    break
 
-        if len(msg) >= 3:
-            if text_blob(msg).detect_language() != "en":
-                def translation_check(reaction, user):
-                    return (
-                        str(reaction.emoji) == "🔤"
-                        and reaction.message == message
-                        and not user.bot
-                    )
+            if len(msg) >= 3:
+                if text_blob(msg).detect_language() != "en":
 
-                await message.add_reaction("🔤")
-                await self.bot.wait_for("reaction_add", check=translation_check)
-                translation_text = translate_text(msg)
-                await member.send(embed=translation_embed(msg, translation_text))
+                    def translation_check(reaction, user):
+                        return (
+                            str(reaction.emoji) == "🔤"
+                            and reaction.message == message
+                            and not user.bot
+                        )
+
+                    await message.add_reaction("🔤")
+                    await self.bot.wait_for("reaction_add", check=translation_check)
+                    translation_text = translate_text(msg)
+                    await member.send(embed=translation_embed(msg, translation_text))
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
