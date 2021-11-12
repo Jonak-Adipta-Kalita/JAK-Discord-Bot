@@ -1,6 +1,7 @@
+import asyncio
 import discord
 from discord.ext import commands
-from src.embeds import warning_embed
+from src.embeds import translation_embed, warning_embed
 from src.functions import get_prefix, translate_text
 from textblob import TextBlob as text_blob
 
@@ -37,10 +38,10 @@ class Events(commands.Cog):
         if member == member.bot:
             return
 
-        msg = message.content.lower()
+        msg = message.content
 
         for word in self.bad_words:
-            if word in msg.split(" "):
+            if word in msg.lower().split(" "):
                 try:
                     await member.send(embed=warning_embed(word))
                     await message.delete()
@@ -48,9 +49,24 @@ class Events(commands.Cog):
                     await message.delete()
                 break
 
-        if text_blob(message.content).detect_language() != "en":
-            translation = translate_text(message.content)
-            print(translation)
+        def translation_check(reaction, user):
+            return (
+                str(reaction.emoji) == "🔤"
+                and reaction.message == message
+                and not user.bot
+            )
+
+        if len(msg) >= 3:
+            if text_blob(msg).detect_language() != "en":
+                await message.add_reaction("🔤")
+                try:
+                    await self.bot.wait_for(
+                        "reaction_add", check=translation_check, timeout=60
+                    )
+                    translation_text = translate_text(msg)
+                    await member.send(embed=translation_embed(msg, translation_text))
+                except asyncio.TimeoutError:
+                    pass
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):

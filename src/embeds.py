@@ -220,11 +220,25 @@ def music_embed(ctx: commands.Context):
 
     return embed
 
-def warning_embed(word):
+
+def warning_embed(word: str):
     embed = discord.Embed(
         title="YOU HAVE BEEN WARNED!!",
         description=f"The word `{word}` is banned!! Watch your Language",
         color=discord.Color.blue(),
+    )
+
+    return embed
+
+
+def translation_embed(text: str, translated_text: str):
+    embed = discord.Embed(
+        title="Translation!!",
+        description=f"Translated text!!",
+        color=discord.Color.blue(),
+    )
+    embed.add_field(
+        name=f"Text: {text}", value=f"Translated: {translated_text}", inline=False
     )
 
     return embed
