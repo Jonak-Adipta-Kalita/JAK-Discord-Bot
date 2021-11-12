@@ -1,4 +1,3 @@
-import asyncio
 import discord
 from discord.ext import commands
 from src.embeds import translation_embed, warning_embed
@@ -59,14 +58,11 @@ class Events(commands.Cog):
         if len(msg) >= 3:
             if text_blob(msg).detect_language() != "en":
                 await message.add_reaction("🔤")
-                try:
-                    await self.bot.wait_for(
-                        "reaction_add", check=translation_check, timeout=60
-                    )
-                    translation_text = translate_text(msg)
-                    await member.send(embed=translation_embed(msg, translation_text))
-                except asyncio.TimeoutError:
-                    pass
+                await self.bot.wait_for(
+                    "reaction_add", check=translation_check
+                )
+                translation_text = translate_text(msg)
+                await member.send(embed=translation_embed(msg, translation_text))
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
