@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 from src.functions import get_prefix
+from src.embeds import moderation_embed
 
 prefix = get_prefix()
 
@@ -11,44 +12,7 @@ class Moderation(commands.Cog):
 
     @commands.command()
     async def help_moderation(self, ctx: commands.Context):
-        embed = discord.Embed(
-            title=f"{prefix}help_moderation",
-            description="Shows all the Moderation Commands!!",
-            color=discord.Color.blue(),
-        )
-        embed.add_field(
-            name=f"{prefix}clear <amount>",
-            value="Delete messages as given amount",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"{prefix}kick @<member> reason=<reason>",
-            value="Kick Member or Bot",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"{prefix}ban @<member> reason=<reason>",
-            value="Ban Member or Bot",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"{prefix}unban <member, tag>",
-            value="Unban Member or Bot",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"{prefix}mute @<member> reason=<reason>",
-            value="Mute Member or Bot",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"{prefix}unmute @<member> reason=<reason>",
-            value="UnMute Member or Bot",
-            inline=False,
-        )
-        embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
-
-        await ctx.send(embed=embed)
+        await ctx.send(embed=moderation_embed(ctx))
 
     @commands.command()
     @commands.has_permissions(kick_members=True)

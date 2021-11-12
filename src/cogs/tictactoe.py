@@ -1,5 +1,6 @@
 import discord, random
 from discord.ext import commands
+from src.embeds import tictactoe_embed
 from src.functions import get_prefix
 
 prefix = get_prefix()
@@ -26,29 +27,7 @@ class TicTacToe(commands.Cog):
 
     @commands.command()
     async def help_tictactoe(self, ctx: commands.Context):
-        embed = discord.Embed(
-            title=f"{prefix}help_tictactoe",
-            description="Shows all the Tic-Tac-Toe Game Commands!!",
-            color=discord.Color.blue(),
-        )
-        embed.add_field(
-            name=f"{prefix}tictactoe @<1st Player> @<2nd Player>",
-            value="Start Tic-Tac-Toe",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"{prefix}tictactoe_place <Position in Integer>",
-            value="Place your position for Tic-Tac-Toe",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"{prefix}tictactoe_stop",
-            value="Stops Tic-Tac-Toe",
-            inline=False,
-        )
-        embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
-
-        await ctx.send(embed=embed)
+        await ctx.send(embed=tictactoe_embed(ctx))
 
     @commands.command()
     async def tictactoe(

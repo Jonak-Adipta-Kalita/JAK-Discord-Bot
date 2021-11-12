@@ -1,6 +1,7 @@
 import discord, youtube_dl
 from discord.ext.commands.converter import MemberConverter
 from discord.ext import commands
+from src.embeds import music_embed
 from src.functions import get_prefix
 
 prefix = get_prefix()
@@ -12,49 +13,7 @@ class Music(commands.Cog):
 
     @commands.command()
     async def help_music(self, ctx: commands.Context):
-        embed = discord.Embed(
-            title=f"{prefix}help_music",
-            description="Shows all the Music Commands!!",
-            color=discord.Color.blue(),
-        )
-        embed.add_field(
-            name=f"{prefix}join_vc",
-            value="Joins the VC you are currently in",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"{prefix}leave_vc",
-            value="Leaves VC",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"{prefix}play_music <music_name>/<url>",
-            value="Plays the Music",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"{prefix}pause_music",
-            value="Pauses the Music",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"{prefix}resume_music",
-            value="Resumes the Music",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"{prefix}volume_music <volume>",
-            value="Adjusts the Volume as per given amount",
-            inline=False,
-        )
-        embed.add_field(
-            name=f"{prefix}stop_music",
-            value="Stops the Music",
-            inline=False,
-        )
-        embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
-
-        await ctx.send(embed=embed)
+        await ctx.send(embed=music_embed(ctx))
 
     @commands.command()
     # @commands.has_permissions(connect=True)
