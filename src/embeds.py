@@ -219,3 +219,12 @@ def music_embed(ctx: commands.Context):
     embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
 
     return embed
+
+def warning_embed(word):
+    embed = discord.Embed(
+        title="YOU HAVE BEEN WARNED!!",
+        description=f"The word `{word}` is banned!! Watch your Language",
+        color=discord.Color.blue(),
+    )
+
+    return embed

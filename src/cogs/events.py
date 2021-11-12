@@ -1,6 +1,8 @@
 import discord
 from discord.ext import commands
+from src.embeds import warning_embed
 from src.functions import get_prefix, translate_text
+from textblob import TextBlob as text_blob
 
 
 prefix = get_prefix()
@@ -39,21 +41,16 @@ class Events(commands.Cog):
 
         for word in self.bad_words:
             if word in msg.split(" "):
-                embed = discord.Embed(
-                    title="YOU HAVE BEEN WARNED!!",
-                    description=f"The word `{word}` is banned!! Watch your Language",
-                    color=discord.Color.blue(),
-                )
-
                 try:
-                    await member.send(embed=embed)
+                    await member.send(embed=warning_embed(word))
                     await message.delete()
                 except discord.HTTPException:
                     await message.delete()
                 break
 
-        translation = translate_text(message.content)
-        print(translation)
+        if text_blob(message.content).detect_language() != "en":
+            translation = translate_text(message.content)
+            print(translation)
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
