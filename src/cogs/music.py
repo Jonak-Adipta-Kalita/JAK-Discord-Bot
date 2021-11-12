@@ -31,7 +31,7 @@ class Music(commands.Cog):
                 await ctx.send(f"{member.mention} Connected!!")
             except discord.HTTPException:
                 await ctx.send(
-                    f"{member.mention} Can't Connected to this Voice Channel!!"
+                    f"{member.mention} Can't Connect to this Voice Channel!!"
                 )
         else:
             await ctx.send(f"{member.mention} I am already in a Voice Channel!!")
