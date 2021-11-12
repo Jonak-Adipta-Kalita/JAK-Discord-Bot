@@ -1,5 +1,4 @@
 import discord, youtube_dl
-from discord.ext.commands.converter import MemberConverter
 from discord.ext import commands
 from src.embeds import music_embed
 from src.functions import get_prefix
@@ -25,17 +24,15 @@ class Music(commands.Cog):
                 f"{member.mention} You are not Connected to a Voice Channel!!"
             )
             return
-        if ctx.voice_client is None and ctx.voice_client.is_connected():
+        if ctx.voice_client is None:
             voice_channel = ctx.author.voice.channel
             try:
                 await voice_channel.connect()
-            except Exception as e:
-                print(e)
+                await ctx.send(f"{member.mention} Connected!!")
+            except discord.HTTPException:
                 await ctx.send(
                     f"{member.mention} Can't Connected to this Voice Channel!!"
                 )
-                return
-            await ctx.send(f"{member.mention} Connected!!")
         else:
             await ctx.send(f"{member.mention} I am already in a Voice Channel!!")
 
