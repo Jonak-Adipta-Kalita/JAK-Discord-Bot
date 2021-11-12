@@ -66,10 +66,17 @@ class Music(commands.Cog):
                 f"{member.mention} You are not Connected to a Voice Channel!!"
             )
             return
-        if ctx.voice_client is None:
+        if ctx.voice_client is None and ctx.voice_client.is_connected():
             voice_channel = ctx.author.voice.channel
+            try:
+                await voice_channel.connect()
+            except Exception as e:
+                print(e)
+                await ctx.send(
+                    f"{member.mention} Can't Connected to this Voice Channel!!"
+                )
+                return
             await ctx.send(f"{member.mention} Connected!!")
-            await voice_channel.connect()
         else:
             await ctx.send(f"{member.mention} I am already in a Voice Channel!!")
 
@@ -131,7 +138,9 @@ class Music(commands.Cog):
             else:
                 await ctx.send(f"{member.mention} No Song is Playing!!")
         else:
-            await ctx.send(f"{member.mention} I am not Connected to any Voice Channel!!")
+            await ctx.send(
+                f"{member.mention} I am not Connected to any Voice Channel!!"
+            )
 
     @commands.command()
     # @commands.has_permissions(connect=True)
@@ -146,7 +155,9 @@ class Music(commands.Cog):
             else:
                 await ctx.send(f"{member.mention} No Song is Paused!!")
         else:
-            await ctx.send(f"{member.mention} I am not Connected to any Voice Channel!!")
+            await ctx.send(
+                f"{member.mention} I am not Connected to any Voice Channel!!"
+            )
 
     @commands.command()
     # @commands.has_permissions(connect=True)
@@ -158,7 +169,9 @@ class Music(commands.Cog):
             vc.source.volume = volume / 100
             await ctx.send(f"{member.mention} Changed volume to {volume}%")
         else:
-            await ctx.send(f"{member.mention} I am not Connected to any Voice Channel!!")
+            await ctx.send(
+                f"{member.mention} I am not Connected to any Voice Channel!!"
+            )
 
     @commands.command()
     # @commands.has_permissions(connect=True)
@@ -173,7 +186,9 @@ class Music(commands.Cog):
             else:
                 await ctx.send(f"{member.mention} No Song is Playing")
         else:
-            await ctx.send(f"{member.mention} I am not Connected to any Voice Channel!!")
+            await ctx.send(
+                f"{member.mention} I am not Connected to any Voice Channel!!"
+            )
 
 
 def setup(bot):

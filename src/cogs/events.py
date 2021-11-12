@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from src.functions import get_prefix
+from src.functions import get_prefix, translate_text
 
 
 prefix = get_prefix()
@@ -51,6 +51,9 @@ class Events(commands.Cog):
                 except discord.HTTPException:
                     await message.delete()
                 break
+
+        translation = translate_text(message.content)
+        print(translation)
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
