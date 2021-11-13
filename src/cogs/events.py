@@ -1,4 +1,4 @@
-import discord
+import discord, googletrans
 from discord.ext import commands
 from src.embeds import translation_embed, warning_embed
 from src.functions import get_prefix, translate_text
@@ -62,15 +62,21 @@ class Events(commands.Cog):
                                 and not user.bot
                             )
 
+                        language_name = ""
+                        languages_dict = googletrans.LANGUAGES
+
+                        if language_iso in languages_dict:
+                            language_name = languages_dict[language_iso].title()
+
                         await message.add_reaction("🔤")
                         await self.bot.wait_for("reaction_add", check=translation_check)
                         translation = translate_text(msg)
 
-                        await member.send(
+                        await message.channel.send(
                             embed=translation_embed(
                                 msg,
                                 translation.text,
-                                translation.origin.title(),
+                                language_name,
                                 language_iso,
                             )
                         )
@@ -83,7 +89,7 @@ class Events(commands.Cog):
             pass
 
     @commands.Cog.listener()
-    async def on_member_remove(member: discord.Member):
+    async def on_member_remove(self, member: discord.Member):
         try:
             await member.send(f"You just left **{member.guild}**, What a Shame!!")
         except discord.HTTPException:
