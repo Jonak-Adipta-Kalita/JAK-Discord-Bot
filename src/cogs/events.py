@@ -40,7 +40,7 @@ class Events(commands.Cog):
         msg = message.content
         perms = message.channel.permissions_for(message.guild.me)
 
-        if perms.manage_guild or perms.manage_messages:
+        if perms.manage_messages:
             for word in self.bad_words:
                 if word in msg.lower().split(" "):
                     try:
@@ -49,21 +49,22 @@ class Events(commands.Cog):
                     except discord.HTTPException:
                         await message.delete()
                     break
+            
+            if perms.add_reaction:
+                if len(msg) >= 3:
+                    if text_blob(msg).detect_language() != "en":
 
-            if len(msg) >= 3:
-                if text_blob(msg).detect_language() != "en":
+                        def translation_check(reaction, user):
+                            return (
+                                str(reaction.emoji) == "🔤"
+                                and reaction.message == message
+                                and not user.bot
+                            )
 
-                    def translation_check(reaction, user):
-                        return (
-                            str(reaction.emoji) == "🔤"
-                            and reaction.message == message
-                            and not user.bot
-                        )
-
-                    await message.add_reaction("🔤")
-                    await self.bot.wait_for("reaction_add", check=translation_check)
-                    translation_text = translate_text(msg)
-                    await member.send(embed=translation_embed(msg, translation_text))
+                        await message.add_reaction("🔤")
+                        await self.bot.wait_for("reaction_add", check=translation_check)
+                        translation_text = translate_text(msg)
+                        await member.send(embed=translation_embed(msg, translation_text))
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):

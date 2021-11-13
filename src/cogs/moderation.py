@@ -11,11 +11,13 @@ class Moderation(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.bot_has_permissions(embed_links=True)
     async def help_moderation(self, ctx: commands.Context):
         await ctx.send(embed=moderation_embed(ctx))
 
     @commands.command()
     @commands.has_permissions(kick_members=True)
+    @commands.bot_has_permissions(kick_members=True)
     async def kick(
         self, ctx: commands.Context, member: discord.Member, *, reason="Nothing"
     ):
@@ -24,6 +26,7 @@ class Moderation(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(kick_members=True, ban_members=True)
+    @commands.bot_has_permissions(kick_members=True, ban_members=True)
     async def ban(
         self, ctx: commands.Context, member: discord.Member, *, reason="Nothing!!"
     ):
@@ -32,6 +35,7 @@ class Moderation(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(kick_members=True, ban_members=True)
+    @commands.bot_has_permissions(kick_members=True, ban_members=True)
     async def unban(self, ctx: commands.Context, *, member):
         banned_user = await ctx.guild.bans()
         member_name, member_discriminator = member.split("#")
@@ -44,16 +48,19 @@ class Moderation(commands.Cog):
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
+    @commands.bot_has_permissions(manage_messages=True)
     async def clear(self, ctx: commands.Context, amount: int):
         await ctx.channel.purge(limit=amount)
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
+    @commands.bot_has_permissions(manage_messages=True)
     async def mute(self, ctx: commands.Context, member: discord.Member, *, reason=None):
         pass
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)
+    @commands.bot_has_permissions(manage_messages=True)
     async def unmute(self, ctx: commands.Context, member: discord.Member):
         pass
 

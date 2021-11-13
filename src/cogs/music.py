@@ -11,6 +11,7 @@ class Music(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.bot_has_permissions(embed_links=True)
     async def help_music(self, ctx: commands.Context):
         await ctx.send(embed=music_embed(ctx))
 

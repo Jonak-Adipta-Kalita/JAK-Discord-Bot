@@ -12,10 +12,12 @@ class Normal(commands.Cog):
         self.embed_blank_value = "\u200b"
 
     @commands.command()
+    @commands.bot_has_permissions(embed_links=True)
     async def help(self, ctx: commands.Context):
         await ctx.send(embed=help_embed(ctx))
 
     @commands.command()
+    @commands.bot_has_permissions(embed_links=True)
     async def show_rules(self, ctx: commands.Context):
         await ctx.send(embed=rules_embed(self.embed_blank_value))
 
