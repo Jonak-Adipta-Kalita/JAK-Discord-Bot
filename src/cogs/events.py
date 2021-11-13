@@ -83,17 +83,21 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
-        try:
-            await member.send(f"Welcome to **{member.guild}**!!")
-        except discord.HTTPException:
-            pass
+        perms = member.guild.me.guild_permissions
+        if perms.manage_server:
+            try:
+                await member.send(f"Welcome to **{member.guild}**!!")
+            except discord.HTTPException:
+                pass
 
     @commands.Cog.listener()
     async def on_member_remove(self, member: discord.Member):
-        try:
-            await member.send(f"You just left **{member.guild}**, What a Shame!!")
-        except discord.HTTPException:
-            pass
+        perms = member.guild.me.guild_permissions
+        if perms.manage_server:
+            try:
+                await member.send(f"You just left **{member.guild}**, What a Shame!!")
+            except discord.HTTPException:
+                pass
 
     @commands.Cog.listener()
     async def on_command_error(
