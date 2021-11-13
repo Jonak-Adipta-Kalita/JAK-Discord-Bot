@@ -1,4 +1,4 @@
-import discord, googletrans
+import discord
 from discord.ext import commands
 from src.embeds import translation_embed, warning_embed
 from src.functions import get_prefix, translate_text
@@ -62,18 +62,16 @@ class Events(commands.Cog):
                                 and not user.bot
                             )
 
-                        language_name = ""
-                        languages_dict = googletrans.LANGUAGES
-
-                        if language_iso in languages_dict:
-                            language_name = languages_dict[language_iso].title()
-
                         await message.add_reaction("🔤")
                         await self.bot.wait_for("reaction_add", check=translation_check)
-                        translation_text = translate_text(msg)
+                        translation = translate_text(msg)
+
                         await member.send(
                             embed=translation_embed(
-                                msg, translation_text, language_name, language_iso
+                                msg,
+                                translation.text,
+                                translation.origin.title(),
+                                language_iso,
                             )
                         )
 
