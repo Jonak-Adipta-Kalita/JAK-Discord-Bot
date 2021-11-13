@@ -231,14 +231,14 @@ def warning_embed(word: str):
     return embed
 
 
-def translation_embed(text: str, translated_text: str):
+def translation_embed(
+    text: str, translated_text: str, language_name: str, language_iso: str
+):
     embed = discord.Embed(
-        title="Translation!!",
-        description=f"Translated text!!",
+        title="",
+        description=f"{text} -> {translated_text}",
         color=discord.Color.blue(),
     )
-    embed.add_field(
-        name=f"Text: {text}", value=f"Translated: {translated_text}", inline=False
-    )
+    embed.set_footer(text=f"{language_name} ({language_iso}) -> English (en)")
 
     return embed

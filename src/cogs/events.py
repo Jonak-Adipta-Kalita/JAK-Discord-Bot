@@ -1,4 +1,4 @@
-import discord
+import discord, googletrans
 from discord.ext import commands
 from src.embeds import translation_embed, warning_embed
 from src.functions import get_prefix, translate_text
@@ -49,10 +49,11 @@ class Events(commands.Cog):
                     except discord.HTTPException:
                         await message.delete()
                     break
-            
-            if perms.add_reaction:
+
+            if perms.add_reactions:
                 if len(msg) >= 3:
-                    if text_blob(msg).detect_language() != "en":
+                    language_iso = text_blob(msg).detect_language()
+                    if language_iso != "en":
 
                         def translation_check(reaction, user):
                             return (
@@ -61,10 +62,20 @@ class Events(commands.Cog):
                                 and not user.bot
                             )
 
+                        language_name = ""
+                        languages_dict = googletrans.LANGUAGES
+
+                        if language_iso in languages_dict:
+                            language_name = languages_dict[language_iso].title()
+
                         await message.add_reaction("🔤")
                         await self.bot.wait_for("reaction_add", check=translation_check)
                         translation_text = translate_text(msg)
-                        await member.send(embed=translation_embed(msg, translation_text))
+                        await member.send(
+                            embed=translation_embed(
+                                msg, translation_text, language_name, language_iso
+                            )
+                        )
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
