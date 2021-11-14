@@ -72,7 +72,7 @@ class Events(commands.Cog):
                         await self.bot.wait_for("reaction_add", check=translation_check)
                         translation = translate_text(msg)
 
-                        await message.channel.send(
+                        await member.send(
                             embed=translation_embed(
                                 msg,
                                 translation.text,
