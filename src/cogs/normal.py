@@ -1,4 +1,3 @@
-import discord
 from discord.ext import commands
 from src.embeds import help_embed, rules_embed
 from src.functions import get_prefix
