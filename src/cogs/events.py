@@ -1,4 +1,4 @@
-import discord, googletrans
+import discord, googletrans, asyncio, itertools
 from discord.ext import commands
 from src.embeds import translation_embed, warning_embed
 from src.functions import get_prefix, translate_text
@@ -23,12 +23,24 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        await self.bot.change_presence(
-            status=discord.Status.online,
-            activity=discord.Activity(
-                type=discord.ActivityType.listening, name=f"{prefix}help"
-            ),
-        )
+        servers = len(self.bot.guilds)
+
+        statuses = [
+            ("listening", f"{prefix}help"),
+            ("watching", f"{servers} {'Servers' if servers != 1 else 'Server'}!!"),
+        ]
+
+        for type, message in itertools.cycle(statuses):
+            await self.bot.change_presence(
+                status=discord.Status.online,
+                activity=discord.Activity(
+                    type=discord.ActivityType.listening
+                    if type == "listening" and type != "watching"
+                    else discord.ActivityType.watching,
+                    name=message,
+                ),
+            )
+            await asyncio.sleep(60)
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message):
