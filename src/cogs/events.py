@@ -56,7 +56,11 @@ class Events(commands.Cog):
             for word in self.bad_words:
                 if word in msg.lower().split(" "):
                     try:
-                        await member.send(embed=warning_embed(word))
+                        await member.send(
+                            embed=warning_embed(
+                                f"The word `{word}` is banned!! Watch your Language"
+                            )
+                        )
                         await message.delete()
                     except discord.HTTPException:
                         await message.delete()
