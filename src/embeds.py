@@ -230,6 +230,12 @@ def warning_embed(message: str):
 
     return embed
 
+def music_playing_embed(info: dict):
+    embed = discord.Embed(title=info["title"], description=f"Artists: {info['artist']}", color=discord.Color.blue())
+    embed.set_image(url=info["thumbnail"])
+
+    return embed
+
 
 def translation_embed(
     text: str, translated_text: str, language_name: str, language_iso: str

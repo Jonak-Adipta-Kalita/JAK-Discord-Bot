@@ -1,6 +1,6 @@
 import discord, youtube_dl
 from discord.ext import commands
-from src.embeds import music_embed
+from src.embeds import music_embed, music_playing_embed
 from src.functions import get_prefix
 
 prefix = get_prefix()
@@ -75,8 +75,11 @@ class Music(commands.Cog):
                     info = ydl.extract_info(url_, download=False)
                     url = info["formats"][0]["url"]
 
+                await ctx.send(embed=music_playing_embed(info))
+
                 source = await discord.FFmpegOpusAudio.from_probe(url, **FFMPEG_OPTIONS)
                 vc.play(source)
+            
         else:
             await ctx.send(
                 f"{member.mention} I am not Connected to any Voice Channel!!"
