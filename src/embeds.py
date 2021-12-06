@@ -87,6 +87,11 @@ def help_embed(ctx):
         inline=False,
     )
     embed.add_field(
+        name=f"{prefix}meme",
+        value="Show a random Meme",
+        inline=False,
+    )
+    embed.add_field(
         name=f"{prefix}help_moderation",
         value="Show the Moderation Commands",
         inline=False,
@@ -250,5 +255,10 @@ def translation_embed(
         color=discord.Color.blue(),
     )
     embed.set_footer(text=f"{language_name} ({language_iso}) -> English (en)")
+
+    return embed
+
+def meme_embed():
+    embed = discord.Embed(color=discord.Color.blue())
 
     return embed

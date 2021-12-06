@@ -2,7 +2,6 @@ import discord, googletrans, asyncio, itertools
 from discord.ext import commands
 from src.embeds import translation_embed, warning_embed
 from src.functions import get_prefix, translate_text
-from textblob import TextBlob as text_blob
 
 
 prefix = get_prefix()
@@ -68,8 +67,8 @@ class Events(commands.Cog):
 
             if perms.add_reactions:
                 if len(msg) >= 3:
-                    language_iso = text_blob(msg).detect_language()
-                    if language_iso != "en":
+                    translation = translate_text(msg)
+                    if translation.src != "en":
 
                         def translation_check(reaction, user):
                             return (
@@ -81,19 +80,18 @@ class Events(commands.Cog):
                         language_name = ""
                         languages_dict = googletrans.LANGUAGES
 
-                        if language_iso in languages_dict:
-                            language_name = languages_dict[language_iso].title()
+                        if translation.src in languages_dict:
+                            language_name = languages_dict[translation.src].title()
 
                         await message.add_reaction("🔤")
                         await self.bot.wait_for("reaction_add", check=translation_check)
-                        translation = translate_text(msg)
 
                         await member.send(
                             embed=translation_embed(
                                 msg,
                                 translation.text,
                                 language_name,
-                                language_iso,
+                                translation.src,
                             )
                         )
 
