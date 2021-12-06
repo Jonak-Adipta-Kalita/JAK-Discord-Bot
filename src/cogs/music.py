@@ -75,7 +75,8 @@ class Music(commands.Cog):
                     info = ydl.extract_info(url_, download=False)
                     url = info["formats"][0]["url"]
 
-                if info: await ctx.send(embed=music_playing_embed(info))
+                if info:
+                    await ctx.send(embed=music_playing_embed(info))
 
                 source = await discord.FFmpegOpusAudio.from_probe(url, **FFMPEG_OPTIONS)
                 vc.play(source)

@@ -258,6 +258,7 @@ def translation_embed(
 
     return embed
 
+
 def meme_embed():
     embed = discord.Embed(color=discord.Color.blue())
 
