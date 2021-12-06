@@ -191,7 +191,7 @@ def music_help_embed(ctx: commands.Context):
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}play_music <music_name>/<url>",
+        name=f'{prefix}play_music "<music_name>"/<url>',
         value="Plays the Music",
         inline=False,
     )
@@ -233,7 +233,7 @@ def warning_embed(message: str):
 def music_playing_embed(info: dict):
     embed = discord.Embed(
         title=info["title"],
-        description=f"Artists: {info['artist']}",
+        description=f"Channel: {info['channel']}",
         color=discord.Color.blue(),
     )
     embed.set_image(url=info["thumbnail"])
