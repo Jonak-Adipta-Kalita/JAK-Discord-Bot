@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from src.functions import get_prefix
-from src.embeds import moderation_embed
+from src.embeds import moderation_help_embed
 
 prefix = get_prefix()
 
@@ -13,7 +13,7 @@ class Moderation(commands.Cog):
     @commands.command()
     @commands.bot_has_permissions(embed_links=True)
     async def help_moderation(self, ctx: commands.Context):
-        await ctx.send(embed=moderation_embed(ctx))
+        await ctx.send(embed=moderation_help_embed(ctx))
 
     @commands.command()
     @commands.has_permissions(kick_members=True)

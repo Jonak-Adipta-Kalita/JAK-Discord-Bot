@@ -2,15 +2,15 @@ import discord
 from discord.ext import commands
 from src.functions import get_prefix
 
+BOT_LOGO_URL = "https://avatars.githubusercontent.com/u/70377522?v=4"
 prefix = get_prefix()
 
 
 def rules_embed(embed_blank_value: str):
     embed = discord.Embed(
-        title=f"{prefix}show_rules",
-        description="Show all the Rules!!",
         color=discord.Color.blue(),
     )
+    embed.set_author(name="JAK Discord Bot - Rules", icon_url=BOT_LOGO_URL)
     embed.add_field(
         name="Be respectful, civil, and welcoming.",
         value=embed_blank_value,
@@ -76,11 +76,9 @@ def rules_embed(embed_blank_value: str):
 
 def help_embed(ctx):
     embed = discord.Embed(
-        title=f"{prefix}help",
-        description="Shows all the Commands!!",
         color=discord.Color.blue(),
     )
-    embed.add_field(name=f"{prefix}help", value="Show Commands", inline=False)
+    embed.set_author(name="JAK Discord Bot - Help Menu", icon_url=BOT_LOGO_URL)
     embed.add_field(name=f"{prefix}ping", value="Show the Ping", inline=False)
     embed.add_field(name=f"{prefix}show_rules", value="Show the Rules", inline=False)
     embed.add_field(
@@ -108,11 +106,12 @@ def help_embed(ctx):
     return embed
 
 
-def moderation_embed(ctx: commands.Context):
+def moderation_help_embed(ctx: commands.Context):
     embed = discord.Embed(
-        title=f"{prefix}help_moderation",
-        description="Shows all the Moderation Commands!!",
         color=discord.Color.blue(),
+    )
+    embed.set_author(
+        name="JAK Discord Bot - Moderation Help Menu", icon_url=BOT_LOGO_URL
     )
     embed.add_field(
         name=f"{prefix}clear <amount>",
@@ -149,11 +148,12 @@ def moderation_embed(ctx: commands.Context):
     return embed
 
 
-def tictactoe_embed(ctx: commands.Context):
+def tictactoe_help_embed(ctx: commands.Context):
     embed = discord.Embed(
-        title=f"{prefix}help_tictactoe",
-        description="Shows all the Tic-Tac-Toe Game Commands!!",
         color=discord.Color.blue(),
+    )
+    embed.set_author(
+        name="JAK Discord Bot - TicTacToe Help Menu", icon_url=BOT_LOGO_URL
     )
     embed.add_field(
         name=f"{prefix}tictactoe @<1st Player> @<2nd Player>",
@@ -175,12 +175,11 @@ def tictactoe_embed(ctx: commands.Context):
     return embed
 
 
-def music_embed(ctx: commands.Context):
+def music_help_embed(ctx: commands.Context):
     embed = discord.Embed(
-        title=f"{prefix}help_music",
-        description="Shows all the Music Commands!!",
         color=discord.Color.blue(),
     )
+    embed.set_author(name="JAK Discord Bot - Music Help Menu", icon_url=BOT_LOGO_URL)
     embed.add_field(
         name=f"{prefix}join_vc",
         value="Joins the VC you are currently in",

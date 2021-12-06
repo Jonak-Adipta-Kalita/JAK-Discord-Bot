@@ -1,6 +1,6 @@
 import discord, youtube_dl
 from discord.ext import commands
-from src.embeds import music_embed, music_playing_embed
+from src.embeds import music_help_embed, music_playing_embed
 from src.functions import get_prefix
 
 prefix = get_prefix()
@@ -13,7 +13,7 @@ class Music(commands.Cog):
     @commands.command()
     @commands.bot_has_permissions(embed_links=True)
     async def help_music(self, ctx: commands.Context):
-        await ctx.send(embed=music_embed(ctx))
+        await ctx.send(embed=music_help_embed(ctx))
 
     @commands.command()
     # @commands.has_permissions(connect=True)
