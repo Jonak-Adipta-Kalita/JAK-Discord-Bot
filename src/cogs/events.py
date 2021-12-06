@@ -68,6 +68,7 @@ class Events(commands.Cog):
         if len(msg) >= 3:
             translation = translate_text(msg)
             if translation.src != "en":
+
                 def translation_check(reaction, user):
                     return (
                         str(reaction.emoji) == "🔤"
