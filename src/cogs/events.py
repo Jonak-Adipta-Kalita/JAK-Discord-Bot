@@ -65,35 +65,32 @@ class Events(commands.Cog):
                         await message.delete()
                     break
 
-            if perms.add_reactions:
-                if len(msg) >= 3:
-                    translation = translate_text(msg)
-                    if translation.src != "en":
+        if len(msg) >= 3:
+            translation = translate_text(msg)
+            if translation.src != "en":
+                def translation_check(reaction, user):
+                    return (
+                        str(reaction.emoji) == "🔤"
+                        and reaction.message == message
+                        and not user.bot
+                    )
 
-                        def translation_check(reaction, user):
-                            return (
-                                str(reaction.emoji) == "🔤"
-                                and reaction.message == message
-                                and not user.bot
-                            )
+                language_name = ""
+                languages_dict = googletrans.LANGUAGES
 
-                        language_name = ""
-                        languages_dict = googletrans.LANGUAGES
+                if translation.src in languages_dict:
+                    language_name = languages_dict[translation.src].title()
 
-                        if translation.src in languages_dict:
-                            language_name = languages_dict[translation.src].title()
+                    await self.bot.wait_for("reaction_add", check=translation_check)
 
-                        await message.add_reaction("🔤")
-                        await self.bot.wait_for("reaction_add", check=translation_check)
-
-                        await member.send(
-                            embed=translation_embed(
-                                msg,
-                                translation.text,
-                                language_name,
-                                translation.src,
-                            )
+                    await message.channel.send(
+                        embed=translation_embed(
+                            msg,
+                            translation.text,
+                            language_name,
+                            translation.src,
                         )
+                    )
 
     @commands.Cog.listener()
     async def on_member_join(self, member: discord.Member):
