@@ -47,7 +47,6 @@ class Normal(commands.Cog):
             elif inter.select_menu.selected_options[0].value == "music_help_embed":
                 await inter.reply(embed=music_help_embed(ctx))
         except asyncio.TimeoutError:
-            print("timeout")
             await msg.edit(embed=help_embed(ctx), components=[])
 
     @commands.command()
