@@ -15,8 +15,8 @@ def translate_text(text: str) -> dict:
 
 
 def get_joke() -> str:
-    j = jokeapi.Jokes()
-    joke = j.get_joke(lang="en")
+    joke_ = jokeapi.Jokes()
+    joke = joke_.get_joke(lang="en")
 
     if joke["type"] == "single":
         return joke["joke"]
