@@ -52,7 +52,7 @@ class Music(commands.Cog):
 
     @commands.command()
     # @commands.has_permissions(connect=True)
-    async def play_music(self, ctx: commands.Context, music_name: str):
+    async def play_music(self, ctx: commands.Context, *, music_name: str):
         member = ctx.message.author
         vc = ctx.voice_client
 

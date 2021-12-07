@@ -82,11 +82,6 @@ def help_embed(ctx):
     embed.add_field(name=f"{prefix}ping", value="Show the Ping", inline=False)
     embed.add_field(name=f"{prefix}show_rules", value="Show the Rules", inline=False)
     embed.add_field(
-        name=f"{prefix}meme",
-        value="Show a random Meme",
-        inline=False,
-    )
-    embed.add_field(
         name=f"{prefix}help_moderation",
         value="Show the Moderation Commands",
         inline=False,
@@ -99,6 +94,11 @@ def help_embed(ctx):
     embed.add_field(
         name=f"{prefix}help_music",
         value="Show the Music Commands",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}help_fun",
+        value="Show the Fun Commands",
         inline=False,
     )
     embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
@@ -206,6 +206,31 @@ def music_help_embed(ctx: commands.Context):
     embed.add_field(
         name=f"{prefix}stop_music",
         value="Stops the Music",
+        inline=False,
+    )
+    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
+
+    return embed
+
+
+def fun_help_embed(ctx: commands.Context):
+    embed = discord.Embed(
+        color=discord.Color.blue(),
+    )
+    embed.set_author(name="JAK Discord Bot - Fun Help Menu", icon_url=BOT_LOGO_URL)
+    embed.add_field(
+        name=f"{prefix}joke",
+        value="Display a Joke",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}meme",
+        value="Display a Meme",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}emojify <text>",
+        value="Convert Text to Emoji",
         inline=False,
     )
     embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")

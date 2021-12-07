@@ -2,6 +2,7 @@ import asyncio
 from discord.ext import commands
 from dislash import SlashClient, SelectMenu, SelectOption
 from src.embeds import (
+    fun_help_embed,
     games_help_embed,
     help_embed,
     moderation_help_embed,
@@ -32,6 +33,7 @@ class Normal(commands.Cog):
                         SelectOption("Moderation Help", "moderation_help_embed"),
                         SelectOption("Games Help", "games_help_embed"),
                         SelectOption("Music Help", "music_help_embed"),
+                        SelectOption("Fun Help", "fun_help_embed"),
                     ],
                 )
             ],
@@ -46,6 +48,8 @@ class Normal(commands.Cog):
                 await inter.reply(embed=games_help_embed(ctx))
             elif inter.select_menu.selected_options[0].value == "music_help_embed":
                 await inter.reply(embed=music_help_embed(ctx))
+            elif inter.select_menu.selected_options[0].value == "fun_help_embed":
+                await inter.reply(embed=fun_help_embed(ctx))
         except asyncio.TimeoutError:
             await msg.edit(embed=help_embed(ctx), components=[])
 
