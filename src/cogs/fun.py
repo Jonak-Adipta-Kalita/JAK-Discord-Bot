@@ -11,7 +11,7 @@ class Meme(commands.Cog):
         await ctx.send(embed=fun_help_embed(ctx))
 
     @commands.command()
-    async def emojify(self, ctx: commands.Context):
+    async def joke(self, ctx: commands.Context):
         joke = ""
         await ctx.send(joke)
 
