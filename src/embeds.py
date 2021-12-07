@@ -291,10 +291,10 @@ def translation_embed(
 ):
     embed = discord.Embed(
         title="",
-        description=f"{text} -> {translated_text}",
+        description=f"{text} ➣ {translated_text}",
         color=discord.Color.blue(),
     )
-    embed.set_footer(text=f"{language_name} ({language_iso}) -> English (en)")
+    embed.set_footer(text=f"{language_name} ({language_iso}) ➣ English (en)")
 
     return embed
 

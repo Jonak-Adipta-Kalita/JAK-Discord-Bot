@@ -1,4 +1,5 @@
 from discord.ext import commands
+from src.functions import get_joke
 from src.embeds import fun_help_embed, meme_embed
 
 
@@ -12,7 +13,8 @@ class Meme(commands.Cog):
 
     @commands.command()
     async def joke(self, ctx: commands.Context):
-        joke = ""
+        joke = get_joke()
+
         await ctx.send(joke)
 
     @commands.command()

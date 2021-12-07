@@ -1,5 +1,4 @@
-import typing
-import googletrans
+import typing, googletrans, jokeapi
 
 
 def get_prefix() -> typing.Union["str", "list"]:
@@ -13,3 +12,13 @@ def translate_text(text: str) -> dict:
     )
 
     return translator.translate(text)
+
+
+def get_joke() -> str:
+    j = jokeapi.Jokes()
+    joke = j.get_joke(lang="en")
+
+    if joke["type"] == "single":
+        return joke["joke"]
+
+    return f"**{joke['setup']}** - {joke['delivery']}"
