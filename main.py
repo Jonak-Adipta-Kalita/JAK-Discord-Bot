@@ -94,7 +94,7 @@ class JAKDiscordBot(commands.Bot):
                             translation.src,
                         )
                     )
-        
+
         await self.process_commands(message)
 
     async def on_member_join(self, member: discord.Member):
@@ -140,5 +140,7 @@ if __name__ == "__main__":
     with open("src/filters/profanity.txt", "r") as f:
         bad_words = f.read().splitlines()
 
-    bot = JAKDiscordBot(command_prefix=get_prefix(), intents=discord.Intents.all(), bad_words=bad_words)
+    bot = JAKDiscordBot(
+        command_prefix=get_prefix(), intents=discord.Intents.all(), bad_words=bad_words
+    )
     bot.run(credentials.TOKEN)

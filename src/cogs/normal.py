@@ -1,6 +1,13 @@
+import asyncio
 from discord.ext import commands
 from dislash import SlashClient, SelectMenu, SelectOption
-from src.embeds import games_help_embed, help_embed, moderation_help_embed, music_help_embed, rules_embed
+from src.embeds import (
+    games_help_embed,
+    help_embed,
+    moderation_help_embed,
+    music_help_embed,
+    rules_embed,
+)
 from src.functions import get_prefix
 
 prefix = get_prefix()
@@ -30,14 +37,18 @@ class Normal(commands.Cog):
             ],
         )
 
-        inter = await msg.wait_for_dropdown()
+        try:
+            inter = await msg.wait_for_dropdown(timeout=60.0)
 
-        if inter.select_menu.selected_options[0].value == "moderation_help_embed":
-            await inter.reply(embed=moderation_help_embed(ctx))
-        elif inter.select_menu.selected_options[0].value == "games_help_embed":
-            await inter.reply(embed=games_help_embed(ctx))
-        elif inter.select_menu.selected_options[0].value == "music_help_embed":
-            await inter.reply(embed=music_help_embed(ctx))
+            if inter.select_menu.selected_options[0].value == "moderation_help_embed":
+                await inter.reply(embed=moderation_help_embed(ctx))
+            elif inter.select_menu.selected_options[0].value == "games_help_embed":
+                await inter.reply(embed=games_help_embed(ctx))
+            elif inter.select_menu.selected_options[0].value == "music_help_embed":
+                await inter.reply(embed=music_help_embed(ctx))
+        except asyncio.TimeoutError:
+            print("timeout")
+            await msg.edit(embed=help_embed(ctx), components=[])
 
     @commands.command()
     @commands.bot_has_permissions(embed_links=True)

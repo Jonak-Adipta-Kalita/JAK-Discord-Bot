@@ -147,13 +147,12 @@ def moderation_help_embed(ctx: commands.Context):
 
     return embed
 
+
 def games_help_embed(ctx: commands.Context):
     embed = discord.Embed(
         color=discord.Color.blue(),
     )
-    embed.set_author(
-        name="JAK Discord Bot - Games Help Menu", icon_url=BOT_LOGO_URL
-    )
+    embed.set_author(name="JAK Discord Bot - Games Help Menu", icon_url=BOT_LOGO_URL)
     embed.add_field(
         name=f"{prefix}8ball <question>",
         value="Play 8ball Game",
@@ -222,6 +221,7 @@ def warning_embed(message: str):
     )
 
     return embed
+
 
 def tictactoe_help_embed(ctx: commands.Context):
     embed = discord.Embed(
