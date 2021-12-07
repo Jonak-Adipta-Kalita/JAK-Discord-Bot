@@ -82,11 +82,6 @@ def help_embed(ctx):
     embed.add_field(name=f"{prefix}ping", value="Show the Ping", inline=False)
     embed.add_field(name=f"{prefix}show_rules", value="Show the Rules", inline=False)
     embed.add_field(
-        name=f"{prefix}8ball <question>",
-        value="Play 8ball Game",
-        inline=False,
-    )
-    embed.add_field(
         name=f"{prefix}meme",
         value="Show a random Meme",
         inline=False,
@@ -97,13 +92,13 @@ def help_embed(ctx):
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}help_music",
-        value="Show the Music Commands",
+        name=f"{prefix}help_games",
+        value="Show the Game Commands",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}help_tictactoe",
-        value="Show the commands for Tic-Tac-Toe Game",
+        name=f"{prefix}help_music",
+        value="Show the Music Commands",
         inline=False,
     )
     embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
@@ -152,27 +147,21 @@ def moderation_help_embed(ctx: commands.Context):
 
     return embed
 
-
-def tictactoe_help_embed(ctx: commands.Context):
+def games_help_embed(ctx: commands.Context):
     embed = discord.Embed(
         color=discord.Color.blue(),
     )
     embed.set_author(
-        name="JAK Discord Bot - TicTacToe Help Menu", icon_url=BOT_LOGO_URL
+        name="JAK Discord Bot - Games Help Menu", icon_url=BOT_LOGO_URL
     )
     embed.add_field(
-        name=f"{prefix}tictactoe @<1st Player> @<2nd Player>",
-        value="Start Tic-Tac-Toe",
+        name=f"{prefix}8ball <question>",
+        value="Play 8ball Game",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}tictactoe_place <Position in Integer>",
-        value="Place your position for Tic-Tac-Toe",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}tictactoe_stop",
-        value="Stops Tic-Tac-Toe",
+        name=f"{prefix}tictactoe_help",
+        value="Show Help Menu for Tic-Tac-Toe",
         inline=False,
     )
     embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
@@ -231,6 +220,32 @@ def warning_embed(message: str):
         description=message,
         color=discord.Color.blue(),
     )
+
+    return embed
+
+def tictactoe_help_embed(ctx: commands.Context):
+    embed = discord.Embed(
+        color=discord.Color.blue(),
+    )
+    embed.set_author(
+        name="JAK Discord Bot - TicTacToe Help Menu", icon_url=BOT_LOGO_URL
+    )
+    embed.add_field(
+        name=f"{prefix}tictactoe @<1st Player> @<2nd Player>",
+        value="Start Tic-Tac-Toe",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}tictactoe_place <Position in Integer>",
+        value="Place your position for Tic-Tac-Toe",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}tictactoe_stop",
+        value="Stops Tic-Tac-Toe",
+        inline=False,
+    )
+    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
 
     return embed
 
