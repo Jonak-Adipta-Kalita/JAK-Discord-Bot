@@ -293,7 +293,7 @@ def translation_embed(
     language_name: str,
     language_iso: str,
     author: discord.Member,
-    author_reacted: discord.Member,
+    author_reacted: discord.Member = None,
 ):
     embed = discord.Embed(
         color=discord.Color.blue(),
@@ -303,9 +303,10 @@ def translation_embed(
     embed.add_field(
         name=f"Original ({language_iso} - {language_name})", value=text, inline=True
     )
-    embed.set_footer(
-        text=f"Request: {author_reacted.display_name}",
-    )
+    if author_reacted:
+        embed.set_footer(
+            text=f"Request: {author_reacted.display_name}",
+        )
 
     return embed
 
