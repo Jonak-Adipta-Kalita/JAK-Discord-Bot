@@ -15,8 +15,8 @@
 -   Note: [Formatting](#format-code) the Code before Pushing is Important!!
 -   Prefix: $
 
-Invite [Bot](https://discord.com/api/oauth2/authorize?client_id=756402881913028689&permissions=8&scope=bot)
-to your Server
+[Invite Bot to your Server](https://discord.com/api/oauth2/authorize?client_id=756402881913028689&permissions=8&scope=bot),
+[Vote in top.gg](https://top.gg/bot/756402881913028689)
 
 ## Steps
 
