@@ -296,14 +296,17 @@ def translation_embed(
     author_reacted: discord.Member,
 ):
     embed = discord.Embed(
-        title="",
-        description=f"{text} ➣ {translated_text}",
         color=discord.Color.blue(),
     )
-    embed.set_author(
-        name=f"Author: {author.display_name} • Request: {author_reacted.display_name}"
+    embed.set_author(name=f"Author: {author.display_name}")
+    embed.add_field(name="Translation", value=translated_text, inline=False)
+    embed.add_field(name="Original", value=text, inline=False)
+    embed.add_field(
+        name="Language", value=f"{language_name} ({language_iso})", inline=False
     )
-    embed.set_footer(text=f"{language_name} ({language_iso}) ➣ English (en)")
+    embed.set_footer(
+        text=f"Request: {author_reacted.display_name}",
+    )
 
     return embed
 
