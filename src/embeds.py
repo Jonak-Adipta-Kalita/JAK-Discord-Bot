@@ -1,3 +1,4 @@
+import typing
 import discord
 from discord.ext import commands
 from src.functions import get_prefix
@@ -287,12 +288,20 @@ def music_playing_embed(info: dict):
 
 
 def translation_embed(
-    text: str, translated_text: str, language_name: str, language_iso: str
+    text: str,
+    translated_text: str,
+    language_name: str,
+    language_iso: str,
+    author: discord.Member,
+    author_reacted: discord.Member,
 ):
     embed = discord.Embed(
         title="",
         description=f"{text} ➣ {translated_text}",
         color=discord.Color.blue(),
+    )
+    embed.set_author(
+        name=f"Author: {author.display_name} • Request: {author_reacted.display_name}"
     )
     embed.set_footer(text=f"{language_name} ({language_iso}) ➣ English (en)")
 

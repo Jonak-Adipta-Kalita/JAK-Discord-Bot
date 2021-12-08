@@ -70,6 +70,8 @@ class JAKDiscordBot(commands.Bot):
             if translation.src != "en":
 
                 def translation_check(reaction, user):
+                    global author_reacted
+                    author_reacted = user
                     return (
                         str(reaction.emoji) == "🔤"
                         and reaction.message == message
@@ -92,6 +94,8 @@ class JAKDiscordBot(commands.Bot):
                             translation.text,
                             language_name,
                             translation.src,
+                            member,
+                            author_reacted,
                         )
                     )
 
@@ -143,4 +147,5 @@ if __name__ == "__main__":
     bot = JAKDiscordBot(
         command_prefix=get_prefix(), intents=discord.Intents.all(), bad_words=bad_words
     )
+
     bot.run(credentials.TOKEN)
