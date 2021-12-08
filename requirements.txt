@@ -46,7 +46,7 @@ tomli==1.2.1
 tqdm==4.62.3
 typed-ast==1.4.3
 typing-extensions==3.10.0.2
-urllib3==1.25.8
+urllib3==1.26.7
 yarl==1.7.0
 youtube-dl==2021.6.6
 zipp==3.6.0
