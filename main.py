@@ -103,7 +103,7 @@ class JAKDiscordBot(commands.Bot):
 
     async def on_member_join(self, member: discord.Member):
         perms = member.guild.me.guild_permissions
-        if perms.manage_server:
+        if perms.manage_guild and perms.manage_messages:
             try:
                 await member.send(f"Welcome to **{member.guild}**!!")
             except discord.HTTPException:
@@ -111,7 +111,7 @@ class JAKDiscordBot(commands.Bot):
 
     async def on_member_remove(self, member: discord.Member):
         perms = member.guild.me.guild_permissions
-        if perms.manage_server:
+        if perms.manage_guild and perms.manage_messages:
             try:
                 await member.send(f"You just left **{member.guild}**, What a Shame!!")
             except discord.HTTPException:
