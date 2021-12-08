@@ -1,6 +1,7 @@
 from discord.ext import commands
 from src.functions import get_joke
 from src.embeds import fun_help_embed, meme_embed
+import aiohttp
 
 
 class Meme(commands.Cog):
@@ -19,7 +20,12 @@ class Meme(commands.Cog):
 
     @commands.command()
     async def meme(self, ctx: commands.Context):
-        await ctx.send(embed=meme_embed())
+        async with aiohttp.ClientSession() as client:
+            async with client.get("https://some-random-api.ml/meme") as resp:
+                response = await resp.json()
+                await ctx.send(
+                    embed=meme_embed(label=response["caption"], image=response["image"])
+                )
 
     @commands.command()
     async def emojify(self, ctx: commands.Context, *, text):
