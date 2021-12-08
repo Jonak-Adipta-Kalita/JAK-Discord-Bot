@@ -95,19 +95,22 @@ class JAKDiscordBot(commands.Bot):
                                 and not user.bot
                             )
 
-                        await self.wait_for(
-                            "reaction_add", check=translation_check, timeout=60.0
-                        )
-                        await message.channel.send(
-                            embed=translation_embed(
-                                msg,
-                                translation.text,
-                                language_name,
-                                translation.src,
-                                member,
-                                author_reacted,
+                        try:
+                            await self.wait_for(
+                                "reaction_add", check=translation_check, timeout=60.0
                             )
-                        )
+                            await message.channel.send(
+                                embed=translation_embed(
+                                    msg,
+                                    translation.text,
+                                    language_name,
+                                    translation.src,
+                                    member,
+                                    author_reacted,
+                                )
+                            )
+                        except asyncio.TimeoutError:
+                            pass
 
         await self.process_commands(message)
 
