@@ -299,10 +299,9 @@ def translation_embed(
         color=discord.Color.blue(),
     )
     embed.set_author(name=f"Author: {author.display_name}")
-    embed.add_field(name="Translation", value=translated_text, inline=False)
-    embed.add_field(name="Original", value=text, inline=False)
+    embed.add_field(name="Translation (en)", value=translated_text, inline=True)
     embed.add_field(
-        name="Language", value=f"{language_name} ({language_iso})", inline=False
+        name=f"Original ({language_iso} - {language_name})", value=text, inline=True
     )
     embed.set_footer(
         text=f"Request: {author_reacted.display_name}",
