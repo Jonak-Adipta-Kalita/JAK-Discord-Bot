@@ -101,12 +101,12 @@ class JAKDiscordBot(commands.Bot):
                             )
                             await message.channel.send(
                                 embed=translation_embed(
-                                    msg,
-                                    translation.text,
-                                    language_name,
-                                    translation.src,
-                                    member,
-                                    author_reacted,
+                                    text=msg,
+                                    translated_text=translation.text,
+                                    language_name=language_name,
+                                    language_iso=translation.src,
+                                    author=member,
+                                    author_reacted=author_reacted,
                                 )
                             )
                         except asyncio.TimeoutError:
