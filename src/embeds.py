@@ -160,7 +160,7 @@ def games_help_embed(ctx: commands.Context):
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}tictactoe_help",
+        name=f"{prefix}help_tictactoe",
         value="Show Help Menu for Tic-Tac-Toe",
         inline=False,
     )
