@@ -1,8 +1,9 @@
-import { signIn, useSession } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
-import { useState } from "react";
+import { ChevronDownIcon } from "@heroicons/react/solid";
+import { Fragment, useState } from "react";
+import { Menu, Transition } from "@headlessui/react";
 
 const Header = ({ providers }) => {
     const router = useRouter();
@@ -48,16 +49,74 @@ const Header = ({ providers }) => {
                             src={session.user.image}
                             alt="avatar"
                         />
-                        <div className="flex items-center ml-2">
-                            <p className="text-white font-semibold text-sm">
-                                {session.user.name}
-                            </p>
-                            {!dropdownOpen ? (
-                                <ChevronDownIcon className="h-5 w-5 text-white" />
-                            ) : (
-                                <ChevronUpIcon className="h-5 w-5 text-white" />
-                            )}
-                        </div>
+
+                        <Menu
+                            as="div"
+                            className="relative inline-block text-left"
+                        >
+                            <div className="">
+                                <Menu.Button className="flex items-center">
+                                    {session.user.name}
+                                    <ChevronDownIcon
+                                        className="-mr-1 ml-2 h-5 w-5"
+                                        aria-hidden="true"
+                                    />
+                                </Menu.Button>
+                            </div>
+
+                            <Transition
+                                as={Fragment}
+                                enter="transition ease-out duration-100"
+                                enterFrom="transform opacity-0 scale-95"
+                                enterTo="transform opacity-100 scale-100"
+                                leave="transition ease-in duration-75"
+                                leaveFrom="transform opacity-100 scale-100"
+                                leaveTo="transform opacity-0 scale-95"
+                            >
+                                <Menu.Items className="origin-top-right absolute right-0 mt-4 w-56 rounded-md shadow-lg bg-[#272934] divide-y divide-gray-100 focus:outline-none text-white">
+                                    <div className="py-1">
+                                        <Menu.Item>
+                                            {() => (
+                                                <p
+                                                    onClick={() =>
+                                                        router.push(
+                                                            "/dashboard"
+                                                        )
+                                                    }
+                                                    className="menu-item"
+                                                >
+                                                    Dashboard
+                                                </p>
+                                            )}
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                            {() => (
+                                                <p
+                                                    onClick={() =>
+                                                        router.push("/settings")
+                                                    }
+                                                    className="menu-item"
+                                                >
+                                                    Settings
+                                                </p>
+                                            )}
+                                        </Menu.Item>
+                                    </div>
+                                    <div className="py-1">
+                                        <Menu.Item>
+                                            {() => (
+                                                <p
+                                                    onClick={signOut}
+                                                    className="block px-4 py-2 text-sm text-red-700 font-semibold cursor-pointer hover:text-red-500"
+                                                >
+                                                    Logout
+                                                </p>
+                                            )}
+                                        </Menu.Item>
+                                    </div>
+                                </Menu.Items>
+                            </Transition>
+                        </Menu>
                     </div>
                 )}
             </div>
