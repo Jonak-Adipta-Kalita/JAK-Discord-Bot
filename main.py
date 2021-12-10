@@ -6,7 +6,7 @@ from src.embeds import translation_embed, warning_embed
 
 
 class JAKDiscordBot(commands.Bot):
-    def __init__(self, command_prefix: str, intents: discord.Intents, bad_words):
+    def __init__(self, command_prefix: str, intents: discord.Intents, bad_words: list):
         self.bad_words = bad_words
         self.prefix = command_prefix
         super().__init__(
