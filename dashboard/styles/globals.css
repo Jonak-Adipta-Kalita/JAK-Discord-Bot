@@ -6,4 +6,8 @@
     .menu-item {
         @apply block px-4 py-2 text-sm cursor-pointer text-gray-300 hover:text-white;
     }
+
+    .body-btn {
+        @apply rounded-lg text-lg p-5 px-10 hover:scale-125 transition transform duration-100 ease-out;
+    }
 }

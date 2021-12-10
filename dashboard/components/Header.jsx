@@ -16,15 +16,9 @@ const Header = ({ providers }) => {
         <header className="flex items-center bg-[#272934] sticky top-0 text-gray-400 p-4 py-5 justify-between shadow-xl md:px-10 lg:px-20">
             <div
                 onClick={() => router.push("/")}
-                className="flex items-center space-x-4"
+                className="flex items-center space-x-4 cursor-pointer"
             >
-                <Image
-                    src="/favicon.ico"
-                    alt="logo"
-                    height={60}
-                    width={60}
-                    className="cursor-pointer"
-                />
+                <Image src="/favicon.ico" alt="logo" height={60} width={60} />
                 <h1 className="font-bold text-white">JAK Discord Bot</h1>
             </div>
             <div className="">
@@ -55,7 +49,7 @@ const Header = ({ providers }) => {
                             className="relative inline-block text-left"
                         >
                             <div className="">
-                                <Menu.Button className="flex items-center">
+                                <Menu.Button className="flex items-center text-gray-400 hover:text-white">
                                     {session.user.name}
                                     <ChevronDownIcon
                                         className="-mr-1 ml-2 h-5 w-5"
@@ -73,7 +67,7 @@ const Header = ({ providers }) => {
                                 leaveFrom="transform opacity-100 scale-100"
                                 leaveTo="transform opacity-0 scale-95"
                             >
-                                <Menu.Items className="origin-top-right absolute right-0 mt-4 w-56 rounded-md shadow-lg bg-[#272934] divide-y divide-gray-100 focus:outline-none text-white">
+                                <Menu.Items className="origin-top-right absolute right-0 mt-6 w-56 rounded-md shadow-lg bg-[#272934] divide-y divide-gray-100 text-white border-[0.1px]">
                                     <div className="py-1">
                                         <Menu.Item>
                                             {() => (
