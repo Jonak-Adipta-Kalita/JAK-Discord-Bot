@@ -90,7 +90,7 @@ class JAKDiscordBot(commands.Bot):
                             global author_reacted
                             author_reacted = user
                             return (
-                                str(reaction.emoji) == "🔤"
+                                str(reaction.emoji) == ":flag_gb:"
                                 and reaction.message == message
                                 and not user.bot
                             )
