@@ -1,11 +1,14 @@
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { ChevronDownIcon } from "@heroicons/react/solid";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
+import { useState } from "react";
 
 const Header = ({ providers }) => {
     const router = useRouter();
     const { data: session } = useSession();
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+
     const provider = Object.values(providers).map((provider) => provider);
 
     return (
@@ -36,17 +39,24 @@ const Header = ({ providers }) => {
                         </button>
                     </div>
                 ) : (
-                    <div className="flex items-center space-x-3 cursor-pointer">
+                    <div
+                        className="flex items-center space-x-3 cursor-pointer"
+                        onClick={() => setDropdownOpen(!dropdownOpen)}
+                    >
                         <img
                             className="w-10 h-10 rounded-full"
-                            src={session?.user?.image}
+                            src={session.user.image}
                             alt="avatar"
                         />
                         <div className="flex items-center ml-2">
                             <p className="text-white font-semibold text-sm">
-                                {session?.user?.name}
+                                {session.user.name}
                             </p>
-                            <ChevronDownIcon className="h-5 w-5 text-white" />
+                            {!dropdownOpen ? (
+                                <ChevronDownIcon className="h-5 w-5 text-white" />
+                            ) : (
+                                <ChevronUpIcon className="h-5 w-5 text-white" />
+                            )}
                         </div>
                     </div>
                 )}

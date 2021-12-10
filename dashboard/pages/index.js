@@ -1,8 +1,8 @@
-import { getProviders } from "next-auth/react";
+import { getProviders, getSession } from "next-auth/react";
 import Head from "next/head";
 import Header from "../components/Header";
 
-const Home = ({ providers }) => {
+const Home = ({ providers, session }) => {
     return (
         <div className="h-screen overflow-x-scroll scrollbar-hide">
             <Head>
@@ -17,10 +17,14 @@ const Home = ({ providers }) => {
 
 export default Home;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
     const providers = await getProviders();
+    const session = await getSession(context);
 
     return {
-        props: { providers },
+        props: {
+            providers: providers,
+            session: session,
+        },
     };
 }
