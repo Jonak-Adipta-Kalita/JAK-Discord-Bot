@@ -89,8 +89,9 @@ class JAKDiscordBot(commands.Bot):
                         def translation_check(reaction, user):
                             global author_reacted
                             author_reacted = user
+                            print(str(reaction.emoji))
                             return (
-                                str(reaction.emoji) == ":flag_gb:"
+                                str(reaction.emoji) == "🇬🇧"
                                 and reaction.message == message
                                 and not user.bot
                             )
