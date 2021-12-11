@@ -312,7 +312,8 @@ def translation_embed(
 
 
 def meme_embed(label: str, image: str):
-    embed = discord.Embed(title=f"Caption: **{label}**", color=discord.Color.blue())
+    embed = discord.Embed(color=discord.Color.blue())
     embed.set_image(url=image)
+    embed.set_footer(text=f"Caption: **{label}**")
 
     return embed
