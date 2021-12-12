@@ -1,6 +1,6 @@
 const Body = () => {
     return (
-        <main className="flex mt-10 justify-center lg:mt-20">
+        <main className="flex-1 overflow-y-auto scrollbar-hide flex mt-10 justify-center lg:mt-20">
             <a
                 href="https://discord.com/api/oauth2/authorize?client_id=756402881913028689&permissions=8&scope=bot"
                 target="_blank"

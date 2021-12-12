@@ -5,15 +5,13 @@ import { ChevronDownIcon } from "@heroicons/react/solid";
 import { Fragment, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
 
-const Header = ({ providers }) => {
+const Header = () => {
     const router = useRouter();
     const { data: session } = useSession();
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
-    const provider = Object.values(providers).map((provider) => provider);
-
     return (
-        <header className="flex items-center bg-[#272934] sticky top-0 text-gray-400 p-4 py-5 justify-between shadow-xl md:px-10 lg:px-20">
+        <header className="flex items-center bg-[#272934] text-gray-400 p-4 py-5 justify-between shadow-xl md:px-10 lg:px-20">
             <div
                 onClick={() => router.push("/")}
                 className="flex items-center space-x-4 cursor-pointer"
@@ -26,9 +24,7 @@ const Header = ({ providers }) => {
                     <div className="mr-4">
                         <button
                             className="cursor-pointer border-[0.1px] border-gray-400 p-4 px-10 rounded-xl hover:scale-125 transition transform duration-100 ease-out focus:outline-none focus:ring-2"
-                            onClick={() =>
-                                signIn(provider[0].id, { callbackUrl: "/" })
-                            }
+                            onClick={() => signIn()}
                         >
                             Login
                         </button>

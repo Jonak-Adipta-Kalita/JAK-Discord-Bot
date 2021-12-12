@@ -32,6 +32,8 @@ git clone https://github.com/Jonak-Adipta-Kalita/JAK-Discord-Bot.git
 
 To install the required modules, just open a terminal in the directory where this project is cloned. Now type:
 
+#### For the Bot
+
 ```bash
 pip install virtualenv
 virtualenv venv
@@ -41,19 +43,35 @@ pip install -r .\requirements.txt
 
 and hit enter.
 
+#### For the Dashboard
+
+```bash
+cd dashboard
+npm i
+
+# or
+
+cd dashboard
+yarn
+```
+
 ### Creating the Bot:
 
-Create `.env`. Now go to [Discord Developers Portal](https://discord.com/developers/applications) and create a new application. Now go to the Bot
-section and create a new Bot. Now copy the Token given in the redirected page and paste it in
-the `.env` file
+Create `.env`. Now go to [Discord Developers Portal](https://discord.com/developers/applications) and create a new application.
+Now go to the Bot section and create a new Bot. Now copy the Token given in the redirected page. Now go to the OAuth Section and
+copy the `CLIENT ID` and the `CLIENT SECRET` under `Client Information`.
+Paste all Credentials the `.env` file
 
 ```env
 TOKEN=<YOUR_BOT_TOKEN>
+DISCORD_CLIENT_ID=<YOUR_DISCORD_CLIENT_ID>
+DISCORD_CLIENT_SECRET=<YOUR_DISCORD_CLIENT_SECRET>
+JWT_SECRET=<YOUR_JWT_STRING>
+NEXTAUTH_URL=http://localhost:3000
 ```
 
-like this. Now go to the OAuth2 section and copy the CLIENT ID. Now open a new tab
-in your browser and type `https://discord.com/api/oauth2/authorize?client_id=<YOUR_CLIENT_ID>&scope=bot`
-and hit enter. Now add the Bot to your server.
+like this. In the OAuth > URL Generator Section, in scopes click on `bot`. This will reveal the `Bot Permissions` select your
+Permissions from `Bot Permissions`. After that open the `GENERATED URL` in a new tab. Now add the Bot to your server.
 
 ### Enabling Intents
 
@@ -66,6 +84,20 @@ Open any terminal in the directory and type
 
 ```bash
 python main.py
+```
+
+### Starting the Dashboard
+
+Open any terminal in the directory and type
+
+```bash
+cd dashboard
+npm start
+
+# or
+
+cd dashboard
+yarn start
 ```
 
 ## Format Code
@@ -82,7 +114,8 @@ and press Enter.
 
 ## Technology(s) Used
 
--   Language: [Python](https://python.org/)
+-   Language: [Python](https://python.org/), [JavaScript]()
+-   Frameworks: [discord.py](), [NextJS]()
 -   Hosted: [Heroku](https://heroku.com/)
 
 ## Contributors

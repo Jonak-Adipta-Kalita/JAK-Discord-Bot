@@ -1,19 +1,19 @@
-import { getProviders, getSession, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Body from "../components/Body";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 
-const Home = ({ providers }) => {
-    const { data: session } = useSession();
-
+const Home = () => {
     return (
-        <div className="h-screen overflow-x-scroll scrollbar-hide bg-[#272934]">
+        <div className="flex flex-col h-screen bg-[#272934]">
             <Head>
                 <title>JAK Discord Bot</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Header providers={providers} />
+            <Header />
             <Body />
+            <Footer />
         </div>
     );
 };
@@ -21,12 +21,10 @@ const Home = ({ providers }) => {
 export default Home;
 
 export async function getServerSideProps(context) {
-    const providers = await getProviders();
     const session = await getSession(context);
 
     return {
         props: {
-            providers: providers,
             session: session,
         },
     };
