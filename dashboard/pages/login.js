@@ -6,7 +6,7 @@ const Login = ({ providers }) => {
     const provider = Object.values(providers).map((provider) => provider);
 
     return (
-        <div className="h-screen overflow-x-scroll scrollbar-hide bg-[#272934]">
+        <div className="h-screen bg-[#272934]">
             <Head>
                 <title>JAK Discord Bot | Login</title>
                 <link rel="icon" href="/favicon.ico" />
@@ -26,7 +26,7 @@ const Login = ({ providers }) => {
 
 export default Login;
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
     const providers = await getProviders();
 
     return {

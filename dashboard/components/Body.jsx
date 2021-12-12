@@ -1,6 +1,6 @@
 const Body = () => {
     return (
-        <main className="flex-1 overflow-y-auto scrollbar-hide">
+        <main className="flex-1 overflow-y-auto scrollbar-hide bg-[#272934]">
             <div>
                 <div className="flex mt-10 justify-center lg:mt-20">
                     <a
