@@ -74,38 +74,26 @@ class JAKDiscordBot(commands.Bot):
                 if translation.src in languages_dict:
                     language_name = languages_dict[translation.src].title()
 
-                    if message.channel.id == 918028426353455116:
-                        await message.channel.send(
-                            embed=translation_embed(
-                                text=msg,
-                                translated_text=translation.text,
-                                language_name=language_name,
-                                language_iso=translation.src,
-                                author=member,
-                            )
+                    def translation_check(reaction, user):
+                        global author_reacted
+                        author_reacted = user
+                        return (
+                            str(reaction.emoji) == "🔤"
+                            and reaction.message == message
+                            and not user.bot
                         )
-                    else:
 
-                        def translation_check(reaction, user):
-                            global author_reacted
-                            author_reacted = user
-                            return (
-                                str(reaction.emoji) == "🇬🇧"
-                                and reaction.message == message
-                                and not user.bot
-                            )
-
-                        await self.wait_for("reaction_add", check=translation_check)
-                        await message.channel.send(
-                            embed=translation_embed(
-                                text=msg,
-                                translated_text=translation.text,
-                                language_name=language_name,
-                                language_iso=translation.src,
-                                author=member,
-                                author_reacted=author_reacted,
-                            )
+                    await self.wait_for("reaction_add", check=translation_check)
+                    await message.channel.send(
+                        embed=translation_embed(
+                            text=msg,
+                            translated_text=translation.text,
+                            language_name=language_name,
+                            language_iso=translation.src,
+                            author=member,
+                            author_reacted=author_reacted,
                         )
+                    )
 
         await self.process_commands(message)
 
