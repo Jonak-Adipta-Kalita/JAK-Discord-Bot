@@ -41,8 +41,6 @@ virtualenv venv
 pip install -r .\requirements.txt
 ```
 
-and hit enter.
-
 #### For the Dashboard
 
 ```bash
@@ -55,15 +53,24 @@ cd dashboard
 yarn
 ```
 
+and hit enter.
+
 ### Creating the Bot:
 
-Create `.env`. Now go to [Discord Developers Portal](https://discord.com/developers/applications) and create a new application.
+Create `.env` and `dashboard/.env.local`. Now go to [Discord Developers Portal](https://discord.com/developers/applications) and create a new application.
 Now go to the Bot section and create a new Bot. Now copy the Token given in the redirected page. Now go to the OAuth Section and
 copy the `CLIENT ID` and the `CLIENT SECRET` under `Client Information`.
-Paste all Credentials the `.env` file
+Paste all Credentials the `.env` and the `dashboard/.env.local` file
+
+For `.env`
 
 ```env
 TOKEN=<YOUR_BOT_TOKEN>
+```
+
+For `dashboard/.env.local`
+
+```env
 DISCORD_CLIENT_ID=<YOUR_DISCORD_CLIENT_ID>
 DISCORD_CLIENT_SECRET=<YOUR_DISCORD_CLIENT_SECRET>
 JWT_SECRET=<YOUR_JWT_STRING>
