@@ -1,4 +1,4 @@
-import typing, googletrans, jokeapi
+import typing, googletrans, jokeapi, eng_to_ipa
 
 
 def get_prefix() -> typing.Union["str", "list"]:
@@ -9,6 +9,10 @@ def translate_text(text: str) -> dict:
     translator = googletrans.Translator()
 
     return translator.translate(text)
+
+
+def pronounciation(text: str) -> str:
+    return eng_to_ipa.convert(text)
 
 
 def get_joke() -> str:

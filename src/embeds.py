@@ -1,4 +1,3 @@
-import typing
 import discord
 from discord.ext import commands
 from src.functions import get_prefix
@@ -314,5 +313,22 @@ def translation_embed(
 def meme_embed(label: str, image: str):
     embed = discord.Embed(title=f"Caption: **{label}**", color=discord.Color.blue())
     embed.set_image(url=image)
+
+    return embed
+
+
+def pronounciation_embed(
+    text: str,
+    pronounciation: str,
+    author: discord.Member,
+    author_reacted: discord.Member,
+):
+    embed = discord.Embed(color=discord.Color.blue())
+    embed.set_author(name=f"Author: {author.display_name}")
+    embed.add_field(name="Text", value=text, inline=True)
+    embed.add_field(name=f"Pronounciation", value=pronounciation, inline=True)
+    embed.set_footer(
+        text=f"Request: {author_reacted.display_name}",
+    )
 
     return embed

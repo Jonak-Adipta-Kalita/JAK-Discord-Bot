@@ -1,8 +1,9 @@
-import discord, credentials, os, googletrans, asyncio, itertools
 from discord.ext import commands
 from dislash import *
-from src.functions import get_prefix, translate_text
-from src.embeds import translation_embed, warning_embed
+from src.functions import get_prefix, pronounciation, translate_text
+from src.embeds import pronounciation_embed, translation_embed, warning_embed
+import discord, credentials, os, googletrans, asyncio, itertools
+import src.emojis as emojis
 
 
 class JAKDiscordBot(commands.Bot):
@@ -67,21 +68,22 @@ class JAKDiscordBot(commands.Bot):
 
         if len(msg) >= 3:
             translation = translate_text(msg)
+
+            def translation_check(reaction, user):
+                global author_reacted
+                author_reacted = user
+                return (
+                    str(reaction.emoji) == emojis.abc
+                    and reaction.message == message
+                    and not user.bot
+                )
+
             if translation.src != "en":
                 language_name = ""
                 languages_dict = googletrans.LANGUAGES
 
                 if translation.src in languages_dict:
                     language_name = languages_dict[translation.src].title()
-
-                    def translation_check(reaction, user):
-                        global author_reacted
-                        author_reacted = user
-                        return (
-                            str(reaction.emoji) == "🔤"
-                            and reaction.message == message
-                            and not user.bot
-                        )
 
                     await self.wait_for("reaction_add", check=translation_check)
                     await message.channel.send(
@@ -94,6 +96,16 @@ class JAKDiscordBot(commands.Bot):
                             author_reacted=author_reacted,
                         )
                     )
+            else:
+                await self.wait_for("reaction_add", check=translation_check)
+                await message.channel.send(
+                    embed=pronounciation_embed(
+                        text=msg,
+                        pronounciation=pronounciation(msg),
+                        author=member,
+                        author_reacted=author_reacted,
+                    )
+                )
 
         await self.process_commands(message)
 
