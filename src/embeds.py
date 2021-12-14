@@ -1,74 +1,38 @@
 import discord
 from discord.ext import commands
 from src.functions import get_prefix
+import src.emojis as emojis
 
 prefix = get_prefix()
 
 
 def rules_embed(bot_name: str, bot_avatar_url: str, embed_blank_value: str):
+    rules = [
+        (f"{emojis.numbers['one']}   No Negativity", embed_blank_value),
+        (f"{emojis.numbers['two']}   No Spamming", embed_blank_value),
+        (f"{emojis.numbers['three']}   No Swearing", embed_blank_value),
+        (
+            f"{emojis.numbers['four']}   No Discriminatory Or Hate Speech",
+            embed_blank_value,
+        ),
+        (f"{emojis.numbers['five']}   No NSFW Content", embed_blank_value),
+        (
+            f"{emojis.numbers['six']}   No Potentially Harmful Content",
+            embed_blank_value,
+        ),
+    ]
+
     embed = discord.Embed(
         color=discord.Color.blue(),
     )
     embed.set_author(name=f"{bot_name} - Rules", icon_url=bot_avatar_url)
-    embed.add_field(
-        name="Be respectful, civil, and welcoming.",
-        value=embed_blank_value,
-        inline=False,
-    )
-    embed.add_field(
-        name="No inappropriate or unsafe content.",
-        value=embed_blank_value,
-        inline=False,
-    )
-    embed.add_field(
-        name="Do not misuse or spam in any of the channels.",
-        value=embed_blank_value,
-        inline=False,
-    )
-    embed.add_field(
-        name="Any content that is NSFW is not allowed under any circumstances.",
-        value=embed_blank_value,
-        inline=False,
-    )
-    embed.add_field(
-        name="The primary language of this server is English.",
-        value=embed_blank_value,
-        inline=False,
-    )
-    embed.add_field(
-        name="Discord names and avatars must be appropriate.",
-        value=embed_blank_value,
-        inline=False,
-    )
-    embed.add_field(
-        name="Controversial topics such as religion or politics are not allowed.",
-        value=embed_blank_value,
-        inline=False,
-    )
-    embed.add_field(
-        name="Do not attempt to bypass any blocked words.",
-        value=embed_blank_value,
-        inline=False,
-    )
-    embed.add_field(
-        name="Don’t ping without legitimate reasoning behind them.",
-        value=embed_blank_value,
-        inline=False,
-    )
-    embed.add_field(
-        name="Catfishing and any sort of fake identities are forbidden.",
-        value=embed_blank_value,
-        inline=False,
-    )
-    embed.add_field(
-        name="Do not advertise without permission.",
-        value=embed_blank_value,
-        inline=False,
-    )
-    embed.add_field(
-        name="Raiding is not allowed.", value=embed_blank_value, inline=False
-    )
     embed.set_footer(text="Please Follow all the RULES!!")
+    for rule in rules:
+        embed.add_field(
+            name=rule[0],
+            value=rule[1],
+            inline=False,
+        )
 
     return embed
 
