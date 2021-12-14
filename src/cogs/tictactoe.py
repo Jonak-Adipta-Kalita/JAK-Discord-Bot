@@ -2,6 +2,7 @@ import discord, random
 from discord.ext import commands
 from src.embeds import tictactoe_help_embed
 from src.functions import get_prefix
+import src.emojis as emojis
 
 prefix = get_prefix()
 
@@ -45,15 +46,15 @@ class TicTacToe(commands.Cog):
 
         if self.game_over:
             self.board = [
-                ":white_large_square:",
-                ":white_large_square:",
-                ":white_large_square:",
-                ":white_large_square:",
-                ":white_large_square:",
-                ":white_large_square:",
-                ":white_large_square:",
-                ":white_large_square:",
-                ":white_large_square:",
+                emojis.white_large_square,
+                emojis.white_large_square,
+                emojis.white_large_square,
+                emojis.white_large_square,
+                emojis.white_large_square,
+                emojis.white_large_square,
+                emojis.white_large_square,
+                emojis.white_large_square,
+                emojis.white_large_square,
             ]
             self.turn = ""
             self.game_over = False
@@ -89,10 +90,10 @@ class TicTacToe(commands.Cog):
             mark = ""
             if self.turn == ctx.author:
                 if self.turn == self.player1:
-                    mark = ":regional_indicator_x:"
+                    mark = emojis.alphabets["regional_indicator_x"]
                 elif self.turn == self.player2:
-                    mark = ":o2:"
-                if 0 < pos < 10 and self.board[pos - 1] == ":white_large_square:":
+                    mark = emojis.o2
+                if 0 < pos < 10 and self.board[pos - 1] == emojis.white_large_square:
                     self.board[pos - 1] = mark
                     count += 1
                     line = ""

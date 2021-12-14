@@ -1,6 +1,7 @@
 from discord.ext import commands
 from src.functions import get_joke
 from src.embeds import fun_help_embed, meme_embed
+import src.emojis as emojis_list
 import aiohttp
 
 
@@ -36,30 +37,36 @@ class Meme(commands.Cog):
     @commands.command()
     async def emojify(self, ctx: commands.Context, *, text):
         emojis = []
-        punc_to_emo = {"!": "grey_exclamation"}
+        puncs_to_emo = {
+            "!": "exclamation",
+            "+": "heavy_plus_sign",
+            "-": "heavy_minus_sign",
+            "*": "heavy_multiplication_x",
+            "/": "heavy_division_sign",
+            "$": "heavy_dollar_sign",
+        }
 
         for word in text.lower():
             if word.isdecimal():
                 num_to_emo = {
-                    "0": "zero",
-                    "1": "one",
-                    "2": "two",
-                    "3": "three",
-                    "4": "four",
-                    "5": "five",
-                    "6": "six",
-                    "7": "seven",
-                    "8": "eight",
-                    "9": "nine",
+                    "0": emojis_list.numbers["zero"],
+                    "1": emojis_list.numbers["one"],
+                    "2": emojis_list.numbers["two"],
+                    "3": emojis_list.numbers["three"],
+                    "4": emojis_list.numbers["four"],
+                    "5": emojis_list.numbers["five"],
+                    "6": emojis_list.numbers["six"],
+                    "7": emojis_list.numbers["seven"],
+                    "8": emojis_list.numbers["eight"],
+                    "9": emojis_list.numbers["nine"],
                 }
-                emojis.append(f":{num_to_emo.get(word)}:")
+                emojis.append(f"{num_to_emo.get(word)}")
             if word.isalpha():
-                emojis.append(f":regional_indicator_{word}:")
-            elif word in punc_to_emo:
-                print("punc found")
-                emojis.append(f":{punc_to_emo.get(word)}:")
+                emojis.append(emojis_list.alphabets[f"regional_indicator_{word}"])
+            elif word in puncs_to_emo:
+                emojis.append(emojis_list.punctuation[puncs_to_emo.get(word)])
 
-        await ctx.send("".join(emojis))
+        await ctx.send(" ".join(emojis))
 
 
 def setup(bot):
