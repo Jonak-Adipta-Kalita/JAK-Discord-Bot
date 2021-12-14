@@ -82,8 +82,14 @@ Permissions from `Bot Permissions`. After that open the `GENERATED URL` in a new
 
 ### Enabling Intents
 
-Go to [Discord Developers Portal](https://discord.com/developers/applications) and Click on your Application. Now got to Bot
+Go to [Discord Developers Portal](https://discord.com/developers/applications) and Click on your Application. Now go to Bot
 Section and Enable Everything under `Privileged Gateway Intents`.
+
+### Adding Redirect URI
+
+Go to [Discord Developers Portal](https://discord.com/developers/applications) and Click on your Application. Now go to OAuth
+Section and in the Redirects Section click on `Add Another` now paste `http://localhost:3000/api/auth/callback/discord` in the
+input field. Now click on `Save Changes`.
 
 ### Starting the Bot:
 
