@@ -28,7 +28,13 @@ class TicTacToe(commands.Cog):
     @commands.command()
     @commands.bot_has_permissions(embed_links=True)
     async def help_tictactoe(self, ctx: commands.Context):
-        await ctx.send(embed=tictactoe_help_embed(ctx))
+        await ctx.send(
+            embed=tictactoe_help_embed(
+                ctx=ctx,
+                bot_name=self.bot.user.name,
+                bot_avatar_url=self.bot.user.avatar_url,
+            )
+        )
 
     @commands.command()
     async def tictactoe(

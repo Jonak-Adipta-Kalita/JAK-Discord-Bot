@@ -2,15 +2,14 @@ import discord
 from discord.ext import commands
 from src.functions import get_prefix
 
-BOT_LOGO_URL = "https://avatars.githubusercontent.com/u/70377522?v=4"
 prefix = get_prefix()
 
 
-def rules_embed(embed_blank_value: str):
+def rules_embed(bot_name: str, bot_avatar_url: str, embed_blank_value: str):
     embed = discord.Embed(
         color=discord.Color.blue(),
     )
-    embed.set_author(name="JAK Discord Bot - Rules", icon_url=BOT_LOGO_URL)
+    embed.set_author(name=f"{bot_name} - Rules", icon_url=bot_avatar_url)
     embed.add_field(
         name="Be respectful, civil, and welcoming.",
         value=embed_blank_value,
@@ -74,11 +73,11 @@ def rules_embed(embed_blank_value: str):
     return embed
 
 
-def help_embed(ctx):
+def help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     embed = discord.Embed(
         color=discord.Color.blue(),
     )
-    embed.set_author(name="JAK Discord Bot - Help Menu", icon_url=BOT_LOGO_URL)
+    embed.set_author(name=f"{bot_name} - Help Menu", icon_url=bot_avatar_url)
     embed.add_field(name=f"{prefix}ping", value="Show the Ping", inline=False)
     embed.add_field(name=f"{prefix}show_rules", value="Show the Rules", inline=False)
     embed.add_field(
@@ -106,12 +105,13 @@ def help_embed(ctx):
     return embed
 
 
-def moderation_help_embed(ctx: commands.Context):
+def moderation_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     embed = discord.Embed(
         color=discord.Color.blue(),
     )
     embed.set_author(
-        name="JAK Discord Bot - Moderation Help Menu", icon_url=BOT_LOGO_URL
+        name=f"{bot_name} - Moderation Help Menu",
+        icon_url=bot_avatar_url,
     )
     embed.add_field(
         name=f"{prefix}clear <amount>",
@@ -148,11 +148,11 @@ def moderation_help_embed(ctx: commands.Context):
     return embed
 
 
-def games_help_embed(ctx: commands.Context):
+def games_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     embed = discord.Embed(
         color=discord.Color.blue(),
     )
-    embed.set_author(name="JAK Discord Bot - Games Help Menu", icon_url=BOT_LOGO_URL)
+    embed.set_author(name=f"{bot_name} - Games Help Menu", icon_url=bot_avatar_url)
     embed.add_field(
         name=f"{prefix}8ball <question>",
         value="Play 8ball Game",
@@ -168,11 +168,11 @@ def games_help_embed(ctx: commands.Context):
     return embed
 
 
-def music_help_embed(ctx: commands.Context):
+def music_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     embed = discord.Embed(
         color=discord.Color.blue(),
     )
-    embed.set_author(name="JAK Discord Bot - Music Help Menu", icon_url=BOT_LOGO_URL)
+    embed.set_author(name=f"{bot_name} - Music Help Menu", icon_url=bot_avatar_url)
     embed.add_field(
         name=f"{prefix}join_vc",
         value="Joins the VC you are currently in",
@@ -213,11 +213,11 @@ def music_help_embed(ctx: commands.Context):
     return embed
 
 
-def fun_help_embed(ctx: commands.Context):
+def fun_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     embed = discord.Embed(
         color=discord.Color.blue(),
     )
-    embed.set_author(name="JAK Discord Bot - Fun Help Menu", icon_url=BOT_LOGO_URL)
+    embed.set_author(name=f"{bot_name} - Fun Help Menu", icon_url=bot_avatar_url)
     embed.add_field(
         name=f"{prefix}joke",
         value="Display a Joke",
@@ -238,22 +238,13 @@ def fun_help_embed(ctx: commands.Context):
     return embed
 
 
-def warning_embed(message: str):
-    embed = discord.Embed(
-        title="YOU HAVE BEEN WARNED!!",
-        description=message,
-        color=discord.Color.blue(),
-    )
-
-    return embed
-
-
-def tictactoe_help_embed(ctx: commands.Context):
+def tictactoe_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     embed = discord.Embed(
         color=discord.Color.blue(),
     )
     embed.set_author(
-        name="JAK Discord Bot - TicTacToe Help Menu", icon_url=BOT_LOGO_URL
+        name=f"{bot_name} - TicTacToe Help Menu",
+        icon_url=bot_avatar_url,
     )
     embed.add_field(
         name=f"{prefix}tictactoe @<1st Player> @<2nd Player>",
@@ -271,6 +262,16 @@ def tictactoe_help_embed(ctx: commands.Context):
         inline=False,
     )
     embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
+
+    return embed
+
+
+def warning_embed(message: str):
+    embed = discord.Embed(
+        title="YOU HAVE BEEN WARNED!!",
+        description=message,
+        color=discord.Color.blue(),
+    )
 
     return embed
 
@@ -310,25 +311,25 @@ def translation_embed(
     return embed
 
 
-def meme_embed(label: str, image: str):
-    embed = discord.Embed(title=f"Caption: **{label}**", color=discord.Color.blue())
-    embed.set_image(url=image)
-
-    return embed
-
-
-def pronounciation_embed(
+def pronunciation_embed(
     text: str,
-    pronounciation: str,
+    pronunciation: str,
     author: discord.Member,
     author_reacted: discord.Member,
 ):
     embed = discord.Embed(color=discord.Color.blue())
     embed.set_author(name=f"Author: {author.display_name}")
     embed.add_field(name="Text", value=text, inline=True)
-    embed.add_field(name=f"Pronounciation", value=pronounciation, inline=True)
+    embed.add_field(name=f"Pronunciation", value=pronunciation, inline=True)
     embed.set_footer(
         text=f"Request: {author_reacted.display_name}",
     )
+
+    return embed
+
+
+def meme_embed(label: str, image: str):
+    embed = discord.Embed(title=f"Caption: **{label}**", color=discord.Color.blue())
+    embed.set_image(url=image)
 
     return embed

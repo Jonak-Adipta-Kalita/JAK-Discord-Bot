@@ -11,7 +11,7 @@ def translate_text(text: str) -> dict:
     return translator.translate(text)
 
 
-def pronounciation(text: str) -> str:
+def pronunciation(text: str) -> str:
     return eng_to_ipa.convert(text)
 
 

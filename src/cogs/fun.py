@@ -10,7 +10,13 @@ class Meme(commands.Cog):
 
     @commands.command()
     async def help_fun(self, ctx: commands.Context):
-        await ctx.send(embed=fun_help_embed(ctx))
+        await ctx.send(
+            embed=fun_help_embed(
+                ctx=ctx,
+                bot_name=self.bot.user.name,
+                bot_avatar_url=self.bot.user.avatar_url,
+            )
+        )
 
     @commands.command()
     async def joke(self, ctx: commands.Context):

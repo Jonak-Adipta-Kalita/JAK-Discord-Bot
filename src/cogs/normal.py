@@ -23,7 +23,11 @@ class Normal(commands.Cog):
     @commands.bot_has_permissions(embed_links=True)
     async def help(self, ctx: commands.Context):
         msg = await ctx.send(
-            embed=help_embed(ctx),
+            embed=help_embed(
+                ctx=ctx,
+                bot_name=self.bot.user.name,
+                bot_avatar_url=self.bot.user.avatar_url,
+            ),
             components=[
                 SelectMenu(
                     custom_id="help_command",
@@ -43,25 +47,68 @@ class Normal(commands.Cog):
             inter = await msg.wait_for_dropdown(timeout=60.0)
 
             if inter.select_menu.selected_options[0].value == "moderation_help_embed":
-                await inter.reply(embed=moderation_help_embed(ctx))
+                await inter.reply(
+                    embed=moderation_help_embed(
+                        ctx=ctx,
+                        bot_name=self.bot.user.name,
+                        bot_avatar_url=self.bot.user.avatar_url,
+                    )
+                )
             elif inter.select_menu.selected_options[0].value == "games_help_embed":
-                await inter.reply(embed=games_help_embed(ctx))
+                await inter.reply(
+                    embed=games_help_embed(
+                        ctx=ctx,
+                        bot_name=self.bot.user.name,
+                        bot_avatar_url=self.bot.user.avatar_url,
+                    )
+                )
             elif inter.select_menu.selected_options[0].value == "music_help_embed":
-                await inter.reply(embed=music_help_embed(ctx))
+                await inter.reply(
+                    embed=music_help_embed(
+                        ctx=ctx,
+                        bot_name=self.bot.user.name,
+                        bot_avatar_url=self.bot.user.avatar_url,
+                    )
+                )
             elif inter.select_menu.selected_options[0].value == "fun_help_embed":
-                await inter.reply(embed=fun_help_embed(ctx))
+                await inter.reply(
+                    embed=fun_help_embed(
+                        ctx=ctx,
+                        bot_name=self.bot.user.name,
+                        bot_avatar_url=self.bot.user.avatar_url,
+                    )
+                )
         except asyncio.TimeoutError:
-            await msg.edit(embed=help_embed(ctx), components=[])
+            await msg.edit(
+                embed=help_embed(
+                    ctx=ctx,
+                    bot_name=self.bot.user.name,
+                    bot_avatar_url=self.bot.user.avatar_url,
+                ),
+                components=[],
+            )
 
     @commands.command()
     @commands.bot_has_permissions(embed_links=True)
     async def help_games(self, ctx: commands.Context):
-        await ctx.send(embed=games_help_embed(ctx))
+        await ctx.send(
+            embed=games_help_embed(
+                ctx=ctx,
+                bot_name=self.bot.user.name,
+                bot_avatar_url=self.bot.user.avatar_url,
+            )
+        )
 
-    @commands.command()
+    @commands.command(aliases=["rules"])
     @commands.bot_has_permissions(embed_links=True)
     async def show_rules(self, ctx: commands.Context):
-        await ctx.send(embed=rules_embed(self.embed_blank_value))
+        await ctx.send(
+            embed=rules_embed(
+                bot_name=self.bot.user.name,
+                bot_avatar_url=self.bot.user.avatar_url,
+                embed_blank_value=self.embed_blank_value,
+            )
+        )
 
     @commands.command()
     async def ping(self, ctx: commands.Context):

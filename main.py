@@ -1,7 +1,7 @@
 from discord.ext import commands
 from dislash import *
-from src.functions import get_prefix, pronounciation, translate_text
-from src.embeds import pronounciation_embed, translation_embed, warning_embed
+from src.functions import get_prefix, pronunciation, translate_text
+from src.embeds import pronunciation_embed, translation_embed, warning_embed
 import discord, credentials, os, googletrans, asyncio, itertools
 import src.emojis as emojis
 
@@ -66,46 +66,67 @@ class JAKDiscordBot(commands.Bot):
                         await message.delete()
                     break
 
-        if len(msg) >= 3:
+        if len(msg) >= 3 and not msg.startswith(get_prefix()):
             translation = translate_text(msg)
-
-            def translation_check(reaction, user):
-                global author_reacted
-                author_reacted = user
-                return (
-                    str(reaction.emoji) == emojis.abc
-                    and reaction.message == message
-                    and not user.bot
-                )
 
             if translation.src != "en":
                 language_name = ""
                 languages_dict = googletrans.LANGUAGES
 
+                def translation_check(reaction, user):
+                    global author_reacted_translation
+                    author_reacted_translation = user
+                    return (
+                        str(reaction.emoji) == emojis.abc
+                        and reaction.message == message
+                        and not user.bot
+                    )
+
                 if translation.src in languages_dict:
                     language_name = languages_dict[translation.src].title()
 
-                    await self.wait_for("reaction_add", check=translation_check)
+                    try:
+                        await self.wait_for(
+                            "reaction_add", check=translation_check, timeout=60.0
+                        )
+                        await message.channel.send(
+                            embed=translation_embed(
+                                text=msg,
+                                translated_text=translation.text,
+                                language_name=language_name,
+                                language_iso=translation.src,
+                                author=member,
+                                author_reacted=author_reacted_translation,
+                            )
+                        )
+                    except asyncio.TimeoutError:
+                        pass
+
+            else:
+
+                def pronunciation_check(reaction, user):
+                    global author_reacted_pronunciation
+                    author_reacted_pronunciation = user
+                    return (
+                        str(reaction.emoji) == emojis.abc
+                        and reaction.message == message
+                        and not user.bot
+                    )
+
+                try:
+                    await self.wait_for(
+                        "reaction_add", check=pronunciation_check, timeout=60.0
+                    )
                     await message.channel.send(
-                        embed=translation_embed(
+                        embed=pronunciation_embed(
                             text=msg,
-                            translated_text=translation.text,
-                            language_name=language_name,
-                            language_iso=translation.src,
+                            pronunciation=pronunciation(msg),
                             author=member,
-                            author_reacted=author_reacted,
+                            author_reacted=author_reacted_pronunciation,
                         )
                     )
-            else:
-                await self.wait_for("reaction_add", check=translation_check)
-                await message.channel.send(
-                    embed=pronounciation_embed(
-                        text=msg,
-                        pronounciation=pronounciation(msg),
-                        author=member,
-                        author_reacted=author_reacted,
-                    )
-                )
+                except asyncio.TimeoutError:
+                    pass
 
         await self.process_commands(message)
 
