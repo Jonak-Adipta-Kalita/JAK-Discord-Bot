@@ -2,7 +2,7 @@ import "../styles/globals.css";
 import { RecoilRoot } from "recoil";
 import { SessionProvider } from "next-auth/react";
 
-function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
     return (
         <SessionProvider session={session}>
             <RecoilRoot>
@@ -10,6 +10,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
             </RecoilRoot>
         </SessionProvider>
     );
-}
+};
 
 export default MyApp;
