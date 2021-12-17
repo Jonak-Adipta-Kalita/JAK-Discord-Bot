@@ -22,7 +22,7 @@ httpcore==0.9.1
 httpx==0.13.3
 hyperframe==5.2.0
 idna==2.10
-importlib-metadata==4.8.1
+importlib-metadata==4.9.0
 joblib==1.1.0
 jokeapi==0.2.8
 multidict==5.2.0
