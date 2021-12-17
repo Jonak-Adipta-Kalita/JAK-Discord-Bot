@@ -72,7 +72,7 @@ class Fun(commands.Cog):
         await ctx.send(" ".join(emojis))
 
     @commands.command()
-    async def code_snippet(self, ctx: commands.Context, code: str):
+    async def code_snippet(self, ctx: commands.Context, *, code: str):
         author_id = ctx.author.id
 
         carbon = carbonnow.Carbon(code=code)
