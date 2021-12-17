@@ -302,3 +302,10 @@ def meme_embed(label: str, image: str):
     embed.set_image(url=image)
 
     return embed
+
+
+def code_snippet_embed(author_id: int):
+    embed = discord.Embed(color=discord.Color.blue())
+    embed.set_image(url=f"attachment://{author_id}.jpg")
+
+    return embed

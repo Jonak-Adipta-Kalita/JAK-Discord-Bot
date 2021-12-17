@@ -1,7 +1,8 @@
-import aiohttp, discord, carbonnow
+import aiohttp, carbonnow
 import src.embeds as embeds
 import src.functions as funcs
 import src.emojis as emojis_list
+import src.files as files
 from discord.ext import commands
 
 
@@ -77,12 +78,10 @@ class Fun(commands.Cog):
         carbon = carbonnow.Carbon(code=code)
         carbon_file = await carbon.save(f"snippets/{author_id}")
 
-        file = discord.File(carbon_file, filename=f"{author_id}.jpg")
-
-        embed = discord.Embed(color=discord.Color.blue())
-        embed.set_image(url=f"attachment://{author_id}.jpg")
-
-        await ctx.send(file=file, embed=embed)
+        await ctx.send(
+            file=files.code_snippet_file(carbon_file=carbon_file, author_id=author_id),
+            embed=embeds.code_snippet_embed(author_id=author_id),
+        )
 
 
 def setup(bot):
