@@ -1,8 +1,8 @@
-from discord.ext import commands
-from src.functions import get_joke
-from src.embeds import fun_help_embed, meme_embed
-import src.emojis as emojis_list
 import aiohttp
+import src.embeds as embeds
+import src.functions as funcs
+import src.emojis as emojis_list
+from discord.ext import commands
 
 
 class Meme(commands.Cog):
@@ -12,7 +12,7 @@ class Meme(commands.Cog):
     @commands.command()
     async def help_fun(self, ctx: commands.Context):
         await ctx.send(
-            embed=fun_help_embed(
+            embed=embeds.fun_help_embed(
                 ctx=ctx,
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar_url,
@@ -21,7 +21,7 @@ class Meme(commands.Cog):
 
     @commands.command()
     async def joke(self, ctx: commands.Context):
-        joke = get_joke()
+        joke = funcs.get_joke()
 
         await ctx.send(joke)
 
@@ -31,7 +31,9 @@ class Meme(commands.Cog):
             async with client.get("https://some-random-api.ml/meme") as resp:
                 response = await resp.json()
                 await ctx.send(
-                    embed=meme_embed(label=response["caption"], image=response["image"])
+                    embed=embeds.meme_embed(
+                        label=response["caption"], image=response["image"]
+                    )
                 )
 
     @commands.command()

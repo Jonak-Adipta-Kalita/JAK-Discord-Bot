@@ -1,9 +1,8 @@
-from discord.ext import commands
-from dislash import *
-from src.functions import get_prefix, pronunciation, translate_text
-from src.embeds import pronunciation_embed, translation_embed, warning_embed
-import discord, credentials, os, googletrans, asyncio, itertools
+import discord, dislash, credentials, os, googletrans, asyncio, itertools
+import src.functions as funcs
+import src.embeds as embeds
 import src.emojis as emojis
+from discord.ext import commands
 
 
 class JAKDiscordBot(commands.Bot):
@@ -25,7 +24,7 @@ class JAKDiscordBot(commands.Bot):
         print("Bot is Disconnected!!")
 
     async def on_ready(self):
-        self.slash = SlashClient(self)
+        self.slash = dislash.SlashClient(self)
         servers = len(self.guilds)
         statuses = [
             ("listening", f"{self.prefix}help"),
@@ -57,7 +56,7 @@ class JAKDiscordBot(commands.Bot):
                 if word in msg.lower().split(" "):
                     try:
                         await member.send(
-                            embed=warning_embed(
+                            embed=embeds.warning_embed(
                                 f"The word `{word}` is banned!! Watch your Language"
                             )
                         )
@@ -66,8 +65,8 @@ class JAKDiscordBot(commands.Bot):
                         await message.delete()
                     break
 
-        if len(msg) >= 3 and not msg.startswith(get_prefix()):
-            translation = translate_text(msg)
+        if len(msg) >= 3 and not msg.startswith(funcs.get_prefix()):
+            translation = funcs.translate_text(msg)
 
             if translation.src != "en":
                 language_name = ""
@@ -90,7 +89,7 @@ class JAKDiscordBot(commands.Bot):
                             "reaction_add", check=translation_check, timeout=60.0
                         )
                         await message.channel.send(
-                            embed=translation_embed(
+                            embed=embeds.translation_embed(
                                 text=msg,
                                 translated_text=translation.text,
                                 language_name=language_name,
@@ -118,9 +117,9 @@ class JAKDiscordBot(commands.Bot):
                         "reaction_add", check=pronunciation_check, timeout=60.0
                     )
                     await message.channel.send(
-                        embed=pronunciation_embed(
+                        embed=embeds.pronunciation_embed(
                             text=msg,
-                            pronunciation=pronunciation(msg),
+                            pronunciation=funcs.pronunciation(msg),
                             author=member,
                             author_reacted=author_reacted_pronunciation,
                         )
@@ -174,7 +173,9 @@ if __name__ == "__main__":
         bad_words = f.read().splitlines()
 
     bot = JAKDiscordBot(
-        command_prefix=get_prefix(), intents=discord.Intents.all(), bad_words=bad_words
+        command_prefix=funcs.get_prefix(),
+        intents=discord.Intents.all(),
+        bad_words=bad_words,
     )
 
     bot.run(credentials.TOKEN)

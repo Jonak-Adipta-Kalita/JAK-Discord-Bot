@@ -1,17 +1,9 @@
-import asyncio
+import asyncio, dislash
+import src.embeds as embeds
+import src.functions as funcs
 from discord.ext import commands
-from dislash import SlashClient, SelectMenu, SelectOption
-from src.embeds import (
-    fun_help_embed,
-    games_help_embed,
-    help_embed,
-    moderation_help_embed,
-    music_help_embed,
-    rules_embed,
-)
-from src.functions import get_prefix
 
-prefix = get_prefix()
+prefix = funcs.get_prefix()
 
 
 class Normal(commands.Cog):
@@ -23,21 +15,23 @@ class Normal(commands.Cog):
     @commands.bot_has_permissions(embed_links=True)
     async def help(self, ctx: commands.Context):
         msg = await ctx.send(
-            embed=help_embed(
+            embed=embeds.help_embed(
                 ctx=ctx,
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar_url,
             ),
             components=[
-                SelectMenu(
+                dislash.SelectMenu(
                     custom_id="help_command",
                     placeholder="Choose a Category",
                     max_values=1,
                     options=[
-                        SelectOption("Moderation Help", "moderation_help_embed"),
-                        SelectOption("Games Help", "games_help_embed"),
-                        SelectOption("Music Help", "music_help_embed"),
-                        SelectOption("Fun Help", "fun_help_embed"),
+                        dislash.SelectOption(
+                            "Moderation Help", "moderation_help_embed"
+                        ),
+                        dislash.SelectOption("Games Help", "games_help_embed"),
+                        dislash.SelectOption("Music Help", "music_help_embed"),
+                        dislash.SelectOption("Fun Help", "fun_help_embed"),
                     ],
                 )
             ],
@@ -48,7 +42,7 @@ class Normal(commands.Cog):
 
             if inter.select_menu.selected_options[0].value == "moderation_help_embed":
                 await inter.reply(
-                    embed=moderation_help_embed(
+                    embed=embeds.moderation_help_embed(
                         ctx=ctx,
                         bot_name=self.bot.user.name,
                         bot_avatar_url=self.bot.user.avatar_url,
@@ -56,7 +50,7 @@ class Normal(commands.Cog):
                 )
             elif inter.select_menu.selected_options[0].value == "games_help_embed":
                 await inter.reply(
-                    embed=games_help_embed(
+                    embed=embeds.games_help_embed(
                         ctx=ctx,
                         bot_name=self.bot.user.name,
                         bot_avatar_url=self.bot.user.avatar_url,
@@ -64,7 +58,7 @@ class Normal(commands.Cog):
                 )
             elif inter.select_menu.selected_options[0].value == "music_help_embed":
                 await inter.reply(
-                    embed=music_help_embed(
+                    embed=embeds.music_help_embed(
                         ctx=ctx,
                         bot_name=self.bot.user.name,
                         bot_avatar_url=self.bot.user.avatar_url,
@@ -72,7 +66,7 @@ class Normal(commands.Cog):
                 )
             elif inter.select_menu.selected_options[0].value == "fun_help_embed":
                 await inter.reply(
-                    embed=fun_help_embed(
+                    embed=embeds.fun_help_embed(
                         ctx=ctx,
                         bot_name=self.bot.user.name,
                         bot_avatar_url=self.bot.user.avatar_url,
@@ -80,7 +74,7 @@ class Normal(commands.Cog):
                 )
         except asyncio.TimeoutError:
             await msg.edit(
-                embed=help_embed(
+                embed=embeds.help_embed(
                     ctx=ctx,
                     bot_name=self.bot.user.name,
                     bot_avatar_url=self.bot.user.avatar_url,
@@ -92,7 +86,7 @@ class Normal(commands.Cog):
     @commands.bot_has_permissions(embed_links=True)
     async def help_games(self, ctx: commands.Context):
         await ctx.send(
-            embed=games_help_embed(
+            embed=embeds.games_help_embed(
                 ctx=ctx,
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar_url,
@@ -103,7 +97,7 @@ class Normal(commands.Cog):
     @commands.bot_has_permissions(embed_links=True)
     async def show_rules(self, ctx: commands.Context):
         await ctx.send(
-            embed=rules_embed(
+            embed=embeds.rules_embed(
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar_url,
                 embed_blank_value=self.embed_blank_value,

@@ -1,14 +1,11 @@
-import random
+import dislash, random
 from discord.ext import commands
 
 
 class _8Ball(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-
-    @commands.command(name="8ball")
-    async def _8ball(self, ctx: commands.Context, *, question):
-        responses = [
+        self.responses = [
             "It is certain.",
             "It is decidedly so.",
             "Without a doubt.",
@@ -32,8 +29,26 @@ class _8Ball(commands.Cog):
             "Kinda Lazy to answer.",
         ]
 
+    @commands.command(name="8ball")
+    async def _8ball(self, ctx: commands.Context, *, question):
         await ctx.send(
-            f"Question: {question}\nAnswer: {random.choice(responses)} :relieved:"
+            f"Question: {question}\nAnswer: {random.choice(self.responses)} :relieved:"
+        )
+
+    @dislash.slash_command(
+        name="8ball",
+        description="Play 8Ball Game!!",
+        options=[
+            dislash.Option(
+                name="question",
+                description="The Question you want to ask!!",
+                required=True,
+            )
+        ],
+    )
+    async def slash_8ball(self, inter, question):
+        await inter.respond(
+            f"Question: {question}\nAnswer: {random.choice(self.responses)} :relieved:"
         )
 
 

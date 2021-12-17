@@ -1,9 +1,9 @@
 import discord
+import src.embeds as embeds
+import src.functions as funcs
 from discord.ext import commands
-from src.functions import get_prefix
-from src.embeds import moderation_help_embed
 
-prefix = get_prefix()
+prefix = funcs.get_prefix()
 
 
 class Moderation(commands.Cog):
@@ -14,7 +14,7 @@ class Moderation(commands.Cog):
     @commands.bot_has_permissions(embed_links=True)
     async def help_moderation(self, ctx: commands.Context):
         await ctx.send(
-            embed=moderation_help_embed(
+            embed=embeds.moderation_help_embed(
                 ctx=ctx,
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar_url,

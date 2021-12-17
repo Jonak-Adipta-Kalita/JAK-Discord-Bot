@@ -1,10 +1,10 @@
 import discord, random
-from discord.ext import commands
-from src.embeds import tictactoe_help_embed
-from src.functions import get_prefix
+import src.embeds as embeds
+import src.functions as funcs
 import src.emojis as emojis
+from discord.ext import commands
 
-prefix = get_prefix()
+prefix = funcs.get_prefix()
 
 
 class TicTacToe(commands.Cog):
@@ -30,7 +30,7 @@ class TicTacToe(commands.Cog):
     @commands.bot_has_permissions(embed_links=True)
     async def help_tictactoe(self, ctx: commands.Context):
         await ctx.send(
-            embed=tictactoe_help_embed(
+            embed=embeds.tictactoe_help_embed(
                 ctx=ctx,
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar_url,

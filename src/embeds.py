@@ -1,9 +1,9 @@
 import discord
-from discord.ext import commands
-from src.functions import get_prefix
+import src.functions as funcs
 import src.emojis as emojis
+from discord.ext import commands
 
-prefix = get_prefix()
+prefix = funcs.get_prefix()
 
 
 def rules_embed(bot_name: str, bot_avatar_url: str, embed_blank_value: str):

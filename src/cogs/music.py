@@ -1,9 +1,9 @@
 import discord, youtube_dl
+import src.embeds as embeds
+import src.functions as funcs
 from discord.ext import commands
-from src.embeds import music_help_embed, music_playing_embed
-from src.functions import get_prefix
 
-prefix = get_prefix()
+prefix = funcs.get_prefix()
 
 
 class Music(commands.Cog):
@@ -14,7 +14,7 @@ class Music(commands.Cog):
     @commands.bot_has_permissions(embed_links=True)
     async def help_music(self, ctx: commands.Context):
         await ctx.send(
-            embed=music_help_embed(
+            embed=embeds.music_help_embed(
                 ctx=ctx,
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar_url,
@@ -82,7 +82,7 @@ class Music(commands.Cog):
                     url = info["formats"][0]["url"]
 
                 if info:
-                    await ctx.send(embed=music_playing_embed(info))
+                    await ctx.send(embed=embeds.music_playing_embed(info))
 
                 source = await discord.FFmpegOpusAudio.from_probe(url, **FFMPEG_OPTIONS)
                 vc.play(source)
