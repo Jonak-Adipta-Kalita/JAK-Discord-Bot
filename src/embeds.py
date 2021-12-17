@@ -197,6 +197,11 @@ def fun_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         value="Convert Text to Emoji",
         inline=False,
     )
+    embed.add_field(
+        name=f"{prefix}code_snippet <code>",
+        value="Convert Code Block to Snippet",
+        inline=False,
+    )
     embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
 
     return embed

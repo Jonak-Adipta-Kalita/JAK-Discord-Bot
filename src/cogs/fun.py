@@ -1,11 +1,11 @@
-import aiohttp
+import aiohttp, discord, carbonnow
 import src.embeds as embeds
 import src.functions as funcs
 import src.emojis as emojis_list
 from discord.ext import commands
 
 
-class Meme(commands.Cog):
+class Fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -70,6 +70,20 @@ class Meme(commands.Cog):
 
         await ctx.send(" ".join(emojis))
 
+    @commands.command()
+    async def code_snippet(self, ctx: commands.Context, code: str):
+        author_id = ctx.author.id
+
+        carbon = carbonnow.Carbon(code=code)
+        carbon_file = await carbon.save(f"snippets/{author_id}")
+
+        file = discord.File(carbon_file, filename=f"{author_id}.jpg")
+
+        embed = discord.Embed(color=discord.Color.blue())
+        embed.set_image(url=f"attachment://{author_id}.jpg")
+
+        await ctx.send(file=file, embed=embed)
+
 
 def setup(bot):
-    bot.add_cog(Meme(bot))
+    bot.add_cog(Fun(bot))
