@@ -75,7 +75,7 @@ class Fun(commands.Cog):
     async def code_snippet(self, ctx: commands.Context, *, code: str):
         author_id = ctx.author.id
 
-        carbon = carbonnow.Carbon(code=code)
+        carbon = carbonnow.Carbon(code="\n".join(code.split("\n")[1:-1]))
         carbon_file = await carbon.save(f"snippets/{author_id}")
 
         await ctx.send(
