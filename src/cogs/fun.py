@@ -1,4 +1,4 @@
-import aiohttp, carbonnow
+import aiohttp, os
 import src.embeds as embeds
 import src.functions as funcs
 import src.emojis as emojis_list
@@ -74,13 +74,31 @@ class Fun(commands.Cog):
     @commands.command()
     async def code_snippet(self, ctx: commands.Context, *, code: str):
         author_id = ctx.author.id
+        code_edited = "\n".join(code.split("\n")[1:-1])
 
-        carbon = carbonnow.Carbon(code="\n".join(code.split("\n")[1:-1]))
-        carbon_file = await carbon.save(f"snippets/{author_id}")
+        async with aiohttp.ClientSession(
+            headers={"Content-Type": "application/json"},
+        ) as ses:
+            try:
+                request = await ses.post(
+                    f"https://carbonara-42.herokuapp.com/api/cook",
+                    json={
+                        "code": code_edited,
+                    },
+                )
+            except Exception as e:
+                print(f"Exception: {e}")
+
+            resp = await request.read()
+
+        with open(f"snippets/{author_id}.png", "wb") as f:
+            f.write(resp)
+            carbon_file = f
 
         await ctx.send(
-            file=files.code_snippet_file(carbon_file=carbon_file, author_id=author_id),
-            embed=embeds.code_snippet_embed(author_id=author_id),
+            file=files.code_snippet_file(
+                carbon_file=os.path.realpath(carbon_file.name), author_id=author_id
+            ),
         )
 
 
