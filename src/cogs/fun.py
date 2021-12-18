@@ -1,4 +1,4 @@
-import aiohttp, os
+import aiohttp, asyncio, os
 import src.embeds as embeds
 import src.functions as funcs
 import src.emojis as emojis_list
@@ -103,6 +103,11 @@ class Fun(commands.Cog):
                     carbon_file=os.path.realpath(carbon_file.name), author_id=author_id
                 ),
             )
+
+            await asyncio.sleep(60)
+
+            if os.path.isfile(f"snippets/{author_id}.png"):
+                os.remove(f"snippets/{author_id}.png")
         else:
             await ctx.send(f"{member.mention}!! Use a CodeBlock!!")
 
