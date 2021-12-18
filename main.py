@@ -149,7 +149,7 @@ class JAKDiscordBot(commands.Bot):
         self, ctx: commands.Context, error: discord.HTTPException
     ):
         print(error)
-        member = ctx.message.author
+        member = ctx.author
 
         if isinstance(error, commands.CommandNotFound):
             await ctx.send(f"{member.mention} Its not a valid Command!!")

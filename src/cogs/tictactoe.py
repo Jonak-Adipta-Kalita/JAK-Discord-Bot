@@ -42,7 +42,7 @@ class TicTacToe(commands.Cog):
         self, ctx: commands.Context, p1: discord.Member, p2: discord.Member
     ):
         global count
-        member = ctx.message.author
+        member = ctx.author
 
         if self.game_over:
             self.board = [
@@ -84,7 +84,7 @@ class TicTacToe(commands.Cog):
     @commands.command()
     async def tictactoe_place(self, ctx: commands.Context, pos: int):
         global count
-        member = ctx.message.author
+        member = ctx.author
 
         if not self.game_over:
             mark = ""
@@ -128,7 +128,7 @@ class TicTacToe(commands.Cog):
 
     @commands.command()
     async def tictactoe_stop(self, ctx: commands.Context):
-        member = ctx.message.author
+        member = ctx.author
         if not self.game_over:
             self.game_over = True
             await ctx.send(f"{member.mention} Stopped the Game!!")

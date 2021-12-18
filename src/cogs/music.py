@@ -24,7 +24,7 @@ class Music(commands.Cog):
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def join_vc(self, ctx: commands.Context):
-        member = ctx.message.author
+        member = ctx.author
 
         if ctx.author.voice is None:
             await ctx.send(
@@ -46,7 +46,7 @@ class Music(commands.Cog):
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def leave_vc(self, ctx: commands.Context):
-        member = ctx.message.author
+        member = ctx.author
 
         if ctx.voice_client:
             await ctx.send(f"{member.mention} Disconnected!!")
@@ -59,7 +59,7 @@ class Music(commands.Cog):
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def play_music(self, ctx: commands.Context, *, music_name: str):
-        member = ctx.message.author
+        member = ctx.author
         vc = ctx.voice_client
 
         if vc:
@@ -95,7 +95,7 @@ class Music(commands.Cog):
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def pause_music(self, ctx: commands.Context):
-        member = ctx.message.author
+        member = ctx.author
         vc = ctx.voice_client
 
         if vc:
@@ -112,7 +112,7 @@ class Music(commands.Cog):
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def resume_music(self, ctx: commands.Context):
-        member = ctx.message.author
+        member = ctx.author
         vc = ctx.voice_client
 
         if vc:
@@ -129,7 +129,7 @@ class Music(commands.Cog):
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def volume_music(self, ctx: commands.Context, volume: int):
-        member = ctx.message.author
+        member = ctx.author
         vc = ctx.voice_client
 
         if vc:
@@ -143,7 +143,7 @@ class Music(commands.Cog):
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def stop_music(self, ctx: commands.Context):
-        member = ctx.message.author
+        member = ctx.author
         vc = ctx.voice_client
 
         if vc:

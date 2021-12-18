@@ -73,33 +73,38 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def code_snippet(self, ctx: commands.Context, *, code: str):
-        author_id = ctx.author.id
-        code_edited = "\n".join(code.split("\n")[1:-1])
+        member = ctx.author
 
-        async with aiohttp.ClientSession(
-            headers={"Content-Type": "application/json"},
-        ) as ses:
-            try:
-                request = await ses.post(
-                    f"https://carbonara-42.herokuapp.com/api/cook",
-                    json={
-                        "code": code_edited,
-                    },
-                )
-            except Exception as e:
-                print(f"Exception: {e}")
+        if code.startswith("```") and code.endswith("```"):
+            author_id = member.id
+            code_edited = "\n".join(code.split("\n")[1:-1])
 
-            resp = await request.read()
+            async with aiohttp.ClientSession(
+                headers={"Content-Type": "application/json"},
+            ) as ses:
+                try:
+                    request = await ses.post(
+                        f"https://carbonara-42.herokuapp.com/api/cook",
+                        json={
+                            "code": code_edited,
+                        },
+                    )
+                except Exception as e:
+                    print(f"Exception: {e}")
 
-        with open(f"snippets/{author_id}.png", "wb") as f:
-            f.write(resp)
-            carbon_file = f
+                resp = await request.read()
 
-        await ctx.send(
-            file=files.code_snippet_file(
-                carbon_file=os.path.realpath(carbon_file.name), author_id=author_id
-            ),
-        )
+            with open(f"snippets/{author_id}.png", "wb") as f:
+                f.write(resp)
+                carbon_file = f
+
+            await ctx.send(
+                file=files.code_snippet_file(
+                    carbon_file=os.path.realpath(carbon_file.name), author_id=author_id
+                ),
+            )
+        else:
+            await ctx.send(f"{member.mention}!! Use a CodeBlock!!")
 
 
 def setup(bot):
