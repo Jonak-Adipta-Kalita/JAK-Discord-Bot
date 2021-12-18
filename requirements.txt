@@ -1,6 +1,6 @@
 aiohttp==3.7.4
 appdirs==1.4.4
-async-timeout==3.0.1
+async-timeout==4.0.1
 asyncio==3.4.3
 attrs==21.2.0
 black==21.9b0
