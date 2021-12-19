@@ -42,11 +42,12 @@ class _8Ball(commands.Cog):
             dislash.Option(
                 name="question",
                 description="The Question you want to ask!!",
+                type=dislash.Type.STRING,
                 required=True,
             )
         ],
     )
-    async def slash_8ball(self, inter, question):
+    async def _8ball_(self, inter, question):
         await inter.respond(
             f"Question: {question}\nAnswer: {random.choice(self.responses)} :relieved:"
         )
