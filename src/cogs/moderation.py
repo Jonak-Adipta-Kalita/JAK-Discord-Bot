@@ -75,5 +75,5 @@ class Moderation(commands.Cog):
         pass
 
 
-def setup(bot):
+def setup(bot: commands.Bot):
     bot.add_cog(Moderation(bot))

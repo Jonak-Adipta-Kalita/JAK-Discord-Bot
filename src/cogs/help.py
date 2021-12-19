@@ -44,6 +44,14 @@ class Help(commands.Cog):
                     bot_avatar_url=self.bot.user.avatar_url,
                 )
             )
+        elif type == "user":
+            await ctx.message.reply(
+                embed=embeds.user_help_embed(
+                    ctx=ctx,
+                    bot_name=self.bot.user.name,
+                    bot_avatar_url=self.bot.user.avatar_url,
+                )
+            )
         elif type == "default":
             msg = await ctx.send(
                 embed=embeds.help_embed(
@@ -63,6 +71,7 @@ class Help(commands.Cog):
                             dislash.SelectOption("Games Help", "games_help_embed"),
                             dislash.SelectOption("Music Help", "music_help_embed"),
                             dislash.SelectOption("Fun Help", "fun_help_embed"),
+                            dislash.SelectOption("User Help", "user_help_embed"),
                         ],
                     )
                 ],
@@ -106,6 +115,14 @@ class Help(commands.Cog):
                             bot_avatar_url=self.bot.user.avatar_url,
                         )
                     )
+                elif inter.select_menu.selected_options[0].value == "user_help_embed":
+                    await inter.reply(
+                        embed=embeds.user_help_embed(
+                            ctx=ctx,
+                            bot_name=self.bot.user.name,
+                            bot_avatar_url=self.bot.user.avatar_url,
+                        )
+                    )
             except asyncio.TimeoutError:
                 await msg.edit(
                     embed=embeds.help_embed(
@@ -125,5 +142,5 @@ class Help(commands.Cog):
             return
 
 
-def setup(bot):
+def setup(bot: commands.Bot):
     bot.add_cog(Help(bot))

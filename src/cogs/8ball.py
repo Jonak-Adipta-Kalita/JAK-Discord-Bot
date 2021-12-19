@@ -53,5 +53,5 @@ class _8Ball(commands.Cog):
         )
 
 
-def setup(bot):
+def setup(bot: commands.Bot):
     bot.add_cog(_8Ball(bot))

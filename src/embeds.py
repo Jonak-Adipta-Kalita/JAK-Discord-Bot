@@ -222,6 +222,21 @@ def fun_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     return embed
 
 
+def user_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
+    embed = discord.Embed(
+        color=discord.Color.blue(),
+    )
+    embed.set_author(name=f"{bot_name} - User Help Menu", icon_url=bot_avatar_url)
+    embed.add_field(
+        name=f"{prefix}user_avatar @<member>",
+        value="Show the Avatar of a Member",
+        inline=False,
+    )
+    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
+
+    return embed
+
+
 def tictactoe_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     embed = discord.Embed(
         color=discord.Color.blue(),
@@ -315,5 +330,12 @@ def pronunciation_embed(
 def meme_embed(label: str, image: str):
     embed = discord.Embed(title=f"Caption: **{label}**", color=discord.Color.blue())
     embed.set_image(url=image)
+
+    return embed
+
+
+def user_avatar_embed(avatar_url: str, name: str):
+    embed = discord.Embed(title=f"{name}'s Avatar", color=discord.Color.blue())
+    embed.set_image(url=avatar_url)
 
     return embed

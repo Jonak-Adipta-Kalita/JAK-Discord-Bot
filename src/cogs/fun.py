@@ -102,5 +102,5 @@ class Fun(commands.Cog):
             await ctx.message.reply("Use a CodeBlock!!")
 
 
-def setup(bot):
+def setup(bot: commands.Bot):
     bot.add_cog(Fun(bot))

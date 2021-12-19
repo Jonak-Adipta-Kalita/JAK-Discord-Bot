@@ -134,5 +134,5 @@ class TicTacToe(commands.Cog):
                 self.game_over = True
 
 
-def setup(bot):
+def setup(bot: commands.Bot):
     bot.add_cog(TicTacToe(bot))

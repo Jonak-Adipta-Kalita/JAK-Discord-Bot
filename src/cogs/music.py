@@ -123,5 +123,5 @@ class Music(commands.Cog):
             await ctx.message.reply("I am not Connected to any Voice Channel!!")
 
 
-def setup(bot):
+def setup(bot: commands.Bot):
     bot.add_cog(Music(bot))
