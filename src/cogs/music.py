@@ -11,16 +11,6 @@ class Music(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def help_music(self, ctx: commands.Context):
-        await ctx.send(
-            embed=embeds.music_help_embed(
-                ctx=ctx,
-                bot_name=self.bot.user.name,
-                bot_avatar_url=self.bot.user.avatar_url,
-            )
-        )
-
-    @commands.command()
     # @commands.has_permissions(connect=True)
     async def join_vc(self, ctx: commands.Context):
         if ctx.author.voice is None:

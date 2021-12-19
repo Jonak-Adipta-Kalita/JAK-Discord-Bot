@@ -9,16 +9,7 @@ prefix = funcs.get_prefix()
 class Moderation(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-
-    @commands.command()
-    async def help_moderation(self, ctx: commands.Context):
-        await ctx.send(
-            embed=embeds.moderation_help_embed(
-                ctx=ctx,
-                bot_name=self.bot.user.name,
-                bot_avatar_url=self.bot.user.avatar_url,
-            )
-        )
+        self.embed_blank_value = "\u200b"
 
     @commands.command()
     @commands.has_permissions(kick_members=True)

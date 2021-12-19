@@ -43,22 +43,22 @@ def help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     )
     embed.set_author(name=f"{bot_name} - Help Menu", icon_url=bot_avatar_url)
     embed.add_field(
-        name=f"{prefix}help_moderation",
+        name=f"{prefix}help moderation",
         value="Show the Moderation Commands",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}help_games",
+        name=f"{prefix}help games",
         value="Show the Game Commands",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}help_music",
+        name=f"{prefix}help music",
         value="Show the Music Commands",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}help_fun",
+        name=f"{prefix}help fun",
         value="Show the Fun Commands",
         inline=False,
     )

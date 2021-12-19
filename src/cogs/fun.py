@@ -11,16 +11,6 @@ class Fun(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    async def help_fun(self, ctx: commands.Context):
-        await ctx.send(
-            embed=embeds.fun_help_embed(
-                ctx=ctx,
-                bot_name=self.bot.user.name,
-                bot_avatar_url=self.bot.user.avatar_url,
-            )
-        )
-
-    @commands.command()
     async def joke(self, ctx: commands.Context):
         joke = funcs.get_joke()
 

@@ -27,16 +27,6 @@ class TicTacToe(commands.Cog):
         ]
 
     @commands.command()
-    async def help_tictactoe(self, ctx: commands.Context):
-        await ctx.send(
-            embed=embeds.tictactoe_help_embed(
-                ctx=ctx,
-                bot_name=self.bot.user.name,
-                bot_avatar_url=self.bot.user.avatar_url,
-            )
-        )
-
-    @commands.command()
     async def tictactoe(
         self, ctx: commands.Context, p1: discord.Member, p2: discord.Member
     ):
