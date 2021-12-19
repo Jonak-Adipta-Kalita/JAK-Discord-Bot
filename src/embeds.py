@@ -81,29 +81,29 @@ def moderation_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: 
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}kick @<member> reason=<reason>",
+        name=f"{prefix}kick @<member> <reason>",
         value="Kick Member or Bot",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}ban @<member> reason=<reason>",
+        name=f"{prefix}ban @<member> <reason>",
         value="Ban Member or Bot",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}unban <member, tag>",
+        name=f"{prefix}unban <member,tag>",
         value="Unban Member or Bot",
         inline=False,
     )
     embed.add_field(name=f"{prefix}show_rules", value="Show the Rules", inline=False)
     embed.add_field(name=f"{prefix}ping", value="Show the Ping", inline=False)
     embed.add_field(
-        name=f"{prefix}mute @<member> reason=<reason>",
+        name=f"{prefix}mute @<member> <reason>",
         value="Mute Member or Bot",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}unmute @<member> reason=<reason>",
+        name=f"{prefix}unmute @<member> <reason>",
         value="UnMute Member or Bot",
         inline=False,
     )
