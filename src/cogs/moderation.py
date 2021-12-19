@@ -18,7 +18,7 @@ class Moderation(commands.Cog):
         self, ctx: commands.Context, member: discord.Member, *, reason="Nothing"
     ):
         await member.kick(reason=reason)
-        await ctx.message.reply(f"{member.mention} is Kicked!! Reason: {reason}")
+        await ctx.reply(f"{member.mention} is Kicked!! Reason: {reason}")
 
     @commands.command()
     @commands.has_permissions(kick_members=True, ban_members=True)
@@ -27,7 +27,7 @@ class Moderation(commands.Cog):
         self, ctx: commands.Context, member: discord.Member, *, reason="Nothing!!"
     ):
         await member.ban(reason=reason)
-        await ctx.message.reply(f"{member.mention} is Banned!! Reason: {reason}")
+        await ctx.reply(f"{member.mention} is Banned!! Reason: {reason}")
 
     @commands.command()
     @commands.has_permissions(kick_members=True, ban_members=True)
@@ -39,7 +39,7 @@ class Moderation(commands.Cog):
             user = ban_entry.user
             if (user.name, user.discriminator) == (member_name, member_discriminator):
                 await ctx.guild.unban(user)
-                await ctx.message.reply(f"{member} is Unbanned!!")
+                await ctx.reply(f"{member} is Unbanned!!")
                 return
 
     @commands.command()
@@ -50,7 +50,7 @@ class Moderation(commands.Cog):
 
     @commands.command(aliases=["rules"])
     async def show_rules(self, ctx: commands.Context):
-        await ctx.message.reply(
+        await ctx.reply(
             embed=embeds.rules_embed(
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar_url,
@@ -60,7 +60,7 @@ class Moderation(commands.Cog):
 
     @commands.command()
     async def ping(self, ctx: commands.Context):
-        await ctx.message.reply(f"Ping: {round(self.bot.latency * 1000)}")
+        await ctx.reply(f"Ping: {round(self.bot.latency * 1000)}")
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)

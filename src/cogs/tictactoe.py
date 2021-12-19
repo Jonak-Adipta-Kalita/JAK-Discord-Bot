@@ -31,7 +31,6 @@ class TicTacToe(commands.Cog):
         self, ctx: commands.Context, p1: discord.Member, p2: discord.Member
     ):
         global count
-        member = ctx.author
 
         if self.game_over:
             self.board = [
@@ -66,14 +65,13 @@ class TicTacToe(commands.Cog):
                 self.turn = self.player2
                 await ctx.send(f"Its {self.player2.mention}'s turn!!")
         else:
-            await ctx.send(
-                f"{member.mention} A game is already in progress!! Finish it or Stop it!!"
+            await ctx.reply(
+                "A game is already in progress!! Finish it or Stop it!!"
             )
 
     @commands.command()
     async def tictactoe_place(self, ctx: commands.Context, pos: int):
         global count
-        member = ctx.author
 
         if not self.game_over:
             mark = ""
@@ -107,22 +105,22 @@ class TicTacToe(commands.Cog):
                         self.turn = self.player1
                         await ctx.send(f"Its {self.player1.mention}'s turn!!")
                 else:
-                    await ctx.send(
-                        f"{member.mention} Be sure to choose an integer between 1 and 9 (inclusive) and an unmarked tile!!"
+                    await ctx.reply(
+                        "Be sure to choose an integer between 1 and 9 (inclusive) and an unmarked tile!!"
                     )
             else:
-                await ctx.send(f"{member.mention} It is not your turn!!")
+                await ctx.reply("It is not your turn!!")
         else:
-            await ctx.send(f"{member.mention} Please start a new game!!")
+            await ctx.reply("Please start a new game!!")
 
     @commands.command()
     async def tictactoe_stop(self, ctx: commands.Context):
         member = ctx.author
         if not self.game_over:
             self.game_over = True
-            await ctx.send(f"{member.mention} Stopped the Game!!")
+            await ctx.reply("Stopped the Game!!")
         else:
-            await ctx.send(f"{member.mention} No game is currently running!!")
+            await ctx.reply("No game is currently running!!")
 
     def tictactoe_check_winner(self, winning_conditions, mark):
         for condition in winning_conditions:

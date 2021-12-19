@@ -9,7 +9,7 @@ class User(commands.Cog):
 
     @commands.command()
     async def user_avatar(self, ctx: commands.Context, member: discord.Member):
-        await ctx.message.reply(
+        await ctx.reply(
             embed=embeds.user_avatar_embed(
                 avatar_url=member.avatar_url, name=member.display_name
             )

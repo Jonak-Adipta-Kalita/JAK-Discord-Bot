@@ -14,26 +14,26 @@ class Music(commands.Cog):
     # @commands.has_permissions(connect=True)
     async def join_vc(self, ctx: commands.Context):
         if ctx.author.voice is None:
-            await ctx.message.reply("You are not Connected to a Voice Channel!!")
+            await ctx.reply("You are not Connected to a Voice Channel!!")
             return
         if ctx.voice_client is None:
             voice_channel = ctx.author.voice.channel
             try:
                 await voice_channel.connect()
-                await ctx.message.reply("Connected!!")
+                await ctx.reply("Connected!!")
             except discord.HTTPException:
-                await ctx.message.reply("Can't Connect to this Voice Channel!!")
+                await ctx.reply("Can't Connect to this Voice Channel!!")
         else:
-            await ctx.message.reply("I am already in a Voice Channel!!")
+            await ctx.reply("I am already in a Voice Channel!!")
 
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def leave_vc(self, ctx: commands.Context):
         if ctx.voice_client:
-            await ctx.message.reply("Disconnected!!")
+            await ctx.reply("Disconnected!!")
             await ctx.voice_client.disconnect()
         else:
-            await ctx.message.reply("I am not Connected to any Voice Channel!!")
+            await ctx.reply("I am not Connected to any Voice Channel!!")
 
     @commands.command()
     # @commands.has_permissions(connect=True)
@@ -60,13 +60,13 @@ class Music(commands.Cog):
                     url = info["formats"][0]["url"]
 
                 if info:
-                    await ctx.message.reply(embed=embeds.music_playing_embed(info))
+                    await ctx.reply(embed=embeds.music_playing_embed(info))
 
                 source = await discord.FFmpegOpusAudio.from_probe(url, **FFMPEG_OPTIONS)
                 vc.play(source)
 
         else:
-            await ctx.message.reply("I am not Connected to any Voice Channel!!")
+            await ctx.reply("I am not Connected to any Voice Channel!!")
 
     @commands.command()
     # @commands.has_permissions(connect=True)
@@ -75,12 +75,12 @@ class Music(commands.Cog):
 
         if vc:
             if ctx.voice_client.is_playing():
-                await ctx.message.reply("Song Paused!!")
+                await ctx.reply("Song Paused!!")
                 await ctx.voice_client.pause()
             else:
-                await ctx.message.reply("No Song is Playing!!")
+                await ctx.reply("No Song is Playing!!")
         else:
-            await ctx.message.reply("I am not Connected to any Voice Channel!!")
+            await ctx.reply("I am not Connected to any Voice Channel!!")
 
     @commands.command()
     # @commands.has_permissions(connect=True)
@@ -90,12 +90,12 @@ class Music(commands.Cog):
 
         if vc:
             if ctx.voice_client.is_paused():
-                await ctx.message.reply("Song Resumed!!")
+                await ctx.reply("Song Resumed!!")
                 await ctx.voice_client.resume()
             else:
-                await ctx.message.reply("No Song is Paused!!")
+                await ctx.reply("No Song is Paused!!")
         else:
-            await ctx.message.reply(" I am not Connected to any Voice Channel!!")
+            await ctx.reply(" I am not Connected to any Voice Channel!!")
 
     @commands.command()
     # @commands.has_permissions(connect=True)
@@ -104,9 +104,9 @@ class Music(commands.Cog):
 
         if vc:
             vc.source.volume = volume / 100
-            await ctx.message.reply(f"Changed volume to {volume}%")
+            await ctx.reply(f"Changed volume to {volume}%")
         else:
-            await ctx.message.reply("I am not Connected to any Voice Channel!!")
+            await ctx.reply("I am not Connected to any Voice Channel!!")
 
     @commands.command()
     # @commands.has_permissions(connect=True)
@@ -115,12 +115,12 @@ class Music(commands.Cog):
 
         if vc:
             if ctx.voice_client.is_playing() or ctx.voice_client.is_paused():
-                await ctx.message.reply("Song Stopped!!")
+                await ctx.reply("Song Stopped!!")
                 await ctx.voice_client.stop()
             else:
-                await ctx.message.reply("No Song is Playing")
+                await ctx.reply("No Song is Playing")
         else:
-            await ctx.message.reply("I am not Connected to any Voice Channel!!")
+            await ctx.reply("I am not Connected to any Voice Channel!!")
 
 
 def setup(bot: commands.Bot):

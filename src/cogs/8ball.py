@@ -31,7 +31,7 @@ class _8Ball(commands.Cog):
 
     @commands.command(name="8ball")
     async def _8ball(self, ctx: commands.Context, *, question):
-        await ctx.message.reply(
+        await ctx.reply(
             f"Question: {question}\nAnswer: {random.choice(self.responses)} :relieved:"
         )
 

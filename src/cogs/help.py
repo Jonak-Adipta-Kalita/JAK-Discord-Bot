@@ -13,7 +13,7 @@ class Help(commands.Cog):
     @commands.command()
     async def help(self, ctx: commands.Context, type: str = "default"):
         if type == "moderation":
-            await ctx.message.reply(
+            await ctx.reply(
                 embed=embeds.moderation_help_embed(
                     ctx=ctx,
                     bot_name=self.bot.user.name,
@@ -21,7 +21,7 @@ class Help(commands.Cog):
                 )
             )
         elif type == "games":
-            await ctx.message.reply(
+            await ctx.reply(
                 embed=embeds.games_help_embed(
                     ctx=ctx,
                     bot_name=self.bot.user.name,
@@ -29,7 +29,7 @@ class Help(commands.Cog):
                 )
             )
         elif type == "music":
-            await ctx.message.reply(
+            await ctx.reply(
                 embed=embeds.music_help_embed(
                     ctx=ctx,
                     bot_name=self.bot.user.name,
@@ -37,7 +37,7 @@ class Help(commands.Cog):
                 )
             )
         elif type == "fun":
-            await ctx.message.reply(
+            await ctx.reply(
                 embed=embeds.fun_help_embed(
                     ctx=ctx,
                     bot_name=self.bot.user.name,
@@ -45,7 +45,7 @@ class Help(commands.Cog):
                 )
             )
         elif type == "user":
-            await ctx.message.reply(
+            await ctx.reply(
                 embed=embeds.user_help_embed(
                     ctx=ctx,
                     bot_name=self.bot.user.name,
