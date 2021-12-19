@@ -8,7 +8,7 @@ prefix = funcs.get_prefix()
 
 
 class TicTacToe(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.player1 = ""
         self.player2 = ""
@@ -27,7 +27,6 @@ class TicTacToe(commands.Cog):
         ]
 
     @commands.command()
-    @commands.bot_has_permissions(embed_links=True)
     async def help_tictactoe(self, ctx: commands.Context):
         await ctx.send(
             embed=embeds.tictactoe_help_embed(

@@ -7,12 +7,11 @@ prefix = funcs.get_prefix()
 
 
 class Normal(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.embed_blank_value = "\u200b"
 
     @commands.command()
-    @commands.bot_has_permissions(embed_links=True)
     async def help(self, ctx: commands.Context):
         msg = await ctx.send(
             embed=embeds.help_embed(
@@ -83,7 +82,6 @@ class Normal(commands.Cog):
             )
 
     @commands.command()
-    @commands.bot_has_permissions(embed_links=True)
     async def help_games(self, ctx: commands.Context):
         await ctx.send(
             embed=embeds.games_help_embed(
@@ -92,21 +90,6 @@ class Normal(commands.Cog):
                 bot_avatar_url=self.bot.user.avatar_url,
             )
         )
-
-    @commands.command(aliases=["rules"])
-    @commands.bot_has_permissions(embed_links=True)
-    async def show_rules(self, ctx: commands.Context):
-        await ctx.send(
-            embed=embeds.rules_embed(
-                bot_name=self.bot.user.name,
-                bot_avatar_url=self.bot.user.avatar_url,
-                embed_blank_value=self.embed_blank_value,
-            )
-        )
-
-    @commands.command()
-    async def ping(self, ctx: commands.Context):
-        await ctx.send(f"Ping: {round(self.bot.latency * 1000)}")
 
 
 def setup(bot):

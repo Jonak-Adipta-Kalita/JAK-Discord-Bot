@@ -3,7 +3,7 @@ from discord.ext import commands
 
 
 class _8Ball(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.responses = [
             "It is certain.",
@@ -31,7 +31,7 @@ class _8Ball(commands.Cog):
 
     @commands.command(name="8ball")
     async def _8ball(self, ctx: commands.Context, *, question):
-        await ctx.send(
+        await ctx.message.reply(
             f"Question: {question}\nAnswer: {random.choice(self.responses)} :relieved:"
         )
 

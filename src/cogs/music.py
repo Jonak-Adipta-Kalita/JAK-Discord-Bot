@@ -7,11 +7,10 @@ prefix = funcs.get_prefix()
 
 
 class Music(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.command()
-    @commands.bot_has_permissions(embed_links=True)
     async def help_music(self, ctx: commands.Context):
         await ctx.send(
             embed=embeds.music_help_embed(
@@ -24,42 +23,31 @@ class Music(commands.Cog):
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def join_vc(self, ctx: commands.Context):
-        member = ctx.author
-
         if ctx.author.voice is None:
-            await ctx.send(
-                f"{member.mention} You are not Connected to a Voice Channel!!"
-            )
+            await ctx.message.reply("You are not Connected to a Voice Channel!!")
             return
         if ctx.voice_client is None:
             voice_channel = ctx.author.voice.channel
             try:
                 await voice_channel.connect()
-                await ctx.send(f"{member.mention} Connected!!")
+                await ctx.message.reply("Connected!!")
             except discord.HTTPException:
-                await ctx.send(
-                    f"{member.mention} Can't Connect to this Voice Channel!!"
-                )
+                await ctx.message.reply("Can't Connect to this Voice Channel!!")
         else:
-            await ctx.send(f"{member.mention} I am already in a Voice Channel!!")
+            await ctx.message.reply("I am already in a Voice Channel!!")
 
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def leave_vc(self, ctx: commands.Context):
-        member = ctx.author
-
         if ctx.voice_client:
-            await ctx.send(f"{member.mention} Disconnected!!")
+            await ctx.message.reply("Disconnected!!")
             await ctx.voice_client.disconnect()
         else:
-            await ctx.send(
-                f"{member.mention} I am not Connected to any Voice Channel!!"
-            )
+            await ctx.message.reply("I am not Connected to any Voice Channel!!")
 
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def play_music(self, ctx: commands.Context, *, music_name: str):
-        member = ctx.author
         vc = ctx.voice_client
 
         if vc:
@@ -82,32 +70,27 @@ class Music(commands.Cog):
                     url = info["formats"][0]["url"]
 
                 if info:
-                    await ctx.send(embed=embeds.music_playing_embed(info))
+                    await ctx.message.reply(embed=embeds.music_playing_embed(info))
 
                 source = await discord.FFmpegOpusAudio.from_probe(url, **FFMPEG_OPTIONS)
                 vc.play(source)
 
         else:
-            await ctx.send(
-                f"{member.mention} I am not Connected to any Voice Channel!!"
-            )
+            await ctx.message.reply("I am not Connected to any Voice Channel!!")
 
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def pause_music(self, ctx: commands.Context):
-        member = ctx.author
         vc = ctx.voice_client
 
         if vc:
             if ctx.voice_client.is_playing():
-                await ctx.send(f"{member.mention} Song Paused!!")
+                await ctx.message.reply("Song Paused!!")
                 await ctx.voice_client.pause()
             else:
-                await ctx.send(f"{member.mention} No Song is Playing!!")
+                await ctx.message.reply("No Song is Playing!!")
         else:
-            await ctx.send(
-                f"{member.mention} I am not Connected to any Voice Channel!!"
-            )
+            await ctx.message.reply("I am not Connected to any Voice Channel!!")
 
     @commands.command()
     # @commands.has_permissions(connect=True)
@@ -117,45 +100,37 @@ class Music(commands.Cog):
 
         if vc:
             if ctx.voice_client.is_paused():
-                await ctx.send(f"{member.mention} Song Resumed!!")
+                await ctx.message.reply("Song Resumed!!")
                 await ctx.voice_client.resume()
             else:
-                await ctx.send(f"{member.mention} No Song is Paused!!")
+                await ctx.message.reply("No Song is Paused!!")
         else:
-            await ctx.send(
-                f"{member.mention} I am not Connected to any Voice Channel!!"
-            )
+            await ctx.message.reply(" I am not Connected to any Voice Channel!!")
 
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def volume_music(self, ctx: commands.Context, volume: int):
-        member = ctx.author
         vc = ctx.voice_client
 
         if vc:
             vc.source.volume = volume / 100
-            await ctx.send(f"{member.mention} Changed volume to {volume}%")
+            await ctx.message.reply(f"Changed volume to {volume}%")
         else:
-            await ctx.send(
-                f"{member.mention} I am not Connected to any Voice Channel!!"
-            )
+            await ctx.message.reply("I am not Connected to any Voice Channel!!")
 
     @commands.command()
     # @commands.has_permissions(connect=True)
     async def stop_music(self, ctx: commands.Context):
-        member = ctx.author
         vc = ctx.voice_client
 
         if vc:
             if ctx.voice_client.is_playing() or ctx.voice_client.is_paused():
-                await ctx.send(f"{member.mention} Song Stopped!!")
+                await ctx.message.reply("Song Stopped!!")
                 await ctx.voice_client.stop()
             else:
-                await ctx.send(f"{member.mention} No Song is Playing")
+                await ctx.message.reply("No Song is Playing")
         else:
-            await ctx.send(
-                f"{member.mention} I am not Connected to any Voice Channel!!"
-            )
+            await ctx.message.reply("I am not Connected to any Voice Channel!!")
 
 
 def setup(bot):

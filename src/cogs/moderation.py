@@ -7,11 +7,10 @@ prefix = funcs.get_prefix()
 
 
 class Moderation(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.command()
-    @commands.bot_has_permissions(embed_links=True)
     async def help_moderation(self, ctx: commands.Context):
         await ctx.send(
             embed=embeds.moderation_help_embed(
@@ -28,7 +27,7 @@ class Moderation(commands.Cog):
         self, ctx: commands.Context, member: discord.Member, *, reason="Nothing"
     ):
         await member.kick(reason=reason)
-        await ctx.send(f"{member.mention} is Kicked!! Reason: {reason}")
+        await ctx.message.reply(f"{member.mention} is Kicked!! Reason: {reason}")
 
     @commands.command()
     @commands.has_permissions(kick_members=True, ban_members=True)
@@ -37,7 +36,7 @@ class Moderation(commands.Cog):
         self, ctx: commands.Context, member: discord.Member, *, reason="Nothing!!"
     ):
         await member.ban(reason=reason)
-        await ctx.send(f"{member.mention} is Banned!! Reason: {reason}")
+        await ctx.message.reply(f"{member.mention} is Banned!! Reason: {reason}")
 
     @commands.command()
     @commands.has_permissions(kick_members=True, ban_members=True)
@@ -49,7 +48,7 @@ class Moderation(commands.Cog):
             user = ban_entry.user
             if (user.name, user.discriminator) == (member_name, member_discriminator):
                 await ctx.guild.unban(user)
-                await ctx.send(f"{member} is Unbanned!!")
+                await ctx.message.reply(f"{member} is Unbanned!!")
                 return
 
     @commands.command()
@@ -57,6 +56,20 @@ class Moderation(commands.Cog):
     @commands.bot_has_permissions(manage_messages=True)
     async def clear(self, ctx: commands.Context, amount: int):
         await ctx.channel.purge(limit=amount)
+
+    @commands.command(aliases=["rules"])
+    async def show_rules(self, ctx: commands.Context):
+        await ctx.message.reply(
+            embed=embeds.rules_embed(
+                bot_name=self.bot.user.name,
+                bot_avatar_url=self.bot.user.avatar_url,
+                embed_blank_value=self.embed_blank_value,
+            )
+        )
+
+    @commands.command()
+    async def ping(self, ctx: commands.Context):
+        await ctx.message.reply(f"Ping: {round(self.bot.latency * 1000)}")
 
     @commands.command()
     @commands.has_permissions(manage_messages=True)

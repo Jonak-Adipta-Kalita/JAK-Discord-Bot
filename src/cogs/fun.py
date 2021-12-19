@@ -7,7 +7,7 @@ from discord.ext import commands
 
 
 class Fun(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot: commands.Bot):
         self.bot = bot
 
     @commands.command()
@@ -24,14 +24,14 @@ class Fun(commands.Cog):
     async def joke(self, ctx: commands.Context):
         joke = funcs.get_joke()
 
-        await ctx.send(joke)
+        await ctx.message.reply(joke)
 
     @commands.command()
     async def meme(self, ctx: commands.Context):
         async with aiohttp.ClientSession() as client:
             async with client.get("https://some-random-api.ml/meme") as resp:
                 response = await resp.json()
-                await ctx.send(
+                await ctx.message.reply(
                     embed=embeds.meme_embed(
                         label=response["caption"], image=response["image"]
                     )
@@ -69,7 +69,7 @@ class Fun(commands.Cog):
             elif word in puncs_to_emo:
                 emojis.append(emojis_list.punctuation[puncs_to_emo.get(word)])
 
-        await ctx.send(" ".join(emojis))
+        await ctx.message.reply(" ".join(emojis))
 
     @commands.command()
     async def code_snippet(self, ctx: commands.Context, *, code: str):
@@ -98,7 +98,7 @@ class Fun(commands.Cog):
                 f.write(resp)
                 carbon_file = f
 
-            await ctx.send(
+            await ctx.message.reply(
                 file=files.code_snippet_file(
                     carbon_file=os.path.realpath(carbon_file.name), author_id=author_id
                 ),
@@ -109,7 +109,7 @@ class Fun(commands.Cog):
             if os.path.isfile(f"snippets/{author_id}.png"):
                 os.remove(f"snippets/{author_id}.png")
         else:
-            await ctx.send(f"{member.mention}!! Use a CodeBlock!!")
+            await ctx.message.reply("Use a CodeBlock!!")
 
 
 def setup(bot):

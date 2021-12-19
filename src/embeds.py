@@ -42,8 +42,6 @@ def help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         color=discord.Color.blue(),
     )
     embed.set_author(name=f"{bot_name} - Help Menu", icon_url=bot_avatar_url)
-    embed.add_field(name=f"{prefix}ping", value="Show the Ping", inline=False)
-    embed.add_field(name=f"{prefix}show_rules", value="Show the Rules", inline=False)
     embed.add_field(
         name=f"{prefix}help_moderation",
         value="Show the Moderation Commands",
@@ -97,6 +95,8 @@ def moderation_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: 
         value="Unban Member or Bot",
         inline=False,
     )
+    embed.add_field(name=f"{prefix}show_rules", value="Show the Rules", inline=False)
+    embed.add_field(name=f"{prefix}ping", value="Show the Ping", inline=False)
     embed.add_field(
         name=f"{prefix}mute @<member> reason=<reason>",
         value="Mute Member or Bot",
