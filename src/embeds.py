@@ -6,6 +6,21 @@ from discord.ext import commands
 prefix = funcs.get_prefix()
 
 
+def ping_bot_embed(bot_name: str, bot_avatar_url: str, servers: int):
+    body_text = f"""
+        Use `{prefix}help` to see the Help Embed!!
+
+        Total Servers = {servers}
+    """
+
+    embed = discord.Embed(
+        title=f"Hello Buddy!!", description=body_text, color=discord.Color.blue()
+    )
+    embed.set_author(name=f"{bot_name}", icon_url=bot_avatar_url)
+
+    return embed
+
+
 def rules_embed(bot_name: str, bot_avatar_url: str, embed_blank_value: str):
     rules = [
         (f"{emojis.numbers['one']}   No Negativity", embed_blank_value),

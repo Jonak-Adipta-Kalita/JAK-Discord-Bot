@@ -9,6 +9,7 @@ class JAKDiscordBot(commands.Bot):
     def __init__(self, command_prefix: str, intents: discord.Intents, bad_words: list):
         self.bad_words = bad_words
         self.prefix = command_prefix
+        self.servers = 0
         super().__init__(
             command_prefix=command_prefix, intents=intents, help_command=None
         )
@@ -25,10 +26,13 @@ class JAKDiscordBot(commands.Bot):
 
     async def on_ready(self):
         self.slash = dislash.SlashClient(self)
-        servers = len(self.guilds)
+        self.servers = len(self.guilds)
         statuses = [
             ("listening", f"{self.prefix}help"),
-            ("watching", f"{servers} {'Servers' if servers != 1 else 'Server'}!!"),
+            (
+                "watching",
+                f"{self.servers} {'Servers' if self.servers != 1 else 'Server'}!!",
+            ),
         ]
         for type, message in itertools.cycle(statuses):
             await self.change_presence(
@@ -50,6 +54,15 @@ class JAKDiscordBot(commands.Bot):
 
         msg = message.content
         perms = message.channel.permissions_for(message.guild.me)
+
+        if msg == f"<@!{self.user.id}>" or msg == f"<@{self.user.id}>":
+            await message.reply(
+                embed=embeds.ping_bot_embed(
+                    bot_name=self.user.name,
+                    bot_avatar_url=self.user.avatar_url,
+                    servers=self.servers,
+                )
+            )
 
         if perms.manage_messages:
             for word in self.bad_words:
