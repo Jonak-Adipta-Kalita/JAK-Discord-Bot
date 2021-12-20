@@ -132,7 +132,7 @@ def games_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}help_tictactoe",
+        name=f"{prefix}help tictactoe",
         value="Show Help Menu for Tic-Tac-Toe",
         inline=False,
     )
@@ -157,17 +157,17 @@ def music_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         inline=False,
     )
     embed.add_field(
-        name=f'{prefix}play_music "<music_name>"/<url>',
+        name=f'{prefix}music play "<music_name>"/<url>',
         value="Plays the Music",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}pause_music",
+        name=f"{prefix}music pause",
         value="Pauses the Music",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}resume_music",
+        name=f"{prefix}music resume",
         value="Resumes the Music",
         inline=False,
     )
@@ -177,7 +177,7 @@ def music_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}stop_music",
+        name=f"{prefix}music stop",
         value="Stops the Music",
         inline=False,
     )
@@ -230,12 +230,12 @@ def tictactoe_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: s
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}tictactoe_place <Position in Integer>",
+        name=f"{prefix}tictactoe place <Position in Integer>",
         value="Place your position for Tic-Tac-Toe",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}tictactoe_stop",
+        name=f"{prefix}tictactoe stop",
         value="Stops Tic-Tac-Toe",
         inline=False,
     )
