@@ -1,7 +1,9 @@
 import discord
 import src.embeds as embeds
+import src.emojis as emojis
 import src.functions as funcs
 from discord.ext import commands
+
 
 prefix = funcs.get_prefix()
 
@@ -50,11 +52,26 @@ class Moderation(commands.Cog):
 
     @commands.command(aliases=["rules"])
     async def show_rules(self, ctx: commands.Context):
+        rules = [
+            (f"{emojis.numbers['one']}   No Negativity", self.embed_blank_value),
+            (f"{emojis.numbers['two']}   No Spamming", self.embed_blank_value),
+            (f"{emojis.numbers['three']}   No Swearing", self.embed_blank_value),
+            (
+                f"{emojis.numbers['four']}   No Discriminatory Or Hate Speech",
+                self.embed_blank_value,
+            ),
+            (f"{emojis.numbers['five']}   No NSFW Content", self.embed_blank_value),
+            (
+                f"{emojis.numbers['six']}   No Potentially Harmful Content",
+                self.embed_blank_value,
+            ),
+        ]
+
         await ctx.reply(
             embed=embeds.rules_embed(
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar_url,
-                embed_blank_value=self.embed_blank_value,
+                rules=rules,
             )
         )
 

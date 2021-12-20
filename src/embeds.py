@@ -1,6 +1,5 @@
 import discord
 import src.functions as funcs
-import src.emojis as emojis
 from discord.ext import commands
 
 prefix = funcs.get_prefix()
@@ -21,22 +20,7 @@ def ping_bot_embed(bot_name: str, bot_avatar_url: str, servers: int):
     return embed
 
 
-def rules_embed(bot_name: str, bot_avatar_url: str, embed_blank_value: str):
-    rules = [
-        (f"{emojis.numbers['one']}   No Negativity", embed_blank_value),
-        (f"{emojis.numbers['two']}   No Spamming", embed_blank_value),
-        (f"{emojis.numbers['three']}   No Swearing", embed_blank_value),
-        (
-            f"{emojis.numbers['four']}   No Discriminatory Or Hate Speech",
-            embed_blank_value,
-        ),
-        (f"{emojis.numbers['five']}   No NSFW Content", embed_blank_value),
-        (
-            f"{emojis.numbers['six']}   No Potentially Harmful Content",
-            embed_blank_value,
-        ),
-    ]
-
+def rules_embed(bot_name: str, bot_avatar_url: str, rules: str):
     embed = discord.Embed(
         color=discord.Color.blue(),
     )
