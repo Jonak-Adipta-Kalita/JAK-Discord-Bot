@@ -65,9 +65,7 @@ class TicTacToe(commands.Cog):
                 self.turn = self.player2
                 await ctx.send(f"Its {self.player2.mention}'s turn!!")
         else:
-            await ctx.reply(
-                "A game is already in progress!! Finish it or Stop it!!"
-            )
+            await ctx.reply("A game is already in progress!! Finish it or Stop it!!")
 
     @commands.command()
     async def tictactoe_place(self, ctx: commands.Context, pos: int):
