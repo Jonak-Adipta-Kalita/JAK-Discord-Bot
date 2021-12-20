@@ -113,7 +113,6 @@ class TicTacToe(commands.Cog):
 
     @commands.command()
     async def tictactoe_stop(self, ctx: commands.Context):
-        member = ctx.author
         if not self.game_over:
             self.game_over = True
             await ctx.reply("Stopped the Game!!")
