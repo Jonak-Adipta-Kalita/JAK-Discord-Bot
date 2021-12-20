@@ -113,6 +113,11 @@ def moderation_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: 
     embed.add_field(name=f"{prefix}show_rules", value="Show the Rules", inline=False)
     embed.add_field(name=f"{prefix}ping", value="Show the Ping", inline=False)
     embed.add_field(
+        name=f"{prefix}user_avatar @<member>",
+        value="Show the Avatar of a Member",
+        inline=False,
+    )
+    embed.add_field(
         name=f"{prefix}mute @<member> <reason>",
         value="Mute Member or Bot",
         inline=False,
@@ -215,21 +220,6 @@ def fun_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     embed.add_field(
         name=f"{prefix}code_snippet <code>",
         value="Convert Code Block to Snippet",
-        inline=False,
-    )
-    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
-
-    return embed
-
-
-def user_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
-    embed = discord.Embed(
-        color=discord.Color.blue(),
-    )
-    embed.set_author(name=f"{bot_name} - User Help Menu", icon_url=bot_avatar_url)
-    embed.add_field(
-        name=f"{prefix}user_avatar @<member>",
-        value="Show the Avatar of a Member",
         inline=False,
     )
     embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")

@@ -63,6 +63,14 @@ class Moderation(commands.Cog):
         await ctx.reply(f"Ping: {round(self.bot.latency * 1000)}")
 
     @commands.command()
+    async def user_avatar(self, ctx: commands.Context, member: discord.Member):
+        await ctx.reply(
+            embed=embeds.user_avatar_embed(
+                avatar_url=member.avatar_url, name=member.display_name
+            )
+        )
+
+    @commands.command()
     @commands.has_permissions(manage_messages=True)
     @commands.bot_has_permissions(manage_messages=True)
     async def mute(self, ctx: commands.Context, member: discord.Member, *, reason=None):
