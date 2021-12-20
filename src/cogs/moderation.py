@@ -88,6 +88,28 @@ class Moderation(commands.Cog):
         )
 
     @commands.command()
+    async def server_stats(self, ctx: commands.Context):
+        name = ctx.guild.name
+        description = ctx.guild.description
+        icon_url = ctx.guild.icon_url
+        owner = ctx.guild.owner
+        guild_id = ctx.guild.id
+        member_count = ctx.guild.member_count
+        banner_url = ctx.guild.banner_url
+
+        await ctx.reply(
+            embed=embeds.server_stats_embed(
+                name=name,
+                description=description,
+                icon_url=icon_url,
+                owner=owner,
+                guild_id=guild_id,
+                member_count=member_count,
+                banner_url=banner_url
+            )
+        )
+
+    @commands.command()
     @commands.has_permissions(manage_messages=True)
     @commands.bot_has_permissions(manage_messages=True)
     async def mute(self, ctx: commands.Context, member: discord.Member, *, reason=None):

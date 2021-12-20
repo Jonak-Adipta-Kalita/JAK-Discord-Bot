@@ -102,6 +102,11 @@ def moderation_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: 
         inline=False,
     )
     embed.add_field(
+        name=f"{prefix}server_stats",
+        value="Show the Server Information",
+        inline=False,
+    )
+    embed.add_field(
         name=f"{prefix}mute @<member> <reason>",
         value="Mute Member or Bot",
         inline=False,
@@ -311,5 +316,26 @@ def meme_embed(label: str, image: str):
 def user_avatar_embed(avatar_url: str, name: str):
     embed = discord.Embed(title=f"{name}'s Avatar", color=discord.Color.blue())
     embed.set_image(url=avatar_url)
+
+    return embed
+
+
+def server_stats_embed(
+    name: str,
+    description: str,
+    icon_url: str,
+    owner: str,
+    guild_id: int,
+    member_count: int,
+    banner_url: str,
+):
+    embed = discord.Embed(
+        description=description if description else "", color=discord.Color.blue()
+    )
+    embed.set_author(name=f"{name}'s Stats", icon_url=icon_url)
+    embed.add_field(name="Owner", value=owner, inline=True)
+    embed.add_field(name="Server ID", value=guild_id, inline=True)
+    embed.add_field(name="Member Count", value=member_count, inline=True)
+    embed.set_thumbnail(url=banner_url)
 
     return embed
