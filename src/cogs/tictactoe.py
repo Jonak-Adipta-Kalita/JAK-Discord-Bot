@@ -10,6 +10,7 @@ prefix = funcs.get_prefix()
 class TicTacToe(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.players = []
         self.player1 = ""
         self.player2 = ""
         self.turn = ""
@@ -49,6 +50,7 @@ class TicTacToe(commands.Cog):
             count = 0
             self.player1 = p1
             self.player2 = p2
+            self.players = [p1, p2]
             line = ""
             for x in range(len(self.board)):
                 if x == 2 or x == 5 or x == 8:
@@ -74,48 +76,54 @@ class TicTacToe(commands.Cog):
         if not self.game_over:
             mark = ""
             if self.turn == ctx.author:
-                if self.turn == self.player1:
-                    mark = emojis.alphabets["regional_indicator_x"]
-                elif self.turn == self.player2:
-                    mark = emojis.o2
-                if 0 < pos < 10 and self.board[pos - 1] == emojis.white_large_square:
-                    self.board[pos - 1] = mark
-                    count += 1
-                    line = ""
-                    for x in range(len(self.board)):
-                        if x == 2 or x == 5 or x == 8:
-                            line += " " + self.board[x]
-                            await ctx.send(line)
-                            line = ""
-                        else:
-                            line += " " + self.board[x]
-                    self.tictactoe_check_winner(self.winning_conditions, mark)
-                    if self.game_over == True:
-                        await ctx.send(mark + " WINS!!")
-                    elif count >= 9:
-                        self.game_over = True
-                        await ctx.send("It's a TIE!!")
-
+                if ctx.author in self.players:
                     if self.turn == self.player1:
-                        self.turn = self.player2
-                        await ctx.send(f"Its {self.player2.mention}'s turn!!")
+                        mark = emojis.alphabets["regional_indicator_x"]
                     elif self.turn == self.player2:
-                        self.turn = self.player1
-                        await ctx.send(f"Its {self.player1.mention}'s turn!!")
+                        mark = emojis.o2
+                    if 0 < pos < 10 and self.board[pos - 1] == emojis.white_large_square:
+                        self.board[pos - 1] = mark
+                        count += 1
+                        line = ""
+                        for x in range(len(self.board)):
+                            if x == 2 or x == 5 or x == 8:
+                                line += " " + self.board[x]
+                                await ctx.send(line)
+                                line = ""
+                            else:
+                                line += " " + self.board[x]
+                        self.tictactoe_check_winner(self.winning_conditions, mark)
+                        if self.game_over == True:
+                            await ctx.send(f"{mark} WINS!!")
+                        elif count >= 9:
+                            self.game_over = True
+                            await ctx.send("It's a TIE!!")
+
+                        if self.turn == self.player1:
+                            self.turn = self.player2
+                            await ctx.send(f"Its {self.player2.mention}'s turn!!")
+                        elif self.turn == self.player2:
+                            self.turn = self.player1
+                            await ctx.send(f"Its {self.player1.mention}'s turn!!")
+                    else:
+                        await ctx.reply(
+                            "Be sure to choose an integer between 1 and 9 (inclusive) and an unmarked tile!!"
+                        )
                 else:
-                    await ctx.reply(
-                        "Be sure to choose an integer between 1 and 9 (inclusive) and an unmarked tile!!"
-                    )
+                    await ctx.reply("It is not your turn!!")
             else:
-                await ctx.reply("It is not your turn!!")
+                await ctx.reply("You are not a Player of the Current Game!!")
         else:
             await ctx.reply("Please start a new game!!")
 
     @tictactoe.command()
     async def stop(self, ctx: commands.Context):
         if not self.game_over:
-            self.game_over = True
-            await ctx.reply("Stopped the Game!!")
+            if ctx.author in self.players:
+                self.game_over = True
+                await ctx.reply("Stopped the Game!!")
+            else:
+                await ctx.reply("You are not a Player of the Current Game!!")
         else:
             await ctx.reply("No game is currently running!!")
 

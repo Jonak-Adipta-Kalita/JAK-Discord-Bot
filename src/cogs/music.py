@@ -37,7 +37,7 @@ class Music(commands.Cog):
 
     @commands.command()
     # @commands.has_permissions(connect=True)
-    async def play_music(self, ctx: commands.Context, *, music_name: str):
+    async def play(self, ctx: commands.Context, *, music_name: str):
         vc = ctx.voice_client
 
         if vc:
@@ -70,7 +70,7 @@ class Music(commands.Cog):
 
     @commands.command()
     # @commands.has_permissions(connect=True)
-    async def pause_music(self, ctx: commands.Context):
+    async def pause(self, ctx: commands.Context):
         vc = ctx.voice_client
 
         if vc:
@@ -84,8 +84,7 @@ class Music(commands.Cog):
 
     @commands.command()
     # @commands.has_permissions(connect=True)
-    async def resume_music(self, ctx: commands.Context):
-        member = ctx.author
+    async def resume(self, ctx: commands.Context):
         vc = ctx.voice_client
 
         if vc:
@@ -99,7 +98,7 @@ class Music(commands.Cog):
 
     @commands.command()
     # @commands.has_permissions(connect=True)
-    async def volume_music(self, ctx: commands.Context, volume: int):
+    async def volume(self, ctx: commands.Context, volume: int):
         vc = ctx.voice_client
 
         if vc:
@@ -110,7 +109,7 @@ class Music(commands.Cog):
 
     @commands.command()
     # @commands.has_permissions(connect=True)
-    async def stop_music(self, ctx: commands.Context):
+    async def stop(self, ctx: commands.Context):
         vc = ctx.voice_client
 
         if vc:

@@ -147,12 +147,12 @@ def music_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     )
     embed.set_author(name=f"{bot_name} - Music Help Menu", icon_url=bot_avatar_url)
     embed.add_field(
-        name=f"{prefix}join_vc",
+        name=f"{prefix}vc join",
         value="Joins the VC you are currently in",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}leave_vc",
+        name=f"{prefix}vc leave",
         value="Leaves VC",
         inline=False,
     )
@@ -172,7 +172,7 @@ def music_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}volume_music <volume>",
+        name=f"{prefix}music volume <volume>",
         value="Adjusts the Volume as per given amount",
         inline=False,
     )
