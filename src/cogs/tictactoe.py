@@ -99,12 +99,13 @@ class TicTacToe(commands.Cog):
                             self.game_over = True
                             await ctx.send("It's a TIE!!")
 
-                        if self.turn == self.player1:
-                            self.turn = self.player2
-                            await ctx.send(f"Its {self.player2.mention}'s turn!!")
-                        elif self.turn == self.player2:
-                            self.turn = self.player1
-                            await ctx.send(f"Its {self.player1.mention}'s turn!!")
+                        if not self.game_over:
+                            if self.turn == self.player1:
+                                self.turn = self.player2
+                                await ctx.send(f"Its {self.player2.mention}'s turn!!")
+                            elif self.turn == self.player2:
+                                self.turn = self.player1
+                                await ctx.send(f"Its {self.player1.mention}'s turn!!")
                     else:
                         await ctx.reply(
                             "Be sure to choose an integer between 1 and 9 (inclusive) and an unmarked tile!!"
