@@ -95,7 +95,7 @@ def moderation_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: 
         inline=False,
     )
     embed.add_field(name=f"{prefix}show_rules", value="Show the Rules", inline=False)
-    embed.add_field(name=f"{prefix}ping", value="Show the Ping", inline=False)
+    embed.add_field(name=f"{prefix}latency", value="Show the Latency", inline=False)
     embed.add_field(
         name=f"{prefix}user_avatar @<member>",
         value="Show the Avatar of a Member",
@@ -104,16 +104,6 @@ def moderation_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: 
     embed.add_field(
         name=f"{prefix}server_stats",
         value="Show the Server Information",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}mute @<member> <reason>",
-        value="Mute Member or Bot",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}unmute @<member> <reason>",
-        value="UnMute Member or Bot",
         inline=False,
     )
     embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
@@ -226,17 +216,17 @@ def tictactoe_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: s
     )
     embed.add_field(
         name=f"{prefix}tictactoe @<1st Player> @<2nd Player>",
-        value="Start Tic-Tac-Toe",
+        value="Start Tic-Tac-Toe Game",
         inline=False,
     )
     embed.add_field(
         name=f"{prefix}tictactoe place <Position in Integer>",
-        value="Place your position for Tic-Tac-Toe",
+        value="Place your position for Tic-Tac-Toe Game",
         inline=False,
     )
     embed.add_field(
         name=f"{prefix}tictactoe stop",
-        value="Stops Tic-Tac-Toe",
+        value="Stops Tic-Tac-Toe Game",
         inline=False,
     )
     embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")

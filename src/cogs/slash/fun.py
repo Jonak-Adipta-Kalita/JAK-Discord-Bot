@@ -1,4 +1,4 @@
-import aiohttp, asyncio, os
+import aiohttp, asyncio, dislash, os
 import src.embeds as embeds
 import src.functions as funcs
 import src.emojis as emojis_list
@@ -10,25 +10,39 @@ class Fun(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    @commands.command(description="Display a Joke")
-    async def joke(self, ctx: commands.Context):
+    @dislash.slash_command(
+        description="Display a Joke",
+    )
+    async def joke(self, inter):
         joke = funcs.get_joke()
 
-        await ctx.reply(joke)
+        await inter.respond(joke)
 
-    @commands.command(description="Display a Meme")
-    async def meme(self, ctx: commands.Context):
+    @dislash.slash_command(
+        description="Display a Meme",
+    )
+    async def meme(self, inter):
         async with aiohttp.ClientSession() as client:
             async with client.get("https://some-random-api.ml/meme") as resp:
                 response = await resp.json()
-                await ctx.reply(
+                await inter.respond(
                     embed=embeds.meme_embed(
                         label=response["caption"], image=response["image"]
                     )
                 )
 
-    @commands.command(description="Display a Meme")
-    async def emojify(self, ctx: commands.Context, *, text):
+    @dislash.slash_command(
+        description="Convert Text to Emoji",
+        options=[
+            dislash.Option(
+                name="text",
+                description="The Text to Emojify!!",
+                type=dislash.Type.STRING,
+                required=True,
+            )
+        ],
+    )
+    async def emojify(self, inter, text):
         emojis = []
         puncs_to_emo = {
             "!": "exclamation",
@@ -59,47 +73,7 @@ class Fun(commands.Cog):
             elif word in puncs_to_emo:
                 emojis.append(emojis_list.punctuation[puncs_to_emo.get(word)])
 
-        await ctx.reply(" ".join(emojis))
-
-    @commands.command(description="Covert Code Block to Snippet")
-    async def code_snippet(self, ctx: commands.Context, *, code: str):
-        member = ctx.author
-
-        if code.startswith("```") and code.endswith("```"):
-            author_id = member.id
-            code_edited = "\n".join(code.split("\n")[1:-1])
-
-            async with aiohttp.ClientSession(
-                headers={"Content-Type": "application/json"},
-            ) as ses:
-                try:
-                    request = await ses.post(
-                        f"https://carbonara-42.herokuapp.com/api/cook",
-                        json={
-                            "code": code_edited,
-                        },
-                    )
-                except Exception as e:
-                    print(f"Exception: {e}")
-
-                resp = await request.read()
-
-            with open(f"snippets/{author_id}.png", "wb") as f:
-                f.write(resp)
-                carbon_file = f
-
-            await ctx.reply(
-                file=files.code_snippet_file(
-                    carbon_file=os.path.realpath(carbon_file.name), author_id=author_id
-                ),
-            )
-
-            await asyncio.sleep(60)
-
-            if os.path.isfile(f"snippets/{author_id}.png"):
-                os.remove(f"snippets/{author_id}.png")
-        else:
-            await ctx.reply("Use a CodeBlock!!")
+        await inter.respond(" ".join(emojis))
 
 
 def setup(bot: commands.Bot):

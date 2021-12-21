@@ -27,7 +27,7 @@ class TicTacToe(commands.Cog):
             [2, 4, 6],
         ]
 
-    @commands.group(invoke_without_command=True)
+    @commands.group(invoke_without_command=True, description="Start Tic-Tac-Toe Game")
     async def tictactoe(
         self, ctx: commands.Context, p1: discord.Member, p2: discord.Member
     ):
@@ -69,7 +69,7 @@ class TicTacToe(commands.Cog):
         else:
             await ctx.reply("A game is already in progress!! Finish it or Stop it!!")
 
-    @tictactoe.command()
+    @tictactoe.command(description="Place your position for Tic-Tac-Toe Game")
     async def place(self, ctx: commands.Context, pos: int):
         global count
 
@@ -120,7 +120,7 @@ class TicTacToe(commands.Cog):
         else:
             await ctx.reply("Please start a new game!!")
 
-    @tictactoe.command()
+    @tictactoe.command(description="Stops Tic-Tac-Toe Game")
     async def stop(self, ctx: commands.Context):
         if not self.game_over:
             if ctx.author in self.players:
