@@ -14,9 +14,15 @@ class JAKDiscordBot(commands.Bot):
             command_prefix=command_prefix, intents=intents, help_command=None
         )
 
-        for files in os.listdir(f"./src/cogs/"):
+        self.load_extension("src.cogs.help")
+
+        for files in os.listdir(f"./src/cogs/commands/"):
             if files.endswith(".py"):
-                self.load_extension(f"src.cogs.{files[:-3]}")
+                self.load_extension(f"src.cogs.commands.{files[:-3]}")
+
+        for files in os.listdir(f"./src/cogs/slash/"):
+            if files.endswith(".py"):
+                self.load_extension(f"src.cogs.slash.{files[:-3]}")
 
     async def on_connect(self):
         print("Bot is Connected!!")
@@ -161,8 +167,6 @@ class JAKDiscordBot(commands.Bot):
     async def on_command_error(
         self, ctx: commands.Context, error: discord.HTTPException
     ):
-        print(error)
-
         if isinstance(error, commands.CommandNotFound):
             await ctx.reply("Its not a valid Command!!")
         elif isinstance(error, commands.MissingPermissions):
@@ -173,6 +177,8 @@ class JAKDiscordBot(commands.Bot):
             await ctx.reply("Please make sure to provide all the required Arguments!!")
         elif isinstance(error, commands.BadArgument):
             await ctx.reply("Please make sure to provide the Arguments correctly!!")
+        else:
+            print(error)
 
 
 if __name__ == "__main__":

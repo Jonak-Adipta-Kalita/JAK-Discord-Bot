@@ -105,7 +105,7 @@ class Moderation(commands.Cog):
                 owner=owner,
                 guild_id=guild_id,
                 member_count=member_count,
-                banner_url=banner_url
+                banner_url=banner_url,
             )
         )
 

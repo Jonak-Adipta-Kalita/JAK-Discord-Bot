@@ -81,7 +81,10 @@ class TicTacToe(commands.Cog):
                         mark = emojis.alphabets["regional_indicator_x"]
                     elif self.turn == self.player2:
                         mark = emojis.o2
-                    if 0 < pos < 10 and self.board[pos - 1] == emojis.white_large_square:
+                    if (
+                        0 < pos < 10
+                        and self.board[pos - 1] == emojis.white_large_square
+                    ):
                         self.board[pos - 1] = mark
                         count += 1
                         line = ""
