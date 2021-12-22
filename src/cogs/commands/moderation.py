@@ -16,6 +16,7 @@ class Moderation(commands.Cog):
     @commands.command(description="Kick Member or Bot")
     @commands.has_permissions(kick_members=True)
     @commands.bot_has_permissions(kick_members=True)
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def kick(
         self, ctx: commands.Context, member: discord.Member, *, reason="Nothing"
     ):
@@ -25,6 +26,7 @@ class Moderation(commands.Cog):
     @commands.command(description="Ban Member or Bot")
     @commands.has_permissions(kick_members=True, ban_members=True)
     @commands.bot_has_permissions(kick_members=True, ban_members=True)
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def ban(
         self, ctx: commands.Context, member: discord.Member, *, reason="Nothing!!"
     ):
@@ -34,6 +36,7 @@ class Moderation(commands.Cog):
     @commands.command(description="Unban Member or Bot")
     @commands.has_permissions(kick_members=True, ban_members=True)
     @commands.bot_has_permissions(kick_members=True, ban_members=True)
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def unban(self, ctx: commands.Context, *, member):
         banned_user = await ctx.guild.bans()
         member_name, member_discriminator = member.split("#")
@@ -47,10 +50,12 @@ class Moderation(commands.Cog):
     @commands.command(description="Delete messages as given amount")
     @commands.has_permissions(manage_messages=True)
     @commands.bot_has_permissions(manage_messages=True)
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def clear(self, ctx: commands.Context, amount: int):
         await ctx.channel.purge(limit=amount)
 
     @commands.command(aliases=["rules"], description="Show the Rules")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def show_rules(self, ctx: commands.Context):
         rules = [
             (f"{emojis.numbers['one']}   No Negativity", self.embed_blank_value),
@@ -76,10 +81,12 @@ class Moderation(commands.Cog):
         )
 
     @commands.command(description="Show the Latency")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def latency(self, ctx: commands.Context):
         await ctx.reply(f"Ping: {round(self.bot.latency * 1000)}")
 
     @commands.command(description="Show the Avatar of a Member")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def user_avatar(self, ctx: commands.Context, member: discord.Member):
         await ctx.reply(
             embed=embeds.user_avatar_embed(
@@ -88,6 +95,7 @@ class Moderation(commands.Cog):
         )
 
     @commands.command(description="Show the Server Information")
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def server_stats(self, ctx: commands.Context):
         name = ctx.guild.name
         description = ctx.guild.description

@@ -30,6 +30,7 @@ class _8Ball(commands.Cog):
         ]
 
     @commands.command(name="8ball", description="Play 8Ball Game")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def _8ball(self, ctx: commands.Context, *, question):
         await ctx.reply(
             f"Question: {question}\nAnswer: {random.choice(self.responses)} :relieved:"

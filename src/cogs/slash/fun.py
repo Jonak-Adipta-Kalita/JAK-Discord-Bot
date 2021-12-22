@@ -22,7 +22,7 @@ class Fun(commands.Cog):
         description="Display a Meme",
     )
     async def meme(self, inter):
-        response = funcs.get_meme()
+        response = await funcs.get_meme()
         await inter.respond(
             embed=embeds.meme_embed(label=response["caption"], image=response["image"])
         )

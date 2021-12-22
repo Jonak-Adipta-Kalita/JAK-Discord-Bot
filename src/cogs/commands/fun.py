@@ -1,7 +1,6 @@
 import aiohttp, asyncio, os
 import src.embeds as embeds
 import src.functions as funcs
-import src.emojis as emojis_list
 import src.files as files
 from discord.ext import commands
 
@@ -11,23 +10,27 @@ class Fun(commands.Cog):
         self.bot = bot
 
     @commands.command(description="Display a Joke")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def joke(self, ctx: commands.Context):
         joke = funcs.get_joke()
 
         await ctx.reply(joke)
 
     @commands.command(description="Display a Meme")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def meme(self, ctx: commands.Context):
-        response = funcs.get_meme()
+        response = await funcs.get_meme()
         await ctx.reply(
             embed=embeds.meme_embed(label=response["caption"], image=response["image"])
         )
 
     @commands.command(description="Display a Meme")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def emojify(self, ctx: commands.Context, *, text):
         await ctx.reply(" ".join(funcs.emojify_text(text)))
 
     @commands.command(description="Covert Code Block to Snippet")
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def code_snippet(self, ctx: commands.Context, *, code: str):
         member = ctx.author
 

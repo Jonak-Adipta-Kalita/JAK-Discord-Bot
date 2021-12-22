@@ -177,6 +177,8 @@ class JAKDiscordBot(commands.Bot):
             await ctx.reply("Please make sure to provide all the required Arguments!!")
         elif isinstance(error, commands.BadArgument):
             await ctx.reply("Please make sure to provide the Arguments correctly!!")
+        elif isinstance(error, commands.CommandOnCooldown):
+            await ctx.reply("This Command is currently in Cooldown for you!!")
         else:
             print(error)
 
