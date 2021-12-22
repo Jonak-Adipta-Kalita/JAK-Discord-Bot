@@ -47,6 +47,7 @@ punctuation = {
     "heavy_multiplication_x": "✖️",
     "heavy_division_sign": "➗",
     "heavy_dollar_sign": "💲",
+    "question": "❓",
 }
 
 abc = "🔤"

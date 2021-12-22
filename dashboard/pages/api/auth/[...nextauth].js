@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 
-export default async function auth(req, res) {
+export default async (req, res) => {
     return await NextAuth(req, res, {
         providers: [
             DiscordProvider({
@@ -19,4 +19,4 @@ export default async function auth(req, res) {
             signIn: "/login",
         },
     });
-}
+};

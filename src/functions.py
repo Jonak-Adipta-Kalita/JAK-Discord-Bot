@@ -41,6 +41,7 @@ def emojify_text(text: str):
         "*": "heavy_multiplication_x",
         "/": "heavy_division_sign",
         "$": "heavy_dollar_sign",
+        "?": "question",
     }
 
     for word in text.lower():
