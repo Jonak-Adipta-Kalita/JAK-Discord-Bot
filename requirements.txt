@@ -11,6 +11,7 @@ charset-normalizer==2.0.7
 click==8.0.3
 colorama==0.4.4
 discord==1.7.3
+discord-together==1.2.2
 discord.py==1.7.3
 dislash.py==1.4.9
 eng-to-ipa==0.0.2
