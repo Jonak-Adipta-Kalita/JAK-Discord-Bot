@@ -76,7 +76,7 @@ class Moderation(commands.Cog):
         )
 
     @commands.command(description="Show the Latency")
-    async def latenct(self, ctx: commands.Context):
+    async def latency(self, ctx: commands.Context):
         await ctx.reply(f"Ping: {round(self.bot.latency * 1000)}")
 
     @commands.command(description="Show the Avatar of a Member")
