@@ -80,7 +80,7 @@ class Moderation(commands.Cog):
             )
         )
 
-    @commands.command(description="Show the Latency")
+    @commands.command(description="Show the Latency", aliases=["ping", "ms"])
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def latency(self, ctx: commands.Context):
         await ctx.reply(f"Ping: {round(self.bot.latency * 1000)}")

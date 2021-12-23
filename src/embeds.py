@@ -245,57 +245,57 @@ def discord_together_help_embed(
     )
     embed.add_field(
         name=f"{prefix}together youtube",
-        value="Use YouTube Together Activity",
+        value="Use `YouTube Together` Activity",
         inline=False,
     )
     embed.add_field(
         name=f"{prefix}together chess",
-        value="Use Chess Together Activity",
+        value="Use `Chess Together` Activity",
         inline=False,
     )
     embed.add_field(
         name=f"{prefix}together poker",
-        value="Use Poker Together Activity",
+        value="Use `Poker Together` Activity",
         inline=False,
     )
     embed.add_field(
         name=f"{prefix}together betrayal",
-        value="Use Betrayal Together Activity",
+        value="Use `Betrayal Together` Activity",
         inline=False,
     )
     embed.add_field(
         name=f"{prefix}together fishing",
-        value="Use Fishing Together Activity",
+        value="Use `Fishing Together` Activity",
         inline=False,
     )
     embed.add_field(
         name=f"{prefix}together letter_tile",
-        value="Use Letter Tile Together Activity",
+        value="Use `Letter Tile Together` Activity",
         inline=False,
     )
     embed.add_field(
         name=f"{prefix}together word_snack",
-        value="Use Word Snack Together Activity",
+        value="Use `Word Snack Together` Activity",
         inline=False,
     )
     embed.add_field(
         name=f"{prefix}together doodle_crew",
-        value="Use Doddle Crew Together Activity",
+        value="Use `Doddle Crew Together` Activity",
         inline=False,
     )
     embed.add_field(
         name=f"{prefix}together spell_cast",
-        value="Use Spell Cast Together Activity",
+        value="Use `Spell Cast Together` Activity",
         inline=False,
     )
     embed.add_field(
         name=f"{prefix}together awkword",
-        value="Use Awkword Together Activity",
+        value="Use `Awkword Together` Activity",
         inline=False,
     )
     embed.add_field(
         name=f"{prefix}together checkers",
-        value="Use Checkers Together Activity",
+        value="Use `Checkers Together` Activity",
         inline=False,
     )
     embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")

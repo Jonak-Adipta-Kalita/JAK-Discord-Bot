@@ -1,4 +1,4 @@
-import aiohttp, asyncio, os
+import aiohttp, asyncio, discord, os
 import src.embeds as embeds
 import src.functions as funcs
 import src.files as files
@@ -36,7 +36,7 @@ class Fun(commands.Cog):
 
         if code.startswith("```") and code.endswith("```"):
             author_id = member.id
-            code_edited = "\n".join(code.split("\n")[1:-1])
+            code_edited = discord.utils.remove_markdown(code.strip()).strip()
 
             async with aiohttp.ClientSession(
                 headers={"Content-Type": "application/json"},
