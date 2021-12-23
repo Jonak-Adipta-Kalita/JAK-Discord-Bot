@@ -201,6 +201,11 @@ def fun_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         value="Convert Code Block to Snippet",
         inline=False,
     )
+    embed.add_field(
+        name=f"{prefix}morse <text>",
+        value="Encode or Decode PlainText/MorseCode into MorseCode/PlainText",
+        inline=False,
+    )
     embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
 
     return embed
@@ -396,5 +401,13 @@ def server_stats_embed(
     embed.add_field(name="Server ID", value=guild_id, inline=True)
     embed.add_field(name="Member Count", value=member_count, inline=True)
     embed.set_thumbnail(url=banner_url)
+
+    return embed
+
+
+def morse_code_embed(ctx: commands.Context, title: str, converted: str):
+    embed = discord.Embed(
+        title=title, description=f"```yaml\n{converted}```", color=discord.Color.blue()
+    )
 
     return embed

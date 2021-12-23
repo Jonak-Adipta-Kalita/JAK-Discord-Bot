@@ -70,6 +70,157 @@ class Fun(commands.Cog):
         else:
             await ctx.reply("Use a CodeBlock!!")
 
+    @commands.command(
+        aliases=["morse_code"],
+        description="Encode or Decode PlainText/MorseCode into MorseCode/PlainText",
+    )
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def morse(self, ctx: commands.Context, *, string):
+
+        TEXT_TO_MORSE = {
+            "A": ".-",
+            "B": "-...",
+            "C": "-.-.",
+            "D": "-..",
+            "E": ".",
+            "F": "..-.",
+            "G": "--.",
+            "H": "....",
+            "I": "..",
+            "J": ".---",
+            "K": "-.-",
+            "L": ".-..",
+            "M": "--",
+            "N": "-.",
+            "O": "---",
+            "P": ".--.",
+            "Q": "--.-",
+            "R": ".-.",
+            "S": "...",
+            "T": "-",
+            "U": "..-",
+            "V": "...-",
+            "W": ".--",
+            "X": "-..-",
+            "Y": "-.--",
+            "Z": "--..",
+            "1": ".----",
+            "2": "..---",
+            "3": "...--",
+            "4": "....-",
+            "5": ".....",
+            "6": "-....",
+            "7": "--...",
+            "8": "---..",
+            "9": "----.",
+            "0": "-----",
+            ",": "--..--",
+            ".": ".-.-.-",
+            "?": "..--..",
+            "/": "-..-.",
+            "-": "-....-",
+            "(": "-.--.",
+            ")": "-.--.-",
+            ":": "---...",
+            "'": ".----.",
+            "’": ".----.",
+            '"': ".-..-.",
+            " ": ".......",
+            "!": "-.-.--",
+            "@": ".--.-.",
+            "$": "...-..-",
+            "&": ".-...",
+            ";": "-.-.-.",
+            "=": "-...-",
+            "+": ".-.-.",
+            "_": "..--.-",
+        }
+
+        MORSE_TO_TEXT = {
+            ".-": "A",
+            "-...": "B",
+            "-.-.": "C",
+            "-..": "D",
+            ".": "E",
+            "..-.": "F",
+            "--.": "G",
+            "....": "H",
+            "..": "I",
+            ".---": "J",
+            "-.-": "K",
+            ".-..": "L",
+            "--": "M",
+            "-.": "N",
+            "---": "O",
+            ".--.": "P",
+            "--.-": "Q",
+            ".-.": "R",
+            "...": "S",
+            "-": "T",
+            "..-": "U",
+            "...-": "V",
+            ".--": "W",
+            "-..-": "X",
+            "-.--": "Y",
+            "--..": "Z",
+            ".----": "1",
+            "..---": "2",
+            "...--": "3",
+            "....-": "4",
+            ".....": "5",
+            "-....": "6",
+            "--...": "7",
+            "---..": "8",
+            "----.": "9",
+            "-----": "0",
+            "--..--": ",",
+            ".-.-.-": ".",
+            "..--..": "?",
+            "-..-.": "/",
+            "-....-": "-",
+            "-.--.": "(",
+            "-.--.-": ")",
+            "---...": ":",
+            ".----.": "'",
+            ".-..-.": '"',
+            ".......": " ",
+            "-.-.--": "!",
+            ".--.-.": "@",
+            "...-..-": "$",
+            ".-...": "&",
+            "-.-.-.": ";",
+            "-...-": "=",
+            ".-.-.": "+",
+            "..--.-": "_",
+        }
+
+        _tempset = set(string)
+        check = True
+        for char in _tempset:
+            if char not in [".", "-", " "]:
+                check = False
+
+        if check is True:
+            _templist = str(string).split(" ")
+            converted = "".join(MORSE_TO_TEXT[str(i)] for i in _templist)
+
+            await ctx.reply(embed=embeds.morse_code_embed(
+                ctx=ctx, title="Morse ---> Text", converted=converted
+            ))
+        else:
+            _templist = []
+            for char in str(string):
+                _templist.append(char)
+            try:
+                converted = " ".join(TEXT_TO_MORSE[str(i).upper()] for i in _templist)
+                await ctx.reply(embed=embeds.morse_code_embed(
+                    ctx=ctx, title="Text ---> Morse", converted=converted
+                ))
+            except KeyError:
+                await ctx.reply(
+                    "The String contains some characters which cannot be converted into Morse!!"
+                )
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(Fun(bot))
