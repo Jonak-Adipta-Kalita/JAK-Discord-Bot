@@ -44,6 +44,12 @@ class Help(commands.Cog):
                     bot_avatar_url=self.bot.user.avatar_url,
                 )
             )
+        elif type == "discord_together":
+            await ctx.reply(embed=embeds.discord_together_help_embed(
+                ctx=ctx,
+                bot_name=self.bot.user.name,
+                bot_avatar_url=self.bot.user.avatar_url,
+            ))
         elif type == "default":
             msg = await ctx.send(
                 embed=embeds.help_embed(
@@ -63,6 +69,7 @@ class Help(commands.Cog):
                             dislash.SelectOption("Games Help", "games_help_embed"),
                             dislash.SelectOption("Music Help", "music_help_embed"),
                             dislash.SelectOption("Fun Help", "fun_help_embed"),
+                            dislash.SelectOption("Discord Together Help", "discord_together_help_embed"),
                         ],
                     )
                 ],
@@ -101,6 +108,14 @@ class Help(commands.Cog):
                 elif inter.select_menu.selected_options[0].value == "fun_help_embed":
                     await inter.reply(
                         embed=embeds.fun_help_embed(
+                            ctx=ctx,
+                            bot_name=self.bot.user.name,
+                            bot_avatar_url=self.bot.user.avatar_url,
+                        )
+                    )
+                elif inter.select_menu.selected_options[0].value == "discord_together_help_embed":
+                    await inter.reply(
+                        embed=embeds.discord_together_help_embed(
                             ctx=ctx,
                             bot_name=self.bot.user.name,
                             bot_avatar_url=self.bot.user.avatar_url,

@@ -233,6 +233,40 @@ def tictactoe_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: s
 
     return embed
 
+def discord_together_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
+    embed = discord.Embed(
+        color=discord.Color.blue(),
+    )
+    embed.set_author(name=f"{bot_name} - Discord Together Help Menu", icon_url=bot_avatar_url)
+    embed.add_field(
+        name=f"{prefix}yt_together",
+        value="Use YouTube Together Activity",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}chess_together",
+        value="Use Chess Together Activity",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}poker_together",
+        value="Use Poker Together Activity",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}betrayal_together",
+        value="Use Betrayal Together Activity",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}fishing_together",
+        value="Use Fishing Together Activity",
+        inline=False,
+    )
+    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
+
+    return embed
+
 
 def warning_embed(message: str):
     embed = discord.Embed(

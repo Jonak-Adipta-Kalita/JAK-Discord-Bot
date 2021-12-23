@@ -14,6 +14,9 @@ class DiscordTogether(commands.Cog):
     @commands.command(aliases=["yt_together"])
     @commands.cooldown(1, 60, commands.BucketType.guild)
     async def youtube_together(self, ctx: commands.Context):
+        if ctx.author.voice is None:
+            await ctx.reply("You are not Connected to a Voice Channel!!")
+            return
         link = await self.together_control.create_link(
             ctx.author.voice.channel.id, "youtube"
         )
@@ -22,6 +25,9 @@ class DiscordTogether(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 60, commands.BucketType.guild)
     async def poker_together(self, ctx: commands.Context):
+        if ctx.author.voice is None:
+            await ctx.reply("You are not Connected to a Voice Channel!!")
+            return
         link = await self.together_control.create_link(
             ctx.author.voice.channel.id, "poker"
         )
@@ -30,6 +36,9 @@ class DiscordTogether(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 60, commands.BucketType.guild)
     async def chess_together(self, ctx: commands.Context):
+        if ctx.author.voice is None:
+            await ctx.reply("You are not Connected to a Voice Channel!!")
+            return
         link = await self.together_control.create_link(
             ctx.author.voice.channel.id, "chess"
         )
@@ -38,6 +47,9 @@ class DiscordTogether(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 60, commands.BucketType.guild)
     async def betrayal_together(self, ctx: commands.Context):
+        if ctx.author.voice is None:
+            await ctx.reply("You are not Connected to a Voice Channel!!")
+            return
         link = await self.together_control.create_link(
             ctx.author.voice.channel.id, "betrayal"
         )
@@ -46,6 +58,9 @@ class DiscordTogether(commands.Cog):
     @commands.command()
     @commands.cooldown(1, 60, commands.BucketType.guild)
     async def fishing_together(self, ctx: commands.Context):
+        if ctx.author.voice is None:
+            await ctx.reply("You are not Connected to a Voice Channel!!")
+            return
         link = await self.together_control.create_link(
             ctx.author.voice.channel.id, "fishing"
         )

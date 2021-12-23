@@ -30,7 +30,7 @@ class Fun(commands.Cog):
         await ctx.reply(" ".join(funcs.emojify_text(text)))
 
     @commands.command(description="Covert Code Block to Snippet")
-    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
     async def code_snippet(self, ctx: commands.Context, *, code: str):
         member = ctx.author
 
