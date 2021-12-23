@@ -56,6 +56,7 @@ class JAKDiscordBot(commands.Bot):
         member = message.author
 
         if member == self.user:
+            await message.add_reaction(emojis.broom)
             return
 
         msg = message.content
