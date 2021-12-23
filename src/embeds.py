@@ -233,34 +233,69 @@ def tictactoe_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: s
 
     return embed
 
-def discord_together_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
+
+def discord_together_help_embed(
+    ctx: commands.Context, bot_name: str, bot_avatar_url: str
+):
     embed = discord.Embed(
         color=discord.Color.blue(),
     )
-    embed.set_author(name=f"{bot_name} - Discord Together Help Menu", icon_url=bot_avatar_url)
+    embed.set_author(
+        name=f"{bot_name} - Discord Together Help Menu", icon_url=bot_avatar_url
+    )
     embed.add_field(
-        name=f"{prefix}yt_together",
+        name=f"{prefix}together youtube",
         value="Use YouTube Together Activity",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}chess_together",
+        name=f"{prefix}together chess",
         value="Use Chess Together Activity",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}poker_together",
+        name=f"{prefix}together poker",
         value="Use Poker Together Activity",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}betrayal_together",
+        name=f"{prefix}together betrayal",
         value="Use Betrayal Together Activity",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}fishing_together",
+        name=f"{prefix}together fishing",
         value="Use Fishing Together Activity",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}together letter_tile",
+        value="Use Letter Tile Together Activity",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}together word_snack",
+        value="Use Word Snack Together Activity",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}together doodle_crew",
+        value="Use Doddle Crew Together Activity",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}together spell_cast",
+        value="Use Spell Cast Together Activity",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}together awkword",
+        value="Use Awkword Together Activity",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}together checkers",
+        value="Use Checkers Together Activity",
         inline=False,
     )
     embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
