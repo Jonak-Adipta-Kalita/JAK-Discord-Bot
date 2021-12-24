@@ -20,6 +20,10 @@ class JAKDiscordBot(commands.Bot):
             if files.endswith(".py"):
                 self.load_extension(f"src.cogs.commands.{files[:-3]}")
 
+        for files in os.listdir(f"./src/cogs/commands/games"):
+            if files.endswith(".py"):
+                self.load_extension(f"src.cogs.commands.games.{files[:-3]}")
+
         for files in os.listdir(f"./src/cogs/slash/"):
             if files.endswith(".py"):
                 self.load_extension(f"src.cogs.slash.{files[:-3]}")
