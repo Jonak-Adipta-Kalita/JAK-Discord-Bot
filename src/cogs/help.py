@@ -9,6 +9,7 @@ prefix = funcs.get_prefix()
 class Dropdown(disnake.ui.Select):
     def __init__(self, ctx: commands.Context, bot: commands.Bot):
         self.ctx = ctx
+        self.bot = bot
 
         super().__init__(
             placeholder="Choose a category!!",
