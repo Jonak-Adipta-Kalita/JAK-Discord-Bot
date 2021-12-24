@@ -11,7 +11,8 @@ class Fun(commands.Cog):
     @dislash.slash_command(
         description="Display a Joke",
     )
-    async def joke(self, inter):
+    @dislash.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def joke(self, inter: dislash.SlashInteraction):
         joke = funcs.get_joke()
 
         await inter.respond(joke)
@@ -19,7 +20,8 @@ class Fun(commands.Cog):
     @dislash.slash_command(
         description="Display a Meme",
     )
-    async def meme(self, inter):
+    @dislash.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def meme(self, inter: dislash.SlashInteraction):
         response = await funcs.get_meme()
         await inter.respond(
             embed=embeds.meme_embed(label=response["caption"], image=response["image"])
@@ -36,7 +38,8 @@ class Fun(commands.Cog):
             )
         ],
     )
-    async def emojify(self, inter, text):
+    @dislash.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def emojify(self, inter: dislash.SlashInteraction, text: str):
         await inter.respond(" ".join(funcs.emojify_text(text)))
 
 

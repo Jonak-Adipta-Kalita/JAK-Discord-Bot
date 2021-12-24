@@ -41,7 +41,8 @@ class _8Ball(commands.Cog):
             )
         ],
     )
-    async def _8ball_(self, inter, question):
+    @dislash.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def _8ball_(self, inter: dislash.SlashInteraction, question: str):
         await inter.respond(
             f"Question: {question}\nAnswer: {random.choice(self.responses)} :relieved:"
         )

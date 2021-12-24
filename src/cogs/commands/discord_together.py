@@ -19,7 +19,7 @@ class DiscordTogether(commands.Cog):
         pass
 
     @together.command()
-    @commands.cooldown(1, 60, commands.BucketType.guild)
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def youtube(self, ctx: commands.Context):
         if ctx.author.voice is None:
             await ctx.reply("You are not Connected to a Voice Channel!!")
@@ -30,7 +30,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command()
-    @commands.cooldown(1, 60, commands.BucketType.guild)
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def poker(self, ctx: commands.Context):
         if ctx.author.voice is None:
             await ctx.reply("You are not Connected to a Voice Channel!!")
@@ -41,7 +41,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command()
-    @commands.cooldown(1, 60, commands.BucketType.guild)
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def chess(self, ctx: commands.Context):
         if ctx.author.voice is None:
             await ctx.reply("You are not Connected to a Voice Channel!!")
@@ -52,7 +52,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command()
-    @commands.cooldown(1, 60, commands.BucketType.guild)
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def betrayal(self, ctx: commands.Context):
         if ctx.author.voice is None:
             await ctx.reply("You are not Connected to a Voice Channel!!")
@@ -63,7 +63,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command()
-    @commands.cooldown(1, 60, commands.BucketType.guild)
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def fishing(self, ctx: commands.Context):
         if ctx.author.voice is None:
             await ctx.reply("You are not Connected to a Voice Channel!!")
@@ -74,7 +74,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command()
-    @commands.cooldown(1, 60, commands.BucketType.guild)
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def letter_tile(self, ctx: commands.Context):
         if ctx.author.voice is None:
             await ctx.reply("You are not Connected to a Voice Channel!!")
@@ -85,7 +85,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command()
-    @commands.cooldown(1, 60, commands.BucketType.guild)
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def word_snack(self, ctx: commands.Context):
         if ctx.author.voice is None:
             await ctx.reply("You are not Connected to a Voice Channel!!")
@@ -96,7 +96,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command()
-    @commands.cooldown(1, 60, commands.BucketType.guild)
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def doodle_crew(self, ctx: commands.Context):
         if ctx.author.voice is None:
             await ctx.reply("You are not Connected to a Voice Channel!!")
@@ -107,7 +107,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command()
-    @commands.cooldown(1, 60, commands.BucketType.guild)
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def spell_cast(self, ctx: commands.Context):
         if ctx.author.voice is None:
             await ctx.reply("You are not Connected to a Voice Channel!!")
@@ -118,7 +118,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command()
-    @commands.cooldown(1, 60, commands.BucketType.guild)
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def awkword(self, ctx: commands.Context):
         if ctx.author.voice is None:
             await ctx.reply("You are not Connected to a Voice Channel!!")
@@ -129,7 +129,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command()
-    @commands.cooldown(1, 60, commands.BucketType.guild)
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def checkers(self, ctx: commands.Context):
         if ctx.author.voice is None:
             await ctx.reply("You are not Connected to a Voice Channel!!")

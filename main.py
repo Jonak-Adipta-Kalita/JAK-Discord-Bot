@@ -182,6 +182,22 @@ class JAKDiscordBot(commands.Bot):
             await ctx.reply("This Command is currently in Cooldown for you!!")
         else:
             print(error)
+    
+    async def on_slash_command_error(
+        self, ctx: dislash.SlashInteraction, error: dislash.ApplicationCommandError
+    ):
+        if isinstance(error, dislash.MissingPermissions):
+            await ctx.reply(
+                "You don't have the Appropriate Permissions to run this command!!"
+            )
+        elif isinstance(error, commands.MissingRequiredArgument):
+            await ctx.reply("Please make sure to provide all the required Arguments!!")
+        elif isinstance(error, dislash.BadArgument):
+            await ctx.reply("Please make sure to provide the Arguments correctly!!")
+        elif isinstance(error, dislash.CommandOnCooldown):
+            await ctx.reply("This Command is currently in Cooldown for you!!")
+        else:
+            print(error)
 
 
 if __name__ == "__main__":
