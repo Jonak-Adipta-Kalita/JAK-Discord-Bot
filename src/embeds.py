@@ -1,6 +1,6 @@
-import discord
+import disnake
 import src.functions as funcs
-from discord.ext import commands
+from disnake.ext import commands
 
 prefix = funcs.get_prefix()
 
@@ -12,8 +12,8 @@ def ping_bot_embed(bot_name: str, bot_avatar_url: str, servers: int):
         Total Servers = {servers}
     """
 
-    embed = discord.Embed(
-        title=f"Hello Buddy!!", description=body_text, color=discord.Color.blue()
+    embed = disnake.Embed(
+        title=f"Hello Buddy!!", description=body_text, color=disnake.Color.blue()
     )
     embed.set_author(name=f"{bot_name}", icon_url=bot_avatar_url)
 
@@ -21,8 +21,8 @@ def ping_bot_embed(bot_name: str, bot_avatar_url: str, servers: int):
 
 
 def rules_embed(bot_name: str, bot_avatar_url: str, rules: str):
-    embed = discord.Embed(
-        color=discord.Color.blue(),
+    embed = disnake.Embed(
+        color=disnake.Color.blue(),
     )
     embed.set_author(name=f"{bot_name} - Rules", icon_url=bot_avatar_url)
     embed.set_footer(text="Please Follow all the RULES!!")
@@ -37,8 +37,8 @@ def rules_embed(bot_name: str, bot_avatar_url: str, rules: str):
 
 
 def help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
-    embed = discord.Embed(
-        color=discord.Color.blue(),
+    embed = disnake.Embed(
+        color=disnake.Color.blue(),
     )
     embed.set_author(name=f"{bot_name} - Help Menu", icon_url=bot_avatar_url)
     embed.add_field(
@@ -67,8 +67,8 @@ def help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
 
 
 def moderation_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
-    embed = discord.Embed(
-        color=discord.Color.blue(),
+    embed = disnake.Embed(
+        color=disnake.Color.blue(),
     )
     embed.set_author(
         name=f"{bot_name} - Moderation Help Menu",
@@ -112,8 +112,8 @@ def moderation_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: 
 
 
 def games_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
-    embed = discord.Embed(
-        color=discord.Color.blue(),
+    embed = disnake.Embed(
+        color=disnake.Color.blue(),
     )
     embed.set_author(name=f"{bot_name} - Games Help Menu", icon_url=bot_avatar_url)
     embed.add_field(
@@ -132,8 +132,8 @@ def games_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
 
 
 def music_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
-    embed = discord.Embed(
-        color=discord.Color.blue(),
+    embed = disnake.Embed(
+        color=disnake.Color.blue(),
     )
     embed.set_author(name=f"{bot_name} - Music Help Menu", icon_url=bot_avatar_url)
     embed.add_field(
@@ -177,8 +177,8 @@ def music_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
 
 
 def fun_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
-    embed = discord.Embed(
-        color=discord.Color.blue(),
+    embed = disnake.Embed(
+        color=disnake.Color.blue(),
     )
     embed.set_author(name=f"{bot_name} - Fun Help Menu", icon_url=bot_avatar_url)
     embed.add_field(
@@ -206,14 +206,19 @@ def fun_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         value="Encode or Decode PlainText/MorseCode into MorseCode/PlainText",
         inline=False,
     )
+    embed.add_field(
+        name=f"{prefix}calculator",
+        value="Use a Calculator to do Mathamatics",
+        inline=False,
+    )
     embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
 
     return embed
 
 
 def tictactoe_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
-    embed = discord.Embed(
-        color=discord.Color.blue(),
+    embed = disnake.Embed(
+        color=disnake.Color.blue(),
     )
     embed.set_author(
         name=f"{bot_name} - TicTacToe Help Menu",
@@ -242,8 +247,8 @@ def tictactoe_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: s
 def discord_together_help_embed(
     ctx: commands.Context, bot_name: str, bot_avatar_url: str
 ):
-    embed = discord.Embed(
-        color=discord.Color.blue(),
+    embed = disnake.Embed(
+        color=disnake.Color.blue(),
     )
     embed.set_author(
         name=f"{bot_name} - Discord Together Help Menu", icon_url=bot_avatar_url
@@ -309,20 +314,20 @@ def discord_together_help_embed(
 
 
 def warning_embed(message: str):
-    embed = discord.Embed(
+    embed = disnake.Embed(
         title="YOU HAVE BEEN WARNED!!",
         description=message,
-        color=discord.Color.blue(),
+        color=disnake.Color.blue(),
     )
 
     return embed
 
 
 def music_playing_embed(info: dict):
-    embed = discord.Embed(
+    embed = disnake.Embed(
         title=info["title"],
         description=f"Channel: {info['channel']}",
-        color=discord.Color.blue(),
+        color=disnake.Color.blue(),
     )
     embed.set_image(url=info["thumbnail"])
 
@@ -334,11 +339,11 @@ def translation_embed(
     translated_text: str,
     language_name: str,
     language_iso: str,
-    author: discord.Member,
-    author_reacted: discord.Member = None,
+    author: disnake.Member,
+    author_reacted: disnake.Member = None,
 ):
-    embed = discord.Embed(
-        color=discord.Color.blue(),
+    embed = disnake.Embed(
+        color=disnake.Color.blue(),
     )
     embed.set_author(name=f"Author: {author.display_name}")
     embed.add_field(name="Translation (en)", value=translated_text, inline=True)
@@ -356,10 +361,10 @@ def translation_embed(
 def pronunciation_embed(
     text: str,
     pronunciation: str,
-    author: discord.Member,
-    author_reacted: discord.Member,
+    author: disnake.Member,
+    author_reacted: disnake.Member,
 ):
-    embed = discord.Embed(color=discord.Color.blue())
+    embed = disnake.Embed(color=disnake.Color.blue())
     embed.set_author(name=f"Author: {author.display_name}")
     embed.add_field(name="Text", value=text, inline=True)
     embed.add_field(name=f"Pronunciation", value=pronunciation, inline=True)
@@ -371,14 +376,14 @@ def pronunciation_embed(
 
 
 def meme_embed(label: str, image: str):
-    embed = discord.Embed(title=f"Caption: **{label}**", color=discord.Color.blue())
+    embed = disnake.Embed(title=f"Caption: **{label}**", color=disnake.Color.blue())
     embed.set_image(url=image)
 
     return embed
 
 
 def user_avatar_embed(avatar_url: str, name: str):
-    embed = discord.Embed(title=f"{name}'s Avatar", color=discord.Color.blue())
+    embed = disnake.Embed(title=f"{name}'s Avatar", color=disnake.Color.blue())
     embed.set_image(url=avatar_url)
 
     return embed
@@ -393,8 +398,8 @@ def server_stats_embed(
     member_count: int,
     banner_url: str,
 ):
-    embed = discord.Embed(
-        description=description if description else "", color=discord.Color.blue()
+    embed = disnake.Embed(
+        description=description if description else "", color=disnake.Color.blue()
     )
     embed.set_author(name=f"{name}'s Stats", icon_url=icon_url)
     embed.add_field(name="Owner", value=owner, inline=True)
@@ -406,8 +411,19 @@ def server_stats_embed(
 
 
 def morse_code_embed(ctx: commands.Context, title: str, converted: str):
-    embed = discord.Embed(
-        title=title, description=f"```yaml\n{converted}```", color=discord.Color.blue()
+    embed = disnake.Embed(
+        title=title, description=f"```yaml\n{converted}```", color=disnake.Color.blue()
+    )
+
+    return embed
+
+
+def calculator_embed():
+    embed = disnake.Embed(
+        title="Calculator", description="```yaml\n0```", color=disnake.Color.blue()
+    )
+    embed.set_footer(
+        text="To interact with your virtual calculator, click the shown buttons."
     )
 
     return embed

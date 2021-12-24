@@ -1,7 +1,7 @@
-import discord, youtube_dl
+import disnake, youtube_dl
 import src.embeds as embeds
 import src.functions as funcs
-from discord.ext import commands
+from disnake.ext import commands
 
 prefix = funcs.get_prefix()
 
@@ -29,7 +29,7 @@ class Music(commands.Cog):
             try:
                 await voice_channel.connect()
                 await ctx.reply("Connected!!")
-            except discord.HTTPException:
+            except disnake.HTTPException:
                 await ctx.reply("Can't Connect to this Voice Channel!!")
         else:
             await ctx.reply("I am already in a Voice Channel!!")
@@ -70,7 +70,7 @@ class Music(commands.Cog):
                 if info:
                     await ctx.reply(embed=embeds.music_playing_embed(info))
 
-                source = await discord.FFmpegOpusAudio.from_probe(url, **FFMPEG_OPTIONS)
+                source = await disnake.FFmpegOpusAudio.from_probe(url, **FFMPEG_OPTIONS)
                 vc.play(source)
 
         else:

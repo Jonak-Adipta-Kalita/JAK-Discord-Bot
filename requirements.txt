@@ -1,9 +1,11 @@
 aiohttp==3.7.4
 appdirs==1.4.4
+astunparse==1.6.3
 async-timeout==3.0.1
 asyncio==3.4.3
 attrs==21.2.0
 black==21.9b0
+braceexpand==0.1.7
 certifi==2021.10.8
 cffi==1.15.0
 chardet==3.0.4
@@ -12,8 +14,8 @@ click==8.0.3
 colorama==0.4.4
 discord==1.7.3
 discord-together==1.2.2
-discord.py==1.7.3
-dislash.py==1.4.9
+disnake==2.3.0
+disnake-jishaku==2.6.5
 eng-to-ipa==0.0.2
 fuzzywuzzy==0.18.0
 googletrans==3.1.0a0
@@ -25,6 +27,7 @@ httpcore==0.9.1
 httpx==0.13.3
 hyperframe==5.2.0
 idna==2.10
+import-expression==1.1.4
 importlib-metadata==4.8.1
 joblib==1.1.0
 jokeapi==0.2.8
@@ -41,6 +44,7 @@ python-dotenv==0.13.0
 regex==2021.10.23
 requests==2.26.0
 rfc3986==1.5.0
+simpleeval==0.9.11
 simplejson==3.17.0
 six==1.16.0
 sniffio==1.2.0

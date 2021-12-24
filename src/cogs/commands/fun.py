@@ -1,8 +1,8 @@
-import aiohttp, asyncio, discord, os
+import aiohttp, asyncio, disnake, os
 import src.embeds as embeds
 import src.functions as funcs
 import src.files as files
-from discord.ext import commands
+from disnake.ext import commands
 
 
 class Fun(commands.Cog):
@@ -36,7 +36,7 @@ class Fun(commands.Cog):
 
         if code.startswith("```") and code.endswith("```"):
             author_id = member.id
-            code_edited = discord.utils.remove_markdown(code.strip()).strip()
+            code_edited = disnake.utils.remove_markdown(code.strip()).strip()
 
             async with aiohttp.ClientSession(
                 headers={"Content-Type": "application/json"},
@@ -204,18 +204,22 @@ class Fun(commands.Cog):
             _templist = str(string).split(" ")
             converted = "".join(MORSE_TO_TEXT[str(i)] for i in _templist)
 
-            await ctx.reply(embed=embeds.morse_code_embed(
-                ctx=ctx, title="Morse ---> Text", converted=converted
-            ))
+            await ctx.reply(
+                embed=embeds.morse_code_embed(
+                    ctx=ctx, title="Morse ---> Text", converted=converted
+                )
+            )
         else:
             _templist = []
             for char in str(string):
                 _templist.append(char)
             try:
                 converted = " ".join(TEXT_TO_MORSE[str(i).upper()] for i in _templist)
-                await ctx.reply(embed=embeds.morse_code_embed(
-                    ctx=ctx, title="Text ---> Morse", converted=converted
-                ))
+                await ctx.reply(
+                    embed=embeds.morse_code_embed(
+                        ctx=ctx, title="Text ---> Morse", converted=converted
+                    )
+                )
             except KeyError:
                 await ctx.reply(
                     "The String contains some characters which cannot be converted into Morse!!"

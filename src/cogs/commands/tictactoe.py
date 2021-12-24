@@ -1,8 +1,7 @@
-import discord, random
-import src.embeds as embeds
+import disnake, random
 import src.functions as funcs
 import src.emojis as emojis
-from discord.ext import commands
+from disnake.ext import commands
 
 prefix = funcs.get_prefix()
 
@@ -29,7 +28,7 @@ class TicTacToe(commands.Cog):
 
     @commands.group(invoke_without_command=True, description="Start Tic-Tac-Toe Game")
     async def tictactoe(
-        self, ctx: commands.Context, p1: discord.Member, p2: discord.Member
+        self, ctx: commands.Context, p1: disnake.Member, p2: disnake.Member
     ):
         global count
 

@@ -1,12 +1,12 @@
-import discord, dislash, credentials, os, googletrans, asyncio, itertools
+import disnake, credentials, os, googletrans, asyncio, itertools
 import src.functions as funcs
 import src.embeds as embeds
 import src.emojis as emojis
-from discord.ext import commands
+from disnake.ext import commands
 
 
 class JAKDiscordBot(commands.Bot):
-    def __init__(self, command_prefix: str, intents: discord.Intents, bad_words: list):
+    def __init__(self, command_prefix: str, intents: disnake.Intents, bad_words: list):
         self.bad_words = bad_words
         self.prefix = command_prefix
         self.servers = 0
@@ -31,7 +31,6 @@ class JAKDiscordBot(commands.Bot):
         print("Bot is Disconnected!!")
 
     async def on_ready(self):
-        self.slash = dislash.SlashClient(self)
         self.servers = len(self.guilds)
         statuses = [
             ("listening", f"{self.prefix}help"),
@@ -42,17 +41,17 @@ class JAKDiscordBot(commands.Bot):
         ]
         for type, message in itertools.cycle(statuses):
             await self.change_presence(
-                status=discord.Status.online,
-                activity=discord.Activity(
-                    type=discord.ActivityType.listening
+                status=disnake.Status.online,
+                activity=disnake.Activity(
+                    type=disnake.ActivityType.listening
                     if type == "listening" and type != "watching"
-                    else discord.ActivityType.watching,
+                    else disnake.ActivityType.watching,
                     name=message,
                 ),
             )
             await asyncio.sleep(60)
 
-    async def on_message(self, message: discord.Message):
+    async def on_message(self, message: disnake.Message):
         member = message.author
 
         if member == self.user:
@@ -66,7 +65,7 @@ class JAKDiscordBot(commands.Bot):
             await message.reply(
                 embed=embeds.ping_bot_embed(
                     bot_name=self.user.name,
-                    bot_avatar_url=self.user.avatar_url,
+                    bot_avatar_url=self.user.avatar.url,
                     servers=self.servers,
                 )
             )
@@ -81,7 +80,7 @@ class JAKDiscordBot(commands.Bot):
                             )
                         )
                         await message.delete()
-                    except discord.HTTPException:
+                    except disnake.HTTPException:
                         await message.delete()
                     break
 
@@ -149,24 +148,24 @@ class JAKDiscordBot(commands.Bot):
 
         await self.process_commands(message)
 
-    async def on_member_join(self, member: discord.Member):
+    async def on_member_join(self, member: disnake.Member):
         perms = member.guild.me.guild_permissions
         if perms.manage_guild and perms.manage_messages:
             try:
                 await member.send(f"Welcome to **{member.guild}**!!")
-            except discord.HTTPException:
+            except disnake.HTTPException:
                 pass
 
-    async def on_member_remove(self, member: discord.Member):
+    async def on_member_remove(self, member: disnake.Member):
         perms = member.guild.me.guild_permissions
         if perms.manage_guild and perms.manage_messages:
             try:
                 await member.send(f"You just left **{member.guild}**, What a Shame!!")
-            except discord.HTTPException:
+            except disnake.HTTPException:
                 pass
 
     async def on_command_error(
-        self, ctx: commands.Context, error: discord.HTTPException
+        self, ctx: commands.Context, error: disnake.HTTPException
     ):
         if isinstance(error, commands.CommandNotFound):
             await ctx.reply("Its not a valid Command!!")
@@ -182,19 +181,19 @@ class JAKDiscordBot(commands.Bot):
             await ctx.reply("This Command is currently in Cooldown for you!!")
         else:
             print(error)
-    
+
     async def on_slash_command_error(
-        self, ctx: dislash.SlashInteraction, error: dislash.ApplicationCommandError
+        self, ctx: disnake.ApplicationCommandInteraction, error: commands.CommandError
     ):
-        if isinstance(error, dislash.MissingPermissions):
+        if isinstance(error, commands.MissingPermissions):
             await ctx.reply(
                 "You don't have the Appropriate Permissions to run this command!!"
             )
         elif isinstance(error, commands.MissingRequiredArgument):
             await ctx.reply("Please make sure to provide all the required Arguments!!")
-        elif isinstance(error, dislash.BadArgument):
+        elif isinstance(error, commands.BadArgument):
             await ctx.reply("Please make sure to provide the Arguments correctly!!")
-        elif isinstance(error, dislash.CommandOnCooldown):
+        elif isinstance(error, commands.CommandOnCooldown):
             await ctx.reply("This Command is currently in Cooldown for you!!")
         else:
             print(error)
@@ -207,7 +206,7 @@ if __name__ == "__main__":
 
     bot = JAKDiscordBot(
         command_prefix=funcs.get_prefix(),
-        intents=discord.Intents.all(),
+        intents=disnake.Intents.all(),
         bad_words=bad_words,
     )
 

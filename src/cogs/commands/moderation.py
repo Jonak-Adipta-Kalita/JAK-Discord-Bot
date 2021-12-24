@@ -1,8 +1,8 @@
-import discord
+import disnake
 import src.embeds as embeds
 import src.emojis as emojis
 import src.functions as funcs
-from discord.ext import commands
+from disnake.ext import commands
 
 
 prefix = funcs.get_prefix()
@@ -18,7 +18,7 @@ class Moderation(commands.Cog):
     @commands.bot_has_permissions(kick_members=True)
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def kick(
-        self, ctx: commands.Context, member: discord.Member, *, reason="Nothing"
+        self, ctx: commands.Context, member: disnake.Member, *, reason="Nothing"
     ):
         await member.kick(reason=reason)
         await ctx.reply(f"{member.mention} is Kicked!! Reason: {reason}")
@@ -28,7 +28,7 @@ class Moderation(commands.Cog):
     @commands.bot_has_permissions(kick_members=True, ban_members=True)
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def ban(
-        self, ctx: commands.Context, member: discord.Member, *, reason="Nothing!!"
+        self, ctx: commands.Context, member: disnake.Member, *, reason="Nothing!!"
     ):
         await member.ban(reason=reason)
         await ctx.reply(f"{member.mention} is Banned!! Reason: {reason}")
@@ -75,7 +75,7 @@ class Moderation(commands.Cog):
         await ctx.reply(
             embed=embeds.rules_embed(
                 bot_name=self.bot.user.name,
-                bot_avatar_url=self.bot.user.avatar_url,
+                bot_avatar_url=self.bot.user.avatar.url,
                 rules=rules,
             )
         )
@@ -87,10 +87,10 @@ class Moderation(commands.Cog):
 
     @commands.command(description="Show the Avatar of a Member")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def user_avatar(self, ctx: commands.Context, member: discord.Member):
+    async def user_avatar(self, ctx: commands.Context, member: disnake.Member):
         await ctx.reply(
             embed=embeds.user_avatar_embed(
-                avatar_url=member.avatar_url, name=member.display_name
+                avatar_url=member.avatar.url, name=member.display_name
             )
         )
 
@@ -99,11 +99,11 @@ class Moderation(commands.Cog):
     async def server_stats(self, ctx: commands.Context):
         name = ctx.guild.name
         description = ctx.guild.description
-        icon_url = ctx.guild.icon_url
+        icon_url = ctx.guild.icon.url
         owner = ctx.guild.owner
         guild_id = ctx.guild.id
         member_count = ctx.guild.member_count
-        banner_url = ctx.guild.banner_url
+        banner_url = ctx.guild.banner.url
 
         await ctx.reply(
             embed=embeds.server_stats_embed(

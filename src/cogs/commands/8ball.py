@@ -1,5 +1,5 @@
 import random
-from discord.ext import commands
+from disnake.ext import commands
 
 
 class _8Ball(commands.Cog):
