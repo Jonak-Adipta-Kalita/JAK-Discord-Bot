@@ -99,21 +99,21 @@ class Moderation(commands.Cog):
     async def server_stats(self, ctx: commands.Context):
         name = ctx.guild.name
         description = ctx.guild.description
-        icon_url = ctx.guild.icon.url
+        icon = ctx.guild.icon
         owner = ctx.guild.owner
         guild_id = ctx.guild.id
         member_count = ctx.guild.member_count
-        banner_url = ctx.guild.banner.url
+        banner = ctx.guild.banner
 
         await ctx.reply(
             embed=embeds.server_stats_embed(
                 name=name,
                 description=description,
-                icon_url=icon_url,
+                icon=icon,
                 owner=owner,
                 guild_id=guild_id,
                 member_count=member_count,
-                banner_url=banner_url,
+                banner=banner,
             )
         )
 

@@ -392,20 +392,21 @@ def user_avatar_embed(avatar_url: str, name: str):
 def server_stats_embed(
     name: str,
     description: str,
-    icon_url: str,
+    icon: disnake.Asset,
     owner: str,
     guild_id: int,
     member_count: int,
-    banner_url: str,
+    banner: disnake.Asset = None,
 ):
     embed = disnake.Embed(
         description=description if description else "", color=disnake.Color.blue()
     )
-    embed.set_author(name=f"{name}'s Stats", icon_url=icon_url)
+    embed.set_author(name=f"{name}'s Stats", icon_url=icon.url)
     embed.add_field(name="Owner", value=owner, inline=True)
     embed.add_field(name="Server ID", value=guild_id, inline=True)
     embed.add_field(name="Member Count", value=member_count, inline=True)
-    embed.set_thumbnail(url=banner_url)
+    if banner:
+        embed.set_thumbnail(url=banner.url)
 
     return embed
 
