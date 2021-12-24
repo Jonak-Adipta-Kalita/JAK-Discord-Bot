@@ -1,8 +1,6 @@
 import dislash
 import src.embeds as embeds
 import src.functions as funcs
-import src.emojis as emojis_list
-import src.files as files
 from discord.ext import commands
 
 
