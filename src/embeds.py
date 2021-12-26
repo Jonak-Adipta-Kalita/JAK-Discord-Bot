@@ -405,13 +405,13 @@ def meme_embed(label: str, image: str):
 
 def user_details_embed(member: disnake.Member):
     embed = disnake.Embed(color=disnake.Color.blue())
-    embed.set_author(name=f"User Info - {member}")
-    embed.set_thumbnail(url=member.display_avatar.url)
     embed.add_field(name="ID:", value=member.id, inline=False)
     embed.add_field(name="Name:", value=member.display_name, inline=False)
     embed.add_field(name="Created At:", value=member.created_at, inline=False)
     embed.add_field(name="Joined At:", value=member.joined_at, inline=False)
     embed.add_field(name="Is Bot:", value=member.bot, inline=False)
+    embed.set_author(name=f"User Info - {member}")
+    embed.set_thumbnail(url=member.display_avatar.url)
 
     return embed
 
