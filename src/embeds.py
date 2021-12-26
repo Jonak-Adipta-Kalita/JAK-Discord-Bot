@@ -61,7 +61,10 @@ def help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         value="Show the Fun Commands",
         inline=False,
     )
-    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
+    embed.set_footer(
+        text=f"Information Requested by: {ctx.author.display_name}",
+        icon_url=ctx.author.avatar.url,
+    )
 
     return embed
 
@@ -80,12 +83,12 @@ def moderation_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: 
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}kick @<member> <reason>",
+        name=f"{prefix}kick @<member> [reason]",
         value="Kick Member or Bot",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}ban @<member> <reason>",
+        name=f"{prefix}ban @<member> [reason]",
         value="Ban Member or Bot",
         inline=False,
     )
@@ -97,8 +100,8 @@ def moderation_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: 
     embed.add_field(name=f"{prefix}show_rules", value="Show the Rules", inline=False)
     embed.add_field(name=f"{prefix}latency", value="Show the Latency", inline=False)
     embed.add_field(
-        name=f"{prefix}user_avatar @<member>",
-        value="Show the Avatar of a Member",
+        name=f"{prefix}user_details [member]",
+        value="Show the Details of a Member",
         inline=False,
     )
     embed.add_field(
@@ -106,7 +109,10 @@ def moderation_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: 
         value="Show the Server Information",
         inline=False,
     )
-    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
+    embed.set_footer(
+        text=f"Information Requested by: {ctx.author.display_name}",
+        icon_url=ctx.author.avatar.url,
+    )
 
     return embed
 
@@ -126,7 +132,10 @@ def games_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         value="Show Help Menu for Tic-Tac-Toe",
         inline=False,
     )
-    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
+    embed.set_footer(
+        text=f"Information Requested by: {ctx.author.display_name}",
+        icon_url=ctx.author.avatar.url,
+    )
 
     return embed
 
@@ -171,7 +180,10 @@ def music_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         value="Stops the Music",
         inline=False,
     )
-    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
+    embed.set_footer(
+        text=f"Information Requested by: {ctx.author.display_name}",
+        icon_url=ctx.author.avatar.url,
+    )
 
     return embed
 
@@ -211,7 +223,10 @@ def fun_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         value="Use a Calculator to do Mathamatics",
         inline=False,
     )
-    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
+    embed.set_footer(
+        text=f"Information Requested by: {ctx.author.display_name}",
+        icon_url=ctx.author.avatar.url,
+    )
 
     return embed
 
@@ -239,7 +254,10 @@ def tictactoe_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: s
         value="Stops Tic-Tac-Toe Game",
         inline=False,
     )
-    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
+    embed.set_footer(
+        text=f"Information Requested by: {ctx.author.display_name}",
+        icon_url=ctx.author.avatar.url,
+    )
 
     return embed
 
@@ -308,7 +326,10 @@ def discord_together_help_embed(
         value="Use `Checkers Together` Activity",
         inline=False,
     )
-    embed.set_footer(text=f"Information Requested by: {ctx.author.display_name}")
+    embed.set_footer(
+        text=f"Information Requested by: {ctx.author.display_name}",
+        icon_url=ctx.author.avatar.url,
+    )
 
     return embed
 
@@ -382,9 +403,15 @@ def meme_embed(label: str, image: str):
     return embed
 
 
-def user_avatar_embed(avatar_url: str, name: str):
-    embed = disnake.Embed(title=f"{name}'s Avatar", color=disnake.Color.blue())
-    embed.set_image(url=avatar_url)
+def user_details_embed(member: disnake.Member):
+    embed = disnake.Embed(color=disnake.Color.blue())
+    embed.set_author(name=f"User Info - {member}")
+    embed.set_thumbnail(url=member.display_avatar.url)
+    embed.add_field(name="ID:", value=member.id, inline=False)
+    embed.add_field(name="Name:", value=member.display_name, inline=False)
+    embed.add_field(name="Created At:", value=member.created_at, inline=False)
+    embed.add_field(name="Joined At:", value=member.joined_at, inline=False)
+    embed.add_field(name="Is Bot:", value=member.bot, inline=False)
 
     return embed
 
@@ -411,7 +438,7 @@ def server_stats_embed(
     return embed
 
 
-def morse_code_embed(ctx: commands.Context, title: str, converted: str):
+def morse_code_embed(title: str, converted: str):
     embed = disnake.Embed(
         title=title, description=f"```yaml\n{converted}```", color=disnake.Color.blue()
     )

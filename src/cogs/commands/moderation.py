@@ -85,14 +85,12 @@ class Moderation(commands.Cog):
     async def latency(self, ctx: commands.Context):
         await ctx.reply(f"Ping: {round(self.bot.latency * 1000)}")
 
-    @commands.command(description="Show the Avatar of a Member")
+    @commands.command(description="Show the Details of a Member")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def user_avatar(self, ctx: commands.Context, member: disnake.Member):
-        await ctx.reply(
-            embed=embeds.user_avatar_embed(
-                avatar_url=member.avatar.url, name=member.display_name
-            )
-        )
+    async def user_details(self, ctx: commands.Context, member: disnake.Member = None):
+        if not member:
+            member = ctx.author
+        await ctx.reply(embed=embeds.user_details_embed(member=member))
 
     @commands.command(description="Show the Server Information")
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)

@@ -206,7 +206,7 @@ class Fun(commands.Cog):
 
             await ctx.reply(
                 embed=embeds.morse_code_embed(
-                    ctx=ctx, title="Morse ---> Text", converted=converted
+                    title="Morse ---> Text", converted=converted
                 )
             )
         else:
@@ -217,7 +217,7 @@ class Fun(commands.Cog):
                 converted = " ".join(TEXT_TO_MORSE[str(i).upper()] for i in _templist)
                 await ctx.reply(
                     embed=embeds.morse_code_embed(
-                        ctx=ctx, title="Text ---> Morse", converted=converted
+                        title="Text ---> Morse", converted=converted
                     )
                 )
             except KeyError:
