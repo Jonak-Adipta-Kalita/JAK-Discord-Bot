@@ -61,6 +61,11 @@ def help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         value="Show the Fun Commands",
         inline=False,
     )
+    embed.add_field(
+        name=f"{prefix}help discord_together",
+        value="Show the Discord Together Commands",
+        inline=False,
+    )
     embed.set_footer(
         text=f"Information Requested by: {ctx.author.display_name}",
         icon_url=ctx.author.avatar.url,

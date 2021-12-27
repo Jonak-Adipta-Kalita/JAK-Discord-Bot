@@ -85,7 +85,7 @@ class Help(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    @commands.group(invoke_without_command=True)
+    @commands.group(invoke_without_command=True, description="Show the Help Menu")
     async def help(self, ctx: commands.Context):
         await ctx.reply(
             embed=embeds.help_embed(
@@ -96,7 +96,7 @@ class Help(commands.Cog):
             view=DropdownView(ctx=ctx, bot=self.bot),
         )
 
-    @help.command()
+    @help.command(description="Show the Moderation Commands")
     async def moderation(self, ctx: commands.Context):
         await ctx.reply(
             embed=embeds.moderation_help_embed(
@@ -106,7 +106,7 @@ class Help(commands.Cog):
             )
         )
 
-    @help.command()
+    @help.command(description="Show the Game Commands")
     async def games(self, ctx: commands.Context):
         await ctx.reply(
             embed=embeds.games_help_embed(
@@ -116,7 +116,7 @@ class Help(commands.Cog):
             )
         )
 
-    @help.command()
+    @help.command(description="Show the Music Commands")
     async def music(self, ctx: commands.Context):
         await ctx.reply(
             embed=embeds.music_help_embed(
@@ -126,7 +126,7 @@ class Help(commands.Cog):
             )
         )
 
-    @help.command()
+    @help.command(description="Show the Fun Commands")
     async def fun(self, ctx: commands.Context):
         await ctx.reply(
             embed=embeds.fun_help_embed(
@@ -136,7 +136,7 @@ class Help(commands.Cog):
             )
         )
 
-    @help.command()
+    @help.command(description="Show the Discord Together Commands", aliases=["together"])
     async def discord_together(self, ctx: commands.Context):
         await ctx.reply(
             embed=embeds.discord_together_help_embed(
