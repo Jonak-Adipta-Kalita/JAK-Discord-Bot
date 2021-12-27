@@ -87,14 +87,14 @@ class Moderation(commands.Cog):
 
     @commands.command(description="Show the Details of a Member")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def user_details(self, ctx: commands.Context, member: disnake.Member = None):
+    async def member_details(self, ctx: commands.Context, member: disnake.Member = None):
         if not member:
             member = ctx.author
             fetched_member = await self.bot.fetch_user(ctx.author.id)
         else:
             fetched_member = await self.bot.fetch_user(member.id)
         await ctx.reply(
-            embed=embeds.user_details_embed(
+            embed=embeds.member_details_embed(
                 member=member, fetched_member=fetched_member
             )
         )

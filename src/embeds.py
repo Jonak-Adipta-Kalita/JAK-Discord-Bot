@@ -408,7 +408,7 @@ def meme_embed(label: str, image: str):
     return embed
 
 
-def user_details_embed(member: disnake.Member, fetched_member: disnake.User):
+def member_details_embed(member: disnake.Member, fetched_member: disnake.User):
     roles_list = [role.mention for role in member.roles if role.name != "@everyone"]
 
     embed = disnake.Embed(color=disnake.Color.blue())
