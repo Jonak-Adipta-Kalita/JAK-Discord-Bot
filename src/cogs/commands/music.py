@@ -10,11 +10,13 @@ class Music(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    @commands.group(invoke_without_command=True)
+    @commands.group(invoke_without_command=True, description="Connect/Leave VC")
     async def vc(self, ctx: commands.Context):
         pass
 
-    @commands.group(invoke_without_command=True)
+    @commands.group(
+        invoke_without_command=True, description="Play, Pause, Resume, Stop Music"
+    )
     async def music(self, ctx: commands.Context):
         pass
 

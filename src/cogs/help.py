@@ -85,65 +85,66 @@ class Help(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    @commands.command()
-    async def help(self, ctx: commands.Context, type: str = "default"):
-        if type == "moderation":
-            await ctx.reply(
-                embed=embeds.moderation_help_embed(
-                    ctx=ctx,
-                    bot_name=self.bot.user.name,
-                    bot_avatar_url=self.bot.user.avatar.url,
-                )
+    @commands.group(invoke_without_command=True)
+    async def help(self, ctx: commands.Context):
+        await ctx.reply(
+            embed=embeds.help_embed(
+                ctx=ctx,
+                bot_name=self.bot.user.name,
+                bot_avatar_url=self.bot.user.avatar.url,
+            ),
+            view=DropdownView(ctx=ctx, bot=self.bot),
+        )
+
+    @help.command()
+    async def moderation(self, ctx: commands.Context):
+        await ctx.reply(
+            embed=embeds.moderation_help_embed(
+                ctx=ctx,
+                bot_name=self.bot.user.name,
+                bot_avatar_url=self.bot.user.avatar.url,
             )
-        elif type == "games":
-            await ctx.reply(
-                embed=embeds.games_help_embed(
-                    ctx=ctx,
-                    bot_name=self.bot.user.name,
-                    bot_avatar_url=self.bot.user.avatar.url,
-                )
+        )
+
+    @help.command()
+    async def games(self, ctx: commands.Context):
+        await ctx.reply(
+            embed=embeds.games_help_embed(
+                ctx=ctx,
+                bot_name=self.bot.user.name,
+                bot_avatar_url=self.bot.user.avatar.url,
             )
-        elif type == "music":
-            await ctx.reply(
-                embed=embeds.music_help_embed(
-                    ctx=ctx,
-                    bot_name=self.bot.user.name,
-                    bot_avatar_url=self.bot.user.avatar.url,
-                )
+        )
+
+    @help.command()
+    async def music(self, ctx: commands.Context):
+        await ctx.reply(
+            embed=embeds.music_help_embed(
+                ctx=ctx,
+                bot_name=self.bot.user.name,
+                bot_avatar_url=self.bot.user.avatar.url,
             )
-        elif type == "fun":
-            await ctx.reply(
-                embed=embeds.fun_help_embed(
-                    ctx=ctx,
-                    bot_name=self.bot.user.name,
-                    bot_avatar_url=self.bot.user.avatar.url,
-                )
+        )
+
+    @help.command()
+    async def fun(self, ctx: commands.Context):
+        await ctx.reply(
+            embed=embeds.fun_help_embed(
+                ctx=ctx,
+                bot_name=self.bot.user.name,
+                bot_avatar_url=self.bot.user.avatar.url,
             )
-        elif type == "discord_together":
-            await ctx.reply(
-                embed=embeds.discord_together_help_embed(
-                    ctx=ctx,
-                    bot_name=self.bot.user.name,
-                    bot_avatar_url=self.bot.user.avatar.url,
-                )
+        )
+
+    @help.command()
+    async def discord_together(self, ctx: commands.Context):
+        await ctx.reply(
+            embed=embeds.discord_together_help_embed(
+                ctx=ctx,
+                bot_name=self.bot.user.name,
+                bot_avatar_url=self.bot.user.avatar.url,
             )
-        elif type == "default":
-            await ctx.send(
-                embed=embeds.help_embed(
-                    ctx=ctx,
-                    bot_name=self.bot.user.name,
-                    bot_avatar_url=self.bot.user.avatar.url,
-                ),
-                view=DropdownView(ctx=ctx, bot=self.bot),
-            )
-        elif (
-            type != "default"
-            and type != "moderation"
-            and type != "games"
-            and type != "music"
-            and type != "fun"
-        ):
-            return
+        )
 
 
 def setup(bot: commands.Bot):
