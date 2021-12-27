@@ -136,7 +136,9 @@ class Help(commands.Cog):
             )
         )
 
-    @help.command(description="Show the Discord Together Commands", aliases=["together"])
+    @help.command(
+        description="Show the Discord Together Commands", aliases=["together"]
+    )
     async def discord_together(self, ctx: commands.Context):
         await ctx.reply(
             embed=embeds.discord_together_help_embed(

@@ -418,8 +418,16 @@ def user_details_embed(member: disnake.Member, fetched_member: disnake.User):
         value=f"{member.display_name}#{member.discriminator}",
         inline=False,
     )
-    embed.add_field(name="Created At:", value=f"<t:{int(member.created_at.timestamp())}:F>", inline=False)
-    embed.add_field(name="Joined At:", value=f"<t:{int(member.joined_at.timestamp())}:F>", inline=False)
+    embed.add_field(
+        name="Created At:",
+        value=f"<t:{int(member.created_at.timestamp())}:F>",
+        inline=False,
+    )
+    embed.add_field(
+        name="Joined At:",
+        value=f"<t:{int(member.joined_at.timestamp())}:F>",
+        inline=False,
+    )
     embed.add_field(
         name=f"Roles: ({len(roles_list)})",
         value="".join([", ".join(roles_list)]),
