@@ -42,6 +42,29 @@ class Fun_(commands.Cog):
     async def emojify(self, inter: disnake.ApplicationCommandInteraction, text: str):
         await inter.response.send_message(" ".join(funcs.emojify_text(text)))
 
+    @commands.slash_command(
+        description="Encode or Decode PlainText/MorseCode into MorseCode/PlainText",
+        options=[
+            disnake.Option(
+                name="text",
+                description="The Text to Encode/Decode!!",
+                type=disnake.OptionType.string,
+                required=True,
+            )
+        ],
+    )
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def morse(self, inter: disnake.ApplicationCommandInteraction, text: str):
+        try:
+            title, converted = funcs.morse_code_encode_decode(text=text)
+            await inter.response.send_message(
+                embed=embeds.morse_code_embed(title=title, converted=converted)
+            )
+        except KeyError:
+            await inter.response.send_message(
+                "The String contains some characters which cannot be converted into Morse!!"
+            )
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(Fun_(bot))

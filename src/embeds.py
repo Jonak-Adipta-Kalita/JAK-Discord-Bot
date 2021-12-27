@@ -8,10 +8,10 @@ prefix = funcs.get_prefix()
 def ping_bot_embed(bot_name: str, bot_avatar_url: str, servers: int):
     embed = disnake.Embed(
         title=f"Hello Buddy!!",
-        description=f"Use `{prefix}help` to see the Help Embed!!\n\nTotal Servers = {servers}",
+        description=f"My Prefix is `{prefix}`\nUse `{prefix}help` to see the Help Embed!!\n\nTotal Servers = {servers}",
         color=disnake.Color.blue(),
     )
-    embed.set_author(name=f"{bot_name}", icon_url=bot_avatar_url)
+    embed.set_author(name=bot_name, icon_url=bot_avatar_url)
 
     return embed
 
