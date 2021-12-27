@@ -403,23 +403,29 @@ def meme_embed(label: str, image: str):
     return embed
 
 
-def user_details_embed(member: disnake.Member):
+def user_details_embed(member: disnake.Member, fetched_member: disnake.User):
     roles_list = [role.mention for role in member.roles if role.name != "@everyone"]
 
     embed = disnake.Embed(color=disnake.Color.blue())
     embed.add_field(name="ID:", value=member.id, inline=False)
-    embed.add_field(name="Name:", value=member.display_name, inline=False)
+    embed.add_field(
+        name="Name:",
+        value=f"{member.display_name}#{member.discriminator}",
+        inline=False,
+    )
     embed.add_field(name="Created At:", value=member.created_at, inline=False)
     embed.add_field(name="Joined At:", value=member.joined_at, inline=False)
     embed.add_field(
         name=f"Roles: ({len(roles_list)})",
-        value="".join([",".join(roles_list)]),
+        value="".join([", ".join(roles_list)]),
         inline=False,
     )
     embed.add_field(name="Top Role:", value=member.top_role.mention, inline=False)
     embed.add_field(name="Is Bot:", value=member.bot, inline=False)
     embed.set_author(name=f"User Info - {member}")
     embed.set_thumbnail(url=member.display_avatar.url)
+    if fetched_member.banner:
+        embed.set_image(url=fetched_member.banner.url)
 
     return embed
 
