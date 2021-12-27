@@ -21,6 +21,7 @@ class DiscordTogether(commands.Cog):
         pass
 
     @together.command(description="Use `YouTube Together` Activity")
+    @commands.bot_has_permissions(create_instant_invite=True)
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def youtube(self, ctx: commands.Context):
         if ctx.author.voice is None:
@@ -32,6 +33,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command(description="Use `Chess Together` Activity")
+    @commands.bot_has_permissions(create_instant_invite=True)
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def poker(self, ctx: commands.Context):
         if ctx.author.voice is None:
@@ -43,6 +45,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command(description="Use `Poker Together` Activity")
+    @commands.bot_has_permissions(create_instant_invite=True)
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def chess(self, ctx: commands.Context):
         if ctx.author.voice is None:
@@ -54,6 +57,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command(description="Use `Betrayal Together` Activity")
+    @commands.bot_has_permissions(create_instant_invite=True)
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def betrayal(self, ctx: commands.Context):
         if ctx.author.voice is None:
@@ -65,6 +69,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command(description="Use `Fishing Together` Activity")
+    @commands.bot_has_permissions(create_instant_invite=True)
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def fishing(self, ctx: commands.Context):
         if ctx.author.voice is None:
@@ -76,6 +81,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command(description="Use `Letter Tile Together` Activity")
+    @commands.bot_has_permissions(create_instant_invite=True)
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def letter_tile(self, ctx: commands.Context):
         if ctx.author.voice is None:
@@ -87,6 +93,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command(description="Use `Word Snack Together` Activity")
+    @commands.bot_has_permissions(create_instant_invite=True)
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def word_snack(self, ctx: commands.Context):
         if ctx.author.voice is None:
@@ -98,6 +105,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command(description="Use `Doddle Crew Together` Activity")
+    @commands.bot_has_permissions(create_instant_invite=True)
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def doodle_crew(self, ctx: commands.Context):
         if ctx.author.voice is None:
@@ -109,6 +117,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command(description="Use `Spell Cast Together` Activity")
+    @commands.bot_has_permissions(create_instant_invite=True)
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def spell_cast(self, ctx: commands.Context):
         if ctx.author.voice is None:
@@ -120,6 +129,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command(description="Use `Awkword Together` Activity")
+    @commands.bot_has_permissions(create_instant_invite=True)
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def awkword(self, ctx: commands.Context):
         if ctx.author.voice is None:
@@ -131,6 +141,7 @@ class DiscordTogether(commands.Cog):
         await ctx.reply(link, delete_after=60)
 
     @together.command(description="Use `Checkers Together` Activity")
+    @commands.bot_has_permissions(create_instant_invite=True)
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def checkers(self, ctx: commands.Context):
         if ctx.author.voice is None:
