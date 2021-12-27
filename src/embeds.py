@@ -224,6 +224,11 @@ def fun_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         value="Use a Calculator to do Mathamatics",
         inline=False,
     )
+    embed.add_field(
+        name=f"{prefix}fact",
+        value="Display a Fact",
+        inline=False,
+    )
     embed.set_footer(
         text=f"Information Requested by: {ctx.author.display_name}",
         icon_url=ctx.author.avatar.url,

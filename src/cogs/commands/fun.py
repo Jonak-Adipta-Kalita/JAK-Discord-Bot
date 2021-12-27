@@ -86,6 +86,12 @@ class Fun(commands.Cog):
                 "The String contains some characters which cannot be converted into Morse!!"
             )
 
+    @commands.command(description="Display a Fact")
+    async def fact(self, ctx: commands.Context):
+        fact = funcs.fact()
+
+        await ctx.send(fact)
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(Fun(bot))

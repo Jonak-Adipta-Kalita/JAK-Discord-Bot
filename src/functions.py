@@ -1,4 +1,4 @@
-import typing, googletrans, jokeapi, eng_to_ipa, aiohttp
+import typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts
 import src.emojis as emojis_list
 
 
@@ -208,3 +208,7 @@ def morse_code_encode_decode(text: str):
             return "Text ----> Morse", converted
         except KeyError:
             return None, None
+
+
+def fact() -> str:
+    return randfacts.get_fact()
