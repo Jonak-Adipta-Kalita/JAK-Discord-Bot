@@ -1,11 +1,11 @@
-import random
+import disnake, random
 from disnake.ext import commands
 
 
-class _8Ball(commands.Cog):
+class Games_(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.responses = [
+        self._8ball_responses: list = [
             "It is certain.",
             "It is decidedly so.",
             "Without a doubt.",
@@ -29,13 +29,26 @@ class _8Ball(commands.Cog):
             "Kinda Lazy to answer.",
         ]
 
-    @commands.command(name="8ball", description="Play 8Ball Game")
+    @commands.slash_command(
+        name="8ball",
+        description="Play 8Ball Game!!",
+        options=[
+            disnake.Option(
+                name="question",
+                description="The Question you want to ask!!",
+                type=disnake.OptionType.string,
+                required=True,
+            )
+        ],
+    )
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def _8ball(self, ctx: commands.Context, *, question):
-        await ctx.reply(
-            f"Question: {question}\nAnswer: {random.choice(self.responses)} :relieved:"
+    async def _8ball_(
+        self, inter: disnake.ApplicationCommandInteraction, question: str
+    ):
+        await inter.response.send_message(
+            f"Question: {question}\nAnswer: {random.choice(self._8ball_responses)} :relieved:"
         )
 
 
 def setup(bot: commands.Bot):
-    bot.add_cog(_8Ball(bot))
+    bot.add_cog(Games_(bot))

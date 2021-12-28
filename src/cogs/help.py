@@ -23,10 +23,7 @@ class Dropdown(disnake.ui.Select):
                 disnake.SelectOption(label="Games Help", value="games_help_embed"),
                 disnake.SelectOption(label="Music Help", value="music_help_embed"),
                 disnake.SelectOption(label="Fun Help", value="fun_help_embed"),
-                disnake.SelectOption(
-                    label="Discord Together Help",
-                    value="discord_together_help_embed",
-                ),
+                disnake.SelectOption(label="Misc Help", value="misc_help_embed"),
             ],
         )
 
@@ -65,9 +62,9 @@ class Dropdown(disnake.ui.Select):
                     bot_avatar_url=self.bot.user.avatar.url,
                 )
             )
-        elif label == "discord_together_help_embed":
+        elif label == "misc_help_embed":
             await interaction.response.send_message(
-                embed=embeds.discord_together_help_embed(
+                embed=embeds.misc_help_embed(
                     ctx=self.ctx,
                     bot_name=self.bot.user.name,
                     bot_avatar_url=self.bot.user.avatar.url,
@@ -96,7 +93,7 @@ class Help(commands.Cog):
             view=DropdownView(ctx=ctx, bot=self.bot),
         )
 
-    @help.command(description="Show the Moderation Commands")
+    @help.command(description="Show the Moderation Commands", aliases=["mod"])
     async def moderation(self, ctx: commands.Context):
         await ctx.reply(
             embed=embeds.moderation_help_embed(
@@ -136,12 +133,10 @@ class Help(commands.Cog):
             )
         )
 
-    @help.command(
-        description="Show the Discord Together Commands", aliases=["together"]
-    )
-    async def discord_together(self, ctx: commands.Context):
+    @help.command(description="Show the Misc Commands")
+    async def misc(self, ctx: commands.Context):
         await ctx.reply(
-            embed=embeds.discord_together_help_embed(
+            embed=embeds.misc_help_embed(
                 ctx=ctx,
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar.url,

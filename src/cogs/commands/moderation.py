@@ -11,7 +11,7 @@ prefix = funcs.get_prefix()
 class Moderation(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.embed_blank_value = "\u200b"
+        self.embed_blank_value: str = "\u200b"
 
     @commands.command(description="Kick Member or Bot")
     @commands.has_permissions(kick_members=True)
@@ -53,76 +53,6 @@ class Moderation(commands.Cog):
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def clear(self, ctx: commands.Context, amount: int):
         await ctx.channel.purge(limit=amount)
-
-    @commands.command(aliases=["rules"], description="Show the Rules")
-    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def show_rules(self, ctx: commands.Context):
-        rules = [
-            (f"{emojis.numbers['one']}   No Negativity", self.embed_blank_value),
-            (f"{emojis.numbers['two']}   No Spamming", self.embed_blank_value),
-            (f"{emojis.numbers['three']}   No Swearing", self.embed_blank_value),
-            (
-                f"{emojis.numbers['four']}   No Discriminatory Or Hate Speech",
-                self.embed_blank_value,
-            ),
-            (f"{emojis.numbers['five']}   No NSFW Content", self.embed_blank_value),
-            (
-                f"{emojis.numbers['six']}   No Potentially Harmful Content",
-                self.embed_blank_value,
-            ),
-        ]
-
-        await ctx.reply(
-            embed=embeds.rules_embed(
-                bot_name=self.bot.user.name,
-                bot_avatar_url=self.bot.user.avatar.url,
-                rules=rules,
-            )
-        )
-
-    @commands.command(description="Show the Latency", aliases=["ping", "ms"])
-    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def latency(self, ctx: commands.Context):
-        await ctx.reply(f"Ping: {round(self.bot.latency * 1000)}")
-
-    @commands.command(description="Show the Details of a Member")
-    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def member_details(
-        self, ctx: commands.Context, member: disnake.Member = None
-    ):
-        if not member:
-            member = ctx.author
-            fetched_member = await self.bot.fetch_user(ctx.author.id)
-        else:
-            fetched_member = await self.bot.fetch_user(member.id)
-        await ctx.reply(
-            embed=embeds.member_details_embed(
-                member=member, fetched_member=fetched_member
-            )
-        )
-
-    @commands.command(description="Show the Server Information")
-    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
-    async def server_stats(self, ctx: commands.Context):
-        name = ctx.guild.name
-        description = ctx.guild.description
-        icon = ctx.guild.icon
-        owner = ctx.guild.owner
-        guild_id = ctx.guild.id
-        member_count = ctx.guild.member_count
-        banner = ctx.guild.banner
-
-        await ctx.reply(
-            embed=embeds.server_stats_embed(
-                name=name,
-                description=description,
-                icon=icon,
-                owner=owner,
-                guild_id=guild_id,
-                member_count=member_count,
-                banner=banner,
-            )
-        )
 
 
 def setup(bot: commands.Bot):

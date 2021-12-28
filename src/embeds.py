@@ -99,18 +99,6 @@ def moderation_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: 
         value="Unban Member or Bot",
         inline=False,
     )
-    embed.add_field(name=f"{prefix}show_rules", value="Show the Rules", inline=False)
-    embed.add_field(name=f"{prefix}latency", value="Show the Latency", inline=False)
-    embed.add_field(
-        name=f"{prefix}user_details [member]",
-        value="Show the Details of a Member",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}server_stats",
-        value="Show the Server Information",
-        inline=False,
-    )
     embed.set_footer(
         text=f"Information Requested by: {ctx.author.display_name}",
         icon_url=ctx.author.avatar.url,
@@ -130,8 +118,18 @@ def games_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}help tictactoe",
-        value="Show Help Menu for Tic-Tac-Toe",
+        name=f"{prefix}tictactoe @<1st Player> @<2nd Player>",
+        value="Start Tic-Tac-Toe Game",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}tictactoe place <Position in Integer>",
+        value="Place your position for Tic-Tac-Toe Game",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}tictactoe stop",
+        value="Stops Tic-Tac-Toe Game",
         inline=False,
     )
     embed.set_footer(
@@ -230,35 +228,9 @@ def fun_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         value="Display a Fact",
         inline=False,
     )
-    embed.set_footer(
-        text=f"Information Requested by: {ctx.author.display_name}",
-        icon_url=ctx.author.avatar.url,
-    )
-
-    return embed
-
-
-def tictactoe_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
-    embed = disnake.Embed(
-        color=disnake.Color.blue(),
-    )
-    embed.set_author(
-        name=f"{bot_name} - TicTacToe Help Menu",
-        icon_url=bot_avatar_url,
-    )
     embed.add_field(
-        name=f"{prefix}tictactoe @<1st Player> @<2nd Player>",
-        value="Start Tic-Tac-Toe Game",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}tictactoe place <Position in Integer>",
-        value="Place your position for Tic-Tac-Toe Game",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}tictactoe stop",
-        value="Stops Tic-Tac-Toe Game",
+        name=f"{prefix}together <activity>",
+        value="Use Discord Together Activities",
         inline=False,
     )
     embed.set_footer(
@@ -269,68 +241,26 @@ def tictactoe_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: s
     return embed
 
 
-def discord_together_help_embed(
-    ctx: commands.Context, bot_name: str, bot_avatar_url: str
-):
+def misc_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     embed = disnake.Embed(
         color=disnake.Color.blue(),
     )
-    embed.set_author(
-        name=f"{bot_name} - Discord Together Help Menu", icon_url=bot_avatar_url
-    )
+    embed.set_author(name=f"{bot_name} - Misc Help Menu", icon_url=bot_avatar_url)
+    embed.add_field(name=f"{prefix}show_rules", value="Show the Rules", inline=False)
+    embed.add_field(name=f"{prefix}latency", value="Show the Latency", inline=False)
     embed.add_field(
-        name=f"{prefix}together youtube",
-        value="Use `YouTube Together` Activity",
+        name=f"{prefix}user_details [member]",
+        value="Show the Details of a Member",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}together chess",
-        value="Use `Chess Together` Activity",
+        name=f"{prefix}server_stats",
+        value="Show the Server Information",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}together poker",
-        value="Use `Poker Together` Activity",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}together betrayal",
-        value="Use `Betrayal Together` Activity",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}together fishing",
-        value="Use `Fishing Together` Activity",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}together letter_tile",
-        value="Use `Letter Tile Together` Activity",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}together word_snack",
-        value="Use `Word Snack Together` Activity",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}together doodle_crew",
-        value="Use `Doddle Crew Together` Activity",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}together spell_cast",
-        value="Use `Spell Cast Together` Activity",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}together awkword",
-        value="Use `Awkword Together` Activity",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}together checkers",
-        value="Use `Checkers Together` Activity",
+        name=f'{prefix}poll "<question>" <option1> [option2] [option3]',
+        value="Show the Server Information",
         inline=False,
     )
     embed.set_footer(
