@@ -1,5 +1,6 @@
 import disnake
 import src.functions as funcs
+import src.emojis as emojis
 from disnake.ext import commands
 
 prefix = funcs.get_prefix()
@@ -481,5 +482,17 @@ def calculator_embed():
     embed.set_footer(
         text="To interact with your virtual calculator, click the shown buttons."
     )
+
+    return embed
+
+
+def poll_embed(question: str, option1: str, option2: str, option3: str):
+    desc = f"{emojis.alphabets['regional_indicator_a']} {option1}"
+    if option2:
+        desc += f"\n\n{emojis.alphabets['regional_indicator_b']} {option2}"
+    if option3:
+        desc += f"\n\n{emojis.alphabets['regional_indicator_c']} {option3}"
+
+    embed = disnake.Embed(title=question, description=desc, color=disnake.Color.blue())
 
     return embed
