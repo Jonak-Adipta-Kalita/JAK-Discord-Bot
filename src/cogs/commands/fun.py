@@ -1,7 +1,7 @@
-import aiohttp, asyncio, disnake, os, discord_together, credentials, simpleeval, re
-import src.embeds as embeds
-import src.functions as funcs
-import src.files as files
+import asyncio, disnake, os, discord_together, credentials, simpleeval, re
+import src.core.embeds as embeds
+import src.core.functions as funcs
+import src.core.files as files
 from disnake.ext import commands
 
 

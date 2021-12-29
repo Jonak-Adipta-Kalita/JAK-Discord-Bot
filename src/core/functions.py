@@ -1,5 +1,5 @@
 import typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts
-import src.emojis as emojis_list
+import src.core.emojis as emojis_list
 
 
 def get_prefix() -> typing.Union["str", "list"]:

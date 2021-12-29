@@ -1,6 +1,6 @@
 import disnake
-import src.embeds as embeds
-import src.functions as funcs
+import src.core.embeds as embeds
+import src.core.functions as funcs
 from disnake.ext import commands
 
 prefix = funcs.get_prefix()

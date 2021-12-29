@@ -1,5 +1,5 @@
 import disnake, random
-import src.emojis as emojis
+import src.core.emojis as emojis
 from disnake.ext import commands
 
 

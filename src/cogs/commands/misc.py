@@ -1,6 +1,6 @@
 import disnake
-import src.emojis as emojis
-import src.embeds as embeds
+import src.core.emojis as emojis
+import src.core.embeds as embeds
 from disnake.ext import commands
 
 

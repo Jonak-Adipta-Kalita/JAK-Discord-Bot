@@ -1,6 +1,6 @@
 import disnake
-import src.functions as funcs
-import src.emojis as emojis
+import src.core.functions as funcs
+import src.core.emojis as emojis
 from disnake.ext import commands
 
 prefix = funcs.get_prefix()

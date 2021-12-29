@@ -1,7 +1,7 @@
 import disnake, credentials, os, googletrans, asyncio, itertools
-import src.functions as funcs
-import src.embeds as embeds
-import src.emojis as emojis
+import src.core.functions as funcs
+import src.core.embeds as embeds
+import src.core.emojis as emojis
 from disnake.ext import commands
 
 
