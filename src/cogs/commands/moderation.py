@@ -1,6 +1,4 @@
 import disnake
-import src.embeds as embeds
-import src.emojis as emojis
 import src.functions as funcs
 from disnake.ext import commands
 
@@ -21,7 +19,7 @@ class Moderation(commands.Cog):
         self, ctx: commands.Context, member: disnake.Member, *, reason="Nothing"
     ):
         await member.kick(reason=reason)
-        await ctx.reply(f"{member.mention} is Kicked!! Reason: {reason}")
+        await ctx.reply(f"{member.mention} is Kicked!!\nReason: {reason}")
 
     @commands.command(description="Ban Member or Bot")
     @commands.has_permissions(kick_members=True, ban_members=True)
@@ -31,7 +29,7 @@ class Moderation(commands.Cog):
         self, ctx: commands.Context, member: disnake.Member, *, reason="Nothing!!"
     ):
         await member.ban(reason=reason)
-        await ctx.reply(f"{member.mention} is Banned!! Reason: {reason}")
+        await ctx.reply(f"{member.mention} is Banned!!\nReason: {reason}")
 
     @commands.command(description="Unban Member or Bot")
     @commands.has_permissions(kick_members=True, ban_members=True)
