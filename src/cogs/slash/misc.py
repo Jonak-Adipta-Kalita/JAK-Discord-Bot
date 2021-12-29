@@ -45,7 +45,7 @@ class Misc_(commands.Cog):
         option2: str,
         option3: str = None,
     ):
-        msg = await inter.response.send_message(
+        await inter.response.send_message(
             embed=embeds.poll_embed(
                 question=question,
                 option1=option1,
@@ -53,10 +53,13 @@ class Misc_(commands.Cog):
                 option3=option3,
             )
         )
-        # await msg.add_reaction(emojis.alphabets["regional_indicator_a"])
-        # await msg.add_reaction(emojis.alphabets["regional_indicator_b"])
-        # if option3:
-        #     await msg.add_reaction(emojis.alphabets["regional_indicator_c"])
+
+        msg = await inter.original_message()
+
+        await msg.add_reaction(emojis.alphabets["regional_indicator_a"])
+        await msg.add_reaction(emojis.alphabets["regional_indicator_b"])
+        if option3:
+            await msg.add_reaction(emojis.alphabets["regional_indicator_c"])
 
     @commands.slash_command(description="Show the Rules")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
