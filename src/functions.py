@@ -212,3 +212,22 @@ def morse_code_encode_decode(text: str):
 
 def fact() -> str:
     return randfacts.get_fact()
+
+
+async def convert_to_snippet(code):
+    async with aiohttp.ClientSession(
+        headers={"Content-Type": "application/json"},
+    ) as ses:
+        try:
+            request = await ses.post(
+                f"https://carbonara-42.herokuapp.com/api/cook",
+                json={
+                    "code": code,
+                },
+            )
+        except Exception as e:
+            pass
+
+        resp = await request.read()
+
+    return resp

@@ -265,6 +265,12 @@ class Fun(commands.Cog):
         self.bot = bot
         self.together_control: discord_together.DiscordTogether = None
 
+    @commands.Cog.listener()
+    async def on_ready(self):
+        self.together_control = await discord_together.DiscordTogether(
+            credentials.TOKEN
+        )
+
     @commands.command(description="Display a Joke")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def joke(self, ctx: commands.Context):
@@ -294,20 +300,7 @@ class Fun(commands.Cog):
             author_id = member.id
             code_edited = disnake.utils.remove_markdown(code.strip()).strip()
 
-            async with aiohttp.ClientSession(
-                headers={"Content-Type": "application/json"},
-            ) as ses:
-                try:
-                    request = await ses.post(
-                        f"https://carbonara-42.herokuapp.com/api/cook",
-                        json={
-                            "code": code_edited,
-                        },
-                    )
-                except Exception as e:
-                    print(f"Exception: {e}")
-
-                resp = await request.read()
+            resp = funcs.convert_to_snippet(code=code_edited)
 
             with open(f"snippets/{author_id}.png", "wb") as f:
                 f.write(resp)
@@ -343,16 +336,11 @@ class Fun(commands.Cog):
             )
 
     @commands.command(description="Display a Fact")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def fact(self, ctx: commands.Context):
         fact = funcs.fact()
 
         await ctx.send(fact)
-
-    @commands.Cog.listener()
-    async def on_ready(self):
-        self.together_control = await discord_together.DiscordTogether(
-            credentials.TOKEN
-        )
 
     @commands.group(
         invoke_without_command=True,

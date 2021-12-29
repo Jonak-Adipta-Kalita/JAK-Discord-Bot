@@ -65,6 +65,13 @@ class Fun_(commands.Cog):
                 "The String contains some characters which cannot be converted into Morse!!"
             )
 
+    @commands.slash_command(description="Display a Fact")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def fact(self, inter: disnake.ApplicationCommandInteraction):
+        fact = funcs.fact()
+
+        await inter.response.send_message(fact)
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(Fun_(bot))
