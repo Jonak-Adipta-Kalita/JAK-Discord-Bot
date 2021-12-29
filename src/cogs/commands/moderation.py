@@ -73,6 +73,7 @@ class Moderation(commands.Cog):
 
     @commands.command(description="Remove a Channel")
     @commands.bot_has_permissions(manage_channels=True)
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def remove_channel(
         self,
         ctx: commands.Context,
