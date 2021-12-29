@@ -80,25 +80,7 @@ class Misc(commands.Cog):
     @commands.command(description="Show the Server Information")
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def server_stats(self, ctx: commands.Context):
-        name = ctx.guild.name
-        description = ctx.guild.description
-        icon = ctx.guild.icon
-        owner = ctx.guild.owner
-        guild_id = ctx.guild.id
-        member_count = ctx.guild.member_count
-        banner = ctx.guild.banner
-
-        await ctx.reply(
-            embed=embeds.server_stats_embed(
-                name=name,
-                description=description,
-                icon=icon,
-                owner=owner,
-                guild_id=guild_id,
-                member_count=member_count,
-                banner=banner,
-            )
-        )
+        await ctx.reply(embed=embeds.server_stats_embed(guild=ctx.guild))
 
 
 def setup(bot: commands.Bot):

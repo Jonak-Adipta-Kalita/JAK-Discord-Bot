@@ -367,7 +367,7 @@ def member_details_embed(member: disnake.Member, fetched_member: disnake.User):
     )
     embed.add_field(
         name=f"Roles: ({len(roles_list)})",
-        value="".join([", ".join(roles_list)]),
+        value="".join([",".join(roles_list)]),
         inline=False,
     )
     embed.add_field(name="Top Role:", value=member.top_role.mention, inline=False)
@@ -380,24 +380,42 @@ def member_details_embed(member: disnake.Member, fetched_member: disnake.User):
     return embed
 
 
-def server_stats_embed(
-    name: str,
-    description: str,
-    icon: disnake.Asset,
-    owner: str,
-    guild_id: int,
-    member_count: int,
-    banner: disnake.Asset = None,
-):
+def server_stats_embed(guild: disnake.Guild):
+    emojis_list = [f"<:{emoji.name}:{emoji.id}>" for emoji in guild.emojis]
+    roles_list = [role.mention for role in guild.roles if role.name != "@everyone"]
+
     embed = disnake.Embed(
-        description=description if description else "", color=disnake.Color.blue()
+        title=f"{guild.name}'s Stats",
+        description=guild.description if guild.description else "",
+        color=disnake.Color.blue(),
     )
-    embed.set_author(name=f"{name}'s Stats", icon_url=icon.url)
-    embed.add_field(name="Owner", value=owner, inline=True)
-    embed.add_field(name="Server ID", value=guild_id, inline=True)
-    embed.add_field(name="Member Count", value=member_count, inline=True)
-    if banner:
-        embed.set_thumbnail(url=banner.url)
+    embed.set_thumbnail(url=guild.icon.url)
+    embed.add_field(name="Owner", value=guild.owner, inline=False)
+    embed.add_field(name="Server ID", value=guild.id, inline=False)
+    embed.add_field(
+        name="Created At:",
+        value=f"<t:{int(guild.created_at.timestamp())}:F>",
+        inline=False,
+    )
+    embed.add_field(name="Member Count", value=guild.member_count, inline=False)
+    embed.add_field(
+        name="Text Channels Count", value=len(guild.text_channels), inline=False
+    )
+    embed.add_field(
+        name="Voice Channels Count", value=len(guild.voice_channels), inline=False
+    )
+    embed.add_field(
+        name=f"Emojis ({len(emojis_list)})",
+        value="".join([", ".join(emojis_list)]),
+        inline=False,
+    )
+    embed.add_field(
+        name=f"Roles ({len(roles_list)})",
+        value=f'{"".join([", ".join(roles_list[::-1][:20])])}, etc',
+        inline=False,
+    )
+    if guild.banner:
+        embed.set_image(url=guild.banner.url)
 
     return embed
 
