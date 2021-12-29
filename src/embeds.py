@@ -99,6 +99,11 @@ def moderation_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: 
         value="Unban Member or Bot",
         inline=False,
     )
+    embed.add_field(
+        name=f"{prefix}remove_channel #<channel> [reason]",
+        value="Remove a Channe;",
+        inline=False,
+    )
     embed.set_footer(
         text=f"Information Requested by: {ctx.author.display_name}",
         icon_url=ctx.author.avatar.url,

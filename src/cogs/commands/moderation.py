@@ -71,6 +71,17 @@ class Moderation(commands.Cog):
     async def clear(self, ctx: commands.Context, amount: int):
         await ctx.channel.purge(limit=amount)
 
+    @commands.command(description="Remove a Channel")
+    @commands.bot_has_permissions(manage_channels=True)
+    async def remove_channel(
+        self,
+        ctx: commands.Context,
+        channel: disnake.TextChannel,
+        *,
+        reason: str = "Nothing",
+    ):
+        await channel.delete(reason=reason)
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(Moderation(bot))
