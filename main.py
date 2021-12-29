@@ -161,7 +161,9 @@ class JAKDiscordBot(commands.Bot):
         perms = member.guild.me.guild_permissions
         if perms.manage_guild and perms.manage_messages:
             try:
-                await member.send(f"You just left **{member.guild.name}**, What a Shame!!")
+                await member.send(
+                    f"You just left **{member.guild.name}**, What a Shame!!"
+                )
             except disnake.HTTPException:
                 pass
 
@@ -202,7 +204,7 @@ class JAKDiscordBot(commands.Bot):
 
 if __name__ == "__main__":
     bad_words = []
-    with open("src/filters/profanity.txt", "r") as f:
+    with open("src/resources/profanity.txt", "r") as f:
         bad_words = f.read().splitlines()
 
     bot = JAKDiscordBot(

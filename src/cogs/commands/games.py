@@ -1,4 +1,4 @@
-import disnake, random
+import disnake, random, asyncio
 import src.core.emojis as emojis
 from disnake.ext import commands
 
@@ -164,6 +164,63 @@ class Games(commands.Cog):
                 await ctx.reply("You are not a Player of the Current Game!!")
         else:
             await ctx.reply("No game is currently running!!")
+
+    @commands.command()
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def hangman(self, ctx: commands.Context):
+        with open("src/resources/hangman_words.txt") as txt:
+            self.words = txt.readlines()
+
+        word = random.choice(self.words).strip()
+        print(word)
+        guesses = []
+        guesses_left = 8
+
+        await ctx.reply(
+            f"Your word: `{' '.join(['_' for k in range(0, len(word))])}`\nYou have {guesses_left} guesses left"
+        )
+        try:
+            while m := await self.bot.wait_for(
+                "message",
+                check=lambda m: m.author == ctx.author and m.channel == ctx.channel,
+                timeout=60,
+            ):
+                if guesses_left == 0:
+                    await ctx.reply(
+                        f"Uh oh! You ran out of guesses. The word was {word}"
+                    )
+                    continue
+                if m.content.lower() == "end":
+                    await ctx.reply("Goodbye")
+
+                if len(m.content.lower()) >= 2 and m.content.lower() != word:
+                    guesses_left -= 1
+                    await ctx.reply(
+                        f"{m.content.lower()} is not the answer! You have {guesses_left} guesses left"
+                    )
+                    continue
+
+                guesses.append(m.content.lower())
+                if m.content.lower() == word:
+                    await ctx.reply(
+                        f"Well done! You got the word. The word was `{word}`"
+                    )
+                    continue
+
+                if all([w in guesses for w in list(word)]):
+                    await ctx.reply(
+                        f"Well done! You got the word. The word was `{word}`"
+                    )
+                    continue
+
+                if m.content.lower() not in word:
+                    guesses_left -= 1
+                await ctx.reply(
+                    f"word: `{''.join([k if k in guesses else ' _' for k in word])}`\nYou have {guesses_left} guesses left"
+                )
+
+        except asyncio.TimeoutError:
+            await ctx.reply("You ran out of time!")
 
     def tictactoe_check_winner(self, winning_conditions, mark):
         for condition in winning_conditions:
