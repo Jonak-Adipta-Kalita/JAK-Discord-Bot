@@ -55,4 +55,3 @@ punctuation = {
 abc = "🔤"
 white_large_square = "⬜"
 o2 = "🅾️"
-broom = "🧹"
