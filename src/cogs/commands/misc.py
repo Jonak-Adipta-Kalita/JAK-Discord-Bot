@@ -14,7 +14,7 @@ class Misc(commands.Cog):
         ctx: commands.Context,
         question: str,
         option1: str,
-        option2: str = None,
+        option2: str,
         option3: str = None,
     ):
         msg = await ctx.reply(
@@ -26,8 +26,7 @@ class Misc(commands.Cog):
             )
         )
         await msg.add_reaction(emojis.alphabets["regional_indicator_a"])
-        if option2:
-            await msg.add_reaction(emojis.alphabets["regional_indicator_b"])
+        await msg.add_reaction(emojis.alphabets["regional_indicator_b"])
         if option3:
             await msg.add_reaction(emojis.alphabets["regional_indicator_c"])
 

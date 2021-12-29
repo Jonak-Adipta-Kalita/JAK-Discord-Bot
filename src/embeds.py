@@ -259,7 +259,7 @@ def misc_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         inline=False,
     )
     embed.add_field(
-        name=f'{prefix}poll "<question>" <option1> [option2] [option3]',
+        name=f'{prefix}poll "<question>" <option1> <option2> [option3]',
         value="Show the Server Information",
         inline=False,
     )
@@ -417,9 +417,7 @@ def calculator_embed():
 
 
 def poll_embed(question: str, option1: str, option2: str, option3: str):
-    desc = f"{emojis.alphabets['regional_indicator_a']} {option1}"
-    if option2:
-        desc += f"\n\n{emojis.alphabets['regional_indicator_b']} {option2}"
+    desc = f"{emojis.alphabets['regional_indicator_a']} {option1}\n\n{emojis.alphabets['regional_indicator_b']} {option2}"
     if option3:
         desc += f"\n\n{emojis.alphabets['regional_indicator_c']} {option3}"
 
