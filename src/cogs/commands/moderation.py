@@ -58,8 +58,8 @@ class Moderation(commands.Cog):
                 await ctx.reply(
                     embed=embeds.moderation_embed(
                         title=f"{member_name}#{member_discriminator}",
-                        status="UN Banned",
-                        message="",
+                        status="UNBANNED",
+                        message="Reason: Nothing",
                     )
                 )
                 return
