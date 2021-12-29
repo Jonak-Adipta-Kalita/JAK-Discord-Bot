@@ -75,8 +75,10 @@ class JAKDiscordBot(commands.Bot):
                 if word in msg.lower().split(" "):
                     try:
                         await member.send(
-                            embed=embeds.warning_embed(
-                                f"The word `{word}` is banned!! Watch your Language"
+                            embed=embeds.moderation_embed(
+                                title="YOU",
+                                status="WARNED",
+                                message=f"The word `{word}` is banned!! Watch your Language",
                             )
                         )
                         await message.delete()

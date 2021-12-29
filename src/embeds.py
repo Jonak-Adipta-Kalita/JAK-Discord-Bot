@@ -271,9 +271,9 @@ def misc_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     return embed
 
 
-def warning_embed(message: str):
+def moderation_embed(title: str, status: str, message: str):
     embed = disnake.Embed(
-        title="YOU HAVE BEEN WARNED!!",
+        title=f"{title} HAVE BEEN {status}!!",
         description=message,
         color=disnake.Color.blue(),
     )
