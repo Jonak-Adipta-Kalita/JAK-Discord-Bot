@@ -112,8 +112,14 @@ class Music(commands.Cog):
         vc = ctx.voice_client
 
         if vc:
-            # Change Volume
-            await ctx.reply(f"Changed volume to {volume}%")
+            if volume >= 0 or volume <= 100:
+                volume = volume / 100
+                vc.source = disnake.PCMVolumeTransformer(vc.source)
+                vc.source.volume = volume
+
+                await ctx.reply(f"Changed volume to {volume}%")
+            else:
+                await ctx.reply("Volume must be between 0 to 100 (Inclusive)")
         else:
             await ctx.reply("I am not Connected to any Voice Channel!!")
 
