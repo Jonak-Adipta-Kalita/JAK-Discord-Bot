@@ -124,7 +124,7 @@ def games_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     )
     embed.add_field(
         name=f"{prefix}tictactoe @<1st Player> @<2nd Player>",
-        value="Start Tic-Tac-Toe Game",
+        value="Play Tic-Tac-Toe Game",
         inline=False,
     )
     embed.add_field(
@@ -139,7 +139,7 @@ def games_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     )
     embed.add_field(
         name=f"{prefix}hangman",
-        value="Start Hangman Game",
+        value="Play Hangman Game",
         inline=False,
     )
     embed.add_field(
@@ -460,5 +460,16 @@ def poll_embed(question: str, option1: str, option2: str, option3: str):
         desc += f"\n\n{emojis.alphabets['regional_indicator_c']} {option3}"
 
     embed = disnake.Embed(title=question, description=desc, color=disnake.Color.blue())
+
+    return embed
+
+
+def hangman_embed(guesses_left: int, word: str, guesses: list):
+    desc = " ".join([i if i in guesses else "__" for i in word])
+
+    embed = disnake.Embed(
+        description=f"`{desc}`\n\n**{guesses_left} guesses left!!**",
+        color=disnake.Color.blue(),
+    )
 
     return embed

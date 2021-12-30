@@ -20,7 +20,7 @@ class Music(commands.Cog):
     async def music(self, ctx: commands.Context):
         pass
 
-    @vc.command(description="Joins the VC you are currently in")
+    @vc.command(description="Joins the VC you are currently in", aliases=["connect"])
     # @commands.has_permissions(connect=True)
     async def join(self, ctx: commands.Context):
         if ctx.author.voice is None:
@@ -36,7 +36,7 @@ class Music(commands.Cog):
         else:
             await ctx.reply("I am already in a Voice Channel!!")
 
-    @vc.command(description="Leaves VC")
+    @vc.command(description="Leaves VC", aliases=["disconnect"])
     # @commands.has_permissions(connect=True)
     async def leave(self, ctx: commands.Context):
         if ctx.voice_client:
@@ -112,7 +112,7 @@ class Music(commands.Cog):
         vc = ctx.voice_client
 
         if vc:
-            vc.source.volume = volume / 100
+            # Change Volume
             await ctx.reply(f"Changed volume to {volume}%")
         else:
             await ctx.reply("I am not Connected to any Voice Channel!!")

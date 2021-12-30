@@ -1,5 +1,6 @@
-import disnake, random, asyncio
+import disnake, random
 import src.core.emojis as emojis
+import src.core.embeds as embeds
 from disnake.ext import commands
 
 
@@ -29,7 +30,10 @@ class Games(commands.Cog):
         self.hangman_words = hangman_words
         self.hangman_game_over: bool = True
         self.hangman_player: disnake.Member = None
-    
+        self.hangman_guesses: list = []
+        self.hangman_guesses_left: int = 0
+        self.hangman_word: str = None
+
     def tictactoe_check_winner(self, winning_conditions, mark):
         for condition in winning_conditions:
             if (
@@ -46,12 +50,12 @@ class Games(commands.Cog):
             f"Question: {question}\nAnswer: {random.choice(self._8ball_responses)}"
         )
 
-    @commands.group(invoke_without_command=True, description="Start Tic-Tac-Toe Game")
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
+    @commands.group(invoke_without_command=True, description="Play Tic-Tac-Toe Game")
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def tictactoe(
         self, ctx: commands.Context, p1: disnake.Member, p2: disnake.Member
     ):
-        global count
+        global tictactoe_count
 
         if self.tictactoe_game_over:
             self.tictactoe_board = [
@@ -67,7 +71,7 @@ class Games(commands.Cog):
             ]
             self.tictactoe_turn = ""
             self.tictactoe_game_over = False
-            count = 0
+            tictactoe_count = 0
             self.tictactoe_player1 = p1
             self.tictactoe_player2 = p2
             self.tictactoe_players = [p1, p2]
@@ -91,7 +95,7 @@ class Games(commands.Cog):
 
     @tictactoe.command(description="Place your position for Tic-Tac-Toe Game")
     async def place(self, ctx: commands.Context, pos: int):
-        global count
+        global tictactoe_count
 
         if not self.tictactoe_game_over:
             mark = ""
@@ -106,7 +110,7 @@ class Games(commands.Cog):
                         and self.tictactoe_board[pos - 1] == emojis.white_large_square
                     ):
                         self.tictactoe_board[pos - 1] = mark
-                        count += 1
+                        tictactoe_count += 1
                         line = ""
                         for x in range(len(self.tictactoe_board)):
                             if x == 2 or x == 5 or x == 8:
@@ -120,7 +124,7 @@ class Games(commands.Cog):
                         )
                         if self.tictactoe_game_over == True:
                             await ctx.send(f"{mark} WINS!!")
-                        elif count >= 9:
+                        elif tictactoe_count >= 9:
                             self.tictactoe_game_over = True
                             await ctx.send("It's a TIE!!")
 
@@ -157,15 +161,81 @@ class Games(commands.Cog):
         else:
             await ctx.reply("No game is currently running!!")
 
-    @commands.group(invoke_without_command=True, description="Start Hangman Game")
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
+    @commands.group(invoke_without_command=True, description="Play Hangman Game")
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def hangman(self, ctx: commands.Context):
-        word = random.choice(self.hangman_words).strip()
-    
+        if self.hangman_game_over:
+            self.hangman_player = ctx.author
+            self.hangman_guesses_left = 7
+            self.hangman_game_over = False
+            self.hangman_word = random.choice(self.hangman_words).strip()
+
+            await ctx.reply(
+                embed=embeds.hangman_embed(
+                    guesses_left=7, word=self.hangman_word, guesses=self.hangman_guesses
+                )
+            )
+        else:
+            await ctx.reply("One game is already running!!")
+
     @hangman.command(description="Guess Word in Hangman Game")
-    async def guess(self, ctx: commands.Context, *, letter):
-        pass
-    
+    async def guess(self, ctx: commands.Context, letter: str):
+        if not self.hangman_game_over:
+            if letter:
+                # if len(letter) >= 2:
+                #     if letter == self.hangman_word:
+                #         await ctx.reply(
+                #             f"This is the word!! The word was: `{self.hangman_word}`"
+                #         )
+                #         return
+                #     else:
+                #         await ctx.reply(
+                #             "This is not the Word!! Try sending letters one at a time!!"
+                #         )
+                #         self.hangman_guesses_left -= 1
+                # elif letter in self.hangman_word:
+                #     self.hangman_guesses.append(letter.lower())
+                # elif self.hangman_guesses_left <= 0:
+                #     await ctx.reply(f"Unlucky, you ran out of guesses! The word was: `{self.hangman_word}`")
+                #     return
+                # elif all([w in self.hangman_guesses for w in list(self.hangman_word)]):
+                #     await ctx.reply(f"Well done! You got the word. The word was: `{self.hangman_word}`")
+                #     return
+                # else:
+                #     self.hangman_guesses_left -= 1
+
+                WORD_WAS = f"The word was `{self.hangman_word}`"
+
+                content = letter.lower()
+                self.hangman_guesses.append(content)
+
+                if content == self.hangman_word:
+                    return await ctx.em(f"That is the word! {WORD_WAS}")
+                if all([w in self.hangman_guesses for w in list(self.hangman_word)]):
+                    return await ctx.em(f"Well done! You got the word. {WORD_WAS}")
+                if self.hangman_guesses_left == 1:
+                    return await ctx.em(f"Unlucky, you ran out of guesses! {WORD_WAS}")
+                if len(content) >= 2:
+                    await ctx.em(
+                        f"`{content}` is not the word! Try sending letters one at a time"
+                    )
+
+                if content not in self.hangman_guesses[:-1]:
+                    if content not in self.hangman_word:
+                        self.hangman_guesses_left -= 1
+
+                await ctx.reply(
+                    embed=embeds.hangman_embed(
+                        guesses_left=self.hangman_guesses_left,
+                        word=self.hangman_word,
+                        guesses=self.hangman_guesses,
+                    )
+                )
+            else:
+                await ctx.reply("Provide Letter/Word!!")
+        else:
+            await ctx.reply("No game is currently running!!")
+
     @hangman.command(description="Stops Hangman Game")
     async def stop(self, ctx: commands.Context):
         if not self.hangman_game_over:
