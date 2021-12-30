@@ -5,39 +5,40 @@ import src.core.files as files
 from disnake.ext import commands
 
 
+sup = {
+    "0": "⁰",
+    "1": "¹",
+    "2": "²",
+    "3": "³",
+    "4": "⁴",
+    "5": "⁵",
+    "6": "⁶",
+    "7": "⁷",
+    "8": "⁸",
+    "9": "⁹",
+    "-": "⁻",
+}
+norm = {
+    "⁰": "0",
+    "¹": "1",
+    "²": "2",
+    "³": "3",
+    "⁴": "4",
+    "⁵": "5",
+    "⁶": "6",
+    "⁷": "7",
+    "⁸": "8",
+    "⁹": "9",
+}
+operations = ["/", "*", "+", "-"]
+
+
 class buttons(disnake.ui.View):
     def __init__(self, embed: disnake.Embed, ctx: commands.Context):
-        self.super().__init__()
+        super().__init__()
 
         self.embed = embed
         self.ctx = ctx
-
-        self.operations: list = ["/", "*", "+", "-"]
-        self.sup = {
-            "0": "⁰",
-            "1": "¹",
-            "2": "²",
-            "3": "³",
-            "4": "⁴",
-            "5": "⁵",
-            "6": "⁶",
-            "7": "⁷",
-            "8": "⁸",
-            "9": "⁹",
-            "-": "⁻",
-        }
-        self.norm = {
-            "⁰": "0",
-            "¹": "1",
-            "²": "2",
-            "³": "3",
-            "⁴": "4",
-            "⁵": "5",
-            "⁶": "6",
-            "⁷": "7",
-            "⁸": "8",
-            "⁹": "9",
-        }
 
     async def interaction_check(self, interaction: disnake.MessageInteraction) -> bool:
         if interaction.author == self.ctx.author:
@@ -59,9 +60,9 @@ class buttons(disnake.ui.View):
         if "Out" in content:
             return f"```yaml\n{label}```"
         if content[-1] == "ˣ":
-            return f"```yaml\n{content[:-1]}{self.sup[label]}```"
-        if content[-1] in self.norm:
-            return f"```yaml\n{content}{self.sup[label]}```"
+            return f"```yaml\n{content[:-1]}{sup[label]}```"
+        if content[-1] in norm:
+            return f"```yaml\n{content}{sup[label]}```"
         return f"```yaml\n{content}{label}```"
 
     @disnake.ui.button(label="1", style=disnake.ButtonStyle.grey, row=0)
@@ -170,7 +171,7 @@ class buttons(disnake.ui.View):
         content = self.get_description()
         display = f"```yaml\n{self.get_description()[:-1] if self.get_description() != '0' else '0'}```"
 
-        if content[-1] == " " and content[-2] in self.operations:
+        if content[-1] == " " and content[-2] in operations:
             print(".")
             display = f"```yaml\n{content[:-3]}```"
 
@@ -196,9 +197,7 @@ class buttons(disnake.ui.View):
         self, button: disnake.ui.Button, interaction: disnake.MessageInteraction
     ):
         display = self.get_description()
-        equation = "".join(
-            [k if k not in self.norm else f"**{self.norm[k]}" for k in display]
-        )
+        equation = "".join([k if k not in norm else f"**{norm[k]}" for k in display])
         pattern = re.compile("^√(\d+)")
         equation = pattern.sub("\\1 ** 0.5 ", equation)
 
@@ -259,7 +258,6 @@ class buttons(disnake.ui.View):
         await interaction.response.edit_message()
         self.stop()
 
-
 class Fun(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
@@ -300,7 +298,7 @@ class Fun(commands.Cog):
             author_id = member.id
             code_edited = disnake.utils.remove_markdown(code.strip()).strip()
 
-            resp = funcs.convert_to_snippet(code=code_edited)
+            resp = await funcs.convert_to_snippet(code=code_edited)
 
             with open(f"snippets/{author_id}.png", "wb") as f:
                 f.write(resp)
@@ -340,7 +338,7 @@ class Fun(commands.Cog):
     async def fact(self, ctx: commands.Context):
         fact = funcs.fact()
 
-        await ctx.send(fact)
+        await ctx.reply(fact)
 
     @commands.group(
         invoke_without_command=True,
