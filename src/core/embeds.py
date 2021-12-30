@@ -6,7 +6,7 @@ from disnake.ext import commands
 prefix = funcs.get_prefix()
 
 
-def ping_bot_embed(bot_name: str, bot_avatar_url: str, servers: int):
+def ping_bot_embed(bot_name: str, bot_avatar_url: str, servers: int) -> disnake.Embed:
     embed = disnake.Embed(
         title=f"Hello Buddy!!",
         description=f"My Prefix is `{prefix}`\nUse `{prefix}help` to see the Help Embed!!\n\nTotal Servers = {servers}",
@@ -17,7 +17,7 @@ def ping_bot_embed(bot_name: str, bot_avatar_url: str, servers: int):
     return embed
 
 
-def rules_embed(bot_name: str, bot_avatar_url: str, rules: str):
+def rules_embed(bot_name: str, bot_avatar_url: str, rules: str) -> disnake.Embed:
     embed = disnake.Embed(
         color=disnake.Color.blue(),
     )
@@ -33,7 +33,9 @@ def rules_embed(bot_name: str, bot_avatar_url: str, rules: str):
     return embed
 
 
-def help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
+def help_embed(
+    ctx: commands.Context, bot_name: str, bot_avatar_url: str
+) -> disnake.Embed:
     embed = disnake.Embed(
         color=disnake.Color.blue(),
     )
@@ -71,7 +73,9 @@ def help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     return embed
 
 
-def moderation_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
+def moderation_help_embed(
+    ctx: commands.Context, bot_name: str, bot_avatar_url: str
+) -> disnake.Embed:
     embed = disnake.Embed(
         color=disnake.Color.blue(),
     )
@@ -112,7 +116,9 @@ def moderation_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: 
     return embed
 
 
-def games_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
+def games_help_embed(
+    ctx: commands.Context, bot_name: str, bot_avatar_url: str
+) -> disnake.Embed:
     embed = disnake.Embed(
         color=disnake.Color.blue(),
     )
@@ -160,7 +166,9 @@ def games_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     return embed
 
 
-def music_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
+def music_help_embed(
+    ctx: commands.Context, bot_name: str, bot_avatar_url: str
+) -> disnake.Embed:
     embed = disnake.Embed(
         color=disnake.Color.blue(),
     )
@@ -208,7 +216,9 @@ def music_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     return embed
 
 
-def fun_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
+def fun_help_embed(
+    ctx: commands.Context, bot_name: str, bot_avatar_url: str
+) -> disnake.Embed:
     embed = disnake.Embed(
         color=disnake.Color.blue(),
     )
@@ -261,7 +271,9 @@ def fun_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     return embed
 
 
-def misc_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
+def misc_help_embed(
+    ctx: commands.Context, bot_name: str, bot_avatar_url: str
+) -> disnake.Embed:
     embed = disnake.Embed(
         color=disnake.Color.blue(),
     )
@@ -291,7 +303,7 @@ def misc_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
     return embed
 
 
-def moderation_embed(title: str, status: str, message: str):
+def moderation_embed(title: str, status: str, message: str) -> disnake.Embed:
     embed = disnake.Embed(
         title=f"{title} HAVE BEEN {status}!!",
         description=message,
@@ -301,7 +313,7 @@ def moderation_embed(title: str, status: str, message: str):
     return embed
 
 
-def music_playing_embed(info: dict):
+def music_playing_embed(info: dict) -> disnake.Embed:
     embed = disnake.Embed(
         title=info["title"],
         description=f"Channel: {info['channel']}",
@@ -319,7 +331,7 @@ def translation_embed(
     language_iso: str,
     author: disnake.Member,
     author_reacted: disnake.Member = None,
-):
+) -> disnake.Embed:
     embed = disnake.Embed(
         color=disnake.Color.blue(),
     )
@@ -341,7 +353,7 @@ def pronunciation_embed(
     pronunciation: str,
     author: disnake.Member,
     author_reacted: disnake.Member,
-):
+) -> disnake.Embed:
     embed = disnake.Embed(color=disnake.Color.blue())
     embed.set_author(name=f"Author: {author.display_name}")
     embed.add_field(name="Text", value=text, inline=True)
@@ -353,14 +365,16 @@ def pronunciation_embed(
     return embed
 
 
-def meme_embed(label: str, image: str):
+def meme_embed(label: str, image: str) -> disnake.Embed:
     embed = disnake.Embed(title=f"Caption: **{label}**", color=disnake.Color.blue())
     embed.set_image(url=image)
 
     return embed
 
 
-def member_details_embed(member: disnake.Member, fetched_member: disnake.User):
+def member_details_embed(
+    member: disnake.Member, fetched_member: disnake.User
+) -> disnake.Embed:
     roles_list = [role.mention for role in member.roles if role.name != "@everyone"]
 
     embed = disnake.Embed(color=disnake.Color.blue())
@@ -395,7 +409,7 @@ def member_details_embed(member: disnake.Member, fetched_member: disnake.User):
     return embed
 
 
-def server_stats_embed(guild: disnake.Guild):
+def server_stats_embed(guild: disnake.Guild) -> disnake.Embed:
     emojis_list = [f"<:{emoji.name}:{emoji.id}>" for emoji in guild.emojis]
     roles_list = [role.mention for role in guild.roles if role.name != "@everyone"]
 
@@ -435,7 +449,7 @@ def server_stats_embed(guild: disnake.Guild):
     return embed
 
 
-def morse_code_embed(title: str, converted: str):
+def morse_code_embed(title: str, converted: str) -> disnake.Embed:
     embed = disnake.Embed(
         title=title, description=f"```yaml\n{converted}```", color=disnake.Color.blue()
     )
@@ -443,7 +457,7 @@ def morse_code_embed(title: str, converted: str):
     return embed
 
 
-def calculator_embed():
+def calculator_embed() -> disnake.Embed:
     embed = disnake.Embed(
         title="Calculator", description="```yaml\n0```", color=disnake.Color.blue()
     )
@@ -454,7 +468,9 @@ def calculator_embed():
     return embed
 
 
-def poll_embed(question: str, option1: str, option2: str, option3: str):
+def poll_embed(
+    question: str, option1: str, option2: str, option3: str
+) -> disnake.Embed:
     desc = f"{emojis.alphabets['regional_indicator_a']} {option1}\n\n{emojis.alphabets['regional_indicator_b']} {option2}"
     if option3:
         desc += f"\n\n{emojis.alphabets['regional_indicator_c']} {option3}"
@@ -464,7 +480,7 @@ def poll_embed(question: str, option1: str, option2: str, option3: str):
     return embed
 
 
-def hangman_embed(guesses_left: int, word: str, guesses: list):
+def hangman_embed(guesses_left: int, word: str, guesses: list) -> disnake.Embed:
     desc = " ".join([i if i in guesses else "__" for i in word])
 
     embed = disnake.Embed(

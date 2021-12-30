@@ -10,7 +10,6 @@ prefix = funcs.get_prefix()
 class Moderation(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.embed_blank_value: str = "\u200b"
 
     @commands.command(description="Kick Member or Bot")
     @commands.has_permissions(kick_members=True)

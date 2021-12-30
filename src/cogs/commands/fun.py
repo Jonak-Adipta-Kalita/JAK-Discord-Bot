@@ -258,6 +258,7 @@ class buttons(disnake.ui.View):
         await interaction.response.edit_message()
         self.stop()
 
+
 class Fun(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot

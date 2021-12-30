@@ -214,7 +214,7 @@ def fact() -> str:
     return randfacts.get_fact()
 
 
-async def convert_to_snippet(code):
+async def convert_to_snippet(code) -> bytes:
     async with aiohttp.ClientSession(
         headers={"Content-Type": "application/json"},
     ) as ses:
@@ -225,7 +225,7 @@ async def convert_to_snippet(code):
                     "code": code,
                 },
             )
-        except Exception as e:
+        except Exception:
             pass
 
         resp = await request.read()

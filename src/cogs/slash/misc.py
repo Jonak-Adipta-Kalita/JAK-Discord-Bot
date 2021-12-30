@@ -7,6 +7,7 @@ from disnake.ext import commands
 class Misc_(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
+        self.embed_blank_value: str = "\u200b"
 
     @commands.slash_command(
         description="Create a Poll",
