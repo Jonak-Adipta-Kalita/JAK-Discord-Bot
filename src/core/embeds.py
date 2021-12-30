@@ -303,6 +303,47 @@ def misc_help_embed(
     return embed
 
 
+def commands_help_embed(
+    ctx: commands.Context, bot_name: str, bot_avatar_url: str, command: commands.Command
+) -> disnake.Embed:
+    embed = disnake.Embed(
+        color=disnake.Color.blue(),
+    )
+    embed.set_author(
+        name=f"{bot_name} - {command.name} Help Menu", icon_url=bot_avatar_url
+    )
+    embed.add_field(
+        name="Name:",
+        value=f"`{command.name.capitalize()}`",
+        inline=False,
+    )
+    embed.add_field(
+        name="Alias:",
+        value=f"{', '.join([f'`{k}`' for k in command.aliases if command.aliases])} "
+        if command.aliases
+        else f"`none`",
+        inline=False,
+    )
+    embed.add_field(
+        name="Usage:",
+        value=f"`{prefix}{command.name} {command.signature}`"
+        if command.signature
+        else f"`{prefix}{command.name}`",
+        inline=False,
+    )
+    embed.add_field(
+        name="Description:",
+        value=command.description,
+        inline=False,
+    )
+    embed.set_footer(
+        text=f"Information Requested by: {ctx.author.display_name}",
+        icon_url=ctx.author.avatar.url,
+    )
+
+    return embed
+
+
 def moderation_embed(title: str, status: str, message: str) -> disnake.Embed:
     embed = disnake.Embed(
         title=f"{title} HAVE BEEN {status}!!",
