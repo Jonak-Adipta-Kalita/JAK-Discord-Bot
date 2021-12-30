@@ -182,28 +182,6 @@ class Games(commands.Cog):
     async def guess(self, ctx: commands.Context, letter: str):
         if not self.hangman_game_over:
             if letter:
-                # if len(letter) >= 2:
-                #     if letter == self.hangman_word:
-                #         await ctx.reply(
-                #             f"This is the word!! The word was: `{self.hangman_word}`"
-                #         )
-                #         return
-                #     else:
-                #         await ctx.reply(
-                #             "This is not the Word!! Try sending letters one at a time!!"
-                #         )
-                #         self.hangman_guesses_left -= 1
-                # elif letter in self.hangman_word:
-                #     self.hangman_guesses.append(letter.lower())
-                # elif self.hangman_guesses_left <= 0:
-                #     await ctx.reply(f"Unlucky, you ran out of guesses! The word was: `{self.hangman_word}`")
-                #     return
-                # elif all([w in self.hangman_guesses for w in list(self.hangman_word)]):
-                #     await ctx.reply(f"Well done! You got the word. The word was: `{self.hangman_word}`")
-                #     return
-                # else:
-                #     self.hangman_guesses_left -= 1
-
                 WORD_WAS = f"The word was `{self.hangman_word}`"
 
                 content = letter.lower()
