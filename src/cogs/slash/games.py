@@ -3,31 +3,9 @@ from disnake.ext import commands
 
 
 class Games_(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: commands.Bot, _8ball_responses: list):
         self.bot = bot
-        self._8ball_responses: list = [
-            "It is certain.",
-            "It is decidedly so.",
-            "Without a doubt.",
-            "Yes definitely.",
-            "You may rely on it.",
-            "As I see it, yes.",
-            "Most likely.",
-            "Outlook good.",
-            "Yes.",
-            "Signs point to yes.",
-            "Reply hazy, try again.",
-            "Ask again later.",
-            "Better not tell you now.",
-            "Cannot predict now.",
-            "Concentrate and ask again.",
-            "Don't count on it.",
-            "My reply is no.",
-            "My sources say no.",
-            "Outlook not so good.",
-            "Very doubtfut.",
-            "Kinda Lazy to answer.",
-        ]
+        self._8ball_responses = _8ball_responses
 
     @commands.slash_command(
         name="8ball",
@@ -46,9 +24,12 @@ class Games_(commands.Cog):
         self, inter: disnake.ApplicationCommandInteraction, question: str
     ):
         await inter.response.send_message(
-            f"Question: {question}\nAnswer: {random.choice(self._8ball_responses)} :relieved:"
+            f"Question: {question}\nAnswer: {random.choice(self._8ball_responses)}"
         )
 
 
 def setup(bot: commands.Bot):
-    bot.add_cog(Games_(bot))
+    with open("resources/8ball_responses.txt") as txt:
+        _8ball_responses = txt.readlines()
+
+    bot.add_cog(Games_(bot, _8ball_responses))

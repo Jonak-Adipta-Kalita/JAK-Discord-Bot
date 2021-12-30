@@ -15,6 +15,7 @@ class JAKDiscordBot(commands.Bot):
         )
 
         self.load_extension("src.cogs.help")
+        self.load_extension("jishaku")
 
         for files in os.listdir(f"./src/cogs/commands/"):
             if files.endswith(".py"):
@@ -204,7 +205,7 @@ class JAKDiscordBot(commands.Bot):
 
 if __name__ == "__main__":
     bad_words = []
-    with open("src/resources/profanity.txt", "r") as f:
+    with open("resources/profanity.txt", "r") as f:
         bad_words = f.read().splitlines()
 
     bot = JAKDiscordBot(

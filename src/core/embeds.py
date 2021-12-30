@@ -137,6 +137,21 @@ def games_help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         value="Stops Tic-Tac-Toe Game",
         inline=False,
     )
+    embed.add_field(
+        name=f"{prefix}hangman",
+        value="Start Hangman Game",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}hangman guess <word/letter>",
+        value="Guess Word in Hangman Game",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}hangman stop",
+        value="Stops Hangman Game",
+        inline=False,
+    )
     embed.set_footer(
         text=f"Information Requested by: {ctx.author.display_name}",
         icon_url=ctx.author.avatar.url,

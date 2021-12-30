@@ -4,32 +4,10 @@ from disnake.ext import commands
 
 
 class Games(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: commands.Bot, _8ball_responses: list, hangman_words: list):
         self.bot = bot
 
-        self._8ball_responses: list = [
-            "It is certain.",
-            "It is decidedly so.",
-            "Without a doubt.",
-            "Yes definitely.",
-            "You may rely on it.",
-            "As I see it, yes.",
-            "Most likely.",
-            "Outlook good.",
-            "Yes.",
-            "Signs point to yes.",
-            "Reply hazy, try again.",
-            "Ask again later.",
-            "Better not tell you now.",
-            "Cannot predict now.",
-            "Concentrate and ask again.",
-            "Don't count on it.",
-            "My reply is no.",
-            "My sources say no.",
-            "Outlook not so good.",
-            "Very doubtfut.",
-            "Kinda Lazy to answer.",
-        ]
+        self._8ball_responses = _8ball_responses
 
         self.tictactoe_players: list = []
         self.tictactoe_player1: str = ""
@@ -48,14 +26,28 @@ class Games(commands.Cog):
             [2, 4, 6],
         ]
 
+        self.hangman_words = hangman_words
+        self.hangman_game_over: bool = True
+        self.hangman_player: disnake.Member = None
+    
+    def tictactoe_check_winner(self, winning_conditions, mark):
+        for condition in winning_conditions:
+            if (
+                self.tictactoe_board[condition[0]] == mark
+                and self.tictactoe_board[condition[1]] == mark
+                and self.tictactoe_board[condition[2]] == mark
+            ):
+                self.tictactoe_game_over = True
+
     @commands.command(name="8ball", description="Play 8Ball Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def _8ball(self, ctx: commands.Context, *, question):
         await ctx.reply(
-            f"Question: {question}\nAnswer: {random.choice(self._8ball_responses)} :relieved:"
+            f"Question: {question}\nAnswer: {random.choice(self._8ball_responses)}"
         )
 
     @commands.group(invoke_without_command=True, description="Start Tic-Tac-Toe Game")
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
     async def tictactoe(
         self, ctx: commands.Context, p1: disnake.Member, p2: disnake.Member
     ):
@@ -165,72 +157,32 @@ class Games(commands.Cog):
         else:
             await ctx.reply("No game is currently running!!")
 
-    @commands.command()
-    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    @commands.group(invoke_without_command=True, description="Start Hangman Game")
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
     async def hangman(self, ctx: commands.Context):
-        with open("src/resources/hangman_words.txt") as txt:
-            self.words = txt.readlines()
-
-        word = random.choice(self.words).strip()
-        print(word)
-        guesses = []
-        guesses_left = 8
-
-        await ctx.reply(
-            f"Your word: `{' '.join(['_' for k in range(0, len(word))])}`\nYou have {guesses_left} guesses left"
-        )
-        try:
-            while m := await self.bot.wait_for(
-                "message",
-                check=lambda m: m.author == ctx.author and m.channel == ctx.channel,
-                timeout=60,
-            ):
-                if guesses_left == 0:
-                    await ctx.reply(
-                        f"Uh oh! You ran out of guesses. The word was {word}"
-                    )
-                    continue
-                if m.content.lower() == "end":
-                    await ctx.reply("Goodbye")
-
-                if len(m.content.lower()) >= 2 and m.content.lower() != word:
-                    guesses_left -= 1
-                    await ctx.reply(
-                        f"{m.content.lower()} is not the answer! You have {guesses_left} guesses left"
-                    )
-                    continue
-
-                guesses.append(m.content.lower())
-                if m.content.lower() == word:
-                    await ctx.reply(
-                        f"Well done! You got the word. The word was `{word}`"
-                    )
-                    continue
-
-                if all([w in guesses for w in list(word)]):
-                    await ctx.reply(
-                        f"Well done! You got the word. The word was `{word}`"
-                    )
-                    continue
-
-                if m.content.lower() not in word:
-                    guesses_left -= 1
-                await ctx.reply(
-                    f"word: `{''.join([k if k in guesses else ' _' for k in word])}`\nYou have {guesses_left} guesses left"
-                )
-
-        except asyncio.TimeoutError:
-            await ctx.reply("You ran out of time!")
-
-    def tictactoe_check_winner(self, winning_conditions, mark):
-        for condition in winning_conditions:
-            if (
-                self.tictactoe_board[condition[0]] == mark
-                and self.tictactoe_board[condition[1]] == mark
-                and self.tictactoe_board[condition[2]] == mark
-            ):
-                self.tictactoe_game_over = True
+        word = random.choice(self.hangman_words).strip()
+    
+    @hangman.command(description="Guess Word in Hangman Game")
+    async def guess(self, ctx: commands.Context, *, letter):
+        pass
+    
+    @hangman.command(description="Stops Hangman Game")
+    async def stop(self, ctx: commands.Context):
+        if not self.hangman_game_over:
+            if ctx.author == self.hangman_player:
+                self.hangman_game_over = True
+                await ctx.reply("Stopped the Game!!")
+            else:
+                await ctx.reply("You are not Playing!!")
+        else:
+            await ctx.reply("No game is currently running!!")
 
 
 def setup(bot: commands.Bot):
-    bot.add_cog(Games(bot))
+    with open("resources/hangman_words.txt") as txt:
+        hangman_words = txt.readlines()
+
+    with open("resources/8ball_responses.txt") as txt:
+        _8ball_responses = txt.readlines()
+
+    bot.add_cog(Games(bot, _8ball_responses, hangman_words))
