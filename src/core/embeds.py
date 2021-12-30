@@ -59,8 +59,8 @@ def help_embed(ctx: commands.Context, bot_name: str, bot_avatar_url: str):
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}help discord_together",
-        value="Show the Discord Together Commands",
+        name=f"{prefix}help misc",
+        value="Show the Misc Commands",
         inline=False,
     )
     embed.set_footer(
