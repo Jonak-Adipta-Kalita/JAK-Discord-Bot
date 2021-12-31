@@ -11,17 +11,19 @@ class Music(commands.Cog):
         self.bot = bot
 
     @commands.group(invoke_without_command=True, description="Connect/Leave VC")
+    @commands.has_guild_permissions(connect=True)
     async def vc(self, ctx: commands.Context, command: str):
         await ctx.reply("Command not Found!!")
 
     @commands.group(
         invoke_without_command=True, description="Play, Pause, Resume, Stop Music"
     )
+    @commands.has_guild_permissions(connect=True)
     async def music(self, ctx: commands.Context, command: str):
         await ctx.reply("Command not Found!!")
 
     @vc.command(description="Joins the VC you are currently in", aliases=["connect"])
-    # @commands.has_permissions(connect=True)
+    @commands.has_guild_permissions(connect=True)
     async def join(self, ctx: commands.Context):
         if ctx.author.voice is None:
             await ctx.reply("You are not Connected to a Voice Channel!!")
@@ -37,7 +39,7 @@ class Music(commands.Cog):
             await ctx.reply("I am already in a Voice Channel!!")
 
     @vc.command(description="Leaves VC", aliases=["disconnect"])
-    # @commands.has_permissions(connect=True)
+    @commands.has_guild_permissions(connect=True)
     async def leave(self, ctx: commands.Context):
         if ctx.voice_client:
             await ctx.reply("Disconnected!!")
@@ -46,7 +48,7 @@ class Music(commands.Cog):
             await ctx.reply("I am not Connected to any Voice Channel!!")
 
     @music.command(description="Plays the Music")
-    # @commands.has_permissions(connect=True)
+    @commands.has_guild_permissions(connect=True)
     async def play(self, ctx: commands.Context, *, music_name: str):
         vc = ctx.voice_client
 
@@ -79,7 +81,7 @@ class Music(commands.Cog):
             await ctx.reply("I am not Connected to any Voice Channel!!")
 
     @music.command(description="Pauses the Music")
-    # @commands.has_permissions(connect=True)
+    @commands.has_guild_permissions(connect=True)
     async def pause(self, ctx: commands.Context):
         vc = ctx.voice_client
 
@@ -93,7 +95,7 @@ class Music(commands.Cog):
             await ctx.reply("I am not Connected to any Voice Channel!!")
 
     @music.command(description="Resumes the Music")
-    # @commands.has_permissions(connect=True)
+    @commands.has_guild_permissions(connect=True)
     async def resume(self, ctx: commands.Context):
         vc = ctx.voice_client
 
@@ -107,7 +109,7 @@ class Music(commands.Cog):
             await ctx.reply(" I am not Connected to any Voice Channel!!")
 
     @music.command(description="Adjusts the Volume as per given amount")
-    # @commands.has_permissions(connect=True)
+    @commands.has_guild_permissions(connect=True)
     async def volume(self, ctx: commands.Context, volume: int):
         vc = ctx.voice_client
 
@@ -124,7 +126,7 @@ class Music(commands.Cog):
             await ctx.reply("I am not Connected to any Voice Channel!!")
 
     @music.command(description="Stops the Music")
-    # @commands.has_permissions(connect=True)
+    @commands.has_guild_permissions(connect=True)
     async def stop(self, ctx: commands.Context):
         vc = ctx.voice_client
 
