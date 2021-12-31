@@ -11,14 +11,14 @@ class Music(commands.Cog):
         self.bot = bot
 
     @commands.group(invoke_without_command=True, description="Connect/Leave VC")
-    async def vc(self, ctx: commands.Context):
-        pass
+    async def vc(self, ctx: commands.Context, command: str):
+        await ctx.reply("Command not Found!!")
 
     @commands.group(
         invoke_without_command=True, description="Play, Pause, Resume, Stop Music"
     )
-    async def music(self, ctx: commands.Context):
-        pass
+    async def music(self, ctx: commands.Context, command: str):
+        await ctx.reply("Command not Found!!")
 
     @vc.command(description="Joins the VC you are currently in", aliases=["connect"])
     # @commands.has_permissions(connect=True)

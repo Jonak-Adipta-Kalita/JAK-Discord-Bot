@@ -225,6 +225,48 @@ class Games(commands.Cog):
         else:
             await ctx.reply("No game is currently running!!")
 
+    @commands.command(aliases=["rps"], description="Play Rock Paper Scissor")
+    async def rock_paper_scissor(self, ctx: commands.Context, move: str):
+        moves = ["rock", "paper", "scissor"]
+
+        if move:
+            if move in moves:
+                winner = None
+                author = ctx.author
+                comp_choice = random.choice(moves)
+
+                if move == "rock":
+                    if comp_choice == "rock":
+                        winner = None
+                    elif comp_choice == "paper":
+                        winner = "CPU"
+                    elif comp_choice == "scissor":
+                        winner = f"{author.display_name}#{author.discriminator}"
+                elif move == "paper":
+                    if comp_choice == "paper":
+                        winner = None
+                    elif comp_choice == "scissor":
+                        winner = "CPU"
+                    elif comp_choice == "rock":
+                        winner = f"{author.display_name}#{author.discriminator}"
+                elif move == "scissor":
+                    if comp_choice == "scissor":
+                        winner = None
+                    elif comp_choice == "rock":
+                        winner = "CPU"
+                    elif comp_choice == "paper":
+                        winner = f"{author.display_name}#{author.discriminator}"
+
+                await ctx.reply(
+                    embed=embeds.rock_paper_scissor_embed(
+                        player_move=move, comp_move=comp_choice, winner=winner
+                    )
+                )
+            else:
+                await ctx.reply("The Move must be `rock` `paper` or `scissor`")
+        else:
+            await ctx.reply("Please Specify a Move!!")
+
 
 def setup(bot: commands.Bot):
     with open("resources/hangman_words.txt") as txt:

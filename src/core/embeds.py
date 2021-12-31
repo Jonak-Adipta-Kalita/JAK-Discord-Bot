@@ -530,3 +530,14 @@ def hangman_embed(guesses_left: int, word: str, guesses: list) -> disnake.Embed:
     )
 
     return embed
+
+
+def rock_paper_scissor_embed(
+    player_move: str, comp_move: str, winner: str
+) -> disnake.Embed:
+    embed = disnake.Embed(color=disnake.Color.blue())
+    embed.add_field(name="Player's Move", value=player_move, inline=False)
+    embed.add_field(name="CPU's Move", value=comp_move, inline=False)
+    embed.add_field(name="Winner", value=winner if winner else "Draw", inline=False)
+
+    return embed

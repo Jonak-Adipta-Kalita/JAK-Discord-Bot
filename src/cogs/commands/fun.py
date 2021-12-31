@@ -346,8 +346,8 @@ class Fun(commands.Cog):
         description="Use Discord Together Activities",
         aliases=["discord_together"],
     )
-    async def together(self, ctx: commands.Context):
-        pass
+    async def together(self, ctx: commands.Context, activity: str):
+        await ctx.reply("Activity not Found!!")
 
     @together.command(description="Use `YouTube Together` Activity")
     @commands.bot_has_permissions(create_instant_invite=True)

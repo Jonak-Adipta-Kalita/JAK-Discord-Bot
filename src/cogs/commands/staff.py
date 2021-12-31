@@ -25,8 +25,8 @@ class Staff(commands.Cog):
         )
         await ctx.send(embed=embed)
 
-    @commands.command(hidden=True)
-    async def reload_cog(self, ctx: commands.Context, extension=""):
+    @commands.command(hidden=True, aliases=["reload_cogs"])
+    async def reload_cog(self, ctx: commands.Context, extension: str = ""):
         if not extension:
 
             for cog in tuple(self.bot.extensions):
