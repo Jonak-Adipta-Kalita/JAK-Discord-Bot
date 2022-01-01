@@ -295,6 +295,11 @@ def misc_help_embed(
         value="Show the Server Information",
         inline=False,
     )
+    embed.add_field(
+        name=f"{prefix}message_source <message_id>",
+        value="Show the Source of a Message",
+        inline=False,
+    )
     embed.set_footer(
         text=f"Information Requested by: {ctx.author.display_name}",
         icon_url=ctx.author.avatar.url,
@@ -539,5 +544,14 @@ def rock_paper_scissor_embed(
     embed.add_field(name="Player's Move", value=player_move, inline=False)
     embed.add_field(name="CPU's Move", value=comp_move, inline=False)
     embed.add_field(name="Winner", value=winner if winner else "Draw", inline=False)
+
+    return embed
+
+
+def message_source_embed(msg: disnake.Message) -> disnake.Embed:
+    embed = disnake.Embed(
+        description=disnake.utils.escape_markdown(msg.content).replace(" ", "\u200B "),
+        color=disnake.Color.blue(),
+    )
 
     return embed

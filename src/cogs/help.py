@@ -31,7 +31,7 @@ class Dropdown(disnake.ui.Select):
         label = interaction.values[0]
 
         if label == "moderation_help_embed":
-            await interaction.response.send_message(
+            await interaction.response.edit_message(
                 embed=embeds.moderation_help_embed(
                     ctx=self.ctx,
                     bot_name=self.bot.user.name,
@@ -39,7 +39,7 @@ class Dropdown(disnake.ui.Select):
                 )
             )
         elif label == "games_help_embed":
-            await interaction.response.send_message(
+            await interaction.response.edit_message(
                 embed=embeds.games_help_embed(
                     ctx=self.ctx,
                     bot_name=self.bot.user.name,
@@ -47,7 +47,7 @@ class Dropdown(disnake.ui.Select):
                 )
             )
         elif label == "music_help_embed":
-            await interaction.response.send_message(
+            await interaction.response.edit_message(
                 embed=embeds.music_help_embed(
                     ctx=self.ctx,
                     bot_name=self.bot.user.name,
@@ -55,7 +55,7 @@ class Dropdown(disnake.ui.Select):
                 )
             )
         elif label == "fun_help_embed":
-            await interaction.response.send_message(
+            await interaction.response.edit_message(
                 embed=embeds.fun_help_embed(
                     ctx=self.ctx,
                     bot_name=self.bot.user.name,
@@ -63,7 +63,7 @@ class Dropdown(disnake.ui.Select):
                 )
             )
         elif label == "misc_help_embed":
-            await interaction.response.send_message(
+            await interaction.response.edit_message(
                 embed=embeds.misc_help_embed(
                     ctx=self.ctx,
                     bot_name=self.bot.user.name,

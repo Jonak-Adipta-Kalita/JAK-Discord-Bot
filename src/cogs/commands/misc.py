@@ -83,6 +83,19 @@ class Misc(commands.Cog):
     async def server_stats(self, ctx: commands.Context):
         await ctx.reply(embed=embeds.server_stats_embed(guild=ctx.guild))
 
+    @commands.command(description="Shows the Source of a Message")
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
+    async def message_source(
+        self,
+        ctx: commands.Context,
+        message_id: int,
+    ):
+        msg = await ctx.fetch_message(message_id)
+        if not msg or not msg.content.strip():
+            await ctx.reply("Please provide a non-empty Message!!")
+            return
+        await ctx.reply(embed=embeds.message_source_embed(msg=msg))
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(Misc(bot))
