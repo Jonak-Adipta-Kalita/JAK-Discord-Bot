@@ -12,8 +12,8 @@ class Moderation(commands.Cog):
         self.bot = bot
 
     @commands.command(description="Kick Member or Bot")
-    @commands.has_permissions(kick_members=True)
-    @commands.bot_has_permissions(kick_members=True)
+    @commands.has_guild_permissions(kick_members=True)
+    @commands.bot_has_guild_permissions(kick_members=True)
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def kick(
         self, ctx: commands.Context, member: disnake.Member, *, reason="Nothing"
@@ -28,8 +28,8 @@ class Moderation(commands.Cog):
         )
 
     @commands.command(description="Ban Member or Bot")
-    @commands.has_permissions(kick_members=True, ban_members=True)
-    @commands.bot_has_permissions(kick_members=True, ban_members=True)
+    @commands.has_guild_permissions(kick_members=True, ban_members=True)
+    @commands.bot_has_guild_permissions(kick_members=True, ban_members=True)
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def ban(
         self, ctx: commands.Context, member: disnake.Member, *, reason="Nothing!!"
@@ -44,8 +44,8 @@ class Moderation(commands.Cog):
         )
 
     @commands.command(description="Unban Member or Bot")
-    @commands.has_permissions(kick_members=True, ban_members=True)
-    @commands.bot_has_permissions(kick_members=True, ban_members=True)
+    @commands.has_guild_permissions(kick_members=True, ban_members=True)
+    @commands.bot_has_guild_permissions(kick_members=True, ban_members=True)
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def unban(self, ctx: commands.Context, *, member: str):
         banned_user = await ctx.guild.bans()
@@ -64,14 +64,14 @@ class Moderation(commands.Cog):
                 return
 
     @commands.command(description="Delete messages as given amount")
-    @commands.has_permissions(manage_messages=True)
-    @commands.bot_has_permissions(manage_messages=True)
+    @commands.has_guild_permissions(manage_messages=True)
+    @commands.bot_has_guild_permissions(manage_messages=True)
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def clear(self, ctx: commands.Context, amount: int):
         await ctx.channel.purge(limit=amount)
 
     @commands.command(description="Remove a Channel")
-    @commands.bot_has_permissions(manage_channels=True)
+    @commands.bot_has_guild_permissions(manage_channels=True)
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def remove_channel(
         self,
