@@ -74,7 +74,7 @@ class Music(commands.Cog):
                 if info:
                     await ctx.reply(embed=embeds.music_playing_embed(info))
 
-                source = await disnake.FFmpegAudio(url, **FFMPEG_OPTIONS)
+                source = await disnake.FFmpegPCMAudio(url, **FFMPEG_OPTIONS)
                 vc.play(source)
 
         else:
@@ -114,7 +114,7 @@ class Music(commands.Cog):
         vc = ctx.voice_client
 
         if vc:
-            if volume >= 0 or volume <= 100:
+            if 0 > volume > 100:
                 volume = volume / 100
                 vc.source = disnake.PCMVolumeTransformer(original=vc.source, volume=1.0)
                 vc.source.volume = volume
