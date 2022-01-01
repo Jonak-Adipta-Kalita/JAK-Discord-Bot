@@ -119,7 +119,7 @@ class Music(commands.Cog):
                 vc.source = disnake.PCMVolumeTransformer(original=vc.source, volume=1.0)
                 vc.source.volume = volume
 
-                await ctx.reply(f"Changed volume to {volume}%")
+                await ctx.reply(f"Changed volume to {volume * 100}%")
             else:
                 await ctx.reply("Volume must be between 0 to 100 (Inclusive)")
         else:
