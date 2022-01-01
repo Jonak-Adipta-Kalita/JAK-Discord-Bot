@@ -22,7 +22,7 @@ class Music(commands.Cog):
     async def music(self, ctx: commands.Context, command: str):
         await ctx.reply("Command not Found!!")
 
-    @vc.command(description="Joins the VC you are currently in", aliases=["connect"])
+    @vc.command(description="Joins the VC you are currently in", aliases=["connect", "c"])
     @commands.has_guild_permissions(connect=True)
     async def join(self, ctx: commands.Context):
         if ctx.author.voice is None:
@@ -38,7 +38,7 @@ class Music(commands.Cog):
         else:
             await ctx.reply("I am already in a Voice Channel!!")
 
-    @vc.command(description="Leaves VC", aliases=["disconnect"])
+    @vc.command(description="Leaves VC", aliases=["disconnect", "dc"])
     @commands.has_guild_permissions(connect=True)
     async def leave(self, ctx: commands.Context):
         if ctx.voice_client:
