@@ -300,21 +300,39 @@ class Fun(commands.Cog):
             code_edited = disnake.utils.remove_markdown(code.strip()).strip()
 
             resp = await funcs.convert_to_snippet(code=code_edited)
+            
+            if os.path.isdir('snippets'):
+                with open(f"snippets/{author_id}.png", "wb") as f:
+                    f.write(resp)
+                    carbon_file = f
 
-            with open(f"snippets/{author_id}.png", "wb") as f:
-                f.write(resp)
-                carbon_file = f
+                await ctx.reply(
+                    file=files.code_snippet_file(
+                        carbon_file=os.path.realpath(carbon_file.name), author_id=author_id
+                    ),
+                )
 
-            await ctx.reply(
-                file=files.code_snippet_file(
-                    carbon_file=os.path.realpath(carbon_file.name), author_id=author_id
-                ),
-            )
+                await asyncio.sleep(60)
 
-            await asyncio.sleep(60)
+                if os.path.isfile(f"snippets/{author_id}.png"):
+                    os.remove(f"snippets/{author_id}.png")
+            else:
+                os.mkdir("snippets")
 
-            if os.path.isfile(f"snippets/{author_id}.png"):
-                os.remove(f"snippets/{author_id}.png")
+                with open(f"snippets/{author_id}.png", "wb") as f:
+                    f.write(resp)
+                    carbon_file = f
+
+                await ctx.reply(
+                    file=files.code_snippet_file(
+                        carbon_file=os.path.realpath(carbon_file.name), author_id=author_id
+                    ),
+                )
+
+                await asyncio.sleep(60)
+
+                if os.path.isfile(f"snippets/{author_id}.png"):
+                    os.remove(f"snippets/{author_id}.png")
         else:
             await ctx.reply("Use a CodeBlock!!")
 
