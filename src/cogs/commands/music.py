@@ -114,7 +114,7 @@ class Music(commands.Cog):
         vc = ctx.voice_client
 
         if vc:
-            if 0 > volume > 100:
+            if not 0 > volume > 100:
                 volume = volume / 100
                 vc.source = disnake.PCMVolumeTransformer(original=vc.source, volume=1.0)
                 vc.source.volume = volume
