@@ -74,7 +74,7 @@ class Music(commands.Cog):
                 if info:
                     await ctx.reply(embed=embeds.music_playing_embed(info))
 
-                source = await disnake.FFmpegOpusAudio.from_probe(url, **FFMPEG_OPTIONS)
+                source = await disnake.FFmpegAudio(url, **FFMPEG_OPTIONS)
                 vc.play(source)
 
         else:
