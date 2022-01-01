@@ -134,7 +134,7 @@ class Misc_(commands.Cog):
             disnake.Option(
                 name="message_id",
                 description="Message ID of the Message to show source of!!",
-                type=disnake.OptionType.integer,
+                type=disnake.OptionType.string,
                 required=True,
             )
         ],

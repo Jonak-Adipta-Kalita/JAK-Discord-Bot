@@ -22,7 +22,9 @@ class Music(commands.Cog):
     async def music(self, ctx: commands.Context, command: str):
         await ctx.reply("Command not Found!!")
 
-    @vc.command(description="Joins the VC you are currently in", aliases=["connect", "c"])
+    @vc.command(
+        description="Joins the VC you are currently in", aliases=["connect", "c"]
+    )
     @commands.has_guild_permissions(connect=True)
     async def join(self, ctx: commands.Context):
         if ctx.author.voice is None:
