@@ -127,8 +127,18 @@ class Misc_(commands.Cog):
         await inter.response.send_message(
             embed=embeds.server_stats_embed(guild=inter.guild)
         )
-    
-    @commands.slash_command(description="Shows the Source of a Message", options=[disnake.Option(name="message_id",description="Message ID of the Message to show source of!!",type=disnake.OptionType.integer,required=True)])
+
+    @commands.slash_command(
+        description="Shows the Source of a Message",
+        options=[
+            disnake.Option(
+                name="message_id",
+                description="Message ID of the Message to show source of!!",
+                type=disnake.OptionType.integer,
+                required=True,
+            )
+        ],
+    )
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def message_source(
         self,
