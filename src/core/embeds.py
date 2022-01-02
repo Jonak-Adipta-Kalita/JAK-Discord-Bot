@@ -300,6 +300,16 @@ def misc_help_embed(
         value="Show the Source of a Message",
         inline=False,
     )
+    embed.add_field(
+        name=f"{prefix}chatbot",
+        value="Start Chatbot for 5 Minutes",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}chatbot stop",
+        value="Stop Chatbot",
+        inline=False,
+    )
     embed.set_footer(
         text=f"Information Requested by: {ctx.author.display_name}",
         icon_url=ctx.author.avatar.url,

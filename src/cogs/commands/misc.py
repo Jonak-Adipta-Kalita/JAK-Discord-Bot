@@ -1,6 +1,7 @@
-import disnake
+import disnake, asyncio
 import src.core.emojis as emojis
 import src.core.embeds as embeds
+import src.core.functions as funcs
 from disnake.ext import commands
 
 
@@ -8,6 +9,8 @@ class Misc(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
         self.embed_blank_value: str = "\u200b"
+        self.chatbot_on: bool = False
+        self.chatbot_channel: disnake.TextChannel = None
 
     @commands.command(description="Create a Poll")
     async def poll(
@@ -95,6 +98,38 @@ class Misc(commands.Cog):
             await ctx.reply("Please provide a non-empty Message!!")
             return
         await ctx.reply(embed=embeds.message_source_embed(msg=msg))
+    
+    @commands.group(invoke_without_command=True, description="Start Chatbot for 5 Minutes")
+    async def chatbot(self, ctx: commands.Context, command: str = None):
+        if command:
+            await ctx.reply("Command not Found!!")
+            return
+
+        self.chatbot_on = True
+        self.chatbot_channel = ctx.channel
+        await ctx.reply("Started Chatbot!! Will be Active for 5 Mins!!")
+
+        await asyncio.sleep(300)
+
+        self.chatbot_on = False
+        self.chatbot_channel = None
+        await ctx.reply("Chatbot Stopped!!")
+
+    @chatbot.command(description="Stop Chatbot")
+    async def stop(self, ctx: commands.Context):
+        self.chatbot_on = False
+        await ctx.reply("Stopped Chatbot!!")
+
+    @commands.Cog.listener()
+    async def on_message(self, message: disnake.Message):
+        if message.author == self.bot.user:
+            return
+        if self.chatbot_on and message.channel == self.chatbot_channel:
+            response = await funcs.chatbot_response(message=message.content)
+            if response:
+                await message.reply(response)
+            else:
+                await message.reply("Something went Wrong!!")
 
 
 def setup(bot: commands.Bot):
