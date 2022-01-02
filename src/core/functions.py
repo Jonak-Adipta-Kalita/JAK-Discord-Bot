@@ -231,3 +231,24 @@ async def convert_to_snippet(code) -> bytes:
         resp = await request.read()
 
     return resp
+
+
+async def chatbot_response(message: str) -> typing.Optional[str]:
+    async with aiohttp.ClientSession(
+        headers={
+            "Authorization": "yFsjaMkrpsKg",
+        }
+    ) as ses:
+        try:
+            request = await ses.get(
+                "https://api.pgamerx.com/v5/ai",
+                json={"message": message, "server": "main"},
+            )
+        except Exception:
+            pass
+
+        resp = await request.json()
+
+    if "error" in resp[0]:
+        return None
+    return resp[0]["response"]
