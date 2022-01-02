@@ -1,4 +1,4 @@
-import typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts
+import typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials
 import src.core.emojis as emojis_list
 
 
@@ -236,7 +236,7 @@ async def convert_to_snippet(code) -> bytes:
 async def chatbot_response(message: str) -> typing.Optional[str]:
     async with aiohttp.ClientSession(
         headers={
-            "Authorization": "yFsjaMkrpsKg",
+            "Authorization": credentials.CHATBOT_KEY,
         }
     ) as ses:
         try:

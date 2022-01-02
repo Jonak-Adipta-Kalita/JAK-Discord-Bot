@@ -55,6 +55,10 @@ yarn
 
 and hit enter.
 
+### Getting CHATBOT_KEY
+
+### Getting JWT_SECRET
+
 ### Creating the Bot:
 
 Create `.env` and `dashboard/.env.local`. Now go to [Discord Developers Portal](https://discord.com/developers/applications) and create a new application.
@@ -66,6 +70,7 @@ For `.env`
 
 ```env
 TOKEN=<YOUR_BOT_TOKEN>
+CHATBOT_KEY=<YOUR_CHATBOT_KEY>
 ```
 
 For `dashboard/.env.local`
