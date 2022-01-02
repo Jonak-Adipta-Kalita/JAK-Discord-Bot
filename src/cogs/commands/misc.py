@@ -120,8 +120,8 @@ class Misc(commands.Cog):
         self.chatbot_on = False
         await ctx.reply("Stopped Chatbot!!")
 
-    @commands.Cog.listener()
-    async def on_message(self, message: disnake.Message):
+    @commands.Cog.listener("on_message")
+    async def on_chatbot_message(self, message: disnake.Message):
         if message.author == self.bot.user:
             return
         if self.chatbot_on and message.channel == self.chatbot_channel:
