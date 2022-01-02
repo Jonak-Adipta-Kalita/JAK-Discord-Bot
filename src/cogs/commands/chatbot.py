@@ -9,15 +9,15 @@ class ChatBot(commands.Cog):
         self.chatbot_on: bool = False
         self.chatbot_channel: disnake.TextChannel = None
 
-    @commands.group(description="Start Chatbot")
+    @commands.group(invoke_without_command=True, description="Start Chatbot")
     async def chatbot(self, ctx: commands.Context, command: str = None):
         if command:
-            await ctx.reply("Command not Found")
+            await ctx.reply("Command not Found!!")
             return
 
         self.chatbot_on = True
         self.chatbot_channel = ctx.channel
-        await ctx.reply("Started Chatbot!! Will be Active for 5 Mins")
+        await ctx.reply("Started Chatbot!! Will be Active for 5 Mins!!")
 
         await asyncio.sleep(300)
 
