@@ -108,6 +108,11 @@ def moderation_help_embed(
         value="Remove a Channe;",
         inline=False,
     )
+    embed.add_field(
+        name=f"{prefix}timeout @<member> [reason]",
+        value="Timeout Member or Bot",
+        inline=False,
+    )
     embed.set_footer(
         text=f"Information Requested by: {ctx.author.display_name}",
         icon_url=ctx.author.avatar.url,
