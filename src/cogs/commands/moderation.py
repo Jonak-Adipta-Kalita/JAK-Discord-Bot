@@ -83,8 +83,8 @@ class Moderation(commands.Cog):
         await channel.delete(reason=reason)
 
     @commands.command(description="Timeout Member or Bot")
-    @commands.has_guild_permissions(timeout_members=True)
-    @commands.bot_has_guild_permissions(timeout_members=True)
+    # @commands.has_guild_permissions(timeout_members=True)
+    # @commands.bot_has_guild_permissions(timeout_members=True)
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def timeout(
         self, ctx: commands.Context, member: disnake.Member, *, reason="Nothing"
