@@ -33,7 +33,7 @@ joblib==1.1.0
 jokeapi==0.2.8
 multidict==5.2.0
 mypy-extensions==0.4.3
-nltk==3.6.5
+nltk==3.6.7
 Panda3D==1.10.7
 pathspec==0.9.0
 platformdirs==2.3.0
