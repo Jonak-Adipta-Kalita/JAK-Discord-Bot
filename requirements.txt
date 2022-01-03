@@ -26,7 +26,7 @@ hstspreload==2021.11.1
 httpcore==0.9.1
 httpx==0.13.3
 hyperframe==5.2.0
-idna==2.10
+idna==3.3
 import-expression==1.1.4
 importlib-metadata==4.8.1
 joblib==1.1.0
