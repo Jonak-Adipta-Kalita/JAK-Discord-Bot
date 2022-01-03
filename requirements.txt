@@ -56,5 +56,5 @@ typed-ast==1.4.3
 typing-extensions==3.10.0.2
 urllib3==1.25.8
 yarl==1.7.0
-youtube-dl==2021.6.6
+youtube-dl==2021.12.17
 zipp==3.6.0
