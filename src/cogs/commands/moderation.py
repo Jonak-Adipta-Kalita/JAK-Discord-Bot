@@ -87,9 +87,19 @@ class Moderation(commands.Cog):
     # @commands.bot_has_guild_permissions(timeout_members=True)
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def timeout(
-        self, ctx: commands.Context, member: disnake.Member, *, reason="Nothing"
+        self, ctx: commands.Context, member: disnake.Member, time, *, reason="Nothing"
     ):
-        pass
+        if member:
+            # Timeout the Member
+            await ctx.reply(
+                embeds.moderation_embed(
+                    title=f"{member.display_name}#{member.discriminator}",
+                    status="TIMED OUT",
+                    message=f"For: {time}\nReason: {reason}",
+                )
+            )
+        else:
+            await ctx.reply("Please provide a Member!!")
 
 
 def setup(bot: commands.Bot):

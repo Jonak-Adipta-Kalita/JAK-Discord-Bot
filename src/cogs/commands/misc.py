@@ -98,8 +98,10 @@ class Misc(commands.Cog):
             await ctx.reply("Please provide a non-empty Message!!")
             return
         await ctx.reply(embed=embeds.message_source_embed(msg=msg))
-    
-    @commands.group(invoke_without_command=True, description="Start Chatbot for 5 Minutes")
+
+    @commands.group(
+        invoke_without_command=True, description="Start Chatbot for 5 Minutes"
+    )
     async def chatbot(self, ctx: commands.Context, command: str = None):
         if command:
             await ctx.reply("Command not Found!!")
