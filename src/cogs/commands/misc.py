@@ -112,10 +112,10 @@ class Misc(commands.Cog):
         await ctx.reply("Started Chatbot!! Will be Active for 5 Mins!!")
 
         await asyncio.sleep(300)
-
-        self.chatbot_on = False
-        self.chatbot_channel = None
-        await ctx.reply("Chatbot Stopped!!")
+        if self.chatbot_on:
+            self.chatbot_on = False
+            self.chatbot_channel = None
+            await ctx.reply("Chatbot Stopped!!")
 
     @chatbot.command(description="Stop Chatbot")
     async def stop(self, ctx: commands.Context):
