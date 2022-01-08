@@ -235,23 +235,19 @@ async def convert_to_snippet(code) -> bytes:
 
 async def chatbot_response(message: str) -> typing.Optional[str]:
     async with aiohttp.ClientSession(
-        headers={
-            "Authorization": credentials.CHATBOT_KEY,
-        }
-    ) as ses:
+        headers={"Content-Type": "application/json"},
+    ) as client:
         try:
-            request = await ses.get(
-                "https://api.pgamerx.com/v5/ai",
-                json={"message": message, "server": "main"},
+            request = await client.get(
+                f"https://some-random-api.ml/chatbot",
+                json={"message": message, "key": credentials.CHATBOT_KEY},
             )
         except Exception:
             pass
 
         resp = await request.json()
 
-    if "error" in resp[0]:
-        return None
-    return resp[0]["response"]
+    return resp["response"]
 
 
 async def find_pokemon(name):

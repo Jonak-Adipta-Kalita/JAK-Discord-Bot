@@ -4,6 +4,8 @@ import src.core.embeds as embeds
 import src.core.functions as funcs
 from disnake.ext import commands
 
+prefix = funcs.get_prefix()
+
 
 class Misc(commands.Cog):
     def __init__(self, bot: commands.Bot):
@@ -124,7 +126,7 @@ class Misc(commands.Cog):
 
     @commands.Cog.listener("on_message")
     async def on_chatbot_message(self, message: disnake.Message):
-        if message.author == self.bot.user:
+        if message.author == self.bot.user or message.content == f"{prefix}chatbot":
             return
         if self.chatbot_on and message.channel == self.chatbot_channel:
             response = await funcs.chatbot_response(message=message.content)
@@ -132,6 +134,11 @@ class Misc(commands.Cog):
                 await message.reply(response)
             else:
                 await message.reply("Something went Wrong!!")
+
+    @commands.command(description="Change the Prefix")
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
+    async def change_prefix(self, ctx: commands.Context, new_prefix: str):
+        pass
 
 
 def setup(bot: commands.Bot):

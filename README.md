@@ -57,6 +57,8 @@ and hit enter.
 
 ### Getting CHATBOT_KEY
 
+Follow this: [https://some-random-api.ml/docs/Welcome/Keys](https://some-random-api.ml/docs/Welcome/Keys)
+
 ### Getting JWT_SECRET
 
 ### Creating the Bot:
