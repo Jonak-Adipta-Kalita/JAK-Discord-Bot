@@ -268,6 +268,11 @@ def fun_help_embed(
         value="Use Discord Together Activities",
         inline=False,
     )
+    embed.add_field(
+        name=f"{prefix}find_pokemon <name>",
+        value="Find a Pokemon by Name",
+        inline=False,
+    )
     embed.set_footer(
         text=f"Information Requested by: {ctx.author.display_name}",
         icon_url=ctx.author.avatar.url,
@@ -568,5 +573,26 @@ def message_source_embed(msg: disnake.Message) -> disnake.Embed:
         description=disnake.utils.escape_markdown(msg.content).replace(" ", "\u200B "),
         color=disnake.Color.blue(),
     )
+
+    return embed
+
+
+def pokemon_embed(pokemon: dict) -> disnake.Embed:
+    name: str = pokemon["name"]
+    description: str = pokemon["description"]
+    sprite: str = pokemon["sprites"]["animated"]
+    types: str = ", ".join(pokemon["type"])
+    species: str = ", ".join(pokemon["species"])
+    abilities: str = ", ".join(pokemon["abilities"])
+
+    embed = disnake.Embed(
+        title=name.replace("-", " ").title(),
+        description=description,
+        color=disnake.Color.blue(),
+    )
+    embed.add_field(name="Types:", value=types, inline=False)
+    embed.add_field(name="Species:", value=species, inline=False)
+    embed.add_field(name="Abilities:", value=abilities, inline=False)
+    embed.set_thumbnail(url=sprite)
 
     return embed

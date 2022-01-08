@@ -252,3 +252,22 @@ async def chatbot_response(message: str) -> typing.Optional[str]:
     if "error" in resp[0]:
         return None
     return resp[0]["response"]
+
+
+async def find_pokemon(name):
+    async with aiohttp.ClientSession(
+        headers={"Content-Type": "application/json"},
+    ) as client:
+        try:
+            request = await client.get(
+                f"https://some-random-api.ml/pokedex",
+                json={
+                    "pokemon": name,
+                },
+            )
+        except Exception:
+            pass
+
+        resp = await request.json()
+
+    return resp

@@ -72,6 +72,30 @@ class Fun_(commands.Cog):
 
         await inter.response.send_message(fact)
 
+    @commands.slash_command(
+        description="Find a Pokemon by Name",
+        options=[
+            disnake.Option(
+                name="name",
+                description="Name of the Pokemon",
+                type=disnake.OptionType.string,
+                required=True,
+            )
+        ],
+    )
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.guild)
+    async def find_pokemon(
+        self, inter: disnake.ApplicationCommandInteraction, name: str
+    ):
+        name: str = name.replace(" ", "-").lower()
+        try:
+            pokemon = await funcs.find_pokemon(name=name)
+            await inter.response.send_message(
+                embed=embeds.pokemon_embed(pokemon=pokemon)
+            )
+        except Exception:
+            await inter.response.send_message("Please provide a Valid Pokemon Name!!")
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(Fun_(bot))

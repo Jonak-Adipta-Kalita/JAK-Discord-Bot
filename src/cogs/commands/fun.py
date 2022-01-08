@@ -524,10 +524,21 @@ class Fun(commands.Cog):
         await self.together_control.close()
 
     @commands.command(description="Use a Calculator to do Mathamatics")
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def calculator(self, ctx: commands.Context):
         embed = embeds.calculator_embed()
 
         await ctx.send(embed=embed, view=buttons(embed, ctx))
+
+    @commands.command(description="Find a Pokemon by Name")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.guild)
+    async def find_pokemon(self, ctx: commands.Context, *, name: str):
+        name: str = name.replace(" ", "-").lower()
+        try:
+            pokemon = await funcs.find_pokemon(name=name)
+            await ctx.reply(embed=embeds.pokemon_embed(pokemon=pokemon))
+        except Exception:
+            await ctx.reply("Please provide a Valid Pokemon Name!!")
 
 
 def setup(bot: commands.Bot):
