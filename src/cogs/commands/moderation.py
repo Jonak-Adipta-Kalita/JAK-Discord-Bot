@@ -1,4 +1,4 @@
-import disnake
+import disnake, typing, datetime
 import src.core.embeds as embeds
 import src.core.functions as funcs
 from disnake.ext import commands
@@ -83,19 +83,19 @@ class Moderation(commands.Cog):
         await channel.delete(reason=reason)
 
     @commands.command(description="Timeout Member or Bot")
-    # @commands.has_guild_permissions(timeout_members=True)
-    # @commands.bot_has_guild_permissions(timeout_members=True)
+    @commands.has_guild_permissions(moderate_members=True)
+    @commands.bot_has_guild_permissions(moderate_members=True)
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def timeout(
-        self, ctx: commands.Context, member: disnake.Member, time, *, reason="Nothing"
+        self, ctx: commands.Context, member: disnake.Member, duration: typing.Union[float, datetime.timedelta], *, reason="Nothing"
     ):
         if member:
-            # Timeout the Member
+            member.timeout(duration=duration, reason=reason)
             await ctx.reply(
                 embeds.moderation_embed(
                     title=f"{member.display_name}#{member.discriminator}",
                     status="TIMED OUT",
-                    message=f"For: {time}\nReason: {reason}",
+                    message=f"For: {duration}\nReason: {reason}",
                 )
             )
         else:
