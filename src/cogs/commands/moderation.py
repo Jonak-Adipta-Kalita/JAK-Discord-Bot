@@ -97,7 +97,7 @@ class Moderation(commands.Cog):
         if member:
             member.timeout(duration=duration, reason=reason)
             await ctx.reply(
-                embeds.moderation_embed(
+                embed=embeds.moderation_embed(
                     title=f"{member.display_name}#{member.discriminator}",
                     status="TIMED OUT",
                     message=f"For: {duration}\nReason: {reason}",
