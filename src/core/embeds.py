@@ -109,7 +109,7 @@ def moderation_help_embed(
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}timeout @<member> [reason]",
+        name=f"{prefix}timeout @<member> <duration> [reason]",
         value="Timeout Member or Bot",
         inline=False,
     )
