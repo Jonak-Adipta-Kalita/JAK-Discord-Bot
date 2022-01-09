@@ -1,4 +1,4 @@
-import disnake, typing, datetime
+import disnake, typing
 import src.core.embeds as embeds
 import src.core.functions as funcs
 from disnake.ext import commands
@@ -90,7 +90,7 @@ class Moderation(commands.Cog):
         self,
         ctx: commands.Context,
         member: disnake.Member,
-        duration: typing.Union[float, datetime.timedelta],
+        duration: typing.Union[float, int],
         *,
         reason="Nothing",
     ):
@@ -100,7 +100,7 @@ class Moderation(commands.Cog):
                 embed=embeds.moderation_embed(
                     title=f"{member.display_name}#{member.discriminator}",
                     status="TIMED OUT",
-                    message=f"For: {duration}\nReason: {reason}",
+                    message=f"For: {int(duration)}\nReason: {reason}",
                 )
             )
         else:
