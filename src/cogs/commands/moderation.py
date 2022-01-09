@@ -87,7 +87,12 @@ class Moderation(commands.Cog):
     @commands.bot_has_guild_permissions(moderate_members=True)
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def timeout(
-        self, ctx: commands.Context, member: disnake.Member, duration: typing.Union[float, datetime.timedelta], *, reason="Nothing"
+        self,
+        ctx: commands.Context,
+        member: disnake.Member,
+        duration: typing.Union[float, datetime.timedelta],
+        *,
+        reason="Nothing",
     ):
         if member:
             member.timeout(duration=duration, reason=reason)
