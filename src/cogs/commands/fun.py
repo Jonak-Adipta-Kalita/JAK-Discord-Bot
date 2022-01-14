@@ -426,7 +426,7 @@ class Fun(commands.Cog):
         await self.together_control.close()
 
     @together.command(description="Use `Fishing Together` Activity")
-    @commands.bot_has_permissions(create_instant_invite=True)
+    @commands.bot_has_permissions(create_instant_invite=True, aliases=["fishington"])
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def fishing(self, ctx: commands.Context):
         if ctx.author.voice is None:
