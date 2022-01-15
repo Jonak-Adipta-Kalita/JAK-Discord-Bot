@@ -1,4 +1,4 @@
-import disnake
+import disnake, random
 import src.core.embeds as embeds
 import src.core.functions as funcs
 from disnake.ext import commands
@@ -95,6 +95,33 @@ class Fun_(commands.Cog):
             )
         except Exception:
             await inter.response.send_message("Please provide a Valid Pokemon Name!!")
+
+    @commands.command(
+        description="Choose between 2 Options",
+        options=[
+            disnake.Option(
+                name="option1",
+                description="First Option",
+                type=disnake.OptionType.string,
+                required=True,
+            ),
+            disnake.Option(
+                name="option2",
+                description="Second Option",
+                type=disnake.OptionType.string,
+                required=True,
+            ),
+        ],
+    )
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def choose_between(
+        self, inter: disnake.ApplicationCommandInteraction, option1: str, option2: str
+    ):
+        choice = random.choice([option1, option2])
+
+        await inter.response.send_message(
+            f"Choices: **{option1}**, **{option2}**\nChoice: {choice}"
+        )
 
 
 def setup(bot: commands.Bot):

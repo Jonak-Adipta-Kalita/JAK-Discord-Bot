@@ -94,21 +94,18 @@ class Moderation(commands.Cog):
         *,
         reason="Nothing",
     ):
-        if member:
-            seconds = pytimeparse.parse(duration)
-            if seconds:
-                await member.timeout(duration=seconds, reason=reason)
-                await ctx.reply(
-                    embed=embeds.moderation_embed(
-                        title=f"{member.display_name}#{member.discriminator}",
-                        status="TIMED OUT",
-                        message=f"For: {int(duration)}\nReason: {reason}",
-                    )
+        seconds = pytimeparse.parse(duration)
+        if seconds:
+            await member.timeout(duration=seconds, reason=reason)
+            await ctx.reply(
+                embed=embeds.moderation_embed(
+                    title=f"{member.display_name}#{member.discriminator}",
+                    status="TIMED OUT",
+                    message=f"For: {int(duration)}\nReason: {reason}",
                 )
-            else:
-                await ctx.reply("Time specified incorrectly!!")
+            )
         else:
-            await ctx.reply("Please provide a Member!!")
+            await ctx.reply("Time specified incorrectly!!")
 
 
 def setup(bot: commands.Bot):

@@ -47,7 +47,7 @@ class Games(commands.Cog):
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def _8ball(self, ctx: commands.Context, *, question):
         await ctx.reply(
-            f"Question: {question}\nAnswer: {random.choice(self._8ball_responses)}"
+            f"Question: **{question}**\nAnswer: **{random.choice(self._8ball_responses)}**"
         )
 
     @commands.group(invoke_without_command=True, description="Play Tic-Tac-Toe Game")
@@ -181,36 +181,33 @@ class Games(commands.Cog):
     @hangman.command(description="Guess Word in Hangman Game")
     async def guess(self, ctx: commands.Context, letter: str):
         if not self.hangman_game_over:
-            if letter:
-                WORD_WAS = f"The word was `{self.hangman_word}`"
+            WORD_WAS = f"The word was `{self.hangman_word}`"
 
-                content = letter.lower()
-                self.hangman_guesses.append(content)
+            content = letter.lower()
+            self.hangman_guesses.append(content)
 
-                if content == self.hangman_word:
-                    return await ctx.em(f"That is the word! {WORD_WAS}")
-                if all([w in self.hangman_guesses for w in list(self.hangman_word)]):
-                    return await ctx.em(f"Well done! You got the word. {WORD_WAS}")
-                if self.hangman_guesses_left == 1:
-                    return await ctx.em(f"Unlucky, you ran out of guesses! {WORD_WAS}")
-                if len(content) >= 2:
-                    await ctx.em(
-                        f"`{content}` is not the word! Try sending letters one at a time"
-                    )
-
-                if content not in self.hangman_guesses[:-1]:
-                    if content not in self.hangman_word:
-                        self.hangman_guesses_left -= 1
-
-                await ctx.reply(
-                    embed=embeds.hangman_embed(
-                        guesses_left=self.hangman_guesses_left,
-                        word=self.hangman_word,
-                        guesses=self.hangman_guesses,
-                    )
+            if content == self.hangman_word:
+                return await ctx.em(f"That is the word! {WORD_WAS}")
+            if all([w in self.hangman_guesses for w in list(self.hangman_word)]):
+                return await ctx.em(f"Well done! You got the word. {WORD_WAS}")
+            if self.hangman_guesses_left == 1:
+                return await ctx.em(f"Unlucky, you ran out of guesses! {WORD_WAS}")
+            if len(content) >= 2:
+                await ctx.em(
+                    f"`{content}` is not the word! Try sending letters one at a time"
                 )
-            else:
-                await ctx.reply("Provide Letter/Word!!")
+
+            if content not in self.hangman_guesses[:-1]:
+                if content not in self.hangman_word:
+                    self.hangman_guesses_left -= 1
+
+            await ctx.reply(
+                embed=embeds.hangman_embed(
+                    guesses_left=self.hangman_guesses_left,
+                    word=self.hangman_word,
+                    guesses=self.hangman_guesses,
+                )
+            )
         else:
             await ctx.reply("No game is currently running!!")
 
@@ -229,43 +226,40 @@ class Games(commands.Cog):
     async def rock_paper_scissor(self, ctx: commands.Context, move: str):
         moves = ["rock", "paper", "scissor"]
 
-        if move:
-            if move in moves:
-                winner = None
-                author = ctx.author
-                comp_choice = random.choice(moves)
+        if move in moves:
+            winner = None
+            author = ctx.author
+            comp_choice = random.choice(moves)
 
-                if move == "rock":
-                    if comp_choice == "rock":
-                        winner = None
-                    elif comp_choice == "paper":
-                        winner = "CPU"
-                    elif comp_choice == "scissor":
-                        winner = f"{author.display_name}#{author.discriminator}"
-                elif move == "paper":
-                    if comp_choice == "paper":
-                        winner = None
-                    elif comp_choice == "scissor":
-                        winner = "CPU"
-                    elif comp_choice == "rock":
-                        winner = f"{author.display_name}#{author.discriminator}"
-                elif move == "scissor":
-                    if comp_choice == "scissor":
-                        winner = None
-                    elif comp_choice == "rock":
-                        winner = "CPU"
-                    elif comp_choice == "paper":
-                        winner = f"{author.display_name}#{author.discriminator}"
+            if move == "rock":
+                if comp_choice == "rock":
+                    winner = None
+                elif comp_choice == "paper":
+                    winner = "CPU"
+                elif comp_choice == "scissor":
+                    winner = f"{author.display_name}#{author.discriminator}"
+            elif move == "paper":
+                if comp_choice == "paper":
+                    winner = None
+                elif comp_choice == "scissor":
+                    winner = "CPU"
+                elif comp_choice == "rock":
+                    winner = f"{author.display_name}#{author.discriminator}"
+            elif move == "scissor":
+                if comp_choice == "scissor":
+                    winner = None
+                elif comp_choice == "rock":
+                    winner = "CPU"
+                elif comp_choice == "paper":
+                    winner = f"{author.display_name}#{author.discriminator}"
 
-                await ctx.reply(
-                    embed=embeds.rock_paper_scissor_embed(
-                        player_move=move, comp_move=comp_choice, winner=winner
-                    )
+            await ctx.reply(
+                embed=embeds.rock_paper_scissor_embed(
+                    player_move=move, comp_move=comp_choice, winner=winner
                 )
-            else:
-                await ctx.reply("The Move must be `rock` `paper` or `scissor`")
+            )
         else:
-            await ctx.reply("Please Specify a Move!!")
+            await ctx.reply("The Move must be `rock` `paper` or `scissor`")
 
 
 def setup(bot: commands.Bot):

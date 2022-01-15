@@ -1,4 +1,4 @@
-import asyncio, disnake, os, discord_together, credentials, simpleeval, re
+import asyncio, disnake, os, discord_together, credentials, simpleeval, re, random
 import src.core.embeds as embeds
 import src.core.functions as funcs
 import src.core.files as files
@@ -425,7 +425,9 @@ class Fun(commands.Cog):
         await asyncio.sleep(60)
         await self.together_control.close()
 
-    @together.command(description="Use `Fishing Together` Activity", aliases=["fishington"])
+    @together.command(
+        description="Use `Fishing Together` Activity", aliases=["fishington"]
+    )
     @commands.bot_has_permissions(create_instant_invite=True)
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def fishing(self, ctx: commands.Context):
@@ -524,14 +526,14 @@ class Fun(commands.Cog):
         await self.together_control.close()
 
     @commands.command(description="Use a Calculator to do Mathamatics")
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
     async def calculator(self, ctx: commands.Context):
         embed = embeds.calculator_embed()
 
         await ctx.send(embed=embed, view=buttons(embed, ctx))
 
     @commands.command(description="Find a Pokemon by Name")
-    @commands.cooldown(rate=1, per=5, type=commands.BucketType.guild)
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def find_pokemon(self, ctx: commands.Context, *, name: str):
         name: str = name.replace(" ", "-").lower()
         try:
@@ -539,6 +541,13 @@ class Fun(commands.Cog):
             await ctx.reply(embed=embeds.pokemon_embed(pokemon=pokemon))
         except Exception:
             await ctx.reply("Please provide a Valid Pokemon Name!!")
+
+    @commands.command(description="Choose between 2 Options")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def choose(self, ctx: commands.Context, option1: str, option2: str):
+        choice = random.choice([option1, option2])
+
+        await ctx.reply(f"Choices: **{option1}**, **{option2}**\nChoice: {choice}")
 
 
 def setup(bot: commands.Bot):
