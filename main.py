@@ -59,9 +59,11 @@ class JAKDiscordBot(commands.Bot):
             return
 
         msg = message.content
-        perms = message.channel.permissions_for(message.guild.me)
+        guild = message.guild
+        channel = message.channel
+        perms = channel.permissions_for(guild.me)
 
-        if msg == f"<@!{self.user.id}>" or msg == f"<@{self.user.id}>":
+        if msg in [f"<@!{self.user.id}>", f"<@{self.user.id}>"]:
             await message.reply(
                 embed=embeds.ping_bot_embed(
                     bot_name=self.user.name,
@@ -109,7 +111,7 @@ class JAKDiscordBot(commands.Bot):
                         await self.wait_for(
                             "reaction_add", check=translation_check, timeout=60.0
                         )
-                        await message.channel.send(
+                        await channel.send(
                             embed=embeds.translation_embed(
                                 text=msg,
                                 translated_text=translation.text,
@@ -137,7 +139,7 @@ class JAKDiscordBot(commands.Bot):
                     await self.wait_for(
                         "reaction_add", check=pronunciation_check, timeout=60.0
                     )
-                    await message.channel.send(
+                    await channel.send(
                         embed=embeds.pronunciation_embed(
                             text=msg,
                             pronunciation=funcs.pronunciation(msg),
@@ -169,13 +171,17 @@ class JAKDiscordBot(commands.Bot):
                 pass
 
     async def on_command_error(
-        self, ctx: commands.Context, error: disnake.HTTPException
+        self, ctx: commands.Context, error: commands.CommandError
     ):
         if isinstance(error, commands.CommandNotFound):
             await ctx.reply("Its not a valid Command!!")
         elif isinstance(error, commands.MissingPermissions):
             await ctx.reply(
                 "You don't have the Appropriate Permissions to run this command!!"
+            )
+        elif isinstance(error, commands.BotMissingPermissions):
+            await ctx.reply(
+                "Bot doesn't have the Appropriate Permissions to run this command!!"
             )
         elif isinstance(error, commands.MissingRequiredArgument):
             await ctx.reply("Please make sure to provide all the required Arguments!!")

@@ -1,4 +1,4 @@
-import disnake, typing
+import disnake, pytimeparse
 import src.core.embeds as embeds
 import src.core.functions as funcs
 from disnake.ext import commands
@@ -90,19 +90,23 @@ class Moderation(commands.Cog):
         self,
         ctx: commands.Context,
         member: disnake.Member,
-        duration: typing.Union[float, int],
+        duration: str,
         *,
         reason="Nothing",
     ):
         if member:
-            await member.timeout(duration=duration, reason=reason)
-            await ctx.reply(
-                embed=embeds.moderation_embed(
-                    title=f"{member.display_name}#{member.discriminator}",
-                    status="TIMED OUT",
-                    message=f"For: {int(duration)}\nReason: {reason}",
+            seconds = pytimeparse.parse(duration)
+            if seconds:
+                await member.timeout(duration=seconds, reason=reason)
+                await ctx.reply(
+                    embed=embeds.moderation_embed(
+                        title=f"{member.display_name}#{member.discriminator}",
+                        status="TIMED OUT",
+                        message=f"For: {int(duration)}\nReason: {reason}",
+                    )
                 )
-            )
+            else:
+                await ctx.reply("Time specified incorrectly!!")
         else:
             await ctx.reply("Please provide a Member!!")
 
