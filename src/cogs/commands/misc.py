@@ -135,6 +135,23 @@ class Misc(commands.Cog):
             else:
                 await message.reply("Something went Wrong!!")
 
+    @commands.command(description="Displays the total number of Commands")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def total_commands(self, ctx: commands.Context):
+        available_commands = [
+            command for command in self.bot.commands if not command.hidden
+        ]
+        hidden_commands = [command for command in self.bot.commands if command.hidden]
+
+        await ctx.reply(
+            f"Available Commands: {len(available_commands)}\nHidden Commands: {len(hidden_commands)}"
+        )
+
+    @commands.command(desciption="Display the Servers the Bot is in")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def servers_in(self, ctx: commands.Context):
+        await ctx.reply(embed=embeds.servers_in_embed(servers=self.bot.guilds))
+
     @commands.command(description="Change the Prefix")
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
     async def change_prefix(self, ctx: commands.Context, new_prefix: str):

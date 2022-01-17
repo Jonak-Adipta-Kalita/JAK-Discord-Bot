@@ -151,6 +151,25 @@ class Misc_(commands.Cog):
             return
         await inter.response.send_message(embed=embeds.message_source_embed(msg=msg))
 
+    @commands.slash_command(description="Displays the total number of Commands")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def total_commands(self, inter: disnake.ApplicationCommandInteraction):
+        available_commands = [
+            command for command in self.bot.commands if not command.hidden
+        ]
+        hidden_commands = [command for command in self.bot.commands if command.hidden]
+
+        await inter.response.send_message(
+            f"Available Commands: {len(available_commands)}\nHidden Commands: {len(hidden_commands)}"
+        )
+
+    @commands.slash_command(desciption="Display the Servers the Bot is in")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def servers_in(self, inter: disnake.ApplicationCommandInteraction):
+        await inter.response.send_message(
+            embed=embeds.servers_in_embed(servers=self.bot.guilds)
+        )
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(Misc_(bot))

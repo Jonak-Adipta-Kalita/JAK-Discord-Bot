@@ -1,3 +1,4 @@
+import typing
 import disnake
 import src.core.functions as funcs
 import src.core.emojis as emojis
@@ -320,6 +321,11 @@ def misc_help_embed(
         value="Stop Chatbot",
         inline=False,
     )
+    embed.add_field(
+        name=f"{prefix}total_commands",
+        value="Displays the total number of Commands",
+        inline=False,
+    )
     embed.set_footer(
         text=f"Information Requested by: {ctx.author.display_name}",
         icon_url=ctx.author.avatar.url,
@@ -594,5 +600,21 @@ def pokemon_embed(pokemon: dict) -> disnake.Embed:
     embed.add_field(name="Species:", value=species, inline=False)
     embed.add_field(name="Abilities:", value=abilities, inline=False)
     embed.set_thumbnail(url=sprite)
+
+    return embed
+
+
+def servers_in_embed(servers: typing.List[disnake.Guild]) -> disnake.Embed:
+    servers_name = []
+    number = 0
+    for server in servers:
+        number += 1
+        servers_name.append(f"{number})  **{server.name}**")
+
+    embed = disnake.Embed(
+        title="Servers:",
+        description="\n".join(servers_name),
+        color=disnake.Color.blue(),
+    )
 
     return embed

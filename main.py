@@ -9,7 +9,7 @@ class JAKDiscordBot(commands.Bot):
     def __init__(self, command_prefix: str, intents: disnake.Intents, bad_words: list):
         self.bad_words = bad_words
         self.prefix = command_prefix
-        self.servers = 0
+        self.servers = None
         super().__init__(
             command_prefix=command_prefix, intents=intents, help_command=None
         )
@@ -32,12 +32,12 @@ class JAKDiscordBot(commands.Bot):
         print("Bot is Disconnected!!")
 
     async def on_ready(self):
-        self.servers = len(self.guilds)
+        self.servers = self.guilds
         statuses = [
             ("listening", f"{self.prefix}help"),
             (
                 "watching",
-                f"{self.servers} {'Servers' if self.servers != 1 else 'Server'}!!",
+                f"{len(self.servers)} {'Servers' if len(self.servers) != 1 else 'Server'}!!",
             ),
         ]
         for type, message in itertools.cycle(statuses):
@@ -68,7 +68,7 @@ class JAKDiscordBot(commands.Bot):
                 embed=embeds.ping_bot_embed(
                     bot_name=self.user.name,
                     bot_avatar_url=self.user.avatar.url,
-                    servers=self.servers,
+                    servers=len(self.servers),
                 )
             )
 
@@ -193,18 +193,24 @@ class JAKDiscordBot(commands.Bot):
             print(error)
 
     async def on_slash_command_error(
-        self, ctx: disnake.ApplicationCommandInteraction, error: commands.CommandError
+        self, inter: disnake.ApplicationCommandInteraction, error: commands.CommandError
     ):
         if isinstance(error, commands.MissingPermissions):
-            await ctx.reply(
+            await inter.response.send_message(
                 "You don't have the Appropriate Permissions to run this command!!"
             )
         elif isinstance(error, commands.MissingRequiredArgument):
-            await ctx.reply("Please make sure to provide all the required Arguments!!")
+            await inter.response.send_message(
+                "Please make sure to provide all the required Arguments!!"
+            )
         elif isinstance(error, commands.BadArgument):
-            await ctx.reply("Please make sure to provide the Arguments correctly!!")
+            await inter.response.send_message(
+                "Please make sure to provide the Arguments correctly!!"
+            )
         elif isinstance(error, commands.CommandOnCooldown):
-            await ctx.reply("This Command is currently in Cooldown for you!!")
+            await inter.response.send_message(
+                "This Command is currently in Cooldown for you!!"
+            )
         else:
             print(error)
 
