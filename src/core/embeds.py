@@ -326,6 +326,11 @@ def misc_help_embed(
         value="Displays the total number of Commands",
         inline=False,
     )
+    embed.add_field(
+        name=f"{prefix}servers_in",
+        value="Displays the name of the servers the bot is in",
+        inline=False,
+    )
     embed.set_footer(
         text=f"Information Requested by: {ctx.author.display_name}",
         icon_url=ctx.author.avatar.url,
