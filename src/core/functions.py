@@ -1,5 +1,6 @@
 import typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials
 import src.core.emojis as emojis_list
+from pyMorseTranslator import translator as morse_translator
 
 
 def get_prefix() -> typing.Union["str", "list"]:
@@ -69,145 +70,17 @@ def emojify_text(text: str):
     return emojis
 
 
-def morse_code_encode_decode(text: str):
-    TEXT_TO_MORSE = {
-        "A": ".-",
-        "B": "-...",
-        "C": "-.-.",
-        "D": "-..",
-        "E": ".",
-        "F": "..-.",
-        "G": "--.",
-        "H": "....",
-        "I": "..",
-        "J": ".---",
-        "K": "-.-",
-        "L": ".-..",
-        "M": "--",
-        "N": "-.",
-        "O": "---",
-        "P": ".--.",
-        "Q": "--.-",
-        "R": ".-.",
-        "S": "...",
-        "T": "-",
-        "U": "..-",
-        "V": "...-",
-        "W": ".--",
-        "X": "-..-",
-        "Y": "-.--",
-        "Z": "--..",
-        "1": ".----",
-        "2": "..---",
-        "3": "...--",
-        "4": "....-",
-        "5": ".....",
-        "6": "-....",
-        "7": "--...",
-        "8": "---..",
-        "9": "----.",
-        "0": "-----",
-        ",": "--..--",
-        ".": ".-.-.-",
-        "?": "..--..",
-        "/": "-..-.",
-        "-": "-....-",
-        "(": "-.--.",
-        ")": "-.--.-",
-        ":": "---...",
-        "'": ".----.",
-        "’": ".----.",
-        '"': ".-..-.",
-        " ": ".......",
-        "!": "-.-.--",
-        "@": ".--.-.",
-        "$": "...-..-",
-        "&": ".-...",
-        ";": "-.-.-.",
-        "=": "-...-",
-        "+": ".-.-.",
-        "_": "..--.-",
-    }
+def morse_code_encode_decode(text: str, action: str):
+    if action == "encode":
+        encoder = morse_translator.Encoder()
+        encoded_text = encoder.encode(text).morse
 
-    MORSE_TO_TEXT = {
-        ".-": "A",
-        "-...": "B",
-        "-.-.": "C",
-        "-..": "D",
-        ".": "E",
-        "..-.": "F",
-        "--.": "G",
-        "....": "H",
-        "..": "I",
-        ".---": "J",
-        "-.-": "K",
-        ".-..": "L",
-        "--": "M",
-        "-.": "N",
-        "---": "O",
-        ".--.": "P",
-        "--.-": "Q",
-        ".-.": "R",
-        "...": "S",
-        "-": "T",
-        "..-": "U",
-        "...-": "V",
-        ".--": "W",
-        "-..-": "X",
-        "-.--": "Y",
-        "--..": "Z",
-        ".----": "1",
-        "..---": "2",
-        "...--": "3",
-        "....-": "4",
-        ".....": "5",
-        "-....": "6",
-        "--...": "7",
-        "---..": "8",
-        "----.": "9",
-        "-----": "0",
-        "--..--": ",",
-        ".-.-.-": ".",
-        "..--..": "?",
-        "-..-.": "/",
-        "-....-": "-",
-        "-.--.": "(",
-        "-.--.-": ")",
-        "---...": ":",
-        ".----.": "'",
-        ".-..-.": '"',
-        ".......": " ",
-        "-.-.--": "!",
-        ".--.-.": "@",
-        "...-..-": "$",
-        ".-...": "&",
-        "-.-.-.": ";",
-        "-...-": "=",
-        ".-.-.": "+",
-        "..--.-": "_",
-    }
+        return "Text ----> Morse", encoded_text
+    elif action == "decode":
+        decoder = morse_translator.Decoder()
+        decoded_text = decoder.decode(text).plaintext
 
-    _tempset = set(text)
-    check = True
-    for char in _tempset:
-        if char not in [".", "-", " "]:
-            check = False
-
-    if check is True:
-        _templist = str(text).split(" ")
-        converted = "".join(MORSE_TO_TEXT[str(i)] for i in _templist)
-
-        return "Morse ----> Text", converted
-    else:
-        _templist = []
-        for char in str(text):
-            _templist.append(char)
-        try:
-            converted = " ".join(TEXT_TO_MORSE[str(i).upper()] for i in _templist)
-
-            return "Text ----> Morse", converted
-        except KeyError:
-            return None, None
+        return "Morse ----> Text", decoded_text
 
 
 def fact() -> str:

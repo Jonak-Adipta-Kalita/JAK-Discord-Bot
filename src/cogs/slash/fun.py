@@ -46,24 +46,37 @@ class Fun_(commands.Cog):
         description="Encode or Decode PlainText/MorseCode into MorseCode/PlainText",
         options=[
             disnake.Option(
+                name="action",
+                description="The Action (Encode or Decode)!!",
+                type=disnake.OptionType.string,
+                required=True,
+            ),
+            disnake.Option(
                 name="text",
                 description="The Text to Encode/Decode!!",
                 type=disnake.OptionType.string,
                 required=True,
-            )
+            ),
         ],
     )
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def morse(self, inter: disnake.ApplicationCommandInteraction, text: str):
-        try:
-            title, converted = funcs.morse_code_encode_decode(text=text)
-            await inter.response.send_message(
-                embed=embeds.morse_code_embed(title=title, converted=converted)
-            )
-        except KeyError:
-            await inter.response.send_message(
-                "The String contains some characters which cannot be converted into Morse!!"
-            )
+    async def morse(
+        self, inter: disnake.ApplicationCommandInteraction, action: str, text: str
+    ):
+        if action in ["encode", "decode"]:
+            try:
+                title, converted = funcs.morse_code_encode_decode(
+                    text=text, action=action
+                )
+                await inter.response.send_message(
+                    embed=embeds.morse_code_embed(title=title, converted=converted)
+                )
+            except ValueError:
+                await inter.response.send_message(
+                    "The String contains some characters which cannot be converted into Morse!!"
+                )
+        else:
+            await inter.response.send_message('Action must be "encode" or "decode"')
 
     @commands.slash_command(description="Display a Fact")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)

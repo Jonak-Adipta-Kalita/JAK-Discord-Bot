@@ -344,16 +344,21 @@ class Fun(commands.Cog):
         description="Encode or Decode PlainText/MorseCode into MorseCode/PlainText",
     )
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def morse(self, ctx: commands.Context, *, string):
-        try:
-            title, converted = funcs.morse_code_encode_decode(text=string)
-            await ctx.reply(
-                embed=embeds.morse_code_embed(title=title, converted=converted)
-            )
-        except KeyError:
-            await ctx.reply(
-                "The String contains some characters which cannot be converted into Morse!!"
-            )
+    async def morse(self, ctx: commands.Context, action: str, *, string):
+        if action in ["encode", "decode"]:
+            try:
+                title, converted = funcs.morse_code_encode_decode(
+                    text=string, action=action
+                )
+                await ctx.reply(
+                    embed=embeds.morse_code_embed(title=title, converted=converted)
+                )
+            except ValueError:
+                await ctx.reply(
+                    "The String contains some characters which cannot be converted into Morse!!"
+                )
+        else:
+            await ctx.reply('Action must be "encode" or "decode"')
 
     @commands.command(description="Display a Fact")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
