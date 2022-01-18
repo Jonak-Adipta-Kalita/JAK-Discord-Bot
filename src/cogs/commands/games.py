@@ -181,33 +181,38 @@ class Games(commands.Cog):
     @hangman.command(description="Guess Word in Hangman Game")
     async def guess(self, ctx: commands.Context, letter: str):
         if not self.hangman_game_over:
-            WORD_WAS = f"The word was `{self.hangman_word}`"
+            if ctx.author == self.hangman_player:
+                WORD_WAS = f"The word was `{self.hangman_word}`"
 
-            content = letter.lower()
-            self.hangman_guesses.append(content)
+                content = letter.lower()
+                self.hangman_guesses.append(content)
 
-            if content == self.hangman_word:
-                return await ctx.em(f"That is the word! {WORD_WAS}")
-            if all([w in self.hangman_guesses for w in list(self.hangman_word)]):
-                return await ctx.em(f"Well done! You got the word. {WORD_WAS}")
-            if self.hangman_guesses_left == 1:
-                return await ctx.em(f"Unlucky, you ran out of guesses! {WORD_WAS}")
-            if len(content) >= 2:
-                await ctx.em(
-                    f"`{content}` is not the word! Try sending letters one at a time"
+                if content == self.hangman_word:
+                    return await ctx.reply(f"That is the word! {WORD_WAS}")
+                if all([w in self.hangman_guesses for w in list(self.hangman_word)]):
+                    return await ctx.reply(f"Well done! You got the word. {WORD_WAS}")
+                if self.hangman_guesses_left == 1:
+                    return await ctx.reply(
+                        f"Unlucky, you ran out of guesses! {WORD_WAS}"
+                    )
+                if len(content) >= 2:
+                    await ctx.reply(
+                        f"`{content}` is not the word! Try sending letters one at a time"
+                    )
+
+                if content not in self.hangman_guesses[:-1]:
+                    if content not in self.hangman_word:
+                        self.hangman_guesses_left -= 1
+
+                await ctx.reply(
+                    embed=embeds.hangman_embed(
+                        guesses_left=self.hangman_guesses_left,
+                        word=self.hangman_word,
+                        guesses=self.hangman_guesses,
+                    )
                 )
-
-            if content not in self.hangman_guesses[:-1]:
-                if content not in self.hangman_word:
-                    self.hangman_guesses_left -= 1
-
-            await ctx.reply(
-                embed=embeds.hangman_embed(
-                    guesses_left=self.hangman_guesses_left,
-                    word=self.hangman_word,
-                    guesses=self.hangman_guesses,
-                )
-            )
+            else:
+                await ctx.reply("You are not Playing!!")
         else:
             await ctx.reply("No game is currently running!!")
 

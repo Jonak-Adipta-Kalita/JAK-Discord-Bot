@@ -109,15 +109,16 @@ class Misc(commands.Cog):
             await ctx.reply("Command not Found!!")
             return
 
-        self.chatbot_on = True
-        self.chatbot_channel = ctx.channel
-        await ctx.reply("Started Chatbot!! Will be Active for 5 Mins!!")
+        if not self.chatbot_on:
+            self.chatbot_on = True
+            self.chatbot_channel = ctx.channel
+            await ctx.reply("Started Chatbot!! Will be Active for 5 Mins!!")
 
-        await asyncio.sleep(300)
-        if self.chatbot_on:
-            self.chatbot_on = False
-            self.chatbot_channel = None
-            await ctx.reply("Chatbot Stopped!!")
+            await asyncio.sleep(300)
+            if self.chatbot_on:
+                self.chatbot_on = False
+                self.chatbot_channel = None
+                await ctx.reply("Chatbot Stopped!!")
 
     @chatbot.command(description="Stop Chatbot")
     async def stop(self, ctx: commands.Context):
@@ -130,10 +131,7 @@ class Misc(commands.Cog):
             return
         if self.chatbot_on and message.channel == self.chatbot_channel:
             response = await funcs.chatbot_response(message=message.content)
-            if response:
-                await message.reply(response)
-            else:
-                await message.reply("Something went Wrong!!")
+            await message.reply(response)
 
     @commands.command(description="Displays the total number of Commands")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
