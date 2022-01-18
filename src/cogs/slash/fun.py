@@ -1,7 +1,9 @@
-import disnake, random
+import asyncio, disnake, random, os
 import src.core.embeds as embeds
+import src.core.files as files
 import src.core.functions as funcs
 from disnake.ext import commands
+from PIL import Image, ImageDraw, ImageFont
 
 
 class Fun_(commands.Cog):
@@ -135,6 +137,101 @@ class Fun_(commands.Cog):
         await inter.response.send_message(
             f"Choices: **{option1}**, **{option2}**\nChoice: {choice}"
         )
+
+    @commands.slash_command(
+        description="Generate Name Fact Image",
+        options=[
+            disnake.Option(
+                name="name",
+                description="Your Name",
+                type=disnake.OptionType.string,
+                required=True,
+            ),
+            disnake.Option(
+                name="gender",
+                description="Your Gender",
+                type=disnake.OptionType.string,
+                required=True,
+            ),
+        ],
+    )
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
+    async def name_fact_generator(
+        self, inter: disnake.ApplicationCommandInteraction, name: str, gender: str
+    ):
+        await inter.response.defer()
+
+        member = inter.author
+        author_id = member.id
+
+        if not os.path.isdir("name_fact"):
+            os.mkdir("name_fact")
+
+        if gender == "f" or gender == "F" or gender == "female" or gender == "Female":
+            heshe = "She"
+            hisher = "Her"
+            guygirl = "girl"
+            himher = "her"
+            girlguy = "guy"
+        elif gender == "m" or gender == "M" or gender == "male" or gender == "Male":
+            heshe = "He"
+            hisher = "His"
+            guygirl = "guy"
+            himher = "him"
+            girlguy = "girl"
+        else:
+            await inter.edit_original_message("Incorrect Gender Entered!!")
+            return
+
+        lines = funcs.generate_name_fact(name, heshe, hisher, guygirl, himher, girlguy)
+
+        image = Image.new("RGB", (1000, 1000), (255, 255, 255))
+        lines_font = ImageFont.truetype("resources/bahnschrift.ttf", size=38)
+        name_font = ImageFont.truetype("resources/theboldfont.ttf", size=72)
+        watermark_font = ImageFont.truetype("resources/arial.ttf", size=24)
+
+        history = []
+        y0, dy = 220, 40
+        for i in range(6):
+            y0 += 10
+            text = random.choice(lines)
+            try:
+                history.index(text)
+                continue
+            except:
+                history.append(text)
+                for j, line in enumerate(text.split("\n")):
+                    y0 += dy
+                    ImageDraw.Draw(image).text(
+                        (70, y0), line, fill="rgb(0,0,0)", font=lines_font
+                    )
+
+        ImageDraw.Draw(image).rectangle(
+            [50, 150, 1000 - 50, y0 + 70], fill=None, outline=(0, 0, 0), width=5
+        )
+        ImageDraw.Draw(image).text(
+            (70, 180), str(name), fill="rgb(0,0,0)", font=name_font
+        )
+        ImageDraw.Draw(image).text(
+            (1000 - 400, 1000 - 30),
+            "JAK Discord Bot",
+            fill="rgb(0,0,0)",
+            font=watermark_font,
+        )
+
+        image.save(f"name_fact/{author_id}.png")
+
+        await inter.edit_original_message(
+            file=files.name_fact_file(
+                file=os.path.realpath(f"name_fact/{author_id}.png"),
+                author_id=author_id,
+            )
+        )
+
+        await asyncio.sleep(60)
+
+        if os.path.isfile(f"name_fact/{author_id}.png"):
+            os.remove(f"name_fact/{author_id}.png")
 
 
 def setup(bot: commands.Bot):
