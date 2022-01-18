@@ -552,10 +552,9 @@ class Fun(commands.Cog):
 
     @commands.command(description="Generate Name Fact Image")
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
-    async def name_fact_generator(self, ctx: commands.Context, member: disnake.Member, gender: str):
+    async def name_fact_generator(self, ctx: commands.Context, name: str, gender: str):
         member = ctx.author
         author_id = member.id
-        name = member.display_name
 
         if not os.path.isdir("name_fact"):
             os.mkdir("name_fact")
@@ -712,7 +711,7 @@ class Fun(commands.Cog):
             f"{girlguy} really wish to have a man who is protective\nenough and secure enough.",
             f"{heshe}'ll leave you coming back for more; wanted\nby many.",
             "Their eyes, eyebrows, and overall facial\nstructure are striking.",
-            "Idealistic and peaceable."
+            "Idealistic and peaceable.",
         ]
 
         image = Image.new("RGB", (1000, 1000), (255, 255, 255))
@@ -743,7 +742,10 @@ class Fun(commands.Cog):
             (70, 180), str(name), fill="rgb(0,0,0)", font=name_font
         )
         ImageDraw.Draw(image).text(
-            (1000 - 400, 1000 - 30), "JAK Discord Bot", fill="rgb(0,0,0)", font=watermark_font
+            (1000 - 400, 1000 - 30),
+            "JAK Discord Bot",
+            fill="rgb(0,0,0)",
+            font=watermark_font,
         )
 
         image.save(f"name_fact/{author_id}.png")
