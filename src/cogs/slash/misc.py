@@ -163,7 +163,7 @@ class Misc_(commands.Cog):
             f"Available Commands: {len(available_commands)}\nHidden Commands: {len(hidden_commands)}"
         )
 
-    @commands.slash_command(desciption="Display the Servers the Bot is in")
+    @commands.slash_command(description="Display the Servers the Bot is in")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def servers_in(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.send_message(

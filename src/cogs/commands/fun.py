@@ -339,26 +339,45 @@ class Fun(commands.Cog):
         else:
             await ctx.reply("Use a CodeBlock!!")
 
-    @commands.command(
+    @commands.group(
+        invoke_without_command=True,
         aliases=["morse_code"],
         description="Encode or Decode PlainText/MorseCode into MorseCode/PlainText",
     )
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def morse(self, ctx: commands.Context, action: str, *, string):
-        if action in ["encode", "decode"]:
-            try:
-                title, converted = funcs.morse_code_encode_decode(
-                    text=string, action=action
-                )
-                await ctx.reply(
-                    embed=embeds.morse_code_embed(title=title, converted=converted)
-                )
-            except ValueError:
-                await ctx.reply(
-                    "The String contains some characters which cannot be converted into Morse!!"
-                )
-        else:
+    async def morse(self, ctx: commands.Context, action: str):
+        if action:
             await ctx.reply('Action must be "encode" or "decode"')
+
+    @morse.command(description="Encode PlainText into MorseCode", aliases=["en"])
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def encode(self, ctx: commands.Context, *, text):
+        try:
+            title, converted = funcs.morse_code_encode_decode(
+                text=text, action="encode"
+            )
+            await ctx.reply(
+                embed=embeds.morse_code_embed(title=title, converted=converted)
+            )
+        except ValueError:
+            await ctx.reply(
+                "The String contains some characters which cannot be converted into Morse!!"
+            )
+
+    @morse.command(description="Decode MorseCode into PlainText", aliases=["de"])
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def decode(self, ctx: commands.Context, *, text):
+        try:
+            title, converted = funcs.morse_code_encode_decode(
+                text=text, action="decode"
+            )
+            await ctx.reply(
+                embed=embeds.morse_code_embed(title=title, converted=converted)
+            )
+        except ValueError:
+            await ctx.reply(
+                "The String contains some characters which cannot be converted into Morse!!"
+            )
 
     @commands.command(description="Display a Fact")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)

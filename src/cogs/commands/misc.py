@@ -147,7 +147,7 @@ class Misc(commands.Cog):
             f"Available Commands: {len(available_commands)}\nHidden Commands: {len(hidden_commands)}"
         )
 
-    @commands.command(desciption="Display the Servers the Bot is in")
+    @commands.command(description="Display the Servers the Bot is in")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def servers_in(self, ctx: commands.Context):
         await ctx.reply(embed=embeds.servers_in_embed(servers=self.bot.guilds))

@@ -49,5 +49,5 @@ class Staff(commands.Cog):
             await ctx.send(embed=embed)
 
 
-def setup(bot):
+def setup(bot: commands.Bot):
     bot.add_cog(Staff(bot))

@@ -250,8 +250,13 @@ def fun_help_embed(
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}morse <text>",
-        value="Encode or Decode PlainText/MorseCode into MorseCode/PlainText",
+        name=f"{prefix}morse encode <text>",
+        value="Encode PlainText into MorseCode",
+        inline=False,
+    )
+    embed.add_field(
+        name=f"{prefix}morse decode <text>",
+        value="Decode MorseCode into PlainText",
         inline=False,
     )
     embed.add_field(
