@@ -4,8 +4,11 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
+        "lint": "eslint .",
+        "lint:fix": "eslint --fix .",
         "prettier": "prettier **/*.{js,jsx,tsx,ts,md,json,css}",
-        "prettier:fix": "prettier --write **/*.{js,jsx,tsx,ts,md,json,css}"
+        "prettier:fix": "prettier --write **/*.{js,jsx,tsx,ts,md,json,css}",
+        "format": "eslint --fix . && prettier --write **/*.{js,jsx,tsx,ts,md,json,css}"
     },
     "dependencies": {
         "axios": "^0.24.0",
@@ -19,6 +22,8 @@
         "@headlessui/react": "^1.4.2",
         "@heroicons/react": "^1.0.5",
         "autoprefixer": "^10.4.0",
+        "eslint": "^8.7.0",
+        "eslint-plugin-react": "^7.28.0",
         "postcss": "^8.4.4",
         "prettier": "2.5.1",
         "tailwind-scrollbar-hide": "^1.1.6",
