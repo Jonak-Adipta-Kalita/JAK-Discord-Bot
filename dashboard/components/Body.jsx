@@ -12,6 +12,7 @@ const Body = () => {
                             href="https://discord.com/api/oauth2/authorize?client_id=756402881913028689&permissions=8&redirect_uri=https%3A%2F%2Fjak-discord-bot.vercel.app%2Fapi%2Fauth%2Fcallback%2Fdiscord&response_type=code&scope=bot%20applications.commands"
                             target="_blank"
                             className="body-btn text-white bg-[#3994ff] active:bg-[#3572a5] cursor-pointer"
+                            rel="noreferrer"
                         >
                             Add to Server
                         </a>

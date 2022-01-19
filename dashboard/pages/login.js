@@ -1,6 +1,7 @@
 import { getProviders, signIn } from "next-auth/react";
 import Head from "next/head";
 import Header from "../components/Header";
+import propTypes from "prop-types";
 
 const Login = ({ providers }) => {
     const provider = Object.values(providers).map((provider) => provider);
@@ -22,6 +23,10 @@ const Login = ({ providers }) => {
             </div>
         </div>
     );
+};
+
+Login.propTypes = {
+    providers: propTypes.object.isRequired,
 };
 
 export default Login;
