@@ -1,9 +1,12 @@
 import "../styles/globals.css";
 import { RecoilRoot } from "recoil";
 import { SessionProvider } from "next-auth/react";
-import propTypes from "prop-types";
+import { AppProps } from "next/dist/shared/lib/router/router";
 
-const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
+const MyApp = ({
+    Component,
+    pageProps: { session, ...pageProps },
+}: AppProps) => {
     return (
         <SessionProvider session={session}>
             <RecoilRoot>
@@ -11,11 +14,6 @@ const MyApp = ({ Component, pageProps: { session, ...pageProps } }) => {
             </RecoilRoot>
         </SessionProvider>
     );
-};
-
-MyApp.propTypes = {
-    Component: propTypes.any.isRequired,
-    pageProps: propTypes.any.isRequired,
 };
 
 export default MyApp;

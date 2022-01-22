@@ -1,9 +1,14 @@
 import { getProviders, signIn } from "next-auth/react";
 import Head from "next/head";
 import Header from "../components/Header";
-import propTypes from "prop-types";
+import { GetServerSideProps } from "next";
+import { Provider } from "next-auth/providers";
 
-const Login = ({ providers }) => {
+interface Props {
+    providers: Provider[];
+}
+
+const Login = ({ providers }: Props) => {
     const provider = Object.values(providers).map((provider) => provider);
 
     return (
@@ -25,13 +30,9 @@ const Login = ({ providers }) => {
     );
 };
 
-Login.propTypes = {
-    providers: propTypes.object.isRequired,
-};
-
 export default Login;
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
     const providers = await getProviders();
 
     return {
@@ -39,4 +40,4 @@ export async function getServerSideProps() {
             providers: providers,
         },
     };
-}
+};
