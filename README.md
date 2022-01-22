@@ -134,7 +134,7 @@ and press Enter.
 
 ## Technology(s) Used
 
--   Language: [Python](https://python.org/), [JavaScript]()
+-   Language: [Python](https://python.org/), [TypeScript](https://www.typescriptlang.org/)
 -   Frameworks: [discord.py](https://discordpy.readthedocs.io/), [NextJS](https://nextjs.org/)
 -   Hosted: [Heroku](https://heroku.com/)
 
