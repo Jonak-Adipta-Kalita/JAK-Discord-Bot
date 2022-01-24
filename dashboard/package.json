@@ -28,6 +28,7 @@
         "autoprefixer": "^10.4.0",
         "eslint": "^8.7.0",
         "eslint-plugin-react": "^7.28.0",
+        "next-pwa": "^5.4.4",
         "npm-check-updates": "^12.1.0",
         "postcss": "^8.4.4",
         "prettier": "2.5.1",

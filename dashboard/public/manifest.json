@@ -1,0 +1,17 @@
+{
+    "name": "JAK Discord Bot - Dashboard",
+    "short_name": "JAK Discord Bot",
+    "icons": [
+        {
+            "src": "/favicon.ico",
+            "sizes": "220x220",
+            "type": "image/ico",
+            "purpose": "any maskable"
+        }
+    ],
+    "theme_color": "#272934",
+    "background_color": "#272934",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait"
+}
