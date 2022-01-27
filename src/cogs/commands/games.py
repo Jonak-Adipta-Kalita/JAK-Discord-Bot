@@ -188,13 +188,19 @@ class Games(commands.Cog):
                 self.hangman_guesses.append(content)
 
                 if content == self.hangman_word:
-                    return await ctx.reply(f"That is the word! {WORD_WAS}")
+                    self.hangman_game_over = True
+                    await ctx.reply(f"That is the word! {WORD_WAS}")
+                    return
                 if all([w in self.hangman_guesses for w in list(self.hangman_word)]):
-                    return await ctx.reply(f"Well done! You got the word. {WORD_WAS}")
+                    self.hangman_game_over = True
+                    await ctx.reply(f"Well done! You got the word. {WORD_WAS}")
+                    return
                 if self.hangman_guesses_left == 1:
-                    return await ctx.reply(
+                    self.hangman_game_over = True
+                    await ctx.reply(
                         f"Unlucky, you ran out of guesses! {WORD_WAS}"
                     )
+                    return
                 if len(content) >= 2:
                     await ctx.reply(
                         f"`{content}` is not the word! Try sending letters one at a time"
