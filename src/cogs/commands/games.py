@@ -197,9 +197,7 @@ class Games(commands.Cog):
                     return
                 if self.hangman_guesses_left == 1:
                     self.hangman_game_over = True
-                    await ctx.reply(
-                        f"Unlucky, you ran out of guesses! {WORD_WAS}"
-                    )
+                    await ctx.reply(f"Unlucky, you ran out of guesses! {WORD_WAS}")
                     return
                 if len(content) >= 2:
                     await ctx.reply(
