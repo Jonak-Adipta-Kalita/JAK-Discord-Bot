@@ -4,7 +4,7 @@ astunparse==1.6.3
 async-timeout==3.0.1
 asyncio==3.4.3
 attrs==21.2.0
-black==21.9b0
+black==22.1.0
 braceexpand==0.1.7
 certifi==2021.10.8
 cffi==1.15.0
