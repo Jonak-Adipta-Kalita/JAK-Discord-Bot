@@ -1,3 +1,4 @@
+import asyncio
 import disnake, random
 import src.core.emojis as emojis
 import src.core.embeds as embeds
@@ -175,6 +176,13 @@ class Games(commands.Cog):
                     guesses_left=7, word=self.hangman_word, guesses=self.hangman_guesses
                 )
             )
+
+            await asyncio.sleep(300)
+
+            if not self.hangman_game_over:
+                self.hangman_game_over = True
+
+                await ctx.reply("Time Out!!")
         else:
             await ctx.reply("One game is already running!!")
 
