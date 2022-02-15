@@ -16,7 +16,6 @@ const Login = ({ providers }: Props) => {
         <div className="flex flex-col h-screen">
             <Head>
                 <title>JAK Discord Bot | Login</title>
-                <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header />
             <main className="flex-1 overflow-y-auto scrollbar-hide">

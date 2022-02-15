@@ -7,14 +7,13 @@ const _404 = () => {
         <div className="flex flex-col h-screen">
             <Head>
                 <title>JAK Discord Bot | Page Not Found</title>
-                <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header />
             <main className="flex-1 overflow-y-auto scrollbar-hide px-2 md:px-4 lg:px-6 xl:px-10">
                 <div className="flex justify-center">
-                    <h1 className="text-white font-bold text-2xl">
+                    <p className="text-white font-bold text-2xl">
                         Page Not Found!!
-                    </h1>
+                    </p>
                 </div>
             </main>
             <Footer />

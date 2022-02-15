@@ -12,7 +12,6 @@ const Home = () => {
         <div className="flex flex-col h-screen">
             <Head>
                 <title>JAK Discord Bot | Home</title>
-                <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header />
             <main className="flex-1 overflow-y-auto scrollbar-hide px-2 md:px-4 lg:px-6 xl:px-10">
