@@ -174,7 +174,7 @@ class JAKDiscordBot(commands.Bot):
         self, ctx: commands.Context, error: commands.CommandError
     ):
         if isinstance(error, commands.CommandNotFound):
-            await ctx.reply("Its not a valid Command!!")
+            return
         elif isinstance(error, commands.MissingPermissions):
             await ctx.reply(
                 "You don't have the Appropriate Permissions to run this command!!"
