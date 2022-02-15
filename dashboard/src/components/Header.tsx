@@ -13,7 +13,7 @@ const Header = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     return (
-        <header className="flex items-center bg-[#272934] text-gray-400 p-4 py-5 justify-between shadow-xl md:px-10 lg:px-20">
+        <header className="flex items-center text-gray-400 p-4 py-5 justify-between shadow-xl md:px-10 lg:px-20">
             <div
                 onClick={() => router.push("/")}
                 className="flex items-center space-x-4 cursor-pointer"
@@ -65,7 +65,7 @@ const Header = () => {
                                 leaveFrom="transform opacity-100 scale-100"
                                 leaveTo="transform opacity-0 scale-95"
                             >
-                                <Menu.Items className="origin-top-right absolute right-0 mt-6 w-56 rounded-md shadow-lg bg-[#272934] divide-y divide-gray-100 text-white border-[0.1px]">
+                                <Menu.Items className="origin-top-right absolute right-0 mt-6 w-56 rounded-md shadow-lg bg-bg-color divide-y divide-gray-100 text-white border-[0.1px]">
                                     <div className="py-1">
                                         <Menu.Item>
                                             {() => (
@@ -75,7 +75,7 @@ const Header = () => {
                                                             "/dashboard"
                                                         )
                                                     }
-                                                    className="menu-item"
+                                                    className="menuItem"
                                                 >
                                                     Dashboard
                                                 </p>
@@ -87,7 +87,7 @@ const Header = () => {
                                                     onClick={() =>
                                                         router.push("/settings")
                                                     }
-                                                    className="menu-item"
+                                                    className="menuItem"
                                                 >
                                                     Settings
                                                 </p>

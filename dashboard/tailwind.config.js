@@ -4,7 +4,16 @@ module.exports = {
         "./src/components/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                "otomanopee-one": ["OtomanopeeOne", "sans-serif"],
+            },
+            colors: {
+                "bg-color": {
+                    DEFAULT: "#272934",
+                },
+            },
+        },
     },
     plugins: [require("tailwind-scrollbar-hide")],
 };

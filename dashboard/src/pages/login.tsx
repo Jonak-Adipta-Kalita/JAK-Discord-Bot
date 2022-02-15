@@ -13,16 +13,16 @@ const Login = ({ providers }: Props) => {
     const provider = Object.values(providers).map((provider) => provider);
 
     return (
-        <div className="flex flex-col h-screen bg-[#272934]">
+        <div className="flex flex-col h-screen">
             <Head>
                 <title>JAK Discord Bot | Login</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header />
-            <main className="flex-1 overflow-y-auto scrollbar-hide bg-[#272934]">
+            <main className="flex-1 overflow-y-auto scrollbar-hide">
                 <div className="flex justify-center mt-20">
                     <button
-                        className="body-btn text-gray-400 cursor-pointer border-[0.1px] border-white"
+                        className="bodyBtn text-gray-400 cursor-pointer border-[0.1px] border-white"
                         onClick={() =>
                             signIn(provider[0].id, { callbackUrl: "/" })
                         }
