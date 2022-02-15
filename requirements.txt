@@ -30,7 +30,7 @@ httpx==0.13.3
 hyperframe==5.2.0
 idna==2.10
 import-expression==1.1.4
-importlib-metadata==4.8.1
+importlib-metadata==4.11.1
 joblib==1.1.0
 jokeapi==0.2.8
 multidict==5.2.0
