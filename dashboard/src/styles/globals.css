@@ -10,7 +10,17 @@
 }
 
 body {
-    @apply bg-bg-color font-otomanopee-one;
+    @apply cursor-default bg-bg-color font-otomanopee-one;
+}
+
+p,
+input {
+    @apply cursor-text;
+}
+
+a,
+button {
+    @apply cursor-pointer;
 }
 
 @layer components {
