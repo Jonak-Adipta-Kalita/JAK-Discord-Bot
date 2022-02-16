@@ -86,18 +86,6 @@ const Header = () => {
                                                 </p>
                                             )}
                                         </Menu.Item>
-                                        <Menu.Item>
-                                            {() => (
-                                                <p
-                                                    onClick={() =>
-                                                        router.push("/settings")
-                                                    }
-                                                    className="menuItem"
-                                                >
-                                                    Settings
-                                                </p>
-                                            )}
-                                        </Menu.Item>
                                     </div>
                                     <div className="py-1">
                                         <Menu.Item>
