@@ -179,6 +179,36 @@
             "name": "message_source",
             "usage": "$message_source <message_id>",
             "description": "Show the Source of a Message"
+        },
+        {
+            "id": 6,
+            "name": "chatbot",
+            "usage": "$chatbot",
+            "description": "Start Chatbot for 5 Minutes"
+        },
+        {
+            "id": 7,
+            "name": "chatbot",
+            "usage": "$chatbot stop",
+            "description": "Stop Chatbot"
+        },
+        {
+            "id": 8,
+            "name": "total_commands",
+            "usage": "$total_commands",
+            "description": "Displays the total number of Commands"
+        },
+        {
+            "id": 9,
+            "name": "servers_in",
+            "usage": "$servers_in",
+            "description": "Displays the name of the servers the bot is in"
+        },
+        {
+            "id": 10,
+            "name": "name_fact_generator",
+            "usage": "$name_fact_generator",
+            "description": "Generate Name Fact Image"
         }
     ],
     "music": [
