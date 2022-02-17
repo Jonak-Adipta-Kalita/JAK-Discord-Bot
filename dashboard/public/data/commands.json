@@ -1,0 +1,228 @@
+{
+    "moderation": [
+        {
+            "id": 0,
+            "name": "clear",
+            "usage": "$kick <amount>",
+            "description": "Delete messages as given amount"
+        },
+        {
+            "id": 1,
+            "name": "kick",
+            "usage": "$kick <member> [reason]",
+            "description": "Kick Member or Bot"
+        },
+        {
+            "id": 2,
+            "name": "ban",
+            "usage": "$ban <member> [reason]",
+            "description": "Ban Member or Bot"
+        },
+        {
+            "id": 3,
+            "name": "unban",
+            "usage": "$unban <member,descriminator>",
+            "description": "Unban Member or Bot"
+        },
+        {
+            "id": 4,
+            "name": "timeout",
+            "usage": "$timeout <member> <duration> [reason]",
+            "description": "Timeout Member or Bot"
+        },
+        {
+            "id": 5,
+            "name": "remove_channel",
+            "usage": "$remove_channel <channel> [reason]",
+            "description": "Remove a Channel"
+        }
+    ],
+    "fun": [
+        {
+            "id": 0,
+            "name": "joke",
+            "usage": "$joke",
+            "description": "Display a Joke"
+        },
+        {
+            "id": 1,
+            "name": "meme",
+            "usage": "$meme",
+            "description": "Display a Meme"
+        },
+        {
+            "id": 2,
+            "name": "emojify",
+            "usage": "$emojify <text>",
+            "description": "Convert Text to Emoji"
+        },
+        {
+            "id": 3,
+            "name": "code_snippet",
+            "usage": "$code_snippet <code>",
+            "description": "Convert Code Block to Snippet"
+        },
+        {
+            "id": 4,
+            "name": "morse",
+            "usage": "$morse encode <text>",
+            "description": "Encode PlainText into MorseCode"
+        },
+        {
+            "id": 5,
+            "name": "morse",
+            "usage": "$morse decode <text>",
+            "description": "Decode MorseCode into PlainText"
+        },
+        {
+            "id": 6,
+            "name": "calculator",
+            "usage": "$calculator",
+            "description": "Use a Calculator to do Mathamatics"
+        },
+        {
+            "id": 7,
+            "name": "fact",
+            "usage": "$fact",
+            "description": "Display a Fact"
+        },
+        {
+            "id": 8,
+            "name": "together",
+            "usage": "$together <activity>",
+            "description": "Use Discord Together Activities"
+        },
+        {
+            "id": 9,
+            "name": "find_pokemon",
+            "usage": "$find_pokemon <name>",
+            "description": "Find a Pokemon by Name"
+        }
+    ],
+    "games": [
+        {
+            "id": 0,
+            "name": "8ball",
+            "usage": "$8ball <question>",
+            "description": "Play 8ball Game"
+        },
+        {
+            "id": 1,
+            "name": "tictactoe",
+            "usage": "$tictactoe @<1st Player> @<2nd Player>",
+            "description": "Play Tic-Tac-Toe Game"
+        },
+        {
+            "id": 2,
+            "name": "tictactoe",
+            "usage": "$tictactoe place <Position in Integer>",
+            "description": "Place your position for Tic-Tac-Toe Game"
+        },
+        {
+            "id": 3,
+            "name": "tictactoe",
+            "usage": "$tictactoe stop",
+            "description": "Stops Tic-Tac-Toe Game"
+        },
+        {
+            "id": 4,
+            "name": "hangman",
+            "usage": "$hangman",
+            "description": "Play Hangman Game"
+        },
+        {
+            "id": 5,
+            "name": "hangman",
+            "usage": "$hangman guess <word/letter>",
+            "description": "Guess Word in Hangman Game"
+        },
+        {
+            "id": 6,
+            "name": "hangman",
+            "usage": "$hangman stop",
+            "description": "Stops Hangman Game"
+        }
+    ],
+    "misc": [
+        {
+            "id": 0,
+            "name": "show_rules",
+            "usage": "$show_rules",
+            "description": "Shows the Rules"
+        },
+        {
+            "id": 1,
+            "name": "latency",
+            "usage": "$latency",
+            "description": "Shows the Latency"
+        },
+        {
+            "id": 2,
+            "name": "user_details",
+            "usage": "$user_details [member]",
+            "description": "Show the Details of a Member"
+        },
+        {
+            "id": 3,
+            "name": "server_stats",
+            "usage": "$server_stats",
+            "description": "Show the Server Information"
+        },
+        {
+            "id": 4,
+            "name": "poll",
+            "usage": "$poll \"<question>\" <option1> <option2> [option3]",
+            "description": "Creates a Poll"
+        },
+        {
+            "id": 5,
+            "name": "message_source",
+            "usage": "$message_source <message_id>",
+            "description": "Show the Source of a Message"
+        }
+    ],
+    "music": [
+        {
+            "id": 0,
+            "name": "vc",
+            "usage": "$vc join",
+            "description": "Joins the VC you are currently in"
+        },
+        {
+            "id": 1,
+            "name": "vc",
+            "usage": "$vc leave",
+            "description": "Leaves VC"
+        },
+        {
+            "id": 2,
+            "name": "music",
+            "usage": "$music play \"<music_name>\"/<url>",
+            "description": "Plays the Music"
+        },
+        {
+            "id": 2,
+            "name": "music",
+            "usage": "$music pause",
+            "description": "Pauses the Music"
+        },
+        {
+            "id": 3,
+            "name": "music",
+            "usage": "$music resume",
+            "description": "Resumes the Music"
+        },
+        {
+            "id": 4,
+            "name": "music",
+            "usage": "$music volume <volume>",
+            "description": "Adjusts the Volume as per given amount"
+        },
+        {
+            "id": 5,
+            "name": "music",
+            "usage": "$music stop",
+            "description": "Stops the Music"
+        }
+    ]
+}

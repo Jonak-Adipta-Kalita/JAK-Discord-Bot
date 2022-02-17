@@ -1322,6 +1322,11 @@
     "@typescript-eslint/types" "5.10.0"
     eslint-visitor-keys "^3.0.0"
 
+"@xxjonakadiptaxx/jak_javascript_package@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@xxjonakadiptaxx/jak_javascript_package/-/jak_javascript_package-3.0.0.tgz#4d8fc4b2c8e16e14dcb5de1b557cfcc2187d990d"
+  integrity sha512-7CMOf8bVPsS+kEjgtpHa0QP/QQaqtI4VeBunX1fFUxMvoEYET71XzQoM481OF9aTJT/9S9poMX6yj+ahybSr+w==
+
 abbrev@1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.1.1.tgz#f8f2c887ad10bf67f634f005b6987fed3179aac8"
