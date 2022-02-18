@@ -32,7 +32,7 @@ const Home = () => {
             <main className="flex-1 overflow-y-auto px-2 scrollbar-hide md:px-4 lg:px-6 xl:px-10">
                 <div className="mx-auto mb-5 mt-10 space-y-4 text-gray-300 md:max-w-3xl lg:mt-20 lg:max-w-5xl">
                     {session && (
-                        <div className="flex justify-center">
+                        <div className="flex justify-center pb-[50px]">
                             <a
                                 href="https://discord.com/api/oauth2/authorize?client_id=756402881913028689&permissions=8&redirect_uri=https%3A%2F%2Fjak-discord-bot.vercel.app%2Fapi%2Fauth%2Fcallback%2Fdiscord&response_type=code&scope=bot%20applications.commands"
                                 target="_blank"
@@ -43,7 +43,7 @@ const Home = () => {
                             </a>
                         </div>
                     )}
-                    <div className="pt-[50px]">
+                    <div className="">
                         <p className="text-2xl font-bold">Commands</p>
                         <div className="mt-[20px] flex items-center justify-center space-x-4 rounded-xl border-[0.1px] p-4">
                             {categories.map((category) => (
