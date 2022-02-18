@@ -35,6 +35,7 @@ To install the required modules, just open a terminal in the directory where thi
 #### For the Bot
 
 ```bash
+cd bot
 pip install virtualenv
 virtualenv venv
 .\venv\Scripts\activate
@@ -63,12 +64,12 @@ Follow this: [https://some-random-api.ml/docs/Welcome/Keys](https://some-random-
 
 ### Creating the Bot:
 
-Create `.env` and `dashboard/.env.local`. Now go to [Discord Developers Portal](https://discord.com/developers/applications) and create a new application.
+Create `bot/.env` and `dashboard/.env.local`. Now go to [Discord Developers Portal](https://discord.com/developers/applications) and create a new application.
 Now go to the Bot section and create a new Bot. Now copy the Token given in the redirected page. Now go to the OAuth Section and
 copy the `CLIENT ID` and the `CLIENT SECRET` under `Client Information`.
-Paste all Credentials the `.env` and the `dashboard/.env.local` file
+Paste all Credentials the `bot/.env` and the `dashboard/.env.local` file
 
-For `.env`
+For `bot/.env`
 
 ```env
 TOKEN=<YOUR_BOT_TOKEN>
@@ -103,6 +104,7 @@ input field. Now click on `Save Changes`.
 Open any terminal in the directory and type
 
 ```bash
+cd bot
 python main.py
 ```
 
@@ -134,9 +136,9 @@ and press Enter.
 
 ## Technology(s) Used
 
--   Language: [Python](https://python.org/), [JavaScript]()
+-   Language: [Python](https://python.org/), [TypeScript](https://www.typescriptlang.org/)
 -   Frameworks: [discord.py](https://discordpy.readthedocs.io/), [NextJS](https://nextjs.org/)
--   Hosted: [Heroku](https://heroku.com/)
+-   Hosted: [Heroku](https://heroku.com/), [Vercel](https://vercel.com/)
 
 ## Contributors
 

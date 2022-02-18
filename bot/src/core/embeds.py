@@ -90,27 +90,27 @@ def moderation_help_embed(
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}kick @<member> [reason]",
+        name=f"{prefix}kick <member> [reason]",
         value="Kick Member or Bot",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}ban @<member> [reason]",
+        name=f"{prefix}ban <member> [reason]",
         value="Ban Member or Bot",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}unban <member,tag>",
+        name=f"{prefix}unban <member,discriminator>",
         value="Unban Member or Bot",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}remove_channel #<channel> [reason]",
-        value="Remove a Channe;",
+        name=f"{prefix}remove_channel <channel> [reason]",
+        value="Remove a Channel",
         inline=False,
     )
     embed.add_field(
-        name=f"{prefix}timeout @<member> <duration> [reason]",
+        name=f"{prefix}timeout <member> <duration> [reason]",
         value="Timeout Member or Bot",
         inline=False,
     )
@@ -308,7 +308,7 @@ def misc_help_embed(
     )
     embed.add_field(
         name=f'{prefix}poll "<question>" <option1> <option2> [option3]',
-        value="Show the Server Information",
+        value="Create a Poll",
         inline=False,
     )
     embed.add_field(
