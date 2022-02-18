@@ -25,10 +25,10 @@ button {
 
 @layer components {
     .menuItem {
-        @apply block px-4 py-2 text-sm cursor-pointer text-gray-300 hover:text-white;
+        @apply block cursor-pointer px-4 py-2 text-sm text-gray-300 hover:text-white;
     }
 
     .bodyBtn {
-        @apply rounded-lg text-lg p-5 px-10 hover:scale-125 transition transform duration-100 ease-out;
+        @apply transform rounded-lg p-5 px-10 text-lg transition duration-100 ease-out hover:scale-125;
     }
 }

@@ -11,10 +11,10 @@ const Header = () => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     return (
-        <header className="flex items-center text-gray-400 p-4 py-5 justify-between shadow-xl md:px-10 lg:px-20">
+        <header className="flex items-center justify-between p-4 py-5 text-gray-400 shadow-xl md:px-10 lg:px-20">
             <div
                 onClick={() => router.push("/")}
-                className="flex items-center space-x-4 cursor-pointer"
+                className="flex cursor-pointer items-center space-x-4"
             >
                 <Image
                     src="/images/favicon.ico"
@@ -22,7 +22,7 @@ const Header = () => {
                     height={60}
                     width={60}
                 />
-                <p className="font-bold text-white cursor-pointer">
+                <p className="cursor-pointer font-bold text-white">
                     JAK Discord Bot
                 </p>
             </div>
@@ -30,7 +30,7 @@ const Header = () => {
                 {!session ? (
                     <div className="mr-4">
                         <button
-                            className="cursor-pointer border-[0.1px] border-gray-400 p-4 px-10 rounded-xl hover:scale-125 transition transform duration-100 ease-out focus:outline-none focus:ring-2"
+                            className="transform cursor-pointer rounded-xl border-[0.1px] border-gray-400 p-4 px-10 transition duration-100 ease-out hover:scale-125 focus:outline-none focus:ring-2"
                             onClick={() => signIn()}
                         >
                             Login
@@ -38,11 +38,11 @@ const Header = () => {
                     </div>
                 ) : (
                     <div
-                        className="flex items-center space-x-3 cursor-pointer"
+                        className="flex cursor-pointer items-center space-x-3"
                         onClick={() => setDropdownOpen(!dropdownOpen)}
                     >
                         <img
-                            className="w-10 h-10 rounded-full"
+                            className="h-10 w-10 rounded-full"
                             src={session?.user?.image!}
                             alt="avatar"
                         />
@@ -70,7 +70,7 @@ const Header = () => {
                                 leaveFrom="transform opacity-100 scale-100"
                                 leaveTo="transform opacity-0 scale-95"
                             >
-                                <Menu.Items className="origin-top-right absolute right-0 mt-6 w-56 rounded-md shadow-lg bg-bg-color divide-y divide-gray-100 text-white border-[0.1px]">
+                                <Menu.Items className="absolute right-0 mt-6 w-56 origin-top-right divide-y divide-gray-100 rounded-md border-[0.1px] bg-bg-color text-white shadow-lg">
                                     <div className="py-1">
                                         <Menu.Item>
                                             {() => (
@@ -92,7 +92,7 @@ const Header = () => {
                                             {() => (
                                                 <p
                                                     onClick={() => signOut()}
-                                                    className="block px-4 py-2 text-sm text-red-700 font-semibold cursor-pointer hover:text-red-500"
+                                                    className="block cursor-pointer px-4 py-2 text-sm font-semibold text-red-700 hover:text-red-500"
                                                 >
                                                     Logout
                                                 </p>
