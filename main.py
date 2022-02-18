@@ -188,7 +188,7 @@ class JAKDiscordBot(commands.Bot):
         elif isinstance(error, commands.BadArgument):
             await ctx.reply("Please make sure to provide the Arguments correctly!!")
         elif isinstance(error, commands.CommandOnCooldown):
-            await ctx.reply("This Command is currently in Cooldown for you!!")
+            await ctx.reply(f"This Command is currently in Cooldown for you!! Try again in {error.retry_after}")
         else:
             print(error)
 
@@ -209,7 +209,7 @@ class JAKDiscordBot(commands.Bot):
             )
         elif isinstance(error, commands.CommandOnCooldown):
             await inter.response.send_message(
-                "This Command is currently in Cooldown for you!!"
+                f"This Command is currently in Cooldown for you!! Try again in {error.retry_after}"
             )
         else:
             print(error)
