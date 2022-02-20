@@ -15,7 +15,9 @@ const Dashboard = () => {
             {session ? (
                 <div className="mx-auto mb-5 mt-3 space-y-4 md:mt-10 md:max-w-3xl lg:mt-[50px] lg:max-w-5xl">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                        {session?.user}
+                        {session?.user.guilds.map((guild) => (
+                            <div className="" key={guild.id}></div>
+                        ))}
                     </div>
                 </div>
             ) : (
