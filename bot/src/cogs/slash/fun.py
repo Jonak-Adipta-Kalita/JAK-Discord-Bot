@@ -2,6 +2,7 @@ import asyncio, disnake, random, os
 import src.core.embeds as embeds
 import src.core.files as files
 import src.core.functions as funcs
+import src.core.calculator as calc
 from disnake.ext import commands
 from PIL import Image, ImageDraw, ImageFont
 
@@ -232,6 +233,13 @@ class Fun_(commands.Cog):
 
         if os.path.isfile(f"name_fact/{author_id}.png"):
             os.remove(f"name_fact/{author_id}.png")
+    
+    @commands.slash_command(description="Use a Calculator to do Mathamatics")
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
+    async def calculator(self, inter: disnake.ApplicationCommandInteraction):
+        embed = embeds.calculator_embed()
+
+        await inter.response.send_message(embed=embed, view=calc.CalculatorButtons(embed, inter.author))
 
 
 def setup(bot: commands.Bot):

@@ -108,7 +108,7 @@ class Moderation(commands.Cog):
             await ctx.reply("Time specified incorrectly!!")
     
 
-    @commands.Cog.listner()
+    @commands.Cog.listener()
     async def on_message(self, message: disnake.Message):
         member = message.author
 
