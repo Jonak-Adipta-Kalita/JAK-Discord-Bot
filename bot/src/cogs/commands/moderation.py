@@ -106,6 +106,35 @@ class Moderation(commands.Cog):
             )
         else:
             await ctx.reply("Time specified incorrectly!!")
+    
+
+    @commands.Cog.listner()
+    async def on_message(self, message: disnake.Message):
+        member = message.author
+
+        if member == self.bot.user:
+            return
+
+        msg = message.content
+        guild = message.guild
+        channel = message.channel
+        perms = channel.permissions_for(guild.me)
+
+        if perms.manage_messages:
+            for word in self.bad_words:
+                if word in msg.lower().split(" "):
+                    try:
+                        await member.send(
+                            embed=embeds.moderation_embed(
+                                title="YOU",
+                                status="WARNED",
+                                message=f"The word `{word}` is banned!! Watch your Language",
+                            )
+                        )
+                        await message.delete()
+                    except disnake.HTTPException:
+                        await message.delete()
+                    break
 
 
 def setup(bot: commands.Bot):

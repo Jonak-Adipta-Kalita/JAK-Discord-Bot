@@ -60,9 +60,7 @@ class JAKDiscordBot(commands.Bot):
             return
 
         msg = message.content
-        guild = message.guild
         channel = message.channel
-        perms = channel.permissions_for(guild.me)
 
         if msg in [f"<@!{self.user.id}>", f"<@{self.user.id}>"]:
             await message.reply(
@@ -72,22 +70,6 @@ class JAKDiscordBot(commands.Bot):
                     servers=len(self.servers),
                 )
             )
-
-        if perms.manage_messages:
-            for word in self.bad_words:
-                if word in msg.lower().split(" "):
-                    try:
-                        await member.send(
-                            embed=embeds.moderation_embed(
-                                title="YOU",
-                                status="WARNED",
-                                message=f"The word `{word}` is banned!! Watch your Language",
-                            )
-                        )
-                        await message.delete()
-                    except disnake.HTTPException:
-                        await message.delete()
-                    break
 
         if len(msg) >= 3 and not msg.startswith(funcs.get_prefix()):
             translation = funcs.translate_text(msg)
