@@ -12,6 +12,7 @@
         "check:version": "ncu"
     },
     "dependencies": {
+        "@badrap/bar-of-progress": "^0.1.2",
         "axios": "^0.24.0",
         "next": "latest",
         "next-auth": "^4.0.5",
