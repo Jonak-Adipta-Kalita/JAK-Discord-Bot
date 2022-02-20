@@ -10,7 +10,7 @@ class JAKDiscordBot(commands.Bot):
         self.bad_words = bad_words
         self.prefix = command_prefix
         self.servers = None
-        
+
         super().__init__(
             command_prefix=command_prefix, intents=intents, help_command=None
         )

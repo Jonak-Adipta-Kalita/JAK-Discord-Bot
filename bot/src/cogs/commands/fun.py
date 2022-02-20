@@ -297,7 +297,9 @@ class Fun(commands.Cog):
         await asyncio.sleep(60)
         await self.together_control.close()
 
-    @commands.command(description="Use a Calculator to do Mathamatics", aliases=["calc"])
+    @commands.command(
+        description="Use a Calculator to do Mathamatics", aliases=["calc"]
+    )
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
     async def calculator(self, ctx: commands.Context):
         embed = embeds.calculator_embed()

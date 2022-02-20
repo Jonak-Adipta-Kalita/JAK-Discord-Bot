@@ -106,7 +106,6 @@ class Moderation(commands.Cog):
             )
         else:
             await ctx.reply("Time specified incorrectly!!")
-    
 
     @commands.Cog.listener()
     async def on_message(self, message: disnake.Message):
