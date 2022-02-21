@@ -3,6 +3,7 @@ import NextAuth from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import axios from "axios";
 import { Guild } from "../../../types/typings";
+import { Session } from "next-auth";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     return await NextAuth(req, res, {
@@ -22,7 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             signIn: "/login",
         },
         callbacks: {
-            async jwt({ token, account }: any) {
+            async jwt({ token, account }) {
                 if (account) token.accessToken = account.access_token;
 
                 const commonGuilds: Guild[] = [];
@@ -59,7 +60,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
                 return token;
             },
-            async session({ session, token }: any) {
+            async session({
+                session,
+                token,
+            }: {
+                session: Session;
+                token: any;
+            }) {
                 session.user!.guilds = token.guilds;
 
                 return session;
