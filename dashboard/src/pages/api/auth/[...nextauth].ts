@@ -23,17 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         },
         callbacks: {
             async jwt({ token, account, user }) {
-                if (account && user) {
-                    return {
-                        ...token,
-                        accessToken: account.access_token,
-                        refreshToken: account.refresh_token,
-                        accessTokenExpires:
-                            account?.expires_at && account.expires_at * 1000,
-                    };
-                }
-
-                if (Date.now() < token.accessTokenExpires!) return token;
+                if (account) token.accessToken = account.access_token;
 
                 const commonGuilds: Guild[] = [];
 
@@ -64,6 +54,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                         }
                     });
                 });
+
+                if (account && user) {
+                    return {
+                        ...token,
+                        guilds: commonGuilds,
+                        accessToken: account.access_token,
+                        refreshToken: account.refresh_token,
+                        accessTokenExpires:
+                            account?.expires_at && account.expires_at * 1000,
+                    };
+                }
+
+                if (Date.now() < token.accessTokenExpires!) return token;
 
                 token.guilds = commonGuilds;
 
