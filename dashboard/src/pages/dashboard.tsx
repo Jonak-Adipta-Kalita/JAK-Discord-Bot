@@ -2,7 +2,6 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { Guild } from "../types/typings";
 
 const Dashboard = () => {
     const { data: session } = useSession();
@@ -17,7 +16,7 @@ const Dashboard = () => {
                 <div className="mx-auto mb-5 mt-3 space-y-4 md:mt-10 md:max-w-3xl lg:mt-[50px] lg:max-w-5xl">
                     <p className="mb-[30px] text-3xl font-bold">Your Servers</p>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                        {session?.user!.guilds?.map((guild: Guild) => (
+                        {session?.user!.guilds?.map((guild) => (
                             <div
                                 className="m-4 flex transform cursor-pointer flex-col items-center justify-center border-[0.2px] py-5 px-5 transition duration-100 ease-out hover:scale-105"
                                 key={guild.id}
