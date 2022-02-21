@@ -7,8 +7,6 @@ import { Guild } from "../types/typings";
 const Dashboard = () => {
     const { data: session } = useSession();
 
-    console.log(session);
-
     return (
         <div className="flex h-screen flex-col  text-gray-300">
             <Head>
