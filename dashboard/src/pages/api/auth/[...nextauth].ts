@@ -68,8 +68,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
                 if (Date.now() < token.accessTokenExpires!) return token;
 
-                token.guilds = commonGuilds;
-
                 return token;
             },
             async session({ session, token }) {

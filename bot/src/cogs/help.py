@@ -83,17 +83,20 @@ class Help(commands.Cog):
         self.bot = bot
 
     @commands.group(invoke_without_command=True, description="Show the Help Menu")
-    async def help(self, ctx: commands.Context, command: str = None):
+    async def help(self, ctx: commands.Context, command: str = None, sub_command: str = None):
         if command:
             cmd = self.bot.get_command(command)
             if cmd:
-                await ctx.reply(
-                    embed=embeds.commands_help_embed(
-                        ctx=ctx,
-                        bot_name=self.bot.user.name,
-                        bot_avatar_url=self.bot.user.avatar.url,
-                        command=cmd,
-                    )
+                if sub_command:
+                    pass
+                else:
+                    await ctx.reply(
+                        embed=embeds.commands_help_embed(
+                            ctx=ctx,
+                            bot_name=self.bot.user.name,
+                            bot_avatar_url=self.bot.user.avatar.url,
+                            command=cmd,
+                        )
                 )
             else:
                 await ctx.reply("Command not found!!")
