@@ -2,12 +2,14 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useRouter } from "next/router";
 
 const Dashboard = () => {
     const { data: session } = useSession();
+    const router = useRouter();
 
     return (
-        <div className="flex h-screen flex-col  text-gray-300">
+        <div className="flex h-screen flex-col text-gray-300">
             <Head>
                 <title>JAK Website | Dashboard</title>
             </Head>
@@ -20,6 +22,9 @@ const Dashboard = () => {
                             <div
                                 className="m-4 flex transform cursor-pointer flex-col items-center justify-center border-[0.2px] py-5 px-5 transition duration-100 ease-out hover:scale-105"
                                 key={guild.id}
+                                onClick={() =>
+                                    router.push(`/guild/${guild.id}`)
+                                }
                             >
                                 {guild.icon ? (
                                     <img
