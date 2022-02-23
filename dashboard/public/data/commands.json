@@ -209,6 +209,12 @@
             "name": "name_fact_generator",
             "usage": "$name_fact_generator",
             "description": "Generate Name Fact Image"
+        },
+        {
+            "id": 10,
+            "name": "shorten_url",
+            "usage": "$shorten_url",
+            "description": "Shorten a URL"
         }
     ],
     "music": [

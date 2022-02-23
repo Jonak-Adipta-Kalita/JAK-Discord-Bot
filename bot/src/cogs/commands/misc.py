@@ -1,4 +1,5 @@
-import disnake, asyncio
+from urllib.request import urlopen
+import disnake, asyncio, urllib
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 import src.core.functions as funcs
@@ -150,10 +151,14 @@ class Misc(commands.Cog):
     async def servers_in(self, ctx: commands.Context):
         await ctx.reply(embed=embeds.servers_in_embed(servers=self.bot.guilds))
 
-    @commands.command(description="Change the Prefix")
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
-    async def change_prefix(self, ctx: commands.Context, new_prefix: str):
-        pass
+    @commands.command(description="Shorten a URL")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def shorten_url(self, ctx: commands.Context, *, url: str):
+        shortened_url = await self.bot.loop.run_in_executor(
+            None, lambda: urlopen("http://tinyurl.com/api-create.php?url=" + url).read().decode("utf-8")
+        )
+
+        await ctx.reply(f"Your Shortened URL: {shortened_url}")
 
 
 def setup(bot: commands.Bot):
