@@ -81,7 +81,7 @@ class Games_(commands.Cog):
 
 
 def setup(bot: commands.Bot):
-    with open("resources/8ball_responses.txt") as txt:
+    with open("../resources/8ballResponses.txt") as txt:
         _8ball_responses = txt.readlines()
 
     bot.add_cog(Games_(bot, _8ball_responses))

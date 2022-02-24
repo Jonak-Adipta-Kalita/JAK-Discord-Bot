@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { editMessage } from "@xxjonakadiptaxx/jak_javascript_package";
-import commandsData from "../../public/data/commands.json";
+import commandsData from "../../../resources/commands.json";
 import { Command } from "../types/typings";
 
 const Home = () => {

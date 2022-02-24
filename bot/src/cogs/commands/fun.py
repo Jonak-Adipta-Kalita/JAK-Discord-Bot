@@ -351,9 +351,9 @@ class Fun(commands.Cog):
         lines = funcs.generate_name_fact(name, heshe, hisher, guygirl, himher, girlguy)
 
         image = Image.new("RGB", (1000, 1000), (255, 255, 255))
-        lines_font = ImageFont.truetype("resources/bahnschrift.ttf", size=38)
-        name_font = ImageFont.truetype("resources/theboldfont.ttf", size=72)
-        watermark_font = ImageFont.truetype("resources/arial.ttf", size=24)
+        lines_font = ImageFont.truetype("fonts/bahnschrift.ttf", size=38)
+        name_font = ImageFont.truetype("fonts/theboldfont.ttf", size=72)
+        watermark_font = ImageFont.truetype("fonts/arial.ttf", size=24)
 
         history = []
         y0, dy = 220, 40

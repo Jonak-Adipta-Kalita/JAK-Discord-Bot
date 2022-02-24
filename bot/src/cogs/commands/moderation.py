@@ -139,7 +139,7 @@ class Moderation(commands.Cog):
 
 def setup(bot: commands.Bot):
     bad_words = []
-    with open("resources/profanity.txt", "r") as f:
+    with open("../resources/profanity.txt", "r") as f:
         bad_words = f.read().splitlines()
 
     bot.add_cog(Moderation(bot, bad_words))

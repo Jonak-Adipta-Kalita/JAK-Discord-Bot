@@ -297,7 +297,7 @@ async def get_commands():
     ) as client:
         try:
             request = await client.get(
-                "https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/dashboard/public/data/commands.json",
+                "https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/commands.json",
             )
         except Exception:
             pass

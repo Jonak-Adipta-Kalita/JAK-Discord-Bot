@@ -280,10 +280,10 @@ class Games(commands.Cog):
 
 
 def setup(bot: commands.Bot):
-    with open("resources/hangman_words.txt") as txt:
+    with open("../resources/hangmanWords.txt") as txt:
         hangman_words = txt.readlines()
 
-    with open("resources/8ball_responses.txt") as txt:
+    with open("../resources/8ballResponses.txt") as txt:
         _8ball_responses = txt.readlines()
 
     bot.add_cog(Games(bot, _8ball_responses, hangman_words))
