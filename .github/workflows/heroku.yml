@@ -15,4 +15,4 @@ jobs:
                   heroku_api_key: ${{secrets.HEROKU_KEY}}
                   heroku_app_name: ${{secrets.HEROKU_NAME}}
                   heroku_email: "jonakadiptakalita@gmail.com"
-                  appdir: "bot, resources"
+                  appdir: "bot"

@@ -1,4 +1,4 @@
-import disnake, random
+import disnake, random, requests
 import src.core.embeds as embeds
 from disnake.ext import commands
 
@@ -81,7 +81,6 @@ class Games_(commands.Cog):
 
 
 def setup(bot: commands.Bot):
-    with open("../resources/8ballResponses.txt") as txt:
-        _8ball_responses = txt.readlines()
+    _8ball_responses = requests.get("https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/8ballResponses.txt").text.splitlines()
 
     bot.add_cog(Games_(bot, _8ball_responses))

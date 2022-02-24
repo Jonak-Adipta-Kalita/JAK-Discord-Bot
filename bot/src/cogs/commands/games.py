@@ -1,5 +1,4 @@
-import asyncio
-import disnake, random
+import disnake, random, asyncio, requests
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 from disnake.ext import commands
@@ -280,10 +279,8 @@ class Games(commands.Cog):
 
 
 def setup(bot: commands.Bot):
-    with open("../resources/hangmanWords.txt") as txt:
-        hangman_words = txt.readlines()
+    hangman_words = requests.get("https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/hangmanWords.txt").text.splitlines()
 
-    with open("../resources/8ballResponses.txt") as txt:
-        _8ball_responses = txt.readlines()
+    _8ball_responses = requests.get("https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/8ballResponses.txt").text.splitlines()
 
     bot.add_cog(Games(bot, _8ball_responses, hangman_words))

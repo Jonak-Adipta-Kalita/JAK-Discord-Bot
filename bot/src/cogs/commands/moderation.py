@@ -1,4 +1,4 @@
-import disnake, pytimeparse
+import disnake, pytimeparse, requests
 import src.core.embeds as embeds
 import src.core.functions as funcs
 from disnake.ext import commands
@@ -139,7 +139,7 @@ class Moderation(commands.Cog):
 
 def setup(bot: commands.Bot):
     bad_words = []
-    with open("../resources/profanity.txt", "r") as f:
-        bad_words = f.read().splitlines()
+
+    bad_words = requests.get("https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/profanity.txt").text.splitlines()
 
     bot.add_cog(Moderation(bot, bad_words))

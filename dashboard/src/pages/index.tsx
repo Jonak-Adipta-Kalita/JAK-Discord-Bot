@@ -6,10 +6,14 @@ import Footer from "../components/Footer";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { editMessage } from "@xxjonakadiptaxx/jak_javascript_package";
-import commandsData from "../../../resources/commands.json";
 import { Command } from "../types/typings";
+import axios from "axios";
 
-const Home = () => {
+interface Props {
+    commandsData: object;
+}
+
+const Home = ({ commandsData }: Props) => {
     const { data: session } = useSession();
     const categories: string[] = Object.keys(commandsData);
     const [currentCategory, setCurrentCategory] = useState<string>(
@@ -92,9 +96,21 @@ export default Home;
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const session = await getSession(context);
 
+    const commandsDataRes = await axios.get(
+        "https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/commands.json",
+        {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+    );
+
+    const commandsData = commandsDataRes.data;
+
     return {
         props: {
             session: session,
+            commandsData,
         },
     };
 };
