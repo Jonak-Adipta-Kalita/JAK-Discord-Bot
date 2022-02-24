@@ -170,20 +170,25 @@ class Misc_(commands.Cog):
         await inter.response.send_message(
             embed=embeds.servers_in_embed(servers=self.bot.guilds)
         )
-    
 
-    @commands.slash_command(description="Shorten a URL",options=[
+    @commands.slash_command(
+        description="Shorten a URL",
+        options=[
             disnake.Option(
                 name="url",
                 description="URL to Shorten!!",
                 type=disnake.OptionType.string,
                 required=True,
             )
-        ])
+        ],
+    )
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def shorten_url(self, ctx: disnake.ApplicationCommandInteraction, url: str):
         shortened_url = await self.bot.loop.run_in_executor(
-            None, lambda: urlopen("http://tinyurl.com/api-create.php?url=" + url).read().decode("utf-8")
+            None,
+            lambda: urlopen("http://tinyurl.com/api-create.php?url=" + url)
+            .read()
+            .decode("utf-8"),
         )
 
         await ctx.response.send_message(f"Your Shortened URL: {shortened_url}")

@@ -213,7 +213,7 @@
         {
             "id": 10,
             "name": "shorten_url",
-            "usage": "$shorten_url",
+            "usage": "$shorten_url <url>",
             "description": "Shorten a URL"
         }
     ],

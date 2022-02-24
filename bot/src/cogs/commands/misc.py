@@ -155,7 +155,10 @@ class Misc(commands.Cog):
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def shorten_url(self, ctx: commands.Context, *, url: str):
         shortened_url = await self.bot.loop.run_in_executor(
-            None, lambda: urlopen("http://tinyurl.com/api-create.php?url=" + url).read().decode("utf-8")
+            None,
+            lambda: urlopen("http://tinyurl.com/api-create.php?url=" + url)
+            .read()
+            .decode("utf-8"),
         )
 
         await ctx.reply(f"Your Shortened URL: {shortened_url}")

@@ -32,42 +32,47 @@ class Dropdown(disnake.ui.Select):
 
         if label == "moderation_help_embed":
             await interaction.response.edit_message(
-                embed=embeds.moderation_help_embed(
+                embed=await embeds.help_embed(
                     ctx=self.ctx,
                     bot_name=self.bot.user.name,
                     bot_avatar_url=self.bot.user.avatar.url,
+                    command_type="moderation",
                 )
             )
         elif label == "games_help_embed":
             await interaction.response.edit_message(
-                embed=embeds.games_help_embed(
+                embed=await embeds.help_embed(
                     ctx=self.ctx,
                     bot_name=self.bot.user.name,
                     bot_avatar_url=self.bot.user.avatar.url,
+                    command_type="games",
                 )
             )
         elif label == "music_help_embed":
             await interaction.response.edit_message(
-                embed=embeds.music_help_embed(
+                embed=await embeds.help_embed(
                     ctx=self.ctx,
                     bot_name=self.bot.user.name,
                     bot_avatar_url=self.bot.user.avatar.url,
+                    command_type="music",
                 )
             )
         elif label == "fun_help_embed":
             await interaction.response.edit_message(
-                embed=embeds.fun_help_embed(
+                embed=await embeds.help_embed(
                     ctx=self.ctx,
                     bot_name=self.bot.user.name,
                     bot_avatar_url=self.bot.user.avatar.url,
+                    command_type="fun",
                 )
             )
         elif label == "misc_help_embed":
             await interaction.response.edit_message(
-                embed=embeds.misc_help_embed(
+                embed=await embeds.help_embed(
                     ctx=self.ctx,
                     bot_name=self.bot.user.name,
                     bot_avatar_url=self.bot.user.avatar.url,
+                    command_type="misc",
                 )
             )
 
@@ -83,7 +88,9 @@ class Help(commands.Cog):
         self.bot = bot
 
     @commands.group(invoke_without_command=True, description="Show the Help Menu")
-    async def help(self, ctx: commands.Context, command: str = None, sub_command: str = None):
+    async def help(
+        self, ctx: commands.Context, command: str = None, sub_command: str = None
+    ):
         if command:
             cmd = self.bot.get_command(command)
             if cmd:
@@ -97,12 +104,12 @@ class Help(commands.Cog):
                             bot_avatar_url=self.bot.user.avatar.url,
                             command=cmd,
                         )
-                )
+                    )
             else:
                 await ctx.reply("Command not found!!")
         else:
             await ctx.reply(
-                embed=embeds.help_embed(
+                embed=await embeds.help_embed(
                     ctx=ctx,
                     bot_name=self.bot.user.name,
                     bot_avatar_url=self.bot.user.avatar.url,
@@ -113,50 +120,55 @@ class Help(commands.Cog):
     @help.command(description="Show the Moderation Commands", aliases=["mod"])
     async def moderation(self, ctx: commands.Context):
         await ctx.reply(
-            embed=embeds.moderation_help_embed(
+            embed=await embeds.help_embed(
                 ctx=ctx,
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar.url,
+                command_type="moderation",
             )
         )
 
     @help.command(description="Show the Game Commands")
     async def games(self, ctx: commands.Context):
         await ctx.reply(
-            embed=embeds.games_help_embed(
+            embed=await embeds.help_embed(
                 ctx=ctx,
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar.url,
+                command_type="games",
             )
         )
 
     @help.command(description="Show the Music Commands")
     async def music(self, ctx: commands.Context):
         await ctx.reply(
-            embed=embeds.music_help_embed(
+            embed=await embeds.help_embed(
                 ctx=ctx,
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar.url,
+                command_type="music",
             )
         )
 
     @help.command(description="Show the Fun Commands")
     async def fun(self, ctx: commands.Context):
         await ctx.reply(
-            embed=embeds.fun_help_embed(
+            embed=await embeds.help_embed(
                 ctx=ctx,
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar.url,
+                command_type="fun",
             )
         )
 
     @help.command(description="Show the Misc Commands")
     async def misc(self, ctx: commands.Context):
         await ctx.reply(
-            embed=embeds.misc_help_embed(
+            embed=await embeds.help_embed(
                 ctx=ctx,
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar.url,
+                command_type="misc",
             )
         )
 

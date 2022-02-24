@@ -1,3 +1,4 @@
+import json
 import typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials
 import src.core.emojis as emojis_list
 from pyMorseTranslator import translator as morse_translator
@@ -288,3 +289,21 @@ def generate_name_fact(
     ]
 
     return lines
+
+
+async def get_commands():
+    async with aiohttp.ClientSession(
+        headers={"Content-Type": "application/json"},
+    ) as client:
+        try:
+            request = await client.get(
+                "https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/dashboard/public/data/commands.json",
+            )
+        except Exception:
+            pass
+
+        resp = await request.text()
+
+    json_data = json.loads(resp)
+
+    return json_data

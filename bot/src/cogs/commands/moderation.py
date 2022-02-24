@@ -8,8 +8,9 @@ prefix = funcs.get_prefix()
 
 
 class Moderation(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: commands.Bot, bad_words: list):
         self.bot = bot
+        self.bad_words = bad_words
 
     @commands.command(description="Kick Member or Bot")
     @commands.has_guild_permissions(kick_members=True)
@@ -137,4 +138,8 @@ class Moderation(commands.Cog):
 
 
 def setup(bot: commands.Bot):
-    bot.add_cog(Moderation(bot))
+    bad_words = []
+    with open("resources/profanity.txt", "r") as f:
+        bad_words = f.read().splitlines()
+
+    bot.add_cog(Moderation(bot, bad_words))

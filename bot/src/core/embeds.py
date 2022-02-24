@@ -1,5 +1,4 @@
-import typing
-import disnake
+import disnake, typing
 import src.core.functions as funcs
 import src.core.emojis as emojis
 from disnake.ext import commands
@@ -34,313 +33,51 @@ def rules_embed(bot_name: str, bot_avatar_url: str, rules: str) -> disnake.Embed
     return embed
 
 
-def help_embed(
-    ctx: commands.Context, bot_name: str, bot_avatar_url: str
+async def help_embed(
+    ctx: commands.Context, bot_name: str, bot_avatar_url: str, command_type: str = None
 ) -> disnake.Embed:
-    embed = disnake.Embed(
-        color=disnake.Color.blue(),
-    )
-    embed.set_author(name=f"{bot_name} - Help Menu", icon_url=bot_avatar_url)
-    embed.add_field(
-        name=f"{prefix}help moderation",
-        value="Show the Moderation Commands",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}help games",
-        value="Show the Game Commands",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}help music",
-        value="Show the Music Commands",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}help fun",
-        value="Show the Fun Commands",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}help misc",
-        value="Show the Misc Commands",
-        inline=False,
-    )
-    embed.set_footer(
-        text=f"Information Requested by: {ctx.author.display_name}",
-        icon_url=ctx.author.avatar.url,
-    )
+    bot_commands = await funcs.get_commands()
 
-    return embed
-
-
-def moderation_help_embed(
-    ctx: commands.Context, bot_name: str, bot_avatar_url: str
-) -> disnake.Embed:
     embed = disnake.Embed(
         color=disnake.Color.blue(),
     )
     embed.set_author(
-        name=f"{bot_name} - Moderation Help Menu",
+        name=f"{bot_name} - {command_type.title() if command_type else ''} Help Menu",
         icon_url=bot_avatar_url,
     )
-    embed.add_field(
-        name=f"{prefix}clear <amount>",
-        value="Delete messages as given amount",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}kick <member> [reason]",
-        value="Kick Member or Bot",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}ban <member> [reason]",
-        value="Ban Member or Bot",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}unban <member,discriminator>",
-        value="Unban Member or Bot",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}remove_channel <channel> [reason]",
-        value="Remove a Channel",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}timeout <member> <duration> [reason]",
-        value="Timeout Member or Bot",
-        inline=False,
-    )
-    embed.set_footer(
-        text=f"Information Requested by: {ctx.author.display_name}",
-        icon_url=ctx.author.avatar.url,
-    )
-
-    return embed
-
-
-def games_help_embed(
-    ctx: commands.Context, bot_name: str, bot_avatar_url: str
-) -> disnake.Embed:
-    embed = disnake.Embed(
-        color=disnake.Color.blue(),
-    )
-    embed.set_author(name=f"{bot_name} - Games Help Menu", icon_url=bot_avatar_url)
-    embed.add_field(
-        name=f"{prefix}8ball <question>",
-        value="Play 8ball Game",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}tictactoe @<1st Player> @<2nd Player>",
-        value="Play Tic-Tac-Toe Game",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}tictactoe place <Position in Integer>",
-        value="Place your position for Tic-Tac-Toe Game",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}tictactoe stop",
-        value="Stops Tic-Tac-Toe Game",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}hangman",
-        value="Play Hangman Game",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}hangman guess <word/letter>",
-        value="Guess Word in Hangman Game",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}hangman stop",
-        value="Stops Hangman Game",
-        inline=False,
-    )
-    embed.set_footer(
-        text=f"Information Requested by: {ctx.author.display_name}",
-        icon_url=ctx.author.avatar.url,
-    )
-
-    return embed
-
-
-def music_help_embed(
-    ctx: commands.Context, bot_name: str, bot_avatar_url: str
-) -> disnake.Embed:
-    embed = disnake.Embed(
-        color=disnake.Color.blue(),
-    )
-    embed.set_author(name=f"{bot_name} - Music Help Menu", icon_url=bot_avatar_url)
-    embed.add_field(
-        name=f"{prefix}vc join",
-        value="Joins the VC you are currently in",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}vc leave",
-        value="Leaves VC",
-        inline=False,
-    )
-    embed.add_field(
-        name=f'{prefix}music play "<music_name>"/<url>',
-        value="Plays the Music",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}music pause",
-        value="Pauses the Music",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}music resume",
-        value="Resumes the Music",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}music volume <volume>",
-        value="Adjusts the Volume as per given amount",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}music stop",
-        value="Stops the Music",
-        inline=False,
-    )
-    embed.set_footer(
-        text=f"Information Requested by: {ctx.author.display_name}",
-        icon_url=ctx.author.avatar.url,
-    )
-
-    return embed
-
-
-def fun_help_embed(
-    ctx: commands.Context, bot_name: str, bot_avatar_url: str
-) -> disnake.Embed:
-    embed = disnake.Embed(
-        color=disnake.Color.blue(),
-    )
-    embed.set_author(name=f"{bot_name} - Fun Help Menu", icon_url=bot_avatar_url)
-    embed.add_field(
-        name=f"{prefix}joke",
-        value="Display a Joke",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}meme",
-        value="Display a Meme",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}emojify <text>",
-        value="Convert Text to Emoji",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}code_snippet <code>",
-        value="Convert Code Block to Snippet",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}morse encode <text>",
-        value="Encode PlainText into MorseCode",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}morse decode <text>",
-        value="Decode MorseCode into PlainText",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}calculator",
-        value="Use a Calculator to do Mathamatics",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}fact",
-        value="Display a Fact",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}together <activity>",
-        value="Use Discord Together Activities",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}find_pokemon <name>",
-        value="Find a Pokemon by Name",
-        inline=False,
-    )
-    embed.set_footer(
-        text=f"Information Requested by: {ctx.author.display_name}",
-        icon_url=ctx.author.avatar.url,
-    )
-
-    return embed
-
-
-def misc_help_embed(
-    ctx: commands.Context, bot_name: str, bot_avatar_url: str
-) -> disnake.Embed:
-    embed = disnake.Embed(
-        color=disnake.Color.blue(),
-    )
-    embed.set_author(name=f"{bot_name} - Misc Help Menu", icon_url=bot_avatar_url)
-    embed.add_field(name=f"{prefix}show_rules", value="Show the Rules", inline=False)
-    embed.add_field(name=f"{prefix}latency", value="Show the Latency", inline=False)
-    embed.add_field(
-        name=f"{prefix}user_details [member]",
-        value="Show the Details of a Member",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}server_stats",
-        value="Show the Server Information",
-        inline=False,
-    )
-    embed.add_field(
-        name=f'{prefix}poll "<question>" <option1> <option2> [option3]',
-        value="Create a Poll",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}message_source <message_id>",
-        value="Show the Source of a Message",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}chatbot",
-        value="Start Chatbot for 5 Minutes",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}chatbot stop",
-        value="Stop Chatbot",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}total_commands",
-        value="Displays the total number of Commands",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}servers_in",
-        value="Displays the name of the servers the bot is in",
-        inline=False,
-    )
-    embed.add_field(
-        name=f"{prefix}name_fact_generator",
-        value="Generate Name Fact Image",
-        inline=False,
-    )
+    if command_type:
+        for commands in bot_commands[command_type]:
+            embed.add_field(
+                name=commands["usage"],
+                value=commands["description"],
+                inline=False,
+            )
+    else:
+        embed.add_field(
+            name=f"{prefix}help moderation",
+            value="Show the Moderation Commands",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"{prefix}help games",
+            value="Show the Game Commands",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"{prefix}help music",
+            value="Show the Music Commands",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"{prefix}help fun",
+            value="Show the Fun Commands",
+            inline=False,
+        )
+        embed.add_field(
+            name=f"{prefix}help misc",
+            value="Show the Misc Commands",
+            inline=False,
+        )
     embed.set_footer(
         text=f"Information Requested by: {ctx.author.display_name}",
         icon_url=ctx.author.avatar.url,

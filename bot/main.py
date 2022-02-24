@@ -6,8 +6,7 @@ from disnake.ext import commands
 
 
 class JAKDiscordBot(commands.Bot):
-    def __init__(self, command_prefix: str, intents: disnake.Intents, bad_words: list):
-        self.bad_words = bad_words
+    def __init__(self, command_prefix: str, intents: disnake.Intents):
         self.prefix = command_prefix
         self.servers = None
 
@@ -201,14 +200,9 @@ class JAKDiscordBot(commands.Bot):
 
 
 if __name__ == "__main__":
-    bad_words = []
-    with open("resources/profanity.txt", "r") as f:
-        bad_words = f.read().splitlines()
-
     bot = JAKDiscordBot(
         command_prefix=funcs.get_prefix(),
         intents=disnake.Intents.all(),
-        bad_words=bad_words,
     )
 
     bot.run(credentials.TOKEN)
