@@ -1,5 +1,4 @@
-import json
-import typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials
+import typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials, json, requests
 import src.core.emojis as emojis_list
 from pyMorseTranslator import translator as morse_translator
 
@@ -309,18 +308,11 @@ async def get_commands() -> object:
     return json_data
 
 
-async def get_code_output(lang: str, code: str) -> str:
-    async with aiohttp.ClientSession(
-        headers={"Content-Type": "application/json"},
-    ) as client:
-        try:
-            request = await client.post(
-                "https://emkc.org/api/v1/piston/execute",
-                json={"language": lang, "source": code},
-            )
-        except Exception:
-            pass
+def get_code_output(lang: str, code: str) -> str:
+    res = requests.post(
+        "https://emkc.org/api/v1/piston/execute",
+        json={"language": lang, "source": code},
+    )
+    jsoned_data = res.json()
 
-        resp = await request.json()
-
-    return resp["output"]
+    return jsoned_data["output"]
