@@ -81,6 +81,8 @@ class Games_(commands.Cog):
 
 
 def setup(bot: commands.Bot):
-    _8ball_responses = requests.get("https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/8ballResponses.txt").text.splitlines()
+    _8ball_responses = requests.get(
+        "https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/8ballResponses.txt"
+    ).text.splitlines()
 
     bot.add_cog(Games_(bot, _8ball_responses))

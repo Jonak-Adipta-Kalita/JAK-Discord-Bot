@@ -163,6 +163,18 @@ class Misc(commands.Cog):
 
         await ctx.reply(f"Your Shortened URL: {shortened_url}")
 
+    @commands.command(description="Execute Code", aliases=["run_code"])
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
+    async def execute_code(self, ctx: commands.Context, language: str, *, code: str):
+        if not code.startswith("```") and code.endswith("```"):
+            await ctx.reply("Use a CodeBlock!!")
+            return
+
+        code_edited = disnake.utils.remove_markdown(code.strip()).strip()
+        code_response = await funcs.get_code_output(language, code_edited)
+
+        await ctx.reply(f"```{language}\n{code_response}```")
+
 
 def setup(bot: commands.Bot):
     bot.add_cog(Misc(bot))

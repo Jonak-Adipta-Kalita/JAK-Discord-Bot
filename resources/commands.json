@@ -215,6 +215,12 @@
             "name": "shorten_url",
             "usage": "$shorten_url <url>",
             "description": "Shorten a URL"
+        },
+        {
+            "id": 11,
+            "name": "execute_code",
+            "usage": "$execute_code <language> <code>",
+            "description": "Execute some Code"
         }
     ],
     "music": [

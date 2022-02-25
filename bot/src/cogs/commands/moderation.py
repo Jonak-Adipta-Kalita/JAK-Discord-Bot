@@ -140,6 +140,8 @@ class Moderation(commands.Cog):
 def setup(bot: commands.Bot):
     bad_words = []
 
-    bad_words = requests.get("https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/profanity.txt").text.splitlines()
+    bad_words = requests.get(
+        "https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/profanity.txt"
+    ).text.splitlines()
 
     bot.add_cog(Moderation(bot, bad_words))

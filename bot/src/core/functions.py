@@ -291,7 +291,7 @@ def generate_name_fact(
     return lines
 
 
-async def get_commands():
+async def get_commands() -> object:
     async with aiohttp.ClientSession(
         headers={"Content-Type": "application/json"},
     ) as client:
@@ -307,3 +307,20 @@ async def get_commands():
     json_data = json.loads(resp)
 
     return json_data
+
+
+async def get_code_output(lang: str, code: str) -> str:
+    async with aiohttp.ClientSession(
+        headers={"Content-Type": "application/json"},
+    ) as client:
+        try:
+            request = await client.post(
+                "https://emkc.org/api/v1/piston/execute",
+                json={"language": lang, "source": code},
+            )
+        except Exception:
+            pass
+
+        resp = await request.json()
+
+    return resp["output"]
