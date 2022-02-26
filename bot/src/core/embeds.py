@@ -93,7 +93,8 @@ def commands_help_embed(
         color=disnake.Color.blue(),
     )
     embed.set_author(
-        name=f"{bot_name} - {command.name} Help Menu", icon_url=bot_avatar_url
+        name=f"{bot_name} - {command.name.replace('_', ' ').title()} Help Menu",
+        icon_url=bot_avatar_url,
     )
     embed.add_field(
         name="Name:",

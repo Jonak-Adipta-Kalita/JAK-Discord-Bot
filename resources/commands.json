@@ -3,37 +3,43 @@
         {
             "id": 0,
             "name": "clear",
-            "usage": "$kick <amount>",
+            "usage": "$clear <amount>",
+            "has_slash_command": true,
             "description": "Delete messages as given amount"
         },
         {
             "id": 1,
             "name": "kick",
             "usage": "$kick <member> [reason]",
+            "has_slash_command": true,
             "description": "Kick Member or Bot"
         },
         {
             "id": 2,
             "name": "ban",
             "usage": "$ban <member> [reason]",
+            "has_slash_command": true,
             "description": "Ban Member or Bot"
         },
         {
             "id": 3,
             "name": "unban",
             "usage": "$unban <member,descriminator>",
+            "has_slash_command": true,
             "description": "Unban Member or Bot"
         },
         {
             "id": 4,
             "name": "timeout",
             "usage": "$timeout <member> <duration> [reason]",
+            "has_slash_command": true,
             "description": "Timeout Member or Bot"
         },
         {
             "id": 5,
             "name": "remove_channel",
             "usage": "$remove_channel <channel> [reason]",
+            "has_slash_command": true,
             "description": "Remove a Channel"
         }
     ],
@@ -42,60 +48,70 @@
             "id": 0,
             "name": "joke",
             "usage": "$joke",
+            "has_slash_command": true,
             "description": "Display a Joke"
         },
         {
             "id": 1,
             "name": "meme",
             "usage": "$meme",
+            "has_slash_command": true,
             "description": "Display a Meme"
         },
         {
             "id": 2,
             "name": "emojify",
             "usage": "$emojify <text>",
+            "has_slash_command": true,
             "description": "Convert Text to Emoji"
         },
         {
             "id": 3,
             "name": "code_snippet",
             "usage": "$code_snippet <code>",
+            "has_slash_command": false,
             "description": "Convert Code Block to Snippet"
         },
         {
             "id": 4,
             "name": "morse",
             "usage": "$morse encode <text>",
+            "has_slash_command": true,
             "description": "Encode PlainText into MorseCode"
         },
         {
             "id": 5,
             "name": "morse",
             "usage": "$morse decode <text>",
+            "has_slash_command": true,
             "description": "Decode MorseCode into PlainText"
         },
         {
             "id": 6,
             "name": "calculator",
             "usage": "$calculator",
+            "has_slash_command": true,
             "description": "Use a Calculator to do Mathamatics"
         },
         {
             "id": 7,
             "name": "fact",
             "usage": "$fact",
+            "has_slash_command": true,
             "description": "Display a Fact"
         },
         {
             "id": 8,
             "name": "together",
             "usage": "$together <activity>",
+            "has_slash_command": false,
             "description": "Use Discord Together Activities"
         },
         {
             "id": 9,
             "name": "find_pokemon",
             "usage": "$find_pokemon <name>",
+            "has_slash_command": true,
             "description": "Find a Pokemon by Name"
         }
     ],
@@ -104,42 +120,49 @@
             "id": 0,
             "name": "8ball",
             "usage": "$8ball <question>",
+            "has_slash_command": true,
             "description": "Play 8ball Game"
         },
         {
             "id": 1,
             "name": "tictactoe",
             "usage": "$tictactoe @<1st Player> @<2nd Player>",
+            "has_slash_command": false,
             "description": "Play Tic-Tac-Toe Game"
         },
         {
             "id": 2,
             "name": "tictactoe",
             "usage": "$tictactoe place <Position in Integer>",
+            "has_slash_command": false,
             "description": "Place your position for Tic-Tac-Toe Game"
         },
         {
             "id": 3,
             "name": "tictactoe",
             "usage": "$tictactoe stop",
+            "has_slash_command": false,
             "description": "Stops Tic-Tac-Toe Game"
         },
         {
             "id": 4,
             "name": "hangman",
             "usage": "$hangman",
+            "has_slash_command": false,
             "description": "Play Hangman Game"
         },
         {
             "id": 5,
             "name": "hangman",
             "usage": "$hangman guess <word/letter>",
+            "has_slash_command": false,
             "description": "Guess Word in Hangman Game"
         },
         {
             "id": 6,
             "name": "hangman",
             "usage": "$hangman stop",
+            "has_slash_command": false,
             "description": "Stops Hangman Game"
         }
     ],
@@ -148,78 +171,91 @@
             "id": 0,
             "name": "show_rules",
             "usage": "$show_rules",
+            "has_slash_command": true,
             "description": "Shows the Rules"
         },
         {
             "id": 1,
             "name": "latency",
             "usage": "$latency",
+            "has_slash_command": true,
             "description": "Shows the Latency"
         },
         {
             "id": 2,
             "name": "user_details",
             "usage": "$user_details [member]",
+            "has_slash_command": true,
             "description": "Show the Details of a Member"
         },
         {
             "id": 3,
             "name": "server_stats",
             "usage": "$server_stats",
+            "has_slash_command": true,
             "description": "Show the Server Information"
         },
         {
             "id": 4,
             "name": "poll",
             "usage": "$poll \"<question>\" <option1> <option2> [option3]",
+            "has_slash_command": true,
             "description": "Creates a Poll"
         },
         {
             "id": 5,
             "name": "message_source",
             "usage": "$message_source <message_id>",
+            "has_slash_command": true,
             "description": "Show the Source of a Message"
         },
         {
             "id": 6,
             "name": "chatbot",
             "usage": "$chatbot",
+            "has_slash_command": false,
             "description": "Start Chatbot for 5 Minutes"
         },
         {
             "id": 7,
             "name": "chatbot",
             "usage": "$chatbot stop",
+            "has_slash_command": false,
             "description": "Stop Chatbot"
         },
         {
             "id": 8,
             "name": "total_commands",
             "usage": "$total_commands",
+            "has_slash_command": true,
             "description": "Displays the total number of Commands"
         },
         {
             "id": 9,
             "name": "servers_in",
             "usage": "$servers_in",
+            "has_slash_command": true,
             "description": "Displays the name of the servers the bot is in"
         },
         {
             "id": 10,
             "name": "name_fact_generator",
             "usage": "$name_fact_generator",
+            "has_slash_command": true,
             "description": "Generate Name Fact Image"
         },
         {
-            "id": 10,
+            "id": 11,
             "name": "shorten_url",
             "usage": "$shorten_url <url>",
+            "has_slash_command": true,
             "description": "Shorten a URL"
         },
         {
-            "id": 11,
+            "id": 12,
             "name": "execute_code",
             "usage": "$execute_code <language> <code>",
+            "has_slash_command": false,
             "description": "Execute some Code"
         }
     ],
@@ -228,42 +264,49 @@
             "id": 0,
             "name": "vc",
             "usage": "$vc join",
+            "has_slash_command": false,
             "description": "Joins the VC you are currently in"
         },
         {
             "id": 1,
             "name": "vc",
             "usage": "$vc leave",
+            "has_slash_command": false,
             "description": "Leaves VC"
         },
         {
             "id": 2,
             "name": "music",
             "usage": "$music play \"<music_name>\"/<url>",
+            "has_slash_command": false,
             "description": "Plays the Music"
-        },
-        {
-            "id": 2,
-            "name": "music",
-            "usage": "$music pause",
-            "description": "Pauses the Music"
         },
         {
             "id": 3,
             "name": "music",
-            "usage": "$music resume",
-            "description": "Resumes the Music"
+            "usage": "$music pause",
+            "has_slash_command": false,
+            "description": "Pauses the Music"
         },
         {
             "id": 4,
             "name": "music",
-            "usage": "$music volume <volume>",
-            "description": "Adjusts the Volume as per given amount"
+            "usage": "$music resume",
+            "has_slash_command": false,
+            "description": "Resumes the Music"
         },
         {
             "id": 5,
             "name": "music",
+            "usage": "$music volume <volume>",
+            "has_slash_command": false,
+            "description": "Adjusts the Volume as per given amount"
+        },
+        {
+            "id": 6,
+            "name": "music",
             "usage": "$music stop",
+            "has_slash_command": false,
             "description": "Stops the Music"
         }
     ]
