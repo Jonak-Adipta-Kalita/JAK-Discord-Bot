@@ -78,7 +78,6 @@ const Home = ({ commandsData }: Props) => {
                                     </p>
                                     <p className="">Usage: {command.usage}</p>
                                     <p className="">
-                                        {console.log(command.has_slash_command)}
                                         Has Slash Command:{" "}
                                         {command.has_slash_command
                                             ? "Yes"
