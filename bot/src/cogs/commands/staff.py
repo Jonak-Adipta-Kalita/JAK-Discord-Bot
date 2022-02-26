@@ -8,6 +8,12 @@ class Staff(commands.Cog):
 
     @commands.command(hidden=True)
     async def load_cog(self, ctx: commands.Context, extension):
+        if not ctx.author.id in self.bot.owner_ids:
+            await ctx.reply(
+                "Only the Members of Dev Team are allowed to use this command!!"
+            )
+            return
+
         embed = disnake.Embed(color=disnake.Color.blue())
         self.bot.load_extension(f"src.cogs.{extension}")
         embed.add_field(
@@ -17,6 +23,12 @@ class Staff(commands.Cog):
 
     @commands.command(hidden=True)
     async def unload_cog(self, ctx: commands.Context, extension):
+        if not ctx.author.id in self.bot.owner_ids:
+            await ctx.reply(
+                "Only the Members of Dev Team are allowed to use this command!!"
+            )
+            return
+
         self.bot.unload_extension(f"src.cogs.{extension}")
         embed = disnake.Embed(color=disnake.Color.blue())
         embed.add_field(
@@ -27,6 +39,12 @@ class Staff(commands.Cog):
 
     @commands.command(hidden=True, aliases=["reload_cogs"])
     async def reload_cog(self, ctx: commands.Context, extension: str = ""):
+        if not ctx.author.id in self.bot.owner_ids:
+            await ctx.reply(
+                "Only the Members of Dev Team are allowed to use this command!!"
+            )
+            return
+
         if not extension:
 
             for cog in tuple(self.bot.extensions):
