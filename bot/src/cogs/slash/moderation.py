@@ -1,10 +1,6 @@
 import disnake, pytimeparse
 import src.core.embeds as embeds
-import src.core.functions as funcs
 from disnake.ext import commands
-
-
-prefix = funcs.get_prefix()
 
 
 class Moderation_(commands.Cog):

@@ -5,7 +5,7 @@ import src.core.embeds as embeds
 import src.core.functions as funcs
 from disnake.ext import commands
 
-prefix = funcs.get_prefix()
+prefix = funcs.get_prefixes()
 
 
 class Misc(commands.Cog):
@@ -128,7 +128,7 @@ class Misc(commands.Cog):
 
     @commands.Cog.listener("on_message")
     async def on_chatbot_message(self, message: disnake.Message):
-        if message.author == self.bot.user or message.content == f"{prefix}chatbot":
+        if message.author == self.bot.user or message.content == f"{prefix[0]}chatbot":
             return
         if self.chatbot_on and message.channel == self.chatbot_channel:
             response = await funcs.chatbot_response(message=message.content)

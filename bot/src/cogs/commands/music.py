@@ -1,9 +1,6 @@
 import disnake, youtube_dl
 import src.core.embeds as embeds
-import src.core.functions as funcs
 from disnake.ext import commands
-
-prefix = funcs.get_prefix()
 
 
 class Music(commands.Cog):

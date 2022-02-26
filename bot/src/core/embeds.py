@@ -3,13 +3,13 @@ import src.core.functions as funcs
 import src.core.emojis as emojis
 from disnake.ext import commands
 
-prefix = funcs.get_prefix()
+prefix = funcs.get_prefixes()
 
 
 def ping_bot_embed(bot_name: str, bot_avatar_url: str, servers: int) -> disnake.Embed:
     embed = disnake.Embed(
         title=f"Hello Buddy!!",
-        description=f"My Prefix is `{prefix}`\nUse `{prefix}help` to see the Help Embed!!\n\nTotal Servers = {servers}",
+        description=f"My Prefix is `{prefix[0]}`\nUse `{prefix[0]}help` to see the Help Embed!!\n\nTotal Servers = {servers}",
         color=disnake.Color.blue(),
     )
     embed.set_author(name=bot_name, icon_url=bot_avatar_url)
@@ -54,27 +54,27 @@ async def help_embed(
             )
     else:
         embed.add_field(
-            name=f"{prefix}help moderation",
+            name=f"{prefix[0]}help moderation",
             value="Show the Moderation Commands",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix}help games",
+            name=f"{prefix[0]}help games",
             value="Show the Game Commands",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix}help music",
+            name=f"{prefix[0]}help music",
             value="Show the Music Commands",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix}help fun",
+            name=f"{prefix[0]}help fun",
             value="Show the Fun Commands",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix}help misc",
+            name=f"{prefix[0]}help misc",
             value="Show the Misc Commands",
             inline=False,
         )
@@ -110,9 +110,9 @@ def commands_help_embed(
     )
     embed.add_field(
         name="Usage:",
-        value=f"`{prefix}{command.name} {command.signature}`"
+        value=f"`{prefix[0]}{command.name} {command.signature}`"
         if command.signature
-        else f"`{prefix}{command.name}`",
+        else f"`{prefix[0]}{command.name}`",
         inline=False,
     )
     embed.add_field(

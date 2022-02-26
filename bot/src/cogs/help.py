@@ -3,8 +3,6 @@ import src.core.embeds as embeds
 import src.core.functions as funcs
 from disnake.ext import commands
 
-prefix = funcs.get_prefix()
-
 
 class Dropdown(disnake.ui.Select):
     def __init__(self, ctx: commands.Context, bot: commands.Bot):

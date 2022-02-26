@@ -3,8 +3,8 @@ import src.core.emojis as emojis_list
 from pyMorseTranslator import translator as morse_translator
 
 
-def get_prefix() -> typing.Union["str", "list"]:
-    return "$"
+def get_prefixes() -> typing.List["str"]:
+    return ["$", "!JAK "]
 
 
 def translate_text(text: str) -> dict:
