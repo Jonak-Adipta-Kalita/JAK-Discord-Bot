@@ -50,7 +50,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 userGuildsRes.data.map((userGuild: Guild) => {
                     botGuildsRes.data.map(async (botGuild: Guild) => {
                         if (userGuild.id === botGuild.id && userGuild.owner) {
-                            // const allowedRoles: Role[] = [];
+                            const allowedRoles: Role[] = [];
 
                             // const rolesRes = await axios.get(
                             //     `https://discord.com/api/v8/guilds/${userGuild.id}/roles`,
@@ -73,7 +73,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
                             commonGuilds.push({
                                 ...userGuild,
-                                // roles: allowedRoles,
+                                roles: allowedRoles,
                             });
                         }
                     });
