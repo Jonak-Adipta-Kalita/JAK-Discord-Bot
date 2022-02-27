@@ -73,7 +73,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
                             commonGuilds.push({
                                 ...userGuild,
-                                // roles: rolesRes.data,
+                                // roles: allowedRoles,
                             });
                         }
                     });
