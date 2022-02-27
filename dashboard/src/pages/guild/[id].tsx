@@ -31,7 +31,10 @@ const Guild = ({ id }: Props) => {
                 {session ? (
                     <div className="">
                         {guild ? (
-                            <div className=""></div>
+                            <div className="">
+                                <div className=""></div>
+                                <div className=""></div>
+                            </div>
                         ) : (
                             <div className="mx-auto mt-5 flex justify-center md:mt-10 md:max-w-3xl lg:mt-[50px] lg:max-w-5xl">
                                 <p className="font-2xl font-bold">Loading...</p>

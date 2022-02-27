@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import NextAuth from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import axios from "axios";
-import { Guild } from "../../../types/typings";
+import { Guild, Role } from "../../../types/typings";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     return await NextAuth(req, res, {
@@ -48,9 +48,35 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 );
 
                 userGuildsRes.data.map((userGuild: Guild) => {
-                    botGuildsRes.data.map((botGuild: Guild) => {
+                    botGuildsRes.data.map(async (botGuild: Guild) => {
                         if (userGuild.id === botGuild.id && userGuild.owner) {
-                            commonGuilds.push(userGuild);
+                            const allowedRoles: Role[] = [];
+
+                            const rolesRes = await axios.get(
+                                `https://discord.com/api/v8/guilds/${userGuild.id}/roles`,
+                                {
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        Authorization: `Bot ${process.env.TOKEN}`,
+                                    },
+                                }
+                            );
+
+                            rolesRes.data.map((role: Role) => {
+                                if (
+                                    role.name !== "@everyone" &&
+                                    !role.managed
+                                ) {
+                                    allowedRoles.push(role);
+                                }
+                            });
+
+                            // commonGuilds.push({
+                            //     ...userGuild,
+                            //     roles: allowedRoles,
+                            // });
+
+                            commonGuilds.push(userGuild)
                         }
                     });
                 });
