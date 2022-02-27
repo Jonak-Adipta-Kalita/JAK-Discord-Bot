@@ -5,10 +5,22 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { Guild } from "../../types/typings";
 import { GetServerSideProps } from "next";
+import { HomeIcon, HandIcon, StopIcon } from "@heroicons/react/outline";
 
 interface Props {
     id: string;
 }
+
+const SidebarOption = ({ name, Icon }: { name: string; Icon: any }) => {
+    return (
+        <div className="flex w-[50px] cursor-pointer items-center space-x-7 rounded-lg p-2 hover:bg-gray-700 lg:w-[200px] xl:w-[240px]">
+            <Icon className="h-7 w-7"></Icon>
+            <p className="text-md flex-end hidden cursor-pointer font-semibold md:inline">
+                {name}
+            </p>
+        </div>
+    );
+};
 
 const Guild = ({ id }: Props) => {
     const { data: session } = useSession();
@@ -27,13 +39,45 @@ const Guild = ({ id }: Props) => {
                 </title>
             </Head>
             <Header />
-            <main className="flex-1 overflow-y-auto px-2 scrollbar-hide md:px-4 lg:px-6 xl:px-10">
+            <main className="flex-1 overflow-y-auto scrollbar-hide">
                 {session ? (
                     <div className="">
                         {guild ? (
-                            <div className="">
-                                <div className=""></div>
-                                <div className=""></div>
+                            <div className="flex">
+                                <div
+                                    className="flex h-screen flex-col items-center border-r-[3px]"
+                                    style={{ flex: 0.2 }}
+                                >
+                                    <div className="mt-5" />
+                                    <div className="">
+                                        <SidebarOption
+                                            name="General"
+                                            Icon={HomeIcon}
+                                        />
+                                    </div>
+                                    <div className="mt-7">
+                                        <div className="flex justify-center">
+                                            <p className="mb-4 hidden text-sm font-bold md:inline">
+                                                Server Management
+                                            </p>
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <SidebarOption
+                                                name="Welcome"
+                                                Icon={HandIcon}
+                                            />
+                                            <SidebarOption
+                                                name="Moderation"
+                                                Icon={StopIcon}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    className="mt-[10px]"
+                                    style={{ flex: 0.8 }}
+                                ></div>
                             </div>
                         ) : (
                             <div className="mx-auto mt-5 flex justify-center md:mt-10 md:max-w-3xl lg:mt-[50px] lg:max-w-5xl">
