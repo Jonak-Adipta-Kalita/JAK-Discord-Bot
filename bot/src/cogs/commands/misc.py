@@ -137,9 +137,13 @@ class Misc(commands.Cog):
     @commands.command(description="Displays the total number of Commands")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def total_commands(self, ctx: commands.Context):
-        available_commands = [
-            command for command in self.bot.commands if not command.hidden
-        ]
+        available_commands = (
+            [command for command in (await funcs.get_commands())["moderation"]]
+            + [command for command in (await funcs.get_commands())["fun"]]
+            + [command for command in (await funcs.get_commands())["misc"]]
+            + [command for command in (await funcs.get_commands())["games"]]
+            + [command for command in (await funcs.get_commands())["music"]]
+        )
         hidden_commands = [command for command in self.bot.commands if command.hidden]
 
         await ctx.reply(

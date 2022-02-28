@@ -1,8 +1,9 @@
-from urllib.request import urlopen
 import disnake
 import src.core.emojis as emojis
 import src.core.embeds as embeds
+import src.core.functions as funcs
 from disnake.ext import commands
+from urllib.request import urlopen
 
 
 class Misc_(commands.Cog):
@@ -155,9 +156,13 @@ class Misc_(commands.Cog):
     @commands.slash_command(description="Displays the total number of Commands")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def total_commands(self, inter: disnake.ApplicationCommandInteraction):
-        available_commands = [
-            command for command in self.bot.commands if not command.hidden
-        ]
+        available_commands = (
+            [command for command in (await funcs.get_commands())["moderation"]]
+            + [command for command in (await funcs.get_commands())["fun"]]
+            + [command for command in (await funcs.get_commands())["misc"]]
+            + [command for command in (await funcs.get_commands())["games"]]
+            + [command for command in (await funcs.get_commands())["music"]]
+        )
         hidden_commands = [command for command in self.bot.commands if command.hidden]
 
         await inter.response.send_message(

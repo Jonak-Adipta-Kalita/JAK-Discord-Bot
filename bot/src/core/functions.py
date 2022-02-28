@@ -126,7 +126,7 @@ async def chatbot_response(message: str) -> typing.Optional[str]:
         return "Something went Wrong!!"
 
 
-async def find_pokemon(name):
+async def find_pokemon(name) -> dict:
     async with aiohttp.ClientSession(
         headers={"Content-Type": "application/json"},
     ) as client:
@@ -145,7 +145,7 @@ async def find_pokemon(name):
     return resp
 
 
-async def find_pokemon_card(name):
+async def find_pokemon_card(name) -> dict:
     async with aiohttp.ClientSession(
         headers={"Content-Type": "application/json"},
     ) as client:
@@ -310,7 +310,7 @@ def generate_name_fact(
     return lines
 
 
-async def get_commands() -> object:
+async def get_commands() -> dict:
     async with aiohttp.ClientSession(
         headers={"Content-Type": "application/json"},
     ) as client:
