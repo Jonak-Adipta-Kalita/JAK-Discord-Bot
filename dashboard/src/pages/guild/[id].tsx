@@ -5,7 +5,12 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { Guild } from "../../types/typings";
 import { GetServerSideProps } from "next";
-import { HomeIcon, HandIcon, StopIcon } from "@heroicons/react/outline";
+import {
+    HomeIcon,
+    HandIcon,
+    StopIcon,
+    DocumentTextIcon,
+} from "@heroicons/react/outline";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { selectedSidebarOptionState } from "../../atoms/dashboard";
 
@@ -46,6 +51,8 @@ const Guild = ({ id }: Props) => {
         } else if (selectedSidebarOption === "welcome") {
             return <div className="guildBodyContainer"></div>;
         } else if (selectedSidebarOption === "moderation") {
+            return <div className="guildBodyContainer"></div>;
+        } else if (selectedSidebarOption === "rules") {
             return <div className="guildBodyContainer"></div>;
         }
     };
@@ -94,6 +101,10 @@ const Guild = ({ id }: Props) => {
                                             <SidebarOption
                                                 name="Moderation"
                                                 Icon={StopIcon}
+                                            />
+                                            <SidebarOption
+                                                name="Rules"
+                                                Icon={DocumentTextIcon}
                                             />
                                         </div>
                                     </div>
