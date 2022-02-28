@@ -42,11 +42,11 @@ const Guild = ({ id }: Props) => {
 
     const body = () => {
         if (selectedSidebarOption === "general") {
-            return <div className=""></div>;
+            return <div className="guildBodyContainer"></div>;
         } else if (selectedSidebarOption === "welcome") {
-            return <div className=""></div>;
+            return <div className="guildBodyContainer"></div>;
         } else if (selectedSidebarOption === "moderation") {
-            return <div className=""></div>;
+            return <div className="guildBodyContainer"></div>;
         }
     };
 
