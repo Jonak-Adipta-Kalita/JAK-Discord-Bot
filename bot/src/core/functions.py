@@ -1,10 +1,43 @@
 import typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials, json, requests, random
 import src.core.emojis as emojis_list
+import src.core.emojis as emojis
 from pyMorseTranslator import translator as morse_translator
 
 
-def get_prefixes() -> typing.List["str"]:
+def get_prefixes() -> typing.List[str]:
     return ["$", "!JAK "]
+
+
+def get_rules() -> typing.List[dict]:
+    embed_blank_value = "\u200b"
+    rules = [
+        {
+            "name": f"{emojis.numbers['one']}   No Negativity",
+            "description": embed_blank_value,
+        },
+        {
+            "name": f"{emojis.numbers['two']}   No Spamming",
+            "description": embed_blank_value,
+        },
+        {
+            "name": f"{emojis.numbers['three']}   No Swearing",
+            "description": embed_blank_value,
+        },
+        {
+            "name": f"{emojis.numbers['four']}   No Discriminatory Or Hate Speech",
+            "description": embed_blank_value,
+        },
+        {
+            "name": f"{emojis.numbers['five']}   No NSFW Content",
+            "description": embed_blank_value,
+        },
+        {
+            "name": f"{emojis.numbers['six']}   No Potentially Harmful Content",
+            "description": embed_blank_value,
+        },
+    ]
+
+    return rules
 
 
 def translate_text(text: str) -> dict:

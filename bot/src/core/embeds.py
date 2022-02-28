@@ -17,7 +17,8 @@ def ping_bot_embed(bot_name: str, bot_avatar_url: str, servers: int) -> disnake.
     return embed
 
 
-def rules_embed(bot_name: str, bot_avatar_url: str, rules: str) -> disnake.Embed:
+def rules_embed(bot_name: str, bot_avatar_url: str) -> disnake.Embed:
+    rules = funcs.get_rules()
     embed = disnake.Embed(
         color=disnake.Color.blue(),
     )
@@ -25,8 +26,8 @@ def rules_embed(bot_name: str, bot_avatar_url: str, rules: str) -> disnake.Embed
     embed.set_footer(text="Please Follow all the RULES!!")
     for rule in rules:
         embed.add_field(
-            name=rule[0],
-            value=rule[1],
+            name=rule["name"],
+            value=rule["description"],
             inline=False,
         )
 

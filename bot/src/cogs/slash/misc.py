@@ -9,7 +9,6 @@ from urllib.request import urlopen
 class Misc_(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.embed_blank_value: str = "\u200b"
 
     @commands.slash_command(
         description="Create a Poll",
@@ -67,26 +66,10 @@ class Misc_(commands.Cog):
     @commands.slash_command(description="Show the Rules")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def show_rules(self, inter: disnake.ApplicationCommandInteraction):
-        rules = [
-            (f"{emojis.numbers['one']}   No Negativity", self.embed_blank_value),
-            (f"{emojis.numbers['two']}   No Spamming", self.embed_blank_value),
-            (f"{emojis.numbers['three']}   No Swearing", self.embed_blank_value),
-            (
-                f"{emojis.numbers['four']}   No Discriminatory Or Hate Speech",
-                self.embed_blank_value,
-            ),
-            (f"{emojis.numbers['five']}   No NSFW Content", self.embed_blank_value),
-            (
-                f"{emojis.numbers['six']}   No Potentially Harmful Content",
-                self.embed_blank_value,
-            ),
-        ]
-
         await inter.response.send_message(
             embed=embeds.rules_embed(
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar.url,
-                rules=rules,
             )
         )
 
@@ -156,6 +139,8 @@ class Misc_(commands.Cog):
     @commands.slash_command(description="Displays the total number of Commands")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def total_commands(self, inter: disnake.ApplicationCommandInteraction):
+        await inter.response.defer()
+
         available_commands = (
             [command for command in (await funcs.get_commands())["moderation"]]
             + [command for command in (await funcs.get_commands())["fun"]]
@@ -165,7 +150,7 @@ class Misc_(commands.Cog):
         )
         hidden_commands = [command for command in self.bot.commands if command.hidden]
 
-        await inter.response.send_message(
+        await inter.edit_original_message(
             f"Available Commands: {len(available_commands)}\nHidden Commands: {len(hidden_commands)}"
         )
 

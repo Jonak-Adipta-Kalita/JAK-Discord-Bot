@@ -11,7 +11,6 @@ prefix = funcs.get_prefixes()
 class Misc(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
-        self.embed_blank_value: str = "\u200b"
         self.chatbot_on: bool = False
         self.chatbot_channel: disnake.TextChannel = None
 
@@ -40,26 +39,10 @@ class Misc(commands.Cog):
     @commands.command(aliases=["rules"], description="Show the Rules")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def show_rules(self, ctx: commands.Context):
-        rules = [
-            (f"{emojis.numbers['one']}   No Negativity", self.embed_blank_value),
-            (f"{emojis.numbers['two']}   No Spamming", self.embed_blank_value),
-            (f"{emojis.numbers['three']}   No Swearing", self.embed_blank_value),
-            (
-                f"{emojis.numbers['four']}   No Discriminatory Or Hate Speech",
-                self.embed_blank_value,
-            ),
-            (f"{emojis.numbers['five']}   No NSFW Content", self.embed_blank_value),
-            (
-                f"{emojis.numbers['six']}   No Potentially Harmful Content",
-                self.embed_blank_value,
-            ),
-        ]
-
         await ctx.reply(
             embed=embeds.rules_embed(
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar.url,
-                rules=rules,
             )
         )
 
