@@ -1,4 +1,4 @@
-import typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials, json, requests
+import typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials, json, requests, random
 import src.core.emojis as emojis_list
 from pyMorseTranslator import translator as morse_translator
 
@@ -143,6 +143,26 @@ async def find_pokemon(name):
         resp = await request.json()
 
     return resp
+
+
+async def find_pokemon_card(name):
+    async with aiohttp.ClientSession(
+        headers={"Content-Type": "application/json"},
+    ) as client:
+        try:
+            request = await client.get(
+                f"https://api.pokemontcg.io/v1/cards?name={name}",
+            )
+        except Exception:
+            pass
+
+        resp = await request.text()
+
+    cards = json.loads(resp)["cards"]
+
+    rand_int = random.randint(0, len(cards) - 1)
+
+    return cards[rand_int]
 
 
 def generate_name_fact(

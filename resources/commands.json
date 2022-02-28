@@ -113,6 +113,13 @@
             "usage": "$find_pokemon <name>",
             "has_slash_command": true,
             "description": "Find a Pokemon by Name"
+        },
+        {
+            "id": 10,
+            "name": "find_pokemon_cards",
+            "usage": "$find_pokemon_cards <name>",
+            "has_slash_command": true,
+            "description": "Find a Pokemon Card by Name"
         }
     ],
     "games": [

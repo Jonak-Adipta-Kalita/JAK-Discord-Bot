@@ -70,7 +70,10 @@ class JAKDiscordBot(commands.Bot):
                 )
             )
 
-        if len(msg) >= 3 and not (msg.startswith(funcs.get_prefixes())):
+        if len(msg) >= 3 and not (
+            msg.startswith(funcs.get_prefixes()[0])
+            or msg.startswith(funcs.get_prefixes()[1])
+        ):
             translation = funcs.translate_text(msg)
 
             if translation.src != "en":

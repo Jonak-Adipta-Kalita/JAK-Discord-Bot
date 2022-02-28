@@ -316,6 +316,16 @@ class Fun(commands.Cog):
         except Exception:
             await ctx.reply("Please provide a Valid Pokemon Name!!")
 
+    @commands.command(description="Find a Pokemon Card by Name")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def find_pokemon_card(self, ctx: commands.Context, *, name: str):
+        name: str = name.replace(" ", "-").lower()
+        try:
+            card = await funcs.find_pokemon_card(name=name)
+            await ctx.reply(embed=embeds.pokemon_card_embed(card=card))
+        except Exception:
+            await ctx.reply("Please provide a Valid Pokemon Card Name!!")
+
     @commands.command(description="Choose between 2 Options")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def choose(self, ctx: commands.Context, option1: str, option2: str):

@@ -357,6 +357,15 @@ def pokemon_embed(pokemon: dict) -> disnake.Embed:
     return embed
 
 
+def pokemon_card_embed(card: dict) -> disnake.Embed:
+    embed = disnake.Embed(
+        color=disnake.Color.blue(),
+    )
+    embed.set_image(url=card["imageUrlHiRes"])
+
+    return embed
+
+
 def servers_in_embed(servers: typing.List[disnake.Guild]) -> disnake.Embed:
     servers_name = []
     number = 0

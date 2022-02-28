@@ -111,6 +111,16 @@ class Fun_(commands.Cog):
             )
         except Exception:
             await inter.response.send_message("Please provide a Valid Pokemon Name!!")
+    
+    @commands.command(description="Find a Pokemon Card by Name")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def find_pokemon_card(self, inter: disnake.ApplicationCommandInteraction, *, name: str):
+        name: str = name.replace(" ", "-").lower()
+        try:
+            card = await funcs.find_pokemon_card(name=name)
+            await inter.response.send_message(embed=embeds.pokemon_card_embed(card=card))
+        except Exception:
+            await inter.response.send_message("Please provide a Valid Pokemon Card Name!!")
 
     @commands.command(
         description="Choose between 2 Options",
