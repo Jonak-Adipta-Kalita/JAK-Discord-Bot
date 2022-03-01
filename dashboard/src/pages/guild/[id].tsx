@@ -10,9 +10,12 @@ import {
     HandIcon,
     StopIcon,
     DocumentTextIcon,
+    HeartIcon,
+    StarIcon,
 } from "@heroicons/react/outline";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { selectedSidebarOptionState } from "../../atoms/dashboard";
+import TrophyIcon from "../../components/icons/TrophyIcon";
 
 interface Props {
     id: string;
@@ -32,7 +35,7 @@ const SidebarOption = ({ name, Icon }: { name: string; Icon: any }) => {
             } lg:w-[200px] xl:w-[240px]`}
             onClick={() => setSelectedSidebarOption(name.toLowerCase())}
         >
-            <Icon className="h-7 w-7"></Icon>
+            <Icon className="h-7 w-7 text-gray-300"></Icon>
             <p className="text-md flex-end hidden cursor-pointer font-semibold lg:inline">
                 {name}
             </p>
@@ -53,6 +56,12 @@ const Guild = ({ id }: Props) => {
         } else if (selectedSidebarOption === "moderation") {
             return <div className="guildBodyContainer"></div>;
         } else if (selectedSidebarOption === "rules") {
+            return <div className="guildBodyContainer"></div>;
+        } else if (selectedSidebarOption === "reaction roles") {
+            return <div className="guildBodyContainer"></div>;
+        } else if (selectedSidebarOption === "experience") {
+            return <div className="guildBodyContainer"></div>;
+        } else if (selectedSidebarOption === "reputation") {
             return <div className="guildBodyContainer"></div>;
         }
     };
@@ -105,6 +114,28 @@ const Guild = ({ id }: Props) => {
                                             <SidebarOption
                                                 name="Rules"
                                                 Icon={DocumentTextIcon}
+                                            />
+                                            <SidebarOption
+                                                name="Reaction Roles"
+                                                Icon={HeartIcon}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="mt-7">
+                                        <div className="flex justify-center">
+                                            <p className="mb-4 hidden text-sm font-bold lg:inline">
+                                                Fun
+                                            </p>
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <SidebarOption
+                                                name="Experience"
+                                                Icon={TrophyIcon}
+                                            />
+                                            <SidebarOption
+                                                name="Reputation"
+                                                Icon={StarIcon}
                                             />
                                         </div>
                                     </div>
