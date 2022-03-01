@@ -149,7 +149,7 @@ const Guild = ({ id }: Props) => {
                                             />
                                         </div>
                                     </div>
-                                    <div className="mt-7">
+                                    <div className="mt-4">
                                         <div className="flex justify-center">
                                             <p className="mb-4 hidden text-sm font-bold lg:inline">
                                                 Fun
