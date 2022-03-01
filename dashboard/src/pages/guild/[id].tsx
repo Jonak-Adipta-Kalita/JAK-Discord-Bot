@@ -50,19 +50,47 @@ const Guild = ({ id }: Props) => {
 
     const body = () => {
         if (selectedSidebarOption === "general") {
-            return <div className="guildBodyContainer"></div>;
+            return (
+                <div className="guildBodyContainer">
+                    <p className="">Still in Development</p>
+                </div>
+            );
         } else if (selectedSidebarOption === "welcome") {
-            return <div className="guildBodyContainer"></div>;
+            return (
+                <div className="guildBodyContainer">
+                    <p className="">Still in Development</p>
+                </div>
+            );
         } else if (selectedSidebarOption === "moderation") {
-            return <div className="guildBodyContainer"></div>;
+            return (
+                <div className="guildBodyContainer">
+                    <p className="">Still in Development</p>
+                </div>
+            );
         } else if (selectedSidebarOption === "rules") {
-            return <div className="guildBodyContainer"></div>;
+            return (
+                <div className="guildBodyContainer">
+                    <p className="">Still in Development</p>
+                </div>
+            );
         } else if (selectedSidebarOption === "reaction roles") {
-            return <div className="guildBodyContainer"></div>;
+            return (
+                <div className="guildBodyContainer">
+                    <p className="">Still in Development</p>
+                </div>
+            );
         } else if (selectedSidebarOption === "experience") {
-            return <div className="guildBodyContainer"></div>;
+            return (
+                <div className="guildBodyContainer">
+                    <p className="">Still in Development</p>
+                </div>
+            );
         } else if (selectedSidebarOption === "reputation") {
-            return <div className="guildBodyContainer"></div>;
+            return (
+                <div className="guildBodyContainer">
+                    <p className="">Still in Development</p>
+                </div>
+            );
         }
     };
 
