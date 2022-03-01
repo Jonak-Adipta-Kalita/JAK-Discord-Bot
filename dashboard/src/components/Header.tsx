@@ -22,7 +22,7 @@ const Header = () => {
                     height={60}
                     width={60}
                 />
-                <p className="cursor-pointer font-bold text-white">
+                <p className="cursor-pointer text-xs font-bold text-white sm:text-sm md:text-base">
                     JAK Discord Bot
                 </p>
             </div>

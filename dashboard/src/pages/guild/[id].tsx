@@ -12,10 +12,12 @@ import {
     DocumentTextIcon,
     HeartIcon,
     StarIcon,
+    TranslateIcon,
 } from "@heroicons/react/outline";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { selectedSidebarOptionState } from "../../atoms/dashboard";
 import TrophyIcon from "../../components/icons/TrophyIcon";
+import BotIcon from "../../components/icons/BotIcon";
 
 interface Props {
     id: string;
@@ -79,6 +81,12 @@ const Guild = ({ id }: Props) => {
                     <p className="">Still in Development</p>
                 </div>
             );
+        } else if (selectedSidebarOption === "translation & pronunciation") {
+            return (
+                <div className="guildBodyContainer">
+                    <p className="">Still in Development</p>
+                </div>
+            );
         } else if (selectedSidebarOption === "experience") {
             return (
                 <div className="guildBodyContainer">
@@ -86,6 +94,12 @@ const Guild = ({ id }: Props) => {
                 </div>
             );
         } else if (selectedSidebarOption === "reputation") {
+            return (
+                <div className="guildBodyContainer">
+                    <p className="">Still in Development</p>
+                </div>
+            );
+        } else if (selectedSidebarOption === "chatbot") {
             return (
                 <div className="guildBodyContainer">
                     <p className="">Still in Development</p>
@@ -147,9 +161,14 @@ const Guild = ({ id }: Props) => {
                                                 name="Reaction Roles"
                                                 Icon={HeartIcon}
                                             />
+                                            <SidebarOption
+                                                name="Translation and Pronunciation"
+                                                Icon={TranslateIcon}
+                                            />
                                         </div>
                                     </div>
-                                    <div className="mt-4">
+                                    <div className="mt-5" />
+                                    <div className="">
                                         <div className="flex justify-center">
                                             <p className="mb-4 hidden text-sm font-bold lg:inline">
                                                 Fun
@@ -164,6 +183,10 @@ const Guild = ({ id }: Props) => {
                                             <SidebarOption
                                                 name="Reputation"
                                                 Icon={StarIcon}
+                                            />
+                                            <SidebarOption
+                                                name="Chatbot"
+                                                Icon={BotIcon}
                                             />
                                         </div>
                                     </div>
