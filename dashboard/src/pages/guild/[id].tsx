@@ -45,6 +45,78 @@ const SidebarOption = ({ name, Icon }: { name: string; Icon: any }) => {
     );
 };
 
+const General = () => {
+    return (
+        <div className="guildBodyContainer">
+            <p className="">Still in Development</p>
+        </div>
+    );
+};
+
+const Welcome = () => {
+    return (
+        <div className="guildBodyContainer">
+            <p className="">Still in Development</p>
+        </div>
+    );
+};
+
+const Moderation = () => {
+    return (
+        <div className="guildBodyContainer">
+            <p className="">Still in Development</p>
+        </div>
+    );
+};
+
+const Rules = () => {
+    return (
+        <div className="guildBodyContainer">
+            <p className="">Still in Development</p>
+        </div>
+    );
+};
+
+const ReactionRoles = () => {
+    return (
+        <div className="guildBodyContainer">
+            <p className="">Still in Development</p>
+        </div>
+    );
+};
+
+const TranslationAndPronunciation = () => {
+    return (
+        <div className="guildBodyContainer">
+            <p className="">Still in Development</p>
+        </div>
+    );
+};
+
+const Experience = () => {
+    return (
+        <div className="guildBodyContainer">
+            <p className="">Still in Development</p>
+        </div>
+    );
+};
+
+const Reputation = () => {
+    return (
+        <div className="guildBodyContainer">
+            <p className="">Still in Development</p>
+        </div>
+    );
+};
+
+const Chatbot = () => {
+    return (
+        <div className="guildBodyContainer">
+            <p className="">Still in Development</p>
+        </div>
+    );
+};
+
 const Guild = ({ id }: Props) => {
     const { data: session } = useSession();
     const [guild, setGuild] = useState<Guild | undefined | null>(null);
@@ -52,59 +124,23 @@ const Guild = ({ id }: Props) => {
 
     const body = () => {
         if (selectedSidebarOption === "general") {
-            return (
-                <div className="guildBodyContainer">
-                    <p className="">Still in Development</p>
-                </div>
-            );
+            return <General />;
         } else if (selectedSidebarOption === "welcome") {
-            return (
-                <div className="guildBodyContainer">
-                    <p className="">Still in Development</p>
-                </div>
-            );
+            return <Welcome />;
         } else if (selectedSidebarOption === "moderation") {
-            return (
-                <div className="guildBodyContainer">
-                    <p className="">Still in Development</p>
-                </div>
-            );
+            return <Moderation />;
         } else if (selectedSidebarOption === "rules") {
-            return (
-                <div className="guildBodyContainer">
-                    <p className="">Still in Development</p>
-                </div>
-            );
+            return <Rules />;
         } else if (selectedSidebarOption === "reaction roles") {
-            return (
-                <div className="guildBodyContainer">
-                    <p className="">Still in Development</p>
-                </div>
-            );
-        } else if (selectedSidebarOption === "translation & pronunciation") {
-            return (
-                <div className="guildBodyContainer">
-                    <p className="">Still in Development</p>
-                </div>
-            );
+            return <ReactionRoles />;
+        } else if (selectedSidebarOption === "translation and pronunciation") {
+            return <TranslationAndPronunciation />;
         } else if (selectedSidebarOption === "experience") {
-            return (
-                <div className="guildBodyContainer">
-                    <p className="">Still in Development</p>
-                </div>
-            );
+            return <Experience />;
         } else if (selectedSidebarOption === "reputation") {
-            return (
-                <div className="guildBodyContainer">
-                    <p className="">Still in Development</p>
-                </div>
-            );
+            return <Reputation />;
         } else if (selectedSidebarOption === "chatbot") {
-            return (
-                <div className="guildBodyContainer">
-                    <p className="">Still in Development</p>
-                </div>
-            );
+            return <Chatbot />;
         }
     };
 
