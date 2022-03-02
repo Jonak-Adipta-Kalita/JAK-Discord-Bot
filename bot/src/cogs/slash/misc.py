@@ -1,4 +1,4 @@
-import disnake, inspect
+import disnake, inspect, credentials
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 import src.core.functions as funcs
@@ -200,7 +200,15 @@ class Misc_(commands.Cog):
         cmd = self.bot.get_command(command)
         if cmd:
             source = inspect.unwrap(cmd.callback).__code__
-            main_path = "".join(inspect.getfile(source).split("app/")[1])
+            main_path = (
+                f"bot/{''.join(inspect.getfile(source).split('app/')[1])}"
+                if not credentials.LOCAL
+                else "".join(
+                    inspect.getfile(source)
+                    .split("JAK Discord Bot\\")[1]
+                    .replace("\\", "/")
+                )
+            )
             line_no = inspect.getsourcelines(source)[1]
             await ctx.reply(
                 f"https://github.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/tree/main/{main_path}#L{line_no}"

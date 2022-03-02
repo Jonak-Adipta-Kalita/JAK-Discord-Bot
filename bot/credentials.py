@@ -2,6 +2,7 @@ from decouple import config
 
 TOKEN = config("TOKEN")
 CHATBOT_KEY = config("CHATBOT_KEY")
+LOCAL = False if config("LOCAL").lower() == "false" else True
 
 FIREBASE_TYPE = config("FIREBASE_TYPE")
 FIREBASE_PROJECT_ID = config("FIREBASE_PROJECT_ID")

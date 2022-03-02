@@ -1,3 +1,4 @@
+from xmlrpc.client import boolean
 import disnake, os, googletrans, asyncio, itertools, credentials
 import src.core.functions as funcs
 import src.core.embeds as embeds
@@ -9,7 +10,6 @@ from disnake.ext import commands
 class JAKDiscordBot(commands.Bot):
     def __init__(self, command_prefix: any, intents: disnake.Intents):
         self.prefix = funcs.get_prefixes()
-        # self.db: firebase_admin.firestore._FirestoreClient = None
         self.db = None
 
         super().__init__(
