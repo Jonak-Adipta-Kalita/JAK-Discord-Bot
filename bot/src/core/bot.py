@@ -7,7 +7,6 @@ from disnake.ext import commands
 class JAKDiscordBot(commands.Bot):
     def __init__(self, command_prefix: any, intents: disnake.Intents):
         self.prefix = funcs.get_prefixes()
-        self.servers = None
 
         super().__init__(
             command_prefix=command_prefix, intents=intents, help_command=None
@@ -31,12 +30,11 @@ class JAKDiscordBot(commands.Bot):
         print("Bot is Disconnected!!")
 
     async def on_ready(self):
-        self.servers = self.guilds
         statuses = [
             ("listening", f"{self.prefix[0]}help"),
             (
                 "watching",
-                f"{len(self.servers)} {'Servers' if len(self.servers) != 1 else 'Server'}!!",
+                f"{len(self.guilds)} {'Servers' if len(self.guilds) != 1 else 'Server'}!!",
             ),
         ]
         for type, message in itertools.cycle(statuses):
@@ -65,7 +63,7 @@ class JAKDiscordBot(commands.Bot):
                 embed=embeds.ping_bot_embed(
                     bot_name=self.user.name,
                     bot_avatar_url=self.user.avatar.url,
-                    servers=len(self.servers),
+                    servers=len(self.guilds),
                 )
             )
 
