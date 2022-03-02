@@ -1,11 +1,11 @@
 import disnake
+from src.core.bot import JAKDiscordBot
 import src.core.embeds as embeds
-import src.core.functions as funcs
 from disnake.ext import commands
 
 
 class Dropdown(disnake.ui.Select):
-    def __init__(self, ctx: commands.Context, bot: commands.Bot):
+    def __init__(self, ctx: commands.Context, bot: JAKDiscordBot):
         self.ctx = ctx
         self.bot = bot
 
@@ -76,13 +76,13 @@ class Dropdown(disnake.ui.Select):
 
 
 class DropdownView(disnake.ui.View):
-    def __init__(self, ctx: commands.Context, bot: commands.Bot):
+    def __init__(self, ctx: commands.Context, bot: JAKDiscordBot):
         super().__init__(timeout=None)
         self.add_item(Dropdown(ctx, bot))
 
 
 class Help(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
 
     @commands.group(invoke_without_command=True, description="Show the Help Menu")
@@ -171,5 +171,5 @@ class Help(commands.Cog):
         )
 
 
-def setup(bot: commands.Bot):
+def setup(bot: JAKDiscordBot):
     bot.add_cog(Help(bot))

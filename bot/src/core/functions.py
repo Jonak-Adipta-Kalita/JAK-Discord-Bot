@@ -1,4 +1,4 @@
-import disnake, typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials, json, requests, random, firebase
+import disnake, typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials, json, requests, random, src.core.firebase
 import src.core.emojis as emojis_list
 import src.core.emojis as emojis
 from pyMorseTranslator import translator as morse_translator

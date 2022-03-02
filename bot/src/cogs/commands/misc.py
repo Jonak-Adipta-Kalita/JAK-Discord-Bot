@@ -3,13 +3,14 @@ import disnake, asyncio, urllib
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 import src.core.functions as funcs
+from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 
 prefix = funcs.get_prefixes()
 
 
 class Misc(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
         self.chatbot_on: bool = False
         self.chatbot_channel: disnake.TextChannel = None
@@ -162,5 +163,5 @@ class Misc(commands.Cog):
         await ctx.reply(f"```{code_response}```")
 
 
-def setup(bot: commands.Bot):
+def setup(bot: JAKDiscordBot):
     bot.add_cog(Misc(bot))

@@ -1,10 +1,11 @@
 import disnake, random, requests
 import src.core.embeds as embeds
+from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 
 
 class Games_(commands.Cog):
-    def __init__(self, bot: commands.Bot, _8ball_responses: list):
+    def __init__(self, bot: JAKDiscordBot, _8ball_responses: list):
         self.bot = bot
         self._8ball_responses = _8ball_responses
 
@@ -80,7 +81,7 @@ class Games_(commands.Cog):
             )
 
 
-def setup(bot: commands.Bot):
+def setup(bot: JAKDiscordBot):
     _8ball_responses = requests.get(
         "https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/8ballResponses.txt"
     ).text.splitlines()

@@ -1,9 +1,10 @@
 import disnake
+from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 
 
 class Staff(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
 
     @commands.command(hidden=True)
@@ -67,5 +68,5 @@ class Staff(commands.Cog):
             await ctx.send(embed=embed)
 
 
-def setup(bot: commands.Bot):
+def setup(bot: JAKDiscordBot):
     bot.add_cog(Staff(bot))

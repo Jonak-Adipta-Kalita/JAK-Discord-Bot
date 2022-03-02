@@ -1,10 +1,11 @@
 import disnake, pytimeparse, requests
 import src.core.embeds as embeds
+from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 
 
 class Moderation(commands.Cog):
-    def __init__(self, bot: commands.Bot, bad_words: list):
+    def __init__(self, bot: JAKDiscordBot, bad_words: list):
         self.bot = bot
         self.bad_words = bad_words
 
@@ -133,7 +134,7 @@ class Moderation(commands.Cog):
                     break
 
 
-def setup(bot: commands.Bot):
+def setup(bot: JAKDiscordBot):
     bad_words = []
 
     bad_words = requests.get(

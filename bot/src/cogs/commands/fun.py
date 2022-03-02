@@ -3,12 +3,13 @@ import src.core.embeds as embeds
 import src.core.functions as funcs
 import src.core.files as files
 import src.core.calculator as calc
+from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 from PIL import Image, ImageDraw, ImageFont
 
 
 class Fun(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
         self.together_control: discord_together.DiscordTogether = None
 
@@ -409,5 +410,5 @@ class Fun(commands.Cog):
             os.remove(f"name_fact/{author_id}.png")
 
 
-def setup(bot: commands.Bot):
+def setup(bot: JAKDiscordBot):
     bot.add_cog(Fun(bot))

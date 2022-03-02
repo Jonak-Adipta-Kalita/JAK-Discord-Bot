@@ -1,11 +1,12 @@
 import disnake, random, asyncio, requests
 import src.core.emojis as emojis
 import src.core.embeds as embeds
+from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 
 
 class Games(commands.Cog):
-    def __init__(self, bot: commands.Bot, _8ball_responses: list, hangman_words: list):
+    def __init__(self, bot: JAKDiscordBot, _8ball_responses: list, hangman_words: list):
         self.bot = bot
 
         self._8ball_responses = _8ball_responses
@@ -278,7 +279,7 @@ class Games(commands.Cog):
             await ctx.reply("The Move must be `rock` `paper` or `scissor`")
 
 
-def setup(bot: commands.Bot):
+def setup(bot: JAKDiscordBot):
     hangman_words = requests.get(
         "https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/hangmanWords.txt"
     ).text.splitlines()

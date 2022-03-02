@@ -2,12 +2,13 @@ import disnake
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 import src.core.functions as funcs
+from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 from urllib.request import urlopen
 
 
 class Misc_(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
 
     @commands.slash_command(
@@ -184,5 +185,5 @@ class Misc_(commands.Cog):
         await ctx.response.send_message(f"Your Shortened URL: {shortened_url}")
 
 
-def setup(bot: commands.Bot):
+def setup(bot: JAKDiscordBot):
     bot.add_cog(Misc_(bot))

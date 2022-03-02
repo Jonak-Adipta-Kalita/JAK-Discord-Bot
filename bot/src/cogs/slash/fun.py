@@ -3,12 +3,13 @@ import src.core.embeds as embeds
 import src.core.files as files
 import src.core.functions as funcs
 import src.core.calculator as calc
+from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 from PIL import Image, ImageDraw, ImageFont
 
 
 class Fun_(commands.Cog):
-    def __init__(self, bot: commands.Bot):
+    def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
 
     @commands.slash_command(
@@ -270,5 +271,5 @@ class Fun_(commands.Cog):
         )
 
 
-def setup(bot: commands.Bot):
+def setup(bot: JAKDiscordBot):
     bot.add_cog(Fun_(bot))
