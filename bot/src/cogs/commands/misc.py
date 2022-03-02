@@ -6,8 +6,6 @@ import src.core.functions as funcs
 from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 
-prefix = funcs.get_prefixes()
-
 
 class Misc(commands.Cog):
     def __init__(self, bot: JAKDiscordBot):
@@ -112,7 +110,7 @@ class Misc(commands.Cog):
 
     @commands.Cog.listener("on_message")
     async def on_chatbot_message(self, message: disnake.Message):
-        if message.author == self.bot.user or message.content == f"{prefix[0]}chatbot":
+        if message.author == self.bot.user or message.content == f"{self.bot.prefixes[0]}chatbot":
             return
         if self.chatbot_on and message.channel == self.chatbot_channel:
             response = await funcs.chatbot_response(message=message.content)

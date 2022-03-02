@@ -9,7 +9,7 @@ from disnake.ext import commands
 
 class JAKDiscordBot(commands.Bot):
     def __init__(self, command_prefix: any, intents: disnake.Intents):
-        self.prefix = funcs.get_prefixes()
+        self.prefixes = funcs.get_prefixes()
         self.db = None
 
         super().__init__(
@@ -35,7 +35,7 @@ class JAKDiscordBot(commands.Bot):
 
     async def on_ready(self):
         statuses = [
-            ("listening", f"{self.prefix[0]}help"),
+            ("listening", f"{self.prefixes[0]}help"),
             (
                 "watching",
                 f"{len(self.guilds)} {'Servers' if len(self.guilds) != 1 else 'Server'}!!",
@@ -91,8 +91,8 @@ class JAKDiscordBot(commands.Bot):
             )
 
         if len(msg) >= 3 and not (
-            msg.startswith(funcs.get_prefixes()[0])
-            or msg.startswith(funcs.get_prefixes()[1])
+            msg.startswith(self.prefixes[0])
+            or msg.startswith(self.prefixes[1])
         ):
             translation = funcs.translate_text(msg)
 
