@@ -264,6 +264,13 @@
             "usage": "$execute_code <language> <code>",
             "has_slash_command": false,
             "description": "Execute some Code"
+        },
+        {
+            "id": 13,
+            "name": "source_code",
+            "usage": "$source_code <command>",
+            "has_slash_command": true,
+            "description": "Get the Source Code of a command"
         }
     ],
     "music": [

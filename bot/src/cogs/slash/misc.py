@@ -1,4 +1,4 @@
-import disnake
+import disnake, inspect
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 import src.core.functions as funcs
@@ -183,6 +183,29 @@ class Misc_(commands.Cog):
         )
 
         await ctx.response.send_message(f"Your Shortened URL: {shortened_url}")
+
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    @commands.slash_command(
+        description="Get the Source Code of a command",
+        options=[
+            disnake.Option(
+                name="command",
+                description="Command Name!!",
+                type=disnake.OptionType.string,
+                required=True,
+            )
+        ],
+    )
+    async def source_code(self, ctx: commands.Context, command):
+        cmd = self.bot.get_command(command)
+        if cmd:
+            source = inspect.unwrap(cmd.callback).__code__
+            main_path = "".join(inspect.getfile(source).split("JAK-Discord-Bot/")[1])
+            await ctx.reply(
+                f"https://github.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/tree/main/{main_path}#L{inspect.getsourcelines(source)[1]}"
+            )
+        else:
+            await ctx.reply("No Command Found!!")
 
 
 def setup(bot: JAKDiscordBot):

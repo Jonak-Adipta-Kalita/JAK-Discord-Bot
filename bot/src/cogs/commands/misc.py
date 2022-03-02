@@ -1,5 +1,5 @@
 from urllib.request import urlopen
-import disnake, asyncio, urllib
+import disnake, asyncio, inspect
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 import src.core.functions as funcs
@@ -161,6 +161,19 @@ class Misc(commands.Cog):
         code_response = funcs.get_code_output(language, code_edited)
 
         await ctx.reply(f"```{code_response}```")
+
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    @commands.command(description="Get the Source Code of a command")
+    async def source_code(self, ctx: commands.Context, command):
+        cmd = self.bot.get_command(command)
+        if cmd:
+            source = inspect.unwrap(cmd.callback).__code__
+            main_path = "".join(inspect.getfile(source).split("JAK-Discord-Bot/")[1])
+            await ctx.reply(
+                f"https://github.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/tree/main/{main_path}#L{inspect.getsourcelines(source)[1]}"
+            )
+        else:
+            await ctx.reply("No Command Found!!")
 
 
 def setup(bot: JAKDiscordBot):
