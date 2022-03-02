@@ -3,7 +3,8 @@ import firebase_admin.firestore
 import firebase_admin.credentials
 import credentials
 
-credential = firebase_admin.credentials.Certificate(
+app = (
+    firebase_admin.initialize_app(credential=firebase_admin.credentials.Certificate(
     {
         "type": credentials.FIREBASE_TYPE,
         "project_id": credentials.FIREBASE_PROJECT_ID,
@@ -16,10 +17,9 @@ credential = firebase_admin.credentials.Certificate(
         "auth_provider_x509_cert_url": credentials.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
         "client_x509_cert_url": credentials.FIREBASE_CLIENT_X509_CERT_URL,
     }
-)
-app = (
-    firebase_admin.initialize_app(credential)
-    if not firebase_admin.get_app()
+))
+    if not len(firebase_admin._apps)
     else firebase_admin.get_app()
 )
+
 db = firebase_admin.firestore.client(app=app)
