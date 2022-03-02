@@ -13,6 +13,7 @@ import {
     HeartIcon,
     StarIcon,
     TranslateIcon,
+    SparklesIcon,
 } from "@heroicons/react/outline";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { selectedSidebarOptionState } from "../../atoms/dashboard";
@@ -117,6 +118,14 @@ const Chatbot = () => {
     );
 };
 
+const Giveaway = () => {
+    return (
+        <div className="guildBodyContainer">
+            <p className="">Still in Development</p>
+        </div>
+    );
+};
+
 const Guild = ({ id }: Props) => {
     const { data: session } = useSession();
     const [guild, setGuild] = useState<Guild | undefined | null>(null);
@@ -141,6 +150,8 @@ const Guild = ({ id }: Props) => {
             return <Reputation />;
         } else if (selectedSidebarOption === "chatbot") {
             return <Chatbot />;
+        } else if (selectedSidebarOption === "giveaway") {
+            return <Giveaway />;
         }
     };
 
@@ -222,6 +233,10 @@ const Guild = ({ id }: Props) => {
                                             <SidebarOption
                                                 name="Chatbot"
                                                 Icon={BotIcon}
+                                            />
+                                            <SidebarOption
+                                                name="Giveaway"
+                                                Icon={SparklesIcon}
                                             />
                                         </div>
                                     </div>
