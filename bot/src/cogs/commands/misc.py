@@ -110,7 +110,10 @@ class Misc(commands.Cog):
 
     @commands.Cog.listener("on_message")
     async def on_chatbot_message(self, message: disnake.Message):
-        if message.author == self.bot.user or message.content == f"{self.bot.prefixes[0]}chatbot":
+        if message.author == self.bot.user or (
+            message.content == f"{self.bot.prefixes[0]}chatbot"
+            or message.content == f"{self.bot.prefixes[1]}chatbot"
+        ):
             return
         if self.chatbot_on and message.channel == self.chatbot_channel:
             response = await funcs.chatbot_response(message=message.content)
@@ -181,6 +184,11 @@ class Misc(commands.Cog):
             )
         else:
             await ctx.reply("No Command Found!!")
+
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    @commands.command(description="Display all the Prefixes usable for this server")
+    async def prefixes(self, ctx: commands.Context):
+        await ctx.reply(", ".join(self.bot.prefixes))
 
 
 def setup(bot: JAKDiscordBot):

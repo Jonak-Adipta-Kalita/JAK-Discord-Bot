@@ -5,11 +5,10 @@ from pyMorseTranslator import translator as morse_translator
 
 
 def get_prefixes(guild: disnake.Guild = None) -> typing.List[str]:
-    prefixes = ["!JAK "]
+    prefixes = ["$", "!JAK "]
+
     if guild:
         pass
-    else:
-        prefixes.append("$")
 
     return prefixes
 

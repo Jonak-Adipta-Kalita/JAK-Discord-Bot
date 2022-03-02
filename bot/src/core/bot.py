@@ -8,12 +8,14 @@ from disnake.ext import commands
 
 
 class JAKDiscordBot(commands.Bot):
-    def __init__(self, command_prefix: any, intents: disnake.Intents):
+    def __init__(self):
         self.prefixes = funcs.get_prefixes()
         self.db = None
 
         super().__init__(
-            command_prefix=command_prefix, intents=intents, help_command=None
+            command_prefix=commands.bot.when_mentioned_or(*self.prefixes),
+            intents=disnake.Intents.all(),
+            help_command=None,
         )
 
         self.load_extension("src.cogs.help")
