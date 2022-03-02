@@ -62,6 +62,18 @@ Follow this: [https://some-random-api.ml/docs/Welcome/Keys](https://some-random-
 
 ### Getting JWT_SECRET
 
+Use the [passwordgenerator](https://passwordsgenerator.net/) website to generate your secret.
+
+### Getting the Firebase Credentials
+
+Go to [Firebase Console](http://console.firebase.google.com/) and create a Project. Enable
+Google Analytics. Now click on the Web Icon and create an app. After you created an app
+click on the cog icon in the sidebar and click on `Project settings`. Scroll to the Bottom
+where you will find your app now click on Config. Copy the Config. It will give some of the credentials,
+to get the other credentials click on `Service accounts` in `Project settings`. After that click on
+`Generate new private key`. This will download a JSON file, you will get the remaining Credentials from
+that JSON file.
+
 ### Creating the Bot:
 
 Create `bot/.env` and `dashboard/.env.local`. Now go to [Discord Developers Portal](https://discord.com/developers/applications) and create a new application.
@@ -76,13 +88,16 @@ TOKEN=<YOUR_BOT_TOKEN>
 CHATBOT_KEY=<YOUR_CHATBOT_KEY>
 
 # Firebase
-FIREBASE_API_KEY=<YOUR_FIREBASE_API_KEY>
-FIREBASE_AUTH_DOMAIN=<YOUR_FIREBASE_AUTH_DOMAIN>
+FIREBASE_TYPE=<YOUR_FIREBASE_TYPE>
 FIREBASE_PROJECT_ID=<YOUR_FIREBASE_PROJECT_ID>
-FIREBASE_STORAGE_BUCKET=<YOUR_FIREBASE_STORAGE_BUCKET>
-FIREBASE_MESSAGING_SENDER_ID=<YOUR_FIREBASE_MESSAGE_SENDER_ID>
-FIREBASE_APP_ID=<YOUR_FIREBASE_APP_ID>
-FIREBASE_MEASUREMENT_ID=<YOUR_FIREBASE_MEASUREMENT_ID>
+FIREBASE_PRIVATE_KEY_ID=<YOUR_FIREBASE_PRIVATE_KEY_ID>
+FIREBASE_PRIVATE_KEY=<YOUR_FIREBASE_PRIVATE_KEY>
+FIREBASE_CLIENT_EMAIL=<YOUR_FIREBASE_CLIENT_EMAIL>
+FIREBASE_CLIENT_ID=<YOUR_FIREBASE_CLIENT_ID>
+FIREBASE_AUTH_URI=<YOUR_FIREBASE_AUTH_URI>
+FIREBASE_TOKEN_URI=<YOUR_FIREBASE_TOKEN_URI>
+FIREBASE_AUTH_PROVIDER_X509_CERT_URL=<YOUR_FIREBASE_AUTH_PROVIDER_X509_CERT_URL>
+FIREBASE_CLIENT_X509_CERT_URL=<YOUR_FIREBASE_CLIENT_X509_CERT_URL>
 ```
 
 For `dashboard/.env.local`
