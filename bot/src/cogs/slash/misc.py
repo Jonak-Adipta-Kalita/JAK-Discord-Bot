@@ -196,7 +196,7 @@ class Misc_(commands.Cog):
             )
         ],
     )
-    async def source_code(self, ctx: commands.Context, command):
+    async def source_code(self, inter: disnake.ApplicationCommandInteraction, command):
         cmd = self.bot.get_command(command)
         if cmd:
             source = inspect.unwrap(cmd.callback).__code__
@@ -210,11 +210,16 @@ class Misc_(commands.Cog):
                 )
             )
             line_no = inspect.getsourcelines(source)[1]
-            await ctx.reply(
+            await inter.response.send_message(
                 f"https://github.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/tree/main/{main_path}#L{line_no}"
             )
         else:
-            await ctx.reply("No Command Found!!")
+            await inter.response.send_message("No Command Found!!")
+
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    @commands.slash_command(description="Display all the Prefixes usable for this server")
+    async def prefixes(self, inter: disnake.ApplicationCommandInteraction):
+        await inter.response.send_message(", ".join(self.bot.prefixes))
 
 
 def setup(bot: JAKDiscordBot):

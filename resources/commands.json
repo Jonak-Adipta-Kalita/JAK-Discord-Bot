@@ -271,6 +271,13 @@
             "usage": "$source_code <command>",
             "has_slash_command": true,
             "description": "Get the Source Code of a command"
+        },
+        {
+            "id": 14,
+            "name": "prefixes",
+            "usage": "$prefixes",
+            "has_slash_command": true,
+            "description": "Display the Prefixes"
         }
     ],
     "music": [
