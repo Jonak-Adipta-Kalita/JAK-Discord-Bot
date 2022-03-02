@@ -169,8 +169,10 @@ class Misc(commands.Cog):
         if cmd:
             source = inspect.unwrap(cmd.callback).__code__
             main_path = "".join(inspect.getfile(source).split("JAK-Discord-Bot/")[1])
+            line_no = inspect.getsourcelines(source)[1]
+            print("".join(inspect.getfile(source).split("JAK-Discord-Bot/")))
             await ctx.reply(
-                f"https://github.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/tree/main/{main_path}#L{inspect.getsourcelines(source)[1]}"
+                f"https://github.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/tree/main/{main_path}#L{line_no}"
             )
         else:
             await ctx.reply("No Command Found!!")
