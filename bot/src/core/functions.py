@@ -1,10 +1,10 @@
-import disnake, typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials, json, requests, random, src.core.firebase
+import disnake, typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials, json, requests, random
 import src.core.emojis as emojis_list
 import src.core.emojis as emojis
 from pyMorseTranslator import translator as morse_translator
 
 
-def get_prefixes(guild: disnake.Guild=None) -> typing.List[str]:
+def get_prefixes(guild: disnake.Guild = None) -> typing.List[str]:
     prefixes = ["!JAK "]
     if guild:
         pass

@@ -1,12 +1,16 @@
-import disnake, os, googletrans, asyncio, itertools
+import disnake, os, googletrans, asyncio, itertools, credentials
 import src.core.functions as funcs
 import src.core.embeds as embeds
 import src.core.emojis as emojis
+import firebase_admin, firebase_admin.firestore, firebase_admin.credentials
 from disnake.ext import commands
+
 
 class JAKDiscordBot(commands.Bot):
     def __init__(self, command_prefix: any, intents: disnake.Intents):
         self.prefix = funcs.get_prefixes()
+        # self.db: firebase_admin.firestore._FirestoreClient = None
+        self.db = None
 
         super().__init__(
             command_prefix=command_prefix, intents=intents, help_command=None
@@ -48,6 +52,25 @@ class JAKDiscordBot(commands.Bot):
                 ),
             )
             await asyncio.sleep(60)
+
+        firebase_admin.initialize_app(
+            credential=firebase_admin.credentials.Certificate(
+                {
+                    "type": credentials.FIREBASE_TYPE,
+                    "project_id": credentials.FIREBASE_PROJECT_ID,
+                    "private_key_id": credentials.FIREBASE_PRIVATE_KEY_ID,
+                    "private_key": credentials.FIREBASE_PRIVATE_KEY,
+                    "client_email": credentials.FIREBASE_CLIENT_EMAIL,
+                    "client_id": credentials.FIREBASE_CLIENT_ID,
+                    "auth_uri": credentials.FIREBASE_AUTH_URI,
+                    "token_uri": credentials.FIREBASE_TOKEN_URI,
+                    "auth_provider_x509_cert_url": credentials.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
+                    "client_x509_cert_url": credentials.FIREBASE_CLIENT_X509_CERT_URL,
+                }
+            )
+        ) if not len(firebase_admin._apps) else firebase_admin.get_app()
+
+        self.db = firebase_admin.firestore.client()
 
     async def on_message(self, message: disnake.Message):
         member = message.author
