@@ -217,7 +217,9 @@ class Misc_(commands.Cog):
             await inter.response.send_message("No Command Found!!")
 
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    @commands.slash_command(description="Display all the Prefixes usable for this server")
+    @commands.slash_command(
+        description="Display all the Prefixes usable for this server"
+    )
     async def prefixes(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.send_message(", ".join(self.bot.prefixes))
 

@@ -1,5 +1,5 @@
 from urllib.request import urlopen
-import disnake, asyncio, inspect, credentials
+import disnake, asyncio, inspect, credentials, googletrans
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 import src.core.functions as funcs
@@ -108,17 +108,6 @@ class Misc(commands.Cog):
         self.chatbot_on = False
         await ctx.reply("Stopped Chatbot!!")
 
-    @commands.Cog.listener("on_message")
-    async def on_chatbot_message(self, message: disnake.Message):
-        if message.author == self.bot.user or (
-            message.content == f"{self.bot.prefixes[0]}chatbot"
-            or message.content == f"{self.bot.prefixes[1]}chatbot"
-        ):
-            return
-        if self.chatbot_on and message.channel == self.chatbot_channel:
-            response = await funcs.chatbot_response(message=message.content)
-            await message.reply(response)
-
     @commands.command(description="Displays the total number of Commands")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def total_commands(self, ctx: commands.Context):
@@ -189,6 +178,109 @@ class Misc(commands.Cog):
     @commands.command(description="Display all the Prefixes usable for this server")
     async def prefixes(self, ctx: commands.Context):
         await ctx.reply(", ".join(self.bot.prefixes))
+
+    @commands.Cog.listener()
+    async def on_message(self, message: disnake.Message):
+        member = message.author
+
+        msg = message.content
+        channel = message.channel
+
+        for prefix in self.bot.prefixes:
+            if msg.startswith(prefix) or member == self.bot.user:
+                return
+
+        if len(msg) >= 3:
+
+            translation = funcs.translate_text(msg)
+
+            if translation.src != "en":
+                language_name = ""
+                languages_dict = googletrans.LANGUAGES
+
+                def translation_check(reaction, user):
+                    global author_reacted_translation
+                    author_reacted_translation = user
+                    return (
+                        str(reaction.emoji) == emojis.abc
+                        and reaction.message == message
+                        and not user.bot
+                    )
+
+                if translation.src in languages_dict:
+                    language_name = languages_dict[translation.src].title()
+
+                    try:
+                        await self.bot.wait_for(
+                            "reaction_add", check=translation_check, timeout=60.0
+                        )
+                        await channel.send(
+                            embed=embeds.translation_embed(
+                                text=msg,
+                                translated_text=translation.text,
+                                language_name=language_name,
+                                language_iso=translation.src,
+                                author=member,
+                                author_reacted=author_reacted_translation,
+                            )
+                        )
+                    except asyncio.TimeoutError:
+                        pass
+
+            else:
+
+                def pronunciation_check(reaction, user):
+                    global author_reacted_pronunciation
+                    author_reacted_pronunciation = user
+                    return (
+                        str(reaction.emoji) == emojis.abc
+                        and reaction.message == message
+                        and not user.bot
+                    )
+
+                try:
+                    await self.bot.wait_for(
+                        "reaction_add", check=pronunciation_check, timeout=60.0
+                    )
+                    await channel.send(
+                        embed=embeds.pronunciation_embed(
+                            text=msg,
+                            pronunciation=funcs.pronunciation(msg),
+                            author=member,
+                            author_reacted=author_reacted_pronunciation,
+                        )
+                    )
+                except asyncio.TimeoutError:
+                    pass
+
+        if (
+            self.chatbot_on
+            and message.channel == self.chatbot_channel
+            and not message.content
+            in [f"{prefix}chatbot" for prefix in self.bot.prefixes]
+        ):
+            response = await funcs.chatbot_response(message=message.content)
+            await message.reply(response)
+
+    @commands.Cog.listener()
+    async def on_member_join(self, member: disnake.Member):
+        perms = member.guild.me.guild_permissions
+        if perms.manage_guild and perms.manage_messages:
+            try:
+                await member.send(f"Welcome to **{member.guild.name}**!!")
+            except disnake.HTTPException:
+                pass
+
+    @commands.Cog.listener()
+    async def on_member_remove(self, member: disnake.Member):
+        perms = member.guild.me.guild_permissions
+        if perms.manage_guild and perms.manage_messages:
+            try:
+                await member.send(
+                    f"You just left **{member.guild.name}**, What a Shame!!"
+                )
+            except disnake.HTTPException:
+                pass
 
 
 def setup(bot: JAKDiscordBot):
