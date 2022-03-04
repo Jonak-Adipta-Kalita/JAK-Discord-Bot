@@ -93,7 +93,20 @@ class Help(commands.Cog):
             cmd = self.bot.get_command(command)
             if cmd:
                 if sub_command:
-                    pass
+                    sub_cmd = self.bot.get_command(f"{command} {sub_command}")
+
+                    if sub_cmd:
+                        await ctx.reply(
+                            embed=embeds.commands_help_embed(
+                                ctx=ctx,
+                                bot_name=self.bot.user.name,
+                                bot_avatar_url=self.bot.user.avatar.url,
+                                command=cmd,
+                                sub_command=sub_cmd,
+                            )
+                        )
+                    else:
+                        await ctx.reply("Sub Command not found!!")
                 else:
                     await ctx.reply(
                         embed=embeds.commands_help_embed(
