@@ -170,6 +170,7 @@ class Games(commands.Cog):
             self.hangman_guesses_left = 7
             self.hangman_game_over = False
             self.hangman_word = random.choice(self.hangman_words).strip()
+            self.hangman_guesses = []
 
             await ctx.reply(
                 embed=embeds.hangman_embed(
@@ -180,6 +181,7 @@ class Games(commands.Cog):
             await asyncio.sleep(300)
 
             if not self.hangman_game_over:
+                self.hangman_guesses = []
                 self.hangman_game_over = True
 
                 await ctx.reply("Time Out!!")
@@ -197,14 +199,17 @@ class Games(commands.Cog):
 
                 if content == self.hangman_word:
                     self.hangman_game_over = True
+                    self.hangman_guesses = []
                     await ctx.reply(f"That is the word! {WORD_WAS}")
                     return
                 if all([w in self.hangman_guesses for w in list(self.hangman_word)]):
                     self.hangman_game_over = True
+                    self.hangman_guesses = []
                     await ctx.reply(f"Well done! You got the word. {WORD_WAS}")
                     return
                 if self.hangman_guesses_left == 1:
                     self.hangman_game_over = True
+                    self.hangman_guesses = []
                     await ctx.reply(f"Unlucky, you ran out of guesses! {WORD_WAS}")
                     return
                 if len(content) >= 2:
