@@ -1,46 +1,58 @@
 import disnake, typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials, json, requests, random
 import src.core.emojis as emojis_list
 import src.core.emojis as emojis
+import google.cloud.firestore_v1.client
 from pyMorseTranslator import translator as morse_translator
 
 
-def get_prefixes(guild: disnake.Guild = None) -> typing.List[str]:
+def get_prefixes() -> typing.List[str]:
     prefixes = ["$", "!JAK "]
-
-    if guild:
-        pass
 
     return prefixes
 
 
-def get_rules() -> typing.List[dict]:
+def get_rules(
+    db: google.cloud.firestore_v1.client.Client, guild: disnake.Guild
+) -> typing.List[dict]:
     embed_blank_value = "\u200b"
-    rules = [
+    rules = []
+
+    rules.append(
         {
-            "name": f"{emojis.numbers['one']}   No Negativity",
+            "name": f"{emojis.numbers['one']}\t\t\tNo Negativity",
             "description": embed_blank_value,
-        },
+        }
+    )
+    rules.append(
         {
-            "name": f"{emojis.numbers['two']}   No Spamming",
+            "name": f"{emojis.numbers['two']}\t\t\tNo Spamming",
             "description": embed_blank_value,
-        },
+        }
+    )
+    rules.append(
         {
-            "name": f"{emojis.numbers['three']}   No Swearing",
+            "name": f"{emojis.numbers['three']}\t\t\tNo Swearing",
             "description": embed_blank_value,
-        },
+        }
+    )
+    rules.append(
         {
-            "name": f"{emojis.numbers['four']}   No Discriminatory Or Hate Speech",
+            "name": f"{emojis.numbers['four']}\t\t\tNo Discriminatory Or Hate Speech",
             "description": embed_blank_value,
-        },
+        }
+    )
+    rules.append(
         {
-            "name": f"{emojis.numbers['five']}   No NSFW Content",
+            "name": f"{emojis.numbers['five']}\t\t\tNo NSFW Content",
             "description": embed_blank_value,
-        },
+        }
+    )
+    rules.append(
         {
-            "name": f"{emojis.numbers['six']}   No Potentially Harmful Content",
+            "name": f"{emojis.numbers['six']}\t\t\tNo Potentially Harmful Content",
             "description": embed_blank_value,
-        },
-    ]
+        }
+    )
 
     return rules
 

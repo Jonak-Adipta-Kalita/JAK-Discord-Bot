@@ -67,10 +67,13 @@ class Misc_(commands.Cog):
     @commands.slash_command(description="Show the Rules")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def show_rules(self, inter: disnake.ApplicationCommandInteraction):
+        rules = funcs.get_rules(self.bot.db, inter.guild)
+
         await inter.response.send_message(
             embed=embeds.rules_embed(
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar.url,
+                rules=rules,
             )
         )
 

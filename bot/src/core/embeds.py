@@ -17,8 +17,9 @@ def ping_bot_embed(bot_name: str, bot_avatar_url: str, servers: int) -> disnake.
     return embed
 
 
-def rules_embed(bot_name: str, bot_avatar_url: str) -> disnake.Embed:
-    rules = funcs.get_rules()
+def rules_embed(
+    bot_name: str, bot_avatar_url: str, rules: typing.List[dict]
+) -> disnake.Embed:
     embed = disnake.Embed(
         color=disnake.Color.blue(),
     )

@@ -38,10 +38,13 @@ class Misc(commands.Cog):
     @commands.command(aliases=["rules"], description="Show the Rules")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def show_rules(self, ctx: commands.Context):
+        rules = funcs.get_rules(self.bot.db, ctx.guild)
+
         await ctx.reply(
             embed=embeds.rules_embed(
                 bot_name=self.bot.user.name,
                 bot_avatar_url=self.bot.user.avatar.url,
+                rules=rules,
             )
         )
 
