@@ -238,6 +238,7 @@ class Games(commands.Cog):
         if not self.hangman_game_over:
             if ctx.author == self.hangman_player:
                 self.hangman_game_over = True
+                self.hangman_guesses = []
                 await ctx.reply("Stopped the Game!!")
             else:
                 await ctx.reply("You are not Playing!!")
