@@ -171,6 +171,13 @@
             "usage": "$hangman stop",
             "has_slash_command": false,
             "description": "Stops Hangman Game"
+        },
+        {
+            "id": 7,
+            "name": "rock_paper_scissors",
+            "usage": "$rock_paper_scissors <move>",
+            "has_slash_command": true,
+            "description": "Play Rock Paper Scissor Game"
         }
     ],
     "misc": [
