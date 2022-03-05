@@ -285,6 +285,13 @@
             "usage": "$prefixes",
             "has_slash_command": true,
             "description": "Display the Prefixes"
+        },
+        {
+            "id": 15,
+            "name": "place_details",
+            "usage": "$place_details <place>",
+            "has_slash_command": true,
+            "description": "Display the Details of a Place"
         }
     ],
     "music": [

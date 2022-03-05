@@ -226,6 +226,27 @@ class Misc_(commands.Cog):
     async def prefixes(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.send_message(", ".join(self.bot.prefixes))
 
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    @commands.slash_command(
+        description="Display the Details of a Place",
+        options=[
+            disnake.Option(
+                name="place",
+                description="Name of the Place you want to know about",
+                type=disnake.OptionType.string,
+                required=True,
+            )
+        ],
+    )
+    async def place_details(
+        self, inter: disnake.ApplicationCommandInteraction, place: str
+    ):
+        place_details = await funcs.get_place_details(place=place)
+
+        await inter.response.send_message(
+            embed=embeds.place_details_embed(place=place_details)
+        )
+
 
 def setup(bot: JAKDiscordBot):
     bot.add_cog(Misc_(bot))

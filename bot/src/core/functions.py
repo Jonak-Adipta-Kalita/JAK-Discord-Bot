@@ -1,4 +1,4 @@
-import disnake, typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials, json, requests, random
+import disnake, typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials, json, requests, random, credentials
 import src.core.emojis as emojis_list
 import src.core.emojis as emojis
 import google.cloud.firestore_v1.client
@@ -386,3 +386,26 @@ def get_code_output(lang: str, code: str) -> str:
     jsoned_data = res.json()
 
     return jsoned_data["output"]
+
+
+def get_country(code: str) -> dict:
+    res = requests.get("https://api.first.org/data/v1/countries")
+    jsoned_data = res.json()
+
+    return jsoned_data["data"][code]
+
+
+async def get_place_details(place: str) -> dict:
+    async with aiohttp.ClientSession(
+        headers={"Content-Type": "application/json"},
+    ) as client:
+        try:
+            request = await client.get(
+                f"https://api.openweathermap.org/data/2.5/weather?q={place}&appid={credentials.PLACE_API_KEY}"
+            )
+        except Exception:
+            pass
+
+        resp = await request.json()
+
+    return resp

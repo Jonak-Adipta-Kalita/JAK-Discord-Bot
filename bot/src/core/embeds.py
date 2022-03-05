@@ -388,3 +388,21 @@ def servers_in_embed(servers: typing.List[disnake.Guild]) -> disnake.Embed:
     )
 
     return embed
+
+
+def place_details_embed(place: dict) -> disnake.Embed:
+    name: str = place["name"]
+    country = funcs.get_country(place["sys"]["country"])
+    coordinates: dict = place["coord"]
+    weather_description: str = place["weather"][0]["description"]
+
+    embed = disnake.Embed(title=f"{name}'s Detail", color=0x3498DB)
+    embed.add_field(name="Country", value=country["country"], inline=False)
+    embed.add_field(name="Weather", value=weather_description.title(), inline=False)
+    embed.add_field(
+        name="Coordinates",
+        value=f"Longitude: {coordinates['lon']}, Latitude: {coordinates['lat']}",
+        inline=False,
+    )
+
+    return embed

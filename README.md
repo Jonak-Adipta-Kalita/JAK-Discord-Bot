@@ -56,13 +56,18 @@ yarn
 
 and hit enter.
 
-### Getting CHATBOT_KEY
+### Getting `CHATBOT_KEY`
 
 Follow this: [https://some-random-api.ml/docs/Welcome/Keys](https://some-random-api.ml/docs/Welcome/Keys)
 
-### Getting JWT_SECRET
+### Getting `JWT_SECRET`
 
 Use the [passwordgenerator](https://passwordsgenerator.net/) website to generate your secret.
+
+### Getting the `PLACE_API_KEY`
+
+Go to [WeatherAPIMap](https://openweathermap.org/) and Login after that go to [ApiKeys](https://home.openweathermap.org/api_keys),
+there u will find your key.
 
 ### Getting the Firebase Credentials
 
@@ -86,6 +91,7 @@ For `bot/.env`
 ```env
 TOKEN=<YOUR_BOT_TOKEN>
 CHATBOT_KEY=<YOUR_CHATBOT_KEY>
+PLACE_API_KEY=<YOUR_PLACE_API_KEY>
 LOCAL=true
 
 # Firebase

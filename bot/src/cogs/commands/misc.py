@@ -182,6 +182,13 @@ class Misc(commands.Cog):
     async def prefixes(self, ctx: commands.Context):
         await ctx.reply(", ".join(self.bot.prefixes))
 
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    @commands.command(description="Display the Details of a Place")
+    async def place_details(self, ctx: commands.Context, place: str):
+        place_details = await funcs.get_place_details(place=place)
+
+        await ctx.reply(embed=embeds.place_details_embed(place=place_details))
+
     @commands.Cog.listener()
     async def on_message(self, message: disnake.Message):
         member = message.author
