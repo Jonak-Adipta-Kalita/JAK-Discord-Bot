@@ -392,12 +392,20 @@ def servers_in_embed(servers: typing.List[disnake.Guild]) -> disnake.Embed:
 
 def place_details_embed(place: dict) -> disnake.Embed:
     name: str = place["name"]
-    country = funcs.get_country(place["sys"]["country"])
     coordinates: dict = place["coord"]
     weather_description: str = place["weather"][0]["description"]
 
+    try:
+        country = funcs.get_country(place["sys"]["country"])
+    except KeyError:
+        country = None
+
     embed = disnake.Embed(title=f"{name}'s Detail", color=0x3498DB)
-    embed.add_field(name="Country", value=country["country"], inline=False)
+    embed.add_field(
+        name="Country",
+        value=country["country"] if country else place["sys"]["country"],
+        inline=False,
+    )
     embed.add_field(name="Weather", value=weather_description.title(), inline=False)
     embed.add_field(
         name="Coordinates",
