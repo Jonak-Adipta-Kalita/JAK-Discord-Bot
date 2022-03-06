@@ -109,7 +109,10 @@ class JAKDiscordBot(commands.Bot):
         if not self.db:
             return
 
-        self.db.child(f"guilds/{guild.id}").delete()
+        try:
+            self.db.child(f"guilds/{guild.id}").delete()
+        except Exception:
+            pass
 
     async def on_command_error(
         self, ctx: commands.Context, error: commands.CommandError
