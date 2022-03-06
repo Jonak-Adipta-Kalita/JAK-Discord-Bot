@@ -25,64 +25,68 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             async jwt({ token, account, user }) {
                 if (account) token.accessToken = account.access_token;
 
-                const commonGuilds: Guild[] = [];
-
-                const userGuildsRes = await axios.get(
-                    "https://discord.com/api/v8/users/@me/guilds",
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token.accessToken}`,
-                        },
-                    }
-                );
-
-                const botGuildsRes = await axios.get(
-                    "https://discord.com/api/v8/users/@me/guilds",
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bot ${process.env.TOKEN}`,
-                        },
-                    }
-                );
-
-                userGuildsRes.data.map((userGuild: Guild) => {
-                    botGuildsRes.data.map((botGuild: Guild) => {
-                        if (userGuild.id === botGuild.id && userGuild.owner) {
-                            const allowedRoles: Role[] = [];
-
-                            axios
-                                .get(
-                                    `https://discord.com/api/v8/guilds/${userGuild.id}/roles`,
-                                    {
-                                        headers: {
-                                            "Content-Type": "application/json",
-                                            Authorization: `Bot ${process.env.TOKEN}`,
-                                        },
-                                    }
-                                )
-                                .then((res) => {
-                                    res.data
-                                        .filter(
-                                            (role: Role) =>
-                                                role.name !== "@everyone" &&
-                                                !role.managed
-                                        )
-                                        .map((role: Role) => {
-                                            allowedRoles.push(role);
-                                        });
-                                });
-
-                            commonGuilds.push({
-                                ...userGuild,
-                                roles: allowedRoles,
-                            });
-                        }
-                    });
-                });
-
                 if (account && user) {
+                    const commonGuilds: Guild[] = [];
+
+                    const userGuildsRes = await axios.get(
+                        "https://discord.com/api/v8/users/@me/guilds",
+                        {
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${token.accessToken}`,
+                            },
+                        }
+                    );
+
+                    const botGuildsRes = await axios.get(
+                        "https://discord.com/api/v8/users/@me/guilds",
+                        {
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bot ${process.env.TOKEN}`,
+                            },
+                        }
+                    );
+
+                    userGuildsRes.data.map((userGuild: Guild) => {
+                        botGuildsRes.data.map((botGuild: Guild) => {
+                            if (
+                                userGuild.id === botGuild.id &&
+                                userGuild.owner
+                            ) {
+                                const allowedRoles: Role[] = [];
+
+                                axios
+                                    .get(
+                                        `https://discord.com/api/v8/guilds/${userGuild.id}/roles`,
+                                        {
+                                            headers: {
+                                                "Content-Type":
+                                                    "application/json",
+                                                Authorization: `Bot ${process.env.TOKEN}`,
+                                            },
+                                        }
+                                    )
+                                    .then((res) => {
+                                        res.data
+                                            .filter(
+                                                (role: Role) =>
+                                                    role.name !== "@everyone" &&
+                                                    !role.managed
+                                            )
+                                            .map((role: Role) => {
+                                                allowedRoles.push(role);
+                                            });
+                                    });
+
+                                commonGuilds.push({
+                                    ...userGuild,
+                                    roles: allowedRoles,
+                                });
+                            }
+                        });
+                    });
+
                     return {
                         ...token,
                         guilds: commonGuilds,

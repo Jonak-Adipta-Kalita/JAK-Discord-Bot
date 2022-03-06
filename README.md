@@ -72,8 +72,8 @@ there u will find your key.
 ### Getting the Firebase Credentials
 
 Go to [Firebase Console](http://console.firebase.google.com/) and create a Project. Enable
-Google Analytics. Now click on the Web Icon and create an app. After you created an app
-click on the cog icon in the sidebar and click on `Project settings`. Scroll to the Bottom
+Google Analytics. Now click on `Realtime Database` and setup a database. Now click on the Web Icon and create an app. 
+After you created an app click on the cog icon in the sidebar and click on `Project settings`. Scroll to the Bottom
 where you will find your app now click on Config. Copy the Config. It will give some of the credentials,
 to get the other credentials click on `Service accounts` in `Project settings`. After that click on
 `Generate new private key`. This will download a JSON file, you will get the remaining Credentials from
@@ -105,6 +105,7 @@ FIREBASE_AUTH_URI=<YOUR_FIREBASE_AUTH_URI>
 FIREBASE_TOKEN_URI=<YOUR_FIREBASE_TOKEN_URI>
 FIREBASE_AUTH_PROVIDER_X509_CERT_URL=<YOUR_FIREBASE_AUTH_PROVIDER_X509_CERT_URL>
 FIREBASE_CLIENT_X509_CERT_URL=<YOUR_FIREBASE_CLIENT_X509_CERT_URL>
+FIREBASE_DATABASE_URL=<YOUR_FIREBASE_DATABASE_URL>
 ```
 
 For `dashboard/.env.local`
@@ -127,6 +128,7 @@ FIREBASE_STORAGE_BUCKET=<YOUR_FIREBASE_STORAGE_BUCKET>
 FIREBASE_MESSAGING_SENDER_ID=<YOUR_FIREBASE_MESSAGE_SENDER_ID>
 FIREBASE_APP_ID=<YOUR_FIREBASE_APP_ID>
 FIREBASE_MEASUREMENT_ID=<YOUR_FIREBASE_MEASUREMENT_ID>
+FIREBASE_DATABASE_URL=<YOUR_FIREBASE_DATABASE_URL>
 ```
 
 like this. In the OAuth > URL Generator Section, in scopes click on `bot`. This will reveal the `Bot Permissions` select your

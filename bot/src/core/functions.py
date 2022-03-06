@@ -1,7 +1,7 @@
 import disnake, typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials, json, requests, random, credentials
 import src.core.emojis as emojis_list
 import src.core.emojis as emojis
-import google.cloud.firestore_v1.client
+import firebase_admin.db
 from pyMorseTranslator import translator as morse_translator
 
 
@@ -12,7 +12,7 @@ def get_prefixes() -> typing.List[str]:
 
 
 def get_rules(
-    db: google.cloud.firestore_v1.client.Client, guild: disnake.Guild
+    db: firebase_admin.db.Reference, guild: disnake.Guild
 ) -> typing.List[dict]:
     embed_blank_value = "\u200b"
     rules = []

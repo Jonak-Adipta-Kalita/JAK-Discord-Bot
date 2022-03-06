@@ -1,15 +1,14 @@
 import disnake, os, asyncio, itertools, credentials
 import src.core.functions as funcs
 import src.core.embeds as embeds
-import google.cloud.firestore_v1.client
-import firebase_admin, firebase_admin.firestore, firebase_admin.credentials
+import firebase_admin, firebase_admin.db, firebase_admin.credentials
 from disnake.ext import commands
 
 
 class JAKDiscordBot(commands.Bot):
     def __init__(self):
         self.prefixes = funcs.get_prefixes()
-        self.db: google.cloud.firestore_v1.client.Client = None
+        self.db: firebase_admin.db.Reference = None
 
         super().__init__(
             command_prefix=commands.bot.when_mentioned_or(*self.prefixes),
@@ -53,9 +52,7 @@ class JAKDiscordBot(commands.Bot):
             )
         ) if not len(firebase_admin._apps) else firebase_admin.get_app()
 
-        self.db: google.cloud.firestore_v1.client.Client = (
-            firebase_admin.firestore.client()
-        )
+        self.db: firebase_admin.db.Reference = firebase_admin.db.reference(url=credentials.FIREBASE_DATABASE_URL)
 
         for type_, message in itertools.cycle(
             [
@@ -100,7 +97,7 @@ class JAKDiscordBot(commands.Bot):
         if not self.db:
             return
 
-        self.db.collection("guilds").document(guild.id).create(
+        self.db.child(f"guilds/{guild.id}").push(
             {
                 "id": guild.id,
                 "name": guild.name,
@@ -112,7 +109,7 @@ class JAKDiscordBot(commands.Bot):
         if not self.db:
             return
 
-        self.db.collection("guilds").document(guild.id).delete()
+        self.db.child(f"guilds/{guild.id}").delete()
 
     async def on_command_error(
         self, ctx: commands.Context, error: commands.CommandError
