@@ -73,7 +73,7 @@ const Home = ({ commandsData }: Props) => {
                                     <p className="">
                                         Name:{" "}
                                         {new editMessage(
-                                            command.name.replace("_", " ")
+                                            command.name.replaceAll("_", " ")
                                         ).toTitleCase()}
                                     </p>
                                     <p className="">Usage: {command.usage}</p>

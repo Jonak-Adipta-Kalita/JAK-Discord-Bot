@@ -98,7 +98,7 @@ def commands_help_embed(
     )
     embed.add_field(
         name="Name:",
-        value=f"`{command.name.capitalize()} {sub_command.name.capitalize() if sub_command else ''}`",
+        value=f"`{command.name.replace('_', '').title()} {sub_command.name.replace('_', ' ').title() if sub_command else ''}`",
         inline=False,
     )
     embed.add_field(
