@@ -274,23 +274,28 @@ class Misc(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member: disnake.Member):
-        perms = member.guild.me.guild_permissions
-        if perms.manage_guild and perms.manage_messages:
-            try:
+        try:
+            perms = member.guild.me.guild_permissions
+            if perms.manage_guild and perms.manage_messages:
                 await member.send(f"Welcome to **{member.guild.name}**!!")
-            except disnake.HTTPException:
-                pass
+        except AttributeError:
+            pass
+        except disnake.HTTPException:
+            pass
 
     @commands.Cog.listener()
     async def on_member_remove(self, member: disnake.Member):
-        perms = member.guild.me.guild_permissions
-        if perms.manage_guild and perms.manage_messages:
-            try:
+        try:
+            perms = member.guild.me.guild_permissions
+            if perms.manage_guild and perms.manage_messages:
                 await member.send(
                     f"You just left **{member.guild.name}**, What a Shame!!"
                 )
-            except disnake.HTTPException:
-                pass
+        except AttributeError:
+            pass
+
+        except disnake.HTTPException:
+            pass
 
 
 def setup(bot: JAKDiscordBot):

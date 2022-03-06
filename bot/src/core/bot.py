@@ -52,7 +52,9 @@ class JAKDiscordBot(commands.Bot):
             )
         ) if not len(firebase_admin._apps) else firebase_admin.get_app()
 
-        self.db: firebase_admin.db.Reference = firebase_admin.db.reference(url=credentials.FIREBASE_DATABASE_URL)
+        self.db: firebase_admin.db.Reference = firebase_admin.db.reference(
+            url=credentials.FIREBASE_DATABASE_URL
+        )
 
         for type_, message in itertools.cycle(
             [
@@ -97,11 +99,15 @@ class JAKDiscordBot(commands.Bot):
         if not self.db:
             return
 
-        self.db.child(f"guilds/{guild.id}").push(
+        self.db.child(f"/").push(
             {
-                "id": guild.id,
-                "name": guild.name,
-                "owner": f"{guild.owner.name}#{guild.owner.discriminator}",
+                "guilds": {
+                    guild.id: {
+                        "id": guild.id,
+                        "name": guild.name,
+                        "owner": f"{guild.owner.name}#{guild.owner.discriminator}",
+                    }
+                }
             }
         )
 
@@ -110,7 +116,7 @@ class JAKDiscordBot(commands.Bot):
             return
 
         try:
-            self.db.child(f"guilds/{guild.id}").delete()
+            self.db.child(f"guilds").child(guild.id).delete()
         except Exception:
             pass
 
