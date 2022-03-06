@@ -393,6 +393,8 @@ def servers_in_embed(servers: typing.List[disnake.Guild]) -> disnake.Embed:
 def place_details_embed(place: dict) -> disnake.Embed:
     name: str = place["name"]
     coordinates: dict = place["coord"]
+    humidity: str = f"{place['main']['humidity']}%"
+    temperature = int(place["main"]["temp"] - 273.15)
     weather_description: str = place["weather"][0]["description"]
 
     try:
@@ -407,6 +409,8 @@ def place_details_embed(place: dict) -> disnake.Embed:
         inline=False,
     )
     embed.add_field(name="Weather", value=weather_description.title(), inline=False)
+    embed.add_field(name="Temperature", value=temperature, inline=False)
+    embed.add_field(name="Humidity", value=humidity, inline=False)
     embed.add_field(
         name="Coordinates",
         value=f"Longitude: {coordinates['lon']}, Latitude: {coordinates['lat']}",
