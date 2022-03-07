@@ -100,15 +100,11 @@ class JAKDiscordBot(commands.Bot):
         if not self.db:
             return
 
-        self.db.push(
+        self.db.child(f"guilds/{guild.id}").push(
             {
-                "guilds": {
-                    guild.id: {
-                        "id": guild.id,
-                        "name": guild.name,
-                        "owner": f"{guild.owner.name}#{guild.owner.discriminator}",
-                    }
-                }
+                "id": guild.id,
+                "name": guild.name,
+                "owner": f"{guild.owner.name}#{guild.owner.discriminator}",
             }
         )
 
