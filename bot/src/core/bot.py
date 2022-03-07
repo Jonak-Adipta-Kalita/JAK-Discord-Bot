@@ -100,7 +100,7 @@ class JAKDiscordBot(commands.Bot):
         if not self.db:
             return
 
-        self.db.child(f"/").push(
+        self.db.push(
             {
                 "guilds": {
                     guild.id: {

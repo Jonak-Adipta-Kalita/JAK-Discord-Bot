@@ -15,7 +15,7 @@ class Staff(commands.Cog):
             )
             return
 
-        embed = disnake.Embed(color=disnake.Color.blue())
+        embed = disnake.Embed(color=0x3498DB)
         self.bot.load_extension(f"src.cogs.{extension}")
         embed.add_field(
             name="Load Extension", value=f"Loaded COG: ``{extension}`` Successfully!!"
@@ -31,7 +31,7 @@ class Staff(commands.Cog):
             return
 
         self.bot.unload_extension(f"src.cogs.{extension}")
-        embed = disnake.Embed(color=disnake.Color.blue())
+        embed = disnake.Embed(color=0x3498DB)
         embed.add_field(
             name="Unload Extension",
             value=f"Unloaded COG: ``{extension}`` Successfully!!",
@@ -51,7 +51,7 @@ class Staff(commands.Cog):
             for cog in tuple(self.bot.extensions):
                 self.bot.reload_extension(cog)
 
-            embed = disnake.Embed(color=disnake.Color.blue())
+            embed = disnake.Embed(color=0x3498DB)
             embed.add_field(
                 name="Reload Extension", value=f"Reloaded COGS Successfully!!"
             )
@@ -60,7 +60,7 @@ class Staff(commands.Cog):
 
             self.bot.reload_extension(f"src.cogs.{extension}")
 
-            embed = disnake.Embed(color=disnake.Color.blue())
+            embed = disnake.Embed(color=0x3498DB)
             embed.add_field(
                 name="Reload Extension",
                 value=f"Reloaded COG: ``{extension}`` Successfully!!",
