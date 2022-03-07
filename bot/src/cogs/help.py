@@ -77,7 +77,7 @@ class Dropdown(disnake.ui.Select):
 
 class DropdownView(disnake.ui.View):
     def __init__(self, ctx: commands.Context, bot: JAKDiscordBot):
-        super().__init__(timeout=None)
+        super().__init__(timeout=300)
         self.add_item(Dropdown(ctx, bot))
 
 

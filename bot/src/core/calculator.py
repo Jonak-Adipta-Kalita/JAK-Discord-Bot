@@ -30,7 +30,7 @@ operations = ["/", "*", "+", "-"]
 
 class CalculatorButtons(disnake.ui.View):
     def __init__(self, embed: disnake.Embed, author: disnake.Member):
-        super().__init__()
+        super().__init__(timeout=300)
 
         self.embed = embed
         self.author = author
