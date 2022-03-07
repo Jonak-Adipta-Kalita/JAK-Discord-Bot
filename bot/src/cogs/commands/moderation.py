@@ -117,7 +117,7 @@ class Moderation(commands.Cog):
         channel = message.channel
         perms = channel.permissions_for(guild.me)
 
-        if perms.manage_messages and not channel.is_nsfw:
+        if perms.manage_messages and not channel.is_nsfw():
             for word in self.bad_words:
                 if word in msg.lower().split(" "):
                     try:
