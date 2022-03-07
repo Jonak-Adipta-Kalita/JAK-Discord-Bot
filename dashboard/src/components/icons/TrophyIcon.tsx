@@ -8,7 +8,7 @@ const TrophyIcon = (props: ComponentProps<"svg">) => {
                 xmlns: "http://www.w3.org/2000/svg",
                 fill: "none",
                 viewBox: "-10 -10 596 532",
-                class: "w-7 h-7 text-gray-300",
+                className: "w-7 h-7 text-gray-300",
                 stroke: "currentColor",
                 "aria-hidden": "true",
             },

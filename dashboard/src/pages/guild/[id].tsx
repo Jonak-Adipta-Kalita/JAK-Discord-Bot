@@ -95,6 +95,14 @@ const TranslationAndPronunciation = () => {
     );
 };
 
+const Poll = () => {
+    return (
+        <div className="guildBodyContainer">
+            <p className="">Still in Development</p>
+        </div>
+    );
+};
+
 const Experience = () => {
     return (
         <div className="guildBodyContainer">
@@ -145,6 +153,8 @@ const Guild = ({ id }: Props) => {
             return <ReactionRoles />;
         } else if (selectedSidebarOption === "translation and pronunciation") {
             return <TranslationAndPronunciation />;
+        } else if (selectedSidebarOption === "poll") {
+            return <Poll />;
         } else if (selectedSidebarOption === "experience") {
             return <Experience />;
         } else if (selectedSidebarOption === "reputation") {
@@ -175,7 +185,7 @@ const Guild = ({ id }: Props) => {
                         {guild ? (
                             <div className="flex">
                                 <div
-                                    className="flex h-screen flex-col items-center border-r-[3px]"
+                                    className="flex flex-col items-center border-r-[3px]"
                                     style={{ flex: 0.2 }}
                                 >
                                     <div className="mt-5" />
