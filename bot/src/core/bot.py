@@ -17,8 +17,9 @@ class JAKDiscordBot(commands.Bot):
             description="JAK Discord Bot is a Multi Purpose Bot, Made with `disnake`. It has features like: Moderation, Games, Music, Translation, Meme, Jokes, Discord Together, Chatbot, etc.",
         )
 
-        self.load_extension("src.cogs.help")
         self.load_extension("jishaku")
+        self.load_extension("src.cogs.help")
+        self.load_extension("src.cogs.staff")
 
         for files in os.listdir(f"./src/cogs/commands/"):
             if files.endswith(".py"):
