@@ -13,12 +13,6 @@ class Fun(commands.Cog):
         self.bot = bot
         self.together_control: discord_together.DiscordTogether = None
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        self.together_control = await discord_together.DiscordTogether(
-            credentials.TOKEN
-        )
-
     @commands.command(description="Display a Joke")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def joke(self, ctx: commands.Context):
@@ -666,6 +660,12 @@ class Fun(commands.Cog):
 
         await inter.response.send_message(
             embed=embed, view=calc.CalculatorButtons(embed, inter.author)
+        )
+    
+    @commands.Cog.listener()
+    async def on_ready(self):
+        self.together_control = await discord_together.DiscordTogether(
+            credentials.TOKEN
         )
 
 
