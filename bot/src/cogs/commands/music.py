@@ -50,7 +50,7 @@ class Music(commands.Cog):
     @music.command(description="Plays the Music")
     @commands.has_guild_permissions(connect=True)
     async def play(self, ctx: commands.Context, *, music_name: str):
-        vc = ctx.voice_client
+        vc: disnake.VoiceClient = ctx.voice_client
 
         if vc:
             FFMPEG_OPTIONS = {
@@ -83,12 +83,12 @@ class Music(commands.Cog):
     @music.command(description="Pauses the Music")
     @commands.has_guild_permissions(connect=True)
     async def pause(self, ctx: commands.Context):
-        vc = ctx.voice_client
+        vc: disnake.VoiceClient = ctx.voice_client
 
         if vc:
-            if ctx.voice_client.is_playing():
+            if vc.is_playing():
                 await ctx.reply("Song Paused!!")
-                await ctx.voice_client.pause()
+                await vc.pause()
             else:
                 await ctx.reply("No Song is Playing!!")
         else:
@@ -97,12 +97,12 @@ class Music(commands.Cog):
     @music.command(description="Resumes the Music")
     @commands.has_guild_permissions(connect=True)
     async def resume(self, ctx: commands.Context):
-        vc = ctx.voice_client
+        vc: disnake.VoiceClient = ctx.voice_client
 
         if vc:
-            if ctx.voice_client.is_paused():
+            if vc.is_paused():
                 await ctx.reply("Song Resumed!!")
-                await ctx.voice_client.resume()
+                await vc.resume()
             else:
                 await ctx.reply("No Song is Paused!!")
         else:
@@ -111,7 +111,7 @@ class Music(commands.Cog):
     @music.command(description="Adjusts the Volume as per given amount")
     @commands.has_guild_permissions(connect=True)
     async def volume(self, ctx: commands.Context, volume: int):
-        vc = ctx.voice_client
+        vc: disnake.VoiceClient = ctx.voice_client
 
         if vc:
             if not 0 > volume > 100:
@@ -128,12 +128,12 @@ class Music(commands.Cog):
     @music.command(description="Stops the Music")
     @commands.has_guild_permissions(connect=True)
     async def stop(self, ctx: commands.Context):
-        vc = ctx.voice_client
+        vc: disnake.VoiceClient = ctx.voice_client
 
         if vc:
-            if ctx.voice_client.is_playing() or ctx.voice_client.is_paused():
+            if vc.is_playing() or vc.is_paused():
                 await ctx.reply("Song Stopped!!")
-                await ctx.voice_client.stop()
+                await vc.stop()
             else:
                 await ctx.reply("No Song is Playing")
         else:
