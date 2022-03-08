@@ -18,16 +18,9 @@ class JAKDiscordBot(commands.Bot):
         )
 
         self.load_extension("jishaku")
-        self.load_extension("src.cogs.help")
-        self.load_extension("src.cogs.staff")
-
-        for files in os.listdir(f"./src/cogs/commands/"):
+        for files in os.listdir(f"./src/cogs/"):
             if files.endswith(".py"):
-                self.load_extension(f"src.cogs.commands.{files[:-3]}")
-
-        for files in os.listdir(f"./src/cogs/slash/"):
-            if files.endswith(".py"):
-                self.load_extension(f"src.cogs.slash.{files[:-3]}")
+                self.load_extension(f"src.cogs.{files[:-3]}")
 
     async def on_connect(self):
         print("Bot is Connected!!")
