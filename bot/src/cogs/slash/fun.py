@@ -1,4 +1,4 @@
-import asyncio, disnake, random, os
+import asyncio, disnake, random, os, art
 import src.core.embeds as embeds
 import src.core.files as files
 import src.core.functions as funcs
@@ -283,9 +283,17 @@ class Fun_(commands.Cog):
     )
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
     async def ascii(self, inter: disnake.ApplicationCommandInteraction, text: str):
-        art = funcs.convert_to_ascii(text=text)
+        if len(text) > 10:
+            await inter.response.send_message("Length of Text cannot be more than 10 Characters!!")
+            return
 
-        await inter.response.send_message(f"```{art}```")
+        asciiart = art.text2art(text)
+
+        if len(art) > 1990:
+            await inter.response.send_message("ASCII Art crossed more than 2000 Words!! Please try a smaller Text!!")
+            return
+
+        await inter.response.send_message(f"```{asciiart}```")
 
 
 def setup(bot: JAKDiscordBot):
