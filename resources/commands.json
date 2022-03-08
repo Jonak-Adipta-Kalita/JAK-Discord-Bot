@@ -120,6 +120,13 @@
             "usage": "$find_pokemon_cards <name>",
             "has_slash_command": true,
             "description": "Find a Pokemon Card by Name"
+        },
+        {
+            "id": 11,
+            "name": "ascii",
+            "usage": "$ascii <text>",
+            "has_slash_command": true,
+            "description": "Convert Text to Ascii art"
         }
     ],
     "games": [
@@ -312,7 +319,7 @@
         {
             "id": 2,
             "name": "music",
-            "usage": "$music play \"<music_name>\"/<url>",
+            "usage": "$music play <music_name>/<url>",
             "has_slash_command": false,
             "description": "Plays the Music"
         },

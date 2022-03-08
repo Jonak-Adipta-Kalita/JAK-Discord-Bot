@@ -409,3 +409,7 @@ async def get_place_details(place: str) -> dict:
         resp = await request.json()
 
     return resp
+
+
+def convert_to_ascii(text: str) -> str:
+    return "Still in Development"

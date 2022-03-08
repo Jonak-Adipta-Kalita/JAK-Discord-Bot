@@ -270,6 +270,23 @@ class Fun_(commands.Cog):
             embed=embed, view=calc.CalculatorButtons(embed, inter.author)
         )
 
+    @commands.slash_command(
+        description="Convert Text to Ascii art",
+        options=[
+            disnake.Option(
+                name="text",
+                description="Text to convert to Ascii",
+                type=disnake.OptionType.string,
+                required=True,
+            )
+        ],
+    )
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
+    async def ascii(self, inter: disnake.ApplicationCommandInteraction, text: str):
+        art = funcs.convert_to_ascii(text=text)
+
+        await inter.response.send_message(f"```{art}```")
+
 
 def setup(bot: JAKDiscordBot):
     bot.add_cog(Fun_(bot))

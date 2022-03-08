@@ -13,12 +13,6 @@ class Fun(commands.Cog):
         self.bot = bot
         self.together_control: discord_together.DiscordTogether = None
 
-    @commands.Cog.listener()
-    async def on_ready(self):
-        self.together_control = await discord_together.DiscordTogether(
-            credentials.TOKEN
-        )
-
     @commands.command(description="Display a Joke")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def joke(self, ctx: commands.Context):
@@ -408,6 +402,19 @@ class Fun(commands.Cog):
 
         if os.path.isfile(f"name_fact/{author_id}.png"):
             os.remove(f"name_fact/{author_id}.png")
+
+    @commands.command(description="Convert Text to Ascii art")
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
+    async def ascii(self, ctx: commands.Context, *, text: str):
+        art = funcs.convert_to_ascii(text=text)
+
+        await ctx.reply(f"```{art}```")
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        self.together_control = await discord_together.DiscordTogether(
+            credentials.TOKEN
+        )
 
 
 def setup(bot: JAKDiscordBot):
