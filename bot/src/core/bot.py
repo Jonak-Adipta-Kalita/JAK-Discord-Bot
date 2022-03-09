@@ -11,7 +11,7 @@ class JAKDiscordBot(commands.Bot):
         self.db: firebase_admin.db.Reference = None
 
         super().__init__(
-            command_prefix=commands.bot.when_mentioned_or(*self.prefixes),
+            command_prefix=commands.when_mentioned_or(*self.prefixes),
             intents=disnake.Intents.all(),
             help_command=None,
             description="JAK Discord Bot is a Multi Purpose Bot, Made with `disnake`. It has features like: Moderation, Games, Music, Translation, Meme, Jokes, Discord Together, Chatbot, etc.",
@@ -117,7 +117,7 @@ class JAKDiscordBot(commands.Bot):
     async def on_guild_update(self, before: disnake.Guild, after: disnake.Guild):
         if not self.db:
             return
-        
+
         if after.name != before.name:
             pass
 

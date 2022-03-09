@@ -1,4 +1,5 @@
-import disnake, typing, googletrans, jokeapi, eng_to_ipa, aiohttp, randfacts, credentials, json, requests, random, credentials
+import disnake, typing, googletrans, jokeapi, eng_to_ipa, aiohttp
+import randfacts, credentials, json, requests, random, credentials
 import src.core.emojis as emojis_list
 import src.core.emojis as emojis
 import firebase_admin.db
@@ -14,47 +15,53 @@ def get_prefixes() -> typing.List[str]:
 def get_rules(
     db: firebase_admin.db.Reference, guild: disnake.Guild
 ) -> typing.List[dict]:
-    embed_blank_value = "\u200b"
     rules = []
+    guild_rules = db.child("guilds").child(str(guild.id)).child("rules").get()
 
-    rules.append(
-        {
-            "name": f"{emojis.numbers['one']}\t\t\tNo Negativity",
-            "description": embed_blank_value,
-        }
-    )
-    rules.append(
-        {
-            "name": f"{emojis.numbers['two']}\t\t\tNo Spamming",
-            "description": embed_blank_value,
-        }
-    )
-    rules.append(
-        {
-            "name": f"{emojis.numbers['three']}\t\t\tNo Swearing",
-            "description": embed_blank_value,
-        }
-    )
-    rules.append(
-        {
-            "name": f"{emojis.numbers['four']}\t\t\tNo Discriminatory Or Hate Speech",
-            "description": embed_blank_value,
-        }
-    )
-    rules.append(
-        {
-            "name": f"{emojis.numbers['five']}\t\t\tNo NSFW Content",
-            "description": embed_blank_value,
-        }
-    )
-    rules.append(
-        {
-            "name": f"{emojis.numbers['six']}\t\t\tNo Potentially Harmful Content",
-            "description": embed_blank_value,
-        }
-    )
+    if not guild_rules:
+        embed_blank_value = "\u200b"
 
-    return rules
+        rules.append(
+            {
+                "name": f"{emojis.numbers['one']}\t\t\tNo Negativity",
+                "description": embed_blank_value,
+            }
+        )
+        rules.append(
+            {
+                "name": f"{emojis.numbers['two']}\t\t\tNo Spamming",
+                "description": embed_blank_value,
+            }
+        )
+        rules.append(
+            {
+                "name": f"{emojis.numbers['three']}\t\t\tNo Swearing",
+                "description": embed_blank_value,
+            }
+        )
+        rules.append(
+            {
+                "name": f"{emojis.numbers['four']}\t\t\tNo Discriminatory Or Hate Speech",
+                "description": embed_blank_value,
+            }
+        )
+        rules.append(
+            {
+                "name": f"{emojis.numbers['five']}\t\t\tNo NSFW Content",
+                "description": embed_blank_value,
+            }
+        )
+        rules.append(
+            {
+                "name": f"{emojis.numbers['six']}\t\t\tNo Potentially Harmful Content",
+                "description": embed_blank_value,
+            }
+        )
+
+        return rules
+
+    for rule in guild_rules:
+        pass
 
 
 def translate_text(text: str) -> dict:

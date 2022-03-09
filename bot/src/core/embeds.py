@@ -6,22 +6,20 @@ from disnake.ext import commands
 prefix = funcs.get_prefixes()
 
 
-def ping_bot_embed(bot_name: str, bot_avatar_url: str, servers: int) -> disnake.Embed:
+def ping_bot_embed(bot: commands.Bot, servers: int) -> disnake.Embed:
     embed = disnake.Embed(
         title=f"Hello Buddy!!",
         description=f"My Prefix is `{prefix[0]}`\nUse `{prefix[0]}help` to see the Help Embed!!\n\nTotal Servers = {servers}",
         color=0x3498DB,
     )
-    embed.set_author(name=bot_name, icon_url=bot_avatar_url)
+    embed.set_author(name=bot.user.name, icon_url=bot.user.avatar.url)
 
     return embed
 
 
-def rules_embed(
-    bot_name: str, bot_avatar_url: str, rules: typing.List[dict]
-) -> disnake.Embed:
+def rules_embed(bot: commands.Bot, rules: typing.List[dict]) -> disnake.Embed:
     embed = disnake.Embed(color=0x3498DB)
-    embed.set_author(name=f"{bot_name} - Rules", icon_url=bot_avatar_url)
+    embed.set_author(name=f"{bot.user.name} - Rules", icon_url=bot.user.avatar.url)
     embed.set_footer(text="Please Follow all the RULES!!")
     for rule in rules:
         embed.add_field(
@@ -34,14 +32,14 @@ def rules_embed(
 
 
 async def help_embed(
-    ctx: commands.Context, bot_name: str, bot_avatar_url: str, command_type: str = None
+    ctx: commands.Context, bot: commands.Bot, command_type: str = None
 ) -> disnake.Embed:
     bot_commands = await funcs.get_commands()
 
     embed = disnake.Embed(color=0x3498DB)
     embed.set_author(
-        name=f"{bot_name} - {command_type.title() if command_type else ''} Help Menu",
-        icon_url=bot_avatar_url,
+        name=f"{bot.user.name} - {command_type.title() if command_type else ''} Help Menu",
+        icon_url=bot.user.avatar.url,
     )
     if command_type:
         for commands in bot_commands[command_type]:
@@ -86,15 +84,14 @@ async def help_embed(
 
 def commands_help_embed(
     ctx: commands.Context,
-    bot_name: str,
-    bot_avatar_url: str,
+    bot: commands.Bot,
     command: commands.Command,
     sub_command: commands.Command = None,
 ) -> disnake.Embed:
     embed = disnake.Embed(color=0x3498DB)
     embed.set_author(
-        name=f"{bot_name} - {command.name.replace('_', ' ').title()} {sub_command.name.replace('_', ' ').title() if sub_command else ''} Help Menu",
-        icon_url=bot_avatar_url,
+        name=f"{bot.user.name} - {command.name.replace('_', ' ').title()} {sub_command.name.replace('_', ' ').title() if sub_command else ''} Help Menu",
+        icon_url=bot.user.avatar.url,
     )
     embed.add_field(
         name="Name:",

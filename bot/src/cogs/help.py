@@ -1,6 +1,6 @@
 import disnake
-from src.core.bot import JAKDiscordBot
 import src.core.embeds as embeds
+from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 
 
@@ -32,8 +32,7 @@ class Dropdown(disnake.ui.Select):
             await interaction.response.edit_message(
                 embed=await embeds.help_embed(
                     ctx=self.ctx,
-                    bot_name=self.bot.user.name,
-                    bot_avatar_url=self.bot.user.avatar.url,
+                    bot=self.bot,
                     command_type="moderation",
                 )
             )
@@ -41,8 +40,7 @@ class Dropdown(disnake.ui.Select):
             await interaction.response.edit_message(
                 embed=await embeds.help_embed(
                     ctx=self.ctx,
-                    bot_name=self.bot.user.name,
-                    bot_avatar_url=self.bot.user.avatar.url,
+                    bot=self.bot,
                     command_type="games",
                 )
             )
@@ -50,8 +48,7 @@ class Dropdown(disnake.ui.Select):
             await interaction.response.edit_message(
                 embed=await embeds.help_embed(
                     ctx=self.ctx,
-                    bot_name=self.bot.user.name,
-                    bot_avatar_url=self.bot.user.avatar.url,
+                    bot=self.bot,
                     command_type="music",
                 )
             )
@@ -59,8 +56,7 @@ class Dropdown(disnake.ui.Select):
             await interaction.response.edit_message(
                 embed=await embeds.help_embed(
                     ctx=self.ctx,
-                    bot_name=self.bot.user.name,
-                    bot_avatar_url=self.bot.user.avatar.url,
+                    bot=self.bot,
                     command_type="fun",
                 )
             )
@@ -68,8 +64,7 @@ class Dropdown(disnake.ui.Select):
             await interaction.response.edit_message(
                 embed=await embeds.help_embed(
                     ctx=self.ctx,
-                    bot_name=self.bot.user.name,
-                    bot_avatar_url=self.bot.user.avatar.url,
+                    bot=self.bot,
                     command_type="misc",
                 )
             )
@@ -99,8 +94,7 @@ class Help(commands.Cog):
                         await ctx.reply(
                             embed=embeds.commands_help_embed(
                                 ctx=ctx,
-                                bot_name=self.bot.user.name,
-                                bot_avatar_url=self.bot.user.avatar.url,
+                                bot=self.bot,
                                 command=cmd,
                                 sub_command=sub_cmd,
                             )
@@ -111,8 +105,7 @@ class Help(commands.Cog):
                     await ctx.reply(
                         embed=embeds.commands_help_embed(
                             ctx=ctx,
-                            bot_name=self.bot.user.name,
-                            bot_avatar_url=self.bot.user.avatar.url,
+                            bot=self.bot,
                             command=cmd,
                         )
                     )
@@ -122,8 +115,7 @@ class Help(commands.Cog):
             await ctx.reply(
                 embed=await embeds.help_embed(
                     ctx=ctx,
-                    bot_name=self.bot.user.name,
-                    bot_avatar_url=self.bot.user.avatar.url,
+                    bot=self.bot,
                 ),
                 view=DropdownView(ctx=ctx, bot=self.bot),
             )
@@ -133,8 +125,7 @@ class Help(commands.Cog):
         await ctx.reply(
             embed=await embeds.help_embed(
                 ctx=ctx,
-                bot_name=self.bot.user.name,
-                bot_avatar_url=self.bot.user.avatar.url,
+                bot=self.bot,
                 command_type="moderation",
             )
         )
@@ -144,8 +135,7 @@ class Help(commands.Cog):
         await ctx.reply(
             embed=await embeds.help_embed(
                 ctx=ctx,
-                bot_name=self.bot.user.name,
-                bot_avatar_url=self.bot.user.avatar.url,
+                bot=self.bot,
                 command_type="games",
             )
         )
@@ -155,8 +145,7 @@ class Help(commands.Cog):
         await ctx.reply(
             embed=await embeds.help_embed(
                 ctx=ctx,
-                bot_name=self.bot.user.name,
-                bot_avatar_url=self.bot.user.avatar.url,
+                bot=self.bot,
                 command_type="music",
             )
         )
@@ -166,8 +155,7 @@ class Help(commands.Cog):
         await ctx.reply(
             embed=await embeds.help_embed(
                 ctx=ctx,
-                bot_name=self.bot.user.name,
-                bot_avatar_url=self.bot.user.avatar.url,
+                bot=self.bot,
                 command_type="fun",
             )
         )
@@ -177,8 +165,7 @@ class Help(commands.Cog):
         await ctx.reply(
             embed=await embeds.help_embed(
                 ctx=ctx,
-                bot_name=self.bot.user.name,
-                bot_avatar_url=self.bot.user.avatar.url,
+                bot=self.bot,
                 command_type="misc",
             )
         )
