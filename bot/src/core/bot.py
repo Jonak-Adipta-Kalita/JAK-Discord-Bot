@@ -137,6 +137,8 @@ class JAKDiscordBot(commands.Bot):
     ):
         if isinstance(error, commands.CommandNotFound):
             return
+        elif isinstance(error, commands.CheckFailure):
+            return
         elif isinstance(error, commands.MissingPermissions):
             await ctx.reply(
                 f"You don't have the Appropriate Permissions to run this command!! Permissions Missing: {''.join(error.missing_permissions)}"
@@ -154,8 +156,7 @@ class JAKDiscordBot(commands.Bot):
                 f"This Command is currently in Cooldown for you!! Try again in {int(error.retry_after)} seconds!!"
             )
         else:
-            await ctx.reply("Something went Wrong!!")
-            print(error)
+            await ctx.reply(f"Something went Wrong!!\n```{repr(error)}```")
 
     async def on_slash_command_error(
         self, inter: disnake.ApplicationCommandInteraction, error: commands.CommandError
@@ -181,5 +182,4 @@ class JAKDiscordBot(commands.Bot):
                 f"This Command is currently in Cooldown for you!! Try again in {int(error.retry_after)} seconds!!"
             )
         else:
-            await inter.response.edit_message("Something went Wrong!!")
-            print(error)
+            await inter.response.send_message(f"Something went Wrong!!\n```{error}```")
