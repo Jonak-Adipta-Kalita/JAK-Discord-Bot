@@ -8,7 +8,7 @@ class Staff(commands.Cog):
         self.bot = bot
 
     async def cog_check(self, ctx: commands.Context):
-        if not self.bot.is_owner(ctx.author):
+        if not await self.bot.is_owner(ctx.author):
             await ctx.reply(
                 "Only the Members of Dev Team are allowed to use this command!!"
             )
@@ -23,7 +23,7 @@ class Staff(commands.Cog):
         embed.add_field(
             name="Load Extension", value=f"Loaded COG: ``{extension}`` Successfully!!"
         )
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
 
     @commands.command(hidden=True)
     async def unload_cog(self, ctx: commands.Context, extension):
@@ -33,7 +33,7 @@ class Staff(commands.Cog):
             name="Unload Extension",
             value=f"Unloaded COG: ``{extension}`` Successfully!!",
         )
-        await ctx.send(embed=embed)
+        await ctx.reply(embed=embed)
 
     @commands.command(hidden=True, aliases=["reload_cogs"])
     async def reload_cog(self, ctx: commands.Context, extension: str = ""):
@@ -46,7 +46,7 @@ class Staff(commands.Cog):
             embed.add_field(
                 name="Reload Extension", value=f"Reloaded COGS Successfully!!"
             )
-            await ctx.send(embed=embed)
+            await ctx.reply(embed=embed)
         else:
 
             self.bot.reload_extension(f"src.cogs.{extension}")
