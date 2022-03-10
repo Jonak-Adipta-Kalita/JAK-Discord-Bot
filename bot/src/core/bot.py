@@ -117,7 +117,7 @@ class JAKDiscordBot(commands.Bot):
     async def on_guild_update(self, before: disnake.Guild, after: disnake.Guild):
         if not self.db:
             return
-        
+
         guild = self.db.child("guilds").child(str(before.id))
 
         if after.name != before.name:
@@ -141,11 +141,11 @@ class JAKDiscordBot(commands.Bot):
             return
         elif isinstance(error, commands.MissingPermissions):
             await ctx.reply(
-                f"You don't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join(error.missing_permissions)}"
+                f"You don't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join([error.replace('_', '').title() for error in error.missing_permissions])}"
             )
         elif isinstance(error, commands.BotMissingPermissions):
             await ctx.reply(
-                f"Bot doesn't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join(error.missing_permissions)}"
+                f"Bot doesn't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join([error.replace('_', '').title() for error in error.missing_permissions])}"
             )
         elif isinstance(error, commands.MissingRequiredArgument):
             await ctx.reply("Please make sure to provide all the required Arguments!!")
@@ -163,7 +163,7 @@ class JAKDiscordBot(commands.Bot):
     ):
         if isinstance(error, commands.MissingPermissions):
             await inter.response.send_message(
-                f"You don't have the Appropriate Permissions to run this command!! Permissions Missing: {''.join(error.missing_permissions)}"
+                f"You don't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join([error.replace('_', '').title() for error in error.missing_permissions])}"
             )
         elif isinstance(error, commands.MissingRequiredArgument):
             await inter.response.send_message(
@@ -171,7 +171,7 @@ class JAKDiscordBot(commands.Bot):
             )
         elif isinstance(error, commands.BotMissingPermissions):
             await inter.response.send_message(
-                f"Bot doesn't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join(error.missing_permissions)}"
+                f"Bot doesn't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join([error.replace('_', '').title() for error in error.missing_permissions])}"
             )
         elif isinstance(error, commands.BadArgument):
             await inter.response.send_message(

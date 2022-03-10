@@ -13,7 +13,7 @@ class Staff(commands.Cog):
                 "Only the Members of Dev Team are allowed to use this command!!"
             )
             return False
-        
+
         return True
 
     @commands.command(hidden=True)
