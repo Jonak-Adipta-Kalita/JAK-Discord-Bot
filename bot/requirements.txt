@@ -24,7 +24,7 @@ eng-to-ipa==0.0.2
 et-xmlfile==1.1.0
 firebase-admin==5.2.0
 fuzzywuzzy==0.18.0
-google-api-core==2.5.0
+google-api-core==2.7.1
 google-api-python-client==2.39.0
 google-auth==2.6.0
 google-auth-httplib2==0.1.0
