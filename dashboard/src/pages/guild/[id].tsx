@@ -2,7 +2,7 @@ import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { useSession } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { Guild } from "../../types/typings";
 import { GetServerSideProps } from "next";
 import {
@@ -97,8 +97,8 @@ const Moderation = ({ guild }: ExtensionProps) => {
 };
 
 const Rules = ({ guild }: ExtensionProps) => {
-    const [name, setName] = useState<string | null>(null);
-    const [description, setDescription] = useState<string | null>(null);
+    const [name, setName] = useState<string>("");
+    const [description, setDescription] = useState<string>("");
 
     if (!guild)
         return (
@@ -107,9 +107,39 @@ const Rules = ({ guild }: ExtensionProps) => {
             </div>
         );
 
+    const addRule = (e: FormEvent) => {
+        e.preventDefault();
+    };
+
     return (
         <div className="guildBodyContainer">
-            <p className="">Still in Development</p>
+            <form
+                className="flex flex-col items-center space-y-5"
+                onSubmit={(e) => addRule(e)}
+            >
+                <input
+                    type="text"
+                    className="guildBodyInput"
+                    placeholder="Body"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <input
+                    type="text"
+                    className="guildBodyInput"
+                    placeholder="Description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                />
+                <button
+                    className="transform rounded-lg border-[5px] border-gray-300 p-4 transition duration-100 ease-out hover:scale-125"
+                    aria-label="add-rule"
+                    type="submit"
+                >
+                    Add Rule
+                </button>
+            </form>
+            {/* Existing Rules */}
         </div>
     );
 };
