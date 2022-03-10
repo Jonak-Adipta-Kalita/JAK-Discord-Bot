@@ -25,6 +25,10 @@ interface Props {
     id: string;
 }
 
+interface ExtensionProps {
+    guild: Guild | null | undefined;
+}
+
 const SidebarOption = ({ name, Icon }: { name: string; Icon: any }) => {
     const [selectedSidebarOption, setSelectedSidebarOption] = useRecoilState(
         selectedSidebarOptionState
@@ -47,7 +51,14 @@ const SidebarOption = ({ name, Icon }: { name: string; Icon: any }) => {
     );
 };
 
-const General = () => {
+const General = ({ guild }: ExtensionProps) => {
+    if (!guild)
+        return (
+            <div className="guildBodyContainer">
+                <p className="">Loading...</p>
+            </div>
+        );
+
     return (
         <div className="guildBodyContainer">
             <p className="">Still in Development</p>
@@ -55,7 +66,14 @@ const General = () => {
     );
 };
 
-const Welcome = () => {
+const Welcome = ({ guild }: ExtensionProps) => {
+    if (!guild)
+        return (
+            <div className="guildBodyContainer">
+                <p className="">Loading...</p>
+            </div>
+        );
+
     return (
         <div className="guildBodyContainer">
             <p className="">Still in Development</p>
@@ -63,7 +81,14 @@ const Welcome = () => {
     );
 };
 
-const Moderation = () => {
+const Moderation = ({ guild }: ExtensionProps) => {
+    if (!guild)
+        return (
+            <div className="guildBodyContainer">
+                <p className="">Loading...</p>
+            </div>
+        );
+
     return (
         <div className="guildBodyContainer">
             <p className="">Still in Development</p>
@@ -71,7 +96,17 @@ const Moderation = () => {
     );
 };
 
-const Rules = () => {
+const Rules = ({ guild }: ExtensionProps) => {
+    const [name, setName] = useState<string | null>(null);
+    const [description, setDescription] = useState<string | null>(null);
+
+    if (!guild)
+        return (
+            <div className="guildBodyContainer">
+                <p className="">Loading...</p>
+            </div>
+        );
+
     return (
         <div className="guildBodyContainer">
             <p className="">Still in Development</p>
@@ -79,7 +114,13 @@ const Rules = () => {
     );
 };
 
-const ReactionRoles = () => {
+const ReactionRoles = ({ guild }: ExtensionProps) => {
+    if (!guild)
+        return (
+            <div className="guildBodyContainer">
+                <p className="">Loading...</p>
+            </div>
+        );
     return (
         <div className="guildBodyContainer">
             <p className="">Still in Development</p>
@@ -87,7 +128,13 @@ const ReactionRoles = () => {
     );
 };
 
-const TranslationAndPronunciation = () => {
+const TranslationAndPronunciation = ({ guild }: ExtensionProps) => {
+    if (!guild)
+        return (
+            <div className="guildBodyContainer">
+                <p className="">Loading...</p>
+            </div>
+        );
     return (
         <div className="guildBodyContainer">
             <p className="">Still in Development</p>
@@ -95,7 +142,13 @@ const TranslationAndPronunciation = () => {
     );
 };
 
-const Poll = () => {
+const Poll = ({ guild }: ExtensionProps) => {
+    if (!guild)
+        return (
+            <div className="guildBodyContainer">
+                <p className="">Loading...</p>
+            </div>
+        );
     return (
         <div className="guildBodyContainer">
             <p className="">Still in Development</p>
@@ -103,7 +156,13 @@ const Poll = () => {
     );
 };
 
-const Experience = () => {
+const Experience = ({ guild }: ExtensionProps) => {
+    if (!guild)
+        return (
+            <div className="guildBodyContainer">
+                <p className="">Loading...</p>
+            </div>
+        );
     return (
         <div className="guildBodyContainer">
             <p className="">Still in Development</p>
@@ -111,7 +170,13 @@ const Experience = () => {
     );
 };
 
-const Reputation = () => {
+const Reputation = ({ guild }: ExtensionProps) => {
+    if (!guild)
+        return (
+            <div className="guildBodyContainer">
+                <p className="">Loading...</p>
+            </div>
+        );
     return (
         <div className="guildBodyContainer">
             <p className="">Still in Development</p>
@@ -119,7 +184,13 @@ const Reputation = () => {
     );
 };
 
-const Chatbot = () => {
+const Chatbot = ({ guild }: ExtensionProps) => {
+    if (!guild)
+        return (
+            <div className="guildBodyContainer">
+                <p className="">Loading...</p>
+            </div>
+        );
     return (
         <div className="guildBodyContainer">
             <p className="">Still in Development</p>
@@ -127,7 +198,13 @@ const Chatbot = () => {
     );
 };
 
-const Giveaway = () => {
+const Giveaway = ({ guild }: ExtensionProps) => {
+    if (!guild)
+        return (
+            <div className="guildBodyContainer">
+                <p className="">Loading...</p>
+            </div>
+        );
     return (
         <div className="guildBodyContainer">
             <p className="">Still in Development</p>
@@ -140,35 +217,35 @@ const Guild = ({ id }: Props) => {
     const [guild, setGuild] = useState<Guild | undefined | null>(null);
     const selectedSidebarOption = useRecoilValue(selectedSidebarOptionState);
 
-    const body = () => {
-        if (selectedSidebarOption === "general") {
-            return <General />;
-        } else if (selectedSidebarOption === "welcome") {
-            return <Welcome />;
-        } else if (selectedSidebarOption === "moderation") {
-            return <Moderation />;
-        } else if (selectedSidebarOption === "rules") {
-            return <Rules />;
-        } else if (selectedSidebarOption === "reaction roles") {
-            return <ReactionRoles />;
-        } else if (selectedSidebarOption === "translation and pronunciation") {
-            return <TranslationAndPronunciation />;
-        } else if (selectedSidebarOption === "poll") {
-            return <Poll />;
-        } else if (selectedSidebarOption === "experience") {
-            return <Experience />;
-        } else if (selectedSidebarOption === "reputation") {
-            return <Reputation />;
-        } else if (selectedSidebarOption === "chatbot") {
-            return <Chatbot />;
-        } else if (selectedSidebarOption === "giveaway") {
-            return <Giveaway />;
-        }
-    };
-
     useEffect(() => {
         setGuild(session?.user?.guilds?.filter((guild) => guild.id === id)[0]);
     }, [session]);
+
+    const body = () => {
+        if (selectedSidebarOption === "general") {
+            return <General guild={guild} />;
+        } else if (selectedSidebarOption === "welcome") {
+            return <Welcome guild={guild} />;
+        } else if (selectedSidebarOption === "moderation") {
+            return <Moderation guild={guild} />;
+        } else if (selectedSidebarOption === "rules") {
+            return <Rules guild={guild} />;
+        } else if (selectedSidebarOption === "reaction roles") {
+            return <ReactionRoles guild={guild} />;
+        } else if (selectedSidebarOption === "translation and pronunciation") {
+            return <TranslationAndPronunciation guild={guild} />;
+        } else if (selectedSidebarOption === "poll") {
+            return <Poll guild={guild} />;
+        } else if (selectedSidebarOption === "experience") {
+            return <Experience guild={guild} />;
+        } else if (selectedSidebarOption === "reputation") {
+            return <Reputation guild={guild} />;
+        } else if (selectedSidebarOption === "chatbot") {
+            return <Chatbot guild={guild} />;
+        } else if (selectedSidebarOption === "giveaway") {
+            return <Giveaway guild={guild} />;
+        }
+    };
 
     return (
         <div className="flex h-screen flex-col text-gray-300">

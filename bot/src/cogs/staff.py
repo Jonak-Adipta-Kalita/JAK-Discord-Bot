@@ -8,11 +8,13 @@ class Staff(commands.Cog):
         self.bot = bot
 
     async def cog_check(self, ctx: commands.Context):
-        if not ctx.author.id in self.bot.owner_ids:
+        if not self.bot.is_owner(ctx.author):
             await ctx.reply(
                 "Only the Members of Dev Team are allowed to use this command!!"
             )
-            return
+            return False
+        
+        return True
 
     @commands.command(hidden=True)
     async def load_cog(self, ctx: commands.Context, extension):

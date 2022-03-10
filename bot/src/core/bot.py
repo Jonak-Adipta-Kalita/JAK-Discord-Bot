@@ -112,17 +112,25 @@ class JAKDiscordBot(commands.Bot):
         if not self.db:
             return
 
-        self.db.child(f"guilds").child(str(guild.id)).delete()
+        self.db.child("guilds").child(str(guild.id)).delete()
 
     async def on_guild_update(self, before: disnake.Guild, after: disnake.Guild):
         if not self.db:
             return
+        
+        guild = self.db.child("guilds").child(str(before.id))
 
         if after.name != before.name:
-            pass
+            name_guild_data: dict = guild.get()
+            name_guild_data.update({"name": after.name})
+
+            guild.set(name_guild_data)
 
         if after.owner != before.owner:
-            pass
+            owner_guild_data: dict = guild.get()
+            owner_guild_data.update({"owner": after.owner})
+
+            guild.set(owner_guild_data)
 
     async def on_command_error(
         self, ctx: commands.Context, error: commands.CommandError
