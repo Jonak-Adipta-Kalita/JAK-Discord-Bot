@@ -314,8 +314,6 @@ class Fun_(commands.Cog):
             inter.author.voice.channel.id, activity.replace("_", "-"), max_age=60
         )
         await inter.response.send_message(link, delete_after=60)
-        await asyncio.sleep(60)
-        await self.bot.together_control.close()
 
 
 def setup(bot: JAKDiscordBot):

@@ -141,8 +141,6 @@ class Fun(commands.Cog):
             ctx.author.voice.channel.id, activity.replace("_", "-"), max_age=60
         )
         await ctx.reply(link, delete_after=60)
-        await asyncio.sleep(60)
-        await self.bot.together_control.close()
 
     @commands.command(
         description="Use a Calculator to do Mathamatics", aliases=["calc"]
