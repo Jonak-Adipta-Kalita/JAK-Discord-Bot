@@ -299,6 +299,24 @@ class Fun_(commands.Cog):
 
         await inter.response.send_message(f"```{asciiart}```")
 
+    @commands.slash_command(description="Use Discord Together Activities", options=[disnake.Option(name="activity", description="The Activity you want to use", type=disnake.OptionType.string, required=True)])
+    @commands.bot_has_permissions(create_instant_invite=True)
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
+    async def together(
+        self, inter: disnake.ApplicationCommandInteraction, activity: str
+    ):
+        if inter.author.voice is None:
+            await inter.response.send_message(
+                "You are not Connected to a Voice Channel!!"
+            )
+            return
+        link = await self.bot.together_control.create_link(
+            inter.author.voice.channel.id, activity.replace("_", "-"), max_age=60
+        )
+        await inter.response.send_message(link, delete_after=60)
+        await asyncio.sleep(60)
+        await self.bot.together_control.close()
+
 
 def setup(bot: JAKDiscordBot):
     bot.add_cog(Fun_(bot))

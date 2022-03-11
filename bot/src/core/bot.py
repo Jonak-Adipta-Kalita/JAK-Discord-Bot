@@ -1,4 +1,4 @@
-import disnake, os, asyncio, itertools, credentials
+import disnake, os, asyncio, itertools, credentials, discord_together
 import src.core.functions as funcs
 import src.core.embeds as embeds
 import firebase_admin, firebase_admin.db, firebase_admin.credentials
@@ -9,6 +9,7 @@ class JAKDiscordBot(commands.Bot):
     def __init__(self):
         self.prefixes = funcs.get_prefixes()
         self.db: firebase_admin.db.Reference = None
+        self.together_control: discord_together.DiscordTogether = None
 
         super().__init__(
             command_prefix=commands.when_mentioned_or(*self.prefixes),
@@ -36,6 +37,10 @@ class JAKDiscordBot(commands.Bot):
         print("Bot is Disconnected!!")
 
     async def on_ready(self):
+        self.together_control = await discord_together.DiscordTogether(
+            credentials.TOKEN
+        )
+
         firebase_admin.initialize_app(
             credential=firebase_admin.credentials.Certificate(
                 {

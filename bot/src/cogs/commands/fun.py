@@ -1,4 +1,4 @@
-import asyncio, disnake, os, discord_together, credentials, random, art
+import asyncio, disnake, os, random, art
 import src.core.embeds as embeds
 import src.core.functions as funcs
 import src.core.files as files
@@ -11,7 +11,6 @@ from PIL import Image, ImageDraw, ImageFont
 class Fun(commands.Cog):
     def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
-        self.together_control: discord_together.DiscordTogether = None
 
     @commands.command(description="Display a Joke")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
@@ -128,169 +127,22 @@ class Fun(commands.Cog):
 
         await ctx.reply(fact)
 
-    @commands.group(
-        invoke_without_command=True,
+    @commands.command(
         description="Use Discord Together Activities",
         aliases=["discord_together"],
     )
+    @commands.bot_has_permissions(create_instant_invite=True)
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def together(self, ctx: commands.Context, activity: str):
-        await ctx.reply("Activity not Found!!")
-
-    @together.command(description="Use `YouTube Together` Activity")
-    @commands.bot_has_permissions(create_instant_invite=True)
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
-    async def youtube(self, ctx: commands.Context):
         if ctx.author.voice is None:
             await ctx.reply("You are not Connected to a Voice Channel!!")
             return
-        link = await self.together_control.create_link(
-            ctx.author.voice.channel.id, "youtube"
+        link = await self.bot.together_control.create_link(
+            ctx.author.voice.channel.id, activity.replace("_", "-"), max_age=60
         )
         await ctx.reply(link, delete_after=60)
         await asyncio.sleep(60)
-        await self.together_control.close()
-
-    @together.command(description="Use `Poker Together` Activity")
-    @commands.bot_has_permissions(create_instant_invite=True)
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
-    async def poker(self, ctx: commands.Context):
-        if ctx.author.voice is None:
-            await ctx.reply("You are not Connected to a Voice Channel!!")
-            return
-        link = await self.together_control.create_link(
-            ctx.author.voice.channel.id, "poker"
-        )
-        await ctx.reply(link, delete_after=60)
-        await asyncio.sleep(60)
-        await self.together_control.close()
-
-    @together.command(description="Use `Chess Together` Activity")
-    @commands.bot_has_permissions(create_instant_invite=True)
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
-    async def chess(self, ctx: commands.Context):
-        if ctx.author.voice is None:
-            await ctx.reply("You are not Connected to a Voice Channel!!")
-            return
-        link = await self.together_control.create_link(
-            ctx.author.voice.channel.id, "chess"
-        )
-        await ctx.reply(link, delete_after=60)
-        await asyncio.sleep(60)
-        await self.together_control.close()
-
-    @together.command(description="Use `Betrayal Together` Activity")
-    @commands.bot_has_permissions(create_instant_invite=True)
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
-    async def betrayal(self, ctx: commands.Context):
-        if ctx.author.voice is None:
-            await ctx.reply("You are not Connected to a Voice Channel!!")
-            return
-        link = await self.together_control.create_link(
-            ctx.author.voice.channel.id, "betrayal"
-        )
-        await ctx.reply(link, delete_after=60)
-        await asyncio.sleep(60)
-        await self.together_control.close()
-
-    @together.command(
-        description="Use `Fishing Together` Activity", aliases=["fishington"]
-    )
-    @commands.bot_has_permissions(create_instant_invite=True)
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
-    async def fishing(self, ctx: commands.Context):
-        if ctx.author.voice is None:
-            await ctx.reply("You are not Connected to a Voice Channel!!")
-            return
-        link = await self.together_control.create_link(
-            ctx.author.voice.channel.id, "fishing"
-        )
-        await ctx.reply(link, delete_after=60)
-        await asyncio.sleep(60)
-        await self.together_control.close()
-
-    @together.command(description="Use `Letter Tile Together` Activity")
-    @commands.bot_has_permissions(create_instant_invite=True)
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
-    async def letter_tile(self, ctx: commands.Context):
-        if ctx.author.voice is None:
-            await ctx.reply("You are not Connected to a Voice Channel!!")
-            return
-        link = await self.together_control.create_link(
-            ctx.author.voice.channel.id, "letter-tile"
-        )
-        await ctx.reply(link, delete_after=60)
-        await asyncio.sleep(60)
-        await self.together_control.close()
-
-    @together.command(description="Use `Word Snack Together` Activity")
-    @commands.bot_has_permissions(create_instant_invite=True)
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
-    async def word_snack(self, ctx: commands.Context):
-        if ctx.author.voice is None:
-            await ctx.reply("You are not Connected to a Voice Channel!!")
-            return
-        link = await self.together_control.create_link(
-            ctx.author.voice.channel.id, "word-snack"
-        )
-        await ctx.reply(link, delete_after=60)
-        await asyncio.sleep(60)
-        await self.together_control.close()
-
-    @together.command(description="Use `Doddle Crew Together` Activity")
-    @commands.bot_has_permissions(create_instant_invite=True)
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
-    async def doodle_crew(self, ctx: commands.Context):
-        if ctx.author.voice is None:
-            await ctx.reply("You are not Connected to a Voice Channel!!")
-            return
-        link = await self.together_control.create_link(
-            ctx.author.voice.channel.id, "doodle-crew"
-        )
-        await ctx.reply(link, delete_after=60)
-        await asyncio.sleep(60)
-        await self.together_control.close()
-
-    @together.command(description="Use `Spell Cast Together` Activity")
-    @commands.bot_has_permissions(create_instant_invite=True)
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
-    async def spell_cast(self, ctx: commands.Context):
-        if ctx.author.voice is None:
-            await ctx.reply("You are not Connected to a Voice Channel!!")
-            return
-        link = await self.together_control.create_link(
-            ctx.author.voice.channel.id, "spellcast"
-        )
-        await ctx.reply(link, delete_after=60)
-        await asyncio.sleep(60)
-        await self.together_control.close()
-
-    @together.command(description="Use `Awkword Together` Activity")
-    @commands.bot_has_permissions(create_instant_invite=True)
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
-    async def awkword(self, ctx: commands.Context):
-        if ctx.author.voice is None:
-            await ctx.reply("You are not Connected to a Voice Channel!!")
-            return
-        link = await self.together_control.create_link(
-            ctx.author.voice.channel.id, "awkword"
-        )
-        await ctx.reply(link, delete_after=60)
-        await asyncio.sleep(60)
-        await self.together_control.close()
-
-    @together.command(description="Use `Checkers Together` Activity")
-    @commands.bot_has_permissions(create_instant_invite=True)
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
-    async def checkers(self, ctx: commands.Context):
-        if ctx.author.voice is None:
-            await ctx.reply("You are not Connected to a Voice Channel!!")
-            return
-        link = await self.together_control.create_link(
-            ctx.author.voice.channel.id, "checkers"
-        )
-        await ctx.reply(link, delete_after=60)
-        await asyncio.sleep(60)
-        await self.together_control.close()
+        await self.bot.together_control.close()
 
     @commands.command(
         description="Use a Calculator to do Mathamatics", aliases=["calc"]
@@ -419,12 +271,6 @@ class Fun(commands.Cog):
             return
 
         await ctx.reply(f"```{asciiart}```")
-
-    @commands.Cog.listener()
-    async def on_ready(self):
-        self.together_control = await discord_together.DiscordTogether(
-            credentials.TOKEN
-        )
 
 
 def setup(bot: JAKDiscordBot):
