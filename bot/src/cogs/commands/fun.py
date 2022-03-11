@@ -264,7 +264,7 @@ class Fun(commands.Cog):
 
         asciiart = art.text2art(text)
 
-        if len(art) > 1990:
+        if len(asciiart) > 1990:
             await ctx.reply(
                 "ASCII Art crossed more than 2000 Words!! Please try a smaller Text!!"
             )

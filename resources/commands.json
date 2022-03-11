@@ -104,7 +104,7 @@
             "id": 8,
             "name": "together",
             "usage": "$together <activity>",
-            "has_slash_command": false,
+            "has_slash_command": true,
             "description": "Use Discord Together Activities"
         },
         {
