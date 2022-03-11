@@ -281,7 +281,7 @@ class Fun_(commands.Cog):
             )
         ],
     )
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def ascii(self, inter: disnake.ApplicationCommandInteraction, text: str):
         if len(text) > 10:
             await inter.response.send_message(
@@ -299,7 +299,17 @@ class Fun_(commands.Cog):
 
         await inter.response.send_message(f"```{asciiart}```")
 
-    @commands.slash_command(description="Use Discord Together Activities", options=[disnake.Option(name="activity", description="The Activity you want to use", type=disnake.OptionType.string, required=True)])
+    @commands.slash_command(
+        description="Use Discord Together Activities",
+        options=[
+            disnake.Option(
+                name="activity",
+                description="The Activity you want to use",
+                type=disnake.OptionType.string,
+                required=True,
+            )
+        ],
+    )
     @commands.bot_has_permissions(create_instant_invite=True)
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.guild)
     async def together(
