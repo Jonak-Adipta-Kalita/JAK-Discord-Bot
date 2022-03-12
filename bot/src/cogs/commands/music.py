@@ -53,6 +53,10 @@ class Music(commands.Cog):
         vc: disnake.VoiceClient = ctx.voice_client
 
         if vc:
+            if vc.is_playing():
+                await ctx.reply("One song is already playing!!")
+                return
+
             FFMPEG_OPTIONS = {
                 "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
                 "options": "-vn",
@@ -88,7 +92,7 @@ class Music(commands.Cog):
         if vc:
             if vc.is_playing():
                 await ctx.reply("Song Paused!!")
-                await vc.pause()
+                vc.pause()
             else:
                 await ctx.reply("No Song is Playing!!")
         else:
@@ -102,7 +106,7 @@ class Music(commands.Cog):
         if vc:
             if vc.is_paused():
                 await ctx.reply("Song Resumed!!")
-                await vc.resume()
+                vc.resume()
             else:
                 await ctx.reply("No Song is Paused!!")
         else:
@@ -133,7 +137,7 @@ class Music(commands.Cog):
         if vc:
             if vc.is_playing() or vc.is_paused():
                 await ctx.reply("Song Stopped!!")
-                await vc.stop()
+                vc.stop()
             else:
                 await ctx.reply("No Song is Playing")
         else:
