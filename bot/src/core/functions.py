@@ -416,3 +416,18 @@ async def get_place_details(place: str) -> dict:
         resp = await request.json()
 
     return resp
+
+
+async def get_brawlstars() -> dict:
+    res = requests.request(
+        "GET",
+        "https://jak_api.p.rapidapi.com/brawlStars",
+        headers={
+            "x-rapidapi-host": "jak_api.p.rapidapi.com",
+            "x-rapidapi-key": credentials.RAPID_API_KEY,
+        },
+    )
+
+    jsoned_data = res.json()
+
+    return jsoned_data

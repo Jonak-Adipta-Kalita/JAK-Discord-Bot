@@ -3,6 +3,7 @@ from decouple import config
 TOKEN = config("TOKEN")
 CHATBOT_KEY = config("CHATBOT_KEY")
 PLACE_API_KEY = config("PLACE_API_KEY")
+RAPID_API_KEY = config("RAPID_API_KEY")
 LOCAL = False if config("LOCAL").lower() == "false" else True
 
 FIREBASE_TYPE = config("FIREBASE_TYPE")

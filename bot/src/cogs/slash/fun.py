@@ -325,6 +325,35 @@ class Fun_(commands.Cog):
         )
         await inter.response.send_message(link, delete_after=60)
 
+    @commands.slash_command(
+        description="Find a Brawler by Name",
+        options=[
+            disnake.Option(
+                name="name",
+                description="Name of the Brawler",
+                type=disnake.OptionType.string,
+                required=True,
+            )
+        ],
+    )
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def find_brawler(self, ctx: commands.Context, name: str):
+        try:
+            brawlstars_data = await funcs.get_brawlstars()
+            brawlers_names = [
+                brawler["name"] for brawler in brawlstars_data["brawlers"]
+            ]
+
+            for i, brawler_name in enumerate(brawlers_names):
+                if brawler_name.lower() == name.lower():
+                    brawler: dict = brawlstars_data["brawlers"][i]
+                    break
+
+            await ctx.reply(embed=embeds.brawler_embed(brawler=brawler))
+
+        except UnboundLocalError:
+            await ctx.reply("Please provide a Valid Brawler Name!!")
+
 
 def setup(bot: JAKDiscordBot):
     bot.add_cog(Fun_(bot))

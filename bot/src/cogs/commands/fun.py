@@ -254,7 +254,7 @@ class Fun(commands.Cog):
             os.remove(f"name_fact/{author_id}.png")
 
     @commands.command(description="Convert Text to Ascii art")
-    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def ascii(self, ctx: commands.Context, *, text: str):
         if len(text) > 10:
             await ctx.reply("Length of Text cannot be more than 10 Characters!!")
@@ -269,6 +269,25 @@ class Fun(commands.Cog):
             return
 
         await ctx.reply(f"```{asciiart}```")
+
+    @commands.command(description="Find a Brawler by Name")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def find_brawler(self, ctx: commands.Context, *, name: str):
+        try:
+            brawlstars_data = await funcs.get_brawlstars()
+            brawlers_names = [
+                brawler["name"] for brawler in brawlstars_data["brawlers"]
+            ]
+
+            for i, brawler_name in enumerate(brawlers_names):
+                if brawler_name.lower() == name.lower():
+                    brawler: dict = brawlstars_data["brawlers"][i]
+                    break
+
+            await ctx.reply(embed=embeds.brawler_embed(brawler=brawler))
+
+        except UnboundLocalError:
+            await ctx.reply("Please provide a Valid Brawler Name!!")
 
 
 def setup(bot: JAKDiscordBot):

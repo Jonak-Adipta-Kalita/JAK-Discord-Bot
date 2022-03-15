@@ -127,6 +127,13 @@
             "usage": "$ascii <text>",
             "has_slash_command": true,
             "description": "Convert Text to Ascii art"
+        },
+        {
+            "id": 12,
+            "name": "find_brawler",
+            "usage": "$find_brawler <name>",
+            "has_slash_command": true,
+            "description": "Find a brawler by Name"
         }
     ],
     "games": [
