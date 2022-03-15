@@ -38,7 +38,7 @@ class Games_(commands.Cog):
             )
         ],
     )
-    async def rock_paper_scissor(
+    async def rock_paper_scissors(
         self, inter: disnake.ApplicationCommandInteraction, move: str
     ):
         moves = ["rock", "paper", "scissor"]
