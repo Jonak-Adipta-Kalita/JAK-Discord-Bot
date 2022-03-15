@@ -38,7 +38,7 @@ async def help_embed(
 
     embed = disnake.Embed(color=0x3498DB)
     embed.set_author(
-        name=f"{bot.user.name} - {command_type.title() if command_type else ''} Help Menu",
+        name=f"{bot.user.name} - {command_type.replace('_', ' ').title() if command_type else ''} Help Menu",
         icon_url=bot.user.avatar.url,
     )
     if command_type:

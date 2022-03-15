@@ -188,8 +188,8 @@
         },
         {
             "id": 7,
-            "name": "rock_paper_scissors",
-            "usage": "$rock_paper_scissors <move>",
+            "name": "rock_paper_scissor",
+            "usage": "$rock_paper_scissor <move>",
             "has_slash_command": true,
             "description": "Play Rock Paper Scissor Game"
         }
