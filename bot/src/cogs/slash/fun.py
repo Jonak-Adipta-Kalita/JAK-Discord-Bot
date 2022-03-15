@@ -54,6 +54,7 @@ class Fun_(commands.Cog):
                 description="The Action (Encode or Decode)!!",
                 type=disnake.OptionType.string,
                 required=True,
+                choices=["encode", "decode"],
             ),
             disnake.Option(
                 name="text",
@@ -67,20 +68,15 @@ class Fun_(commands.Cog):
     async def morse(
         self, inter: disnake.ApplicationCommandInteraction, action: str, text: str
     ):
-        if action in ["encode", "decode"]:
-            try:
-                title, converted = funcs.morse_code_encode_decode(
-                    text=text, action=action
-                )
-                await inter.response.send_message(
-                    embed=embeds.morse_code_embed(title=title, converted=converted)
-                )
-            except ValueError:
-                await inter.response.send_message(
-                    "The String contains some characters which cannot be converted into Morse!!"
-                )
-        else:
-            await inter.response.send_message('Action must be "encode" or "decode"')
+        try:
+            title, converted = funcs.morse_code_encode_decode(text=text, action=action)
+            await inter.response.send_message(
+                embed=embeds.morse_code_embed(title=title, converted=converted)
+            )
+        except ValueError:
+            await inter.response.send_message(
+                "The String contains some characters which cannot be converted into Morse!!"
+            )
 
     @commands.slash_command(description="Display a Fact")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
@@ -307,6 +303,19 @@ class Fun_(commands.Cog):
                 description="The Activity you want to use",
                 type=disnake.OptionType.string,
                 required=True,
+                choices=[
+                    "youtube",
+                    "chess",
+                    "poker",
+                    "betrayal",
+                    "fishing",
+                    "letter-tile",
+                    "word-snack",
+                    "doodle-crew",
+                    "spellcast",
+                    "awkword",
+                    "checkers",
+                ],
             )
         ],
     )
@@ -321,7 +330,7 @@ class Fun_(commands.Cog):
             )
             return
         link = await self.bot.together_control.create_link(
-            inter.author.voice.channel.id, activity.replace("_", "-"), max_age=60
+            inter.author.voice.channel.id, activity, max_age=60
         )
         await inter.response.send_message(link, delete_after=60)
 
@@ -340,7 +349,7 @@ class Fun_(commands.Cog):
     async def find_brawler(
         self, inter: disnake.ApplicationCommandInteraction, name: str
     ):
-        inter.response.defer()
+        await inter.response.defer()
 
         try:
             brawlstars_data = await funcs.get_brawlstars()

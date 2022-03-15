@@ -35,6 +35,7 @@ class Games_(commands.Cog):
                 description="The Move!!",
                 type=disnake.OptionType.string,
                 required=True,
+                choices=["rock", "paper", "scissor"],
             )
         ],
     )
@@ -43,42 +44,37 @@ class Games_(commands.Cog):
     ):
         moves = ["rock", "paper", "scissor"]
 
-        if move in moves:
-            winner = None
-            author = inter.author
-            comp_choice = random.choice(moves)
+        winner = None
+        author = inter.author
+        comp_choice = random.choice(moves)
 
-            if move == "rock":
-                if comp_choice == "rock":
-                    winner = None
-                elif comp_choice == "paper":
-                    winner = "CPU"
-                elif comp_choice == "scissor":
-                    winner = f"{author.display_name}#{author.discriminator}"
-            elif move == "paper":
-                if comp_choice == "paper":
-                    winner = None
-                elif comp_choice == "scissor":
-                    winner = "CPU"
-                elif comp_choice == "rock":
-                    winner = f"{author.display_name}#{author.discriminator}"
-            elif move == "scissor":
-                if comp_choice == "scissor":
-                    winner = None
-                elif comp_choice == "rock":
-                    winner = "CPU"
-                elif comp_choice == "paper":
-                    winner = f"{author.display_name}#{author.discriminator}"
+        if move == "rock":
+            if comp_choice == "rock":
+                winner = None
+            elif comp_choice == "paper":
+                winner = "CPU"
+            elif comp_choice == "scissor":
+                winner = f"{author.display_name}#{author.discriminator}"
+        elif move == "paper":
+            if comp_choice == "paper":
+                winner = None
+            elif comp_choice == "scissor":
+                winner = "CPU"
+            elif comp_choice == "rock":
+                winner = f"{author.display_name}#{author.discriminator}"
+        elif move == "scissor":
+            if comp_choice == "scissor":
+                winner = None
+            elif comp_choice == "rock":
+                winner = "CPU"
+            elif comp_choice == "paper":
+                winner = f"{author.display_name}#{author.discriminator}"
 
-            await inter.response.send_message(
-                embed=embeds.rock_paper_scissor_embed(
-                    player_move=move, comp_move=comp_choice, winner=winner
-                )
+        await inter.response.send_message(
+            embed=embeds.rock_paper_scissor_embed(
+                player_move=move, comp_move=comp_choice, winner=winner
             )
-        else:
-            await inter.response.send_message(
-                "The Move must be `rock` `paper` or `scissor`"
-            )
+        )
 
 
 def setup(bot: JAKDiscordBot):

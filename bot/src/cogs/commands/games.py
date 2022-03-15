@@ -245,7 +245,9 @@ class Games(commands.Cog):
         else:
             await ctx.reply("No game is currently running!!")
 
-    @commands.command(aliases=["rps", "rock_paper_scissor"], description="Play Rock Paper Scissor")
+    @commands.command(
+        aliases=["rps", "rock_paper_scissor"], description="Play Rock Paper Scissor"
+    )
     async def rock_paper_scissors(self, ctx: commands.Context, move: str):
         moves = ["rock", "paper", "scissor"]
 
