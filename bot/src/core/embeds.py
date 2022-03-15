@@ -38,7 +38,7 @@ async def help_embed(
 
     embed = disnake.Embed(color=0x3498DB)
     embed.set_author(
-        name=f"{bot.user.name} - {command_type.replace('_', ' ').title() if command_type else ''} Help Menu",
+        name=f"{bot.user.name} - {command_type.title() if command_type else ''} Help Menu",
         icon_url=bot.user.avatar.url,
     )
     if command_type:
@@ -95,7 +95,7 @@ def commands_help_embed(
     )
     embed.add_field(
         name="Name:",
-        value=f"`{command.name.replace('_', '').title()} {sub_command.name.replace('_', ' ').title() if sub_command else ''}`",
+        value=f"`{command.name.replace('_', ' ').title()} {sub_command.name.replace('_', ' ').title() if sub_command else ''}`",
         inline=False,
     )
     embed.add_field(
