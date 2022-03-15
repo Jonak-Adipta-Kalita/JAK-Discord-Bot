@@ -340,6 +340,8 @@ class Fun_(commands.Cog):
     async def find_brawler(
         self, inter: disnake.ApplicationCommandInteraction, name: str
     ):
+        inter.response.defer()
+
         try:
             brawlstars_data = await funcs.get_brawlstars()
             brawlers_names = [
@@ -351,12 +353,12 @@ class Fun_(commands.Cog):
                     brawler: dict = brawlstars_data["brawlers"][i]
                     break
 
-            await inter.response.send_message(
+            await inter.edit_original_message(
                 embed=embeds.brawler_embed(brawler=brawler)
             )
 
         except UnboundLocalError:
-            await inter.response.send_message("Please provide a Valid Brawler Name!!")
+            await inter.edit_original_message("Please provide a Valid Brawler Name!!")
 
 
 def setup(bot: JAKDiscordBot):
