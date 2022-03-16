@@ -136,7 +136,9 @@ class Misc_(commands.Cog):
     ):
         msg = await inter.channel.fetch_message(message_id)
         if not msg or not msg.content.strip():
-            await inter.response.send_message("Please provide a non-empty Message!!")
+            await inter.response.send_message(
+                "Please provide a non-empty Message!!", ephemeral=True
+            )
             return
         await inter.response.send_message(embed=embeds.message_source_embed(msg=msg))
 
@@ -217,7 +219,7 @@ class Misc_(commands.Cog):
                 f"https://github.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/tree/main/{main_path}#L{line_no}"
             )
         else:
-            await inter.response.send_message("No Command Found!!")
+            await inter.response.send_message("No Command Found!!", ephemeral=True)
 
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     @commands.slash_command(

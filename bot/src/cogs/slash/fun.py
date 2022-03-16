@@ -75,7 +75,8 @@ class Fun_(commands.Cog):
             )
         except ValueError:
             await inter.response.send_message(
-                "The String contains some characters which cannot be converted into Morse!!"
+                "The String contains some characters which cannot be converted into Morse!!",
+                ephemeral=True,
             )
 
     @commands.slash_command(description="Display a Fact")
@@ -107,7 +108,9 @@ class Fun_(commands.Cog):
                 embed=embeds.pokemon_embed(pokemon=pokemon)
             )
         except Exception:
-            await inter.response.send_message("Please provide a Valid Pokemon Name!!")
+            await inter.response.send_message(
+                "Please provide a Valid Pokemon Name!!", ephemeral=True
+            )
 
     @commands.slash_command(
         description="Find a Pokemon Card by Name",
@@ -132,7 +135,7 @@ class Fun_(commands.Cog):
             )
         except Exception:
             await inter.response.send_message(
-                "Please provide a Valid Pokemon Card Name!!"
+                "Please provide a Valid Pokemon Card Name!!", ephemeral=True
             )
 
     @commands.command(
@@ -281,7 +284,7 @@ class Fun_(commands.Cog):
     async def ascii(self, inter: disnake.ApplicationCommandInteraction, text: str):
         if len(text) > 10:
             await inter.response.send_message(
-                "Length of Text cannot be more than 10 Characters!!"
+                "Length of Text cannot be more than 10 Characters!!", ephemeral=True
             )
             return
 
@@ -289,7 +292,8 @@ class Fun_(commands.Cog):
 
         if len(asciiart) > 1990:
             await inter.response.send_message(
-                "ASCII Art crossed more than 2000 Words!! Please try a smaller Text!!"
+                "ASCII Art crossed more than 2000 Words!! Please try a smaller Text!!",
+                ephemeral=True,
             )
             return
 
@@ -326,7 +330,7 @@ class Fun_(commands.Cog):
     ):
         if inter.author.voice is None:
             await inter.response.send_message(
-                "You are not Connected to a Voice Channel!!"
+                "You are not Connected to a Voice Channel!!", ephemeral=True
             )
             return
         link = await self.bot.together_control.create_link(

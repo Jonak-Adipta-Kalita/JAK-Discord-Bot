@@ -177,10 +177,7 @@ async def chatbot_response(message: str) -> typing.Optional[str]:
 
         resp = await request.json()
 
-    try:
-        return resp["response"]
-    except KeyError:
-        return "Something went Wrong!!"
+    return resp["response"]
 
 
 async def find_pokemon(name) -> dict:

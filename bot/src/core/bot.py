@@ -168,23 +168,29 @@ class JAKDiscordBot(commands.Bot):
     ):
         if isinstance(error, commands.MissingPermissions):
             await inter.response.send_message(
-                f"You don't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join([error.replace('_', ' ').title() for error in error.missing_permissions])}"
+                f"You don't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join([error.replace('_', ' ').title() for error in error.missing_permissions])}",
+                ephemeral=True,
             )
         elif isinstance(error, commands.MissingRequiredArgument):
             await inter.response.send_message(
-                "Please make sure to provide all the required Arguments!!"
+                "Please make sure to provide all the required Arguments!!",
+                ephemeral=True,
             )
         elif isinstance(error, commands.BotMissingPermissions):
             await inter.response.send_message(
-                f"Bot doesn't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join([error.replace('_', ' ').title() for error in error.missing_permissions])}"
+                f"Bot doesn't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join([error.replace('_', ' ').title() for error in error.missing_permissions])}",
+                ephemeral=True,
             )
         elif isinstance(error, commands.BadArgument):
             await inter.response.send_message(
-                "Please make sure to provide the Arguments correctly!!"
+                "Please make sure to provide the Arguments correctly!!", ephemeral=True
             )
         elif isinstance(error, commands.CommandOnCooldown):
             await inter.response.send_message(
-                f"This Command is currently in Cooldown for you!! Try again in {int(error.retry_after)} seconds!!"
+                f"This Command is currently in Cooldown for you!! Try again in {int(error.retry_after)} seconds!!",
+                ephemeral=True,
             )
         else:
-            await inter.response.send_message(f"Something went Wrong!!\n```{error}```")
+            await inter.response.send_message(
+                f"Something went Wrong!!\n```{error}```", ephemeral=True
+            )

@@ -186,7 +186,9 @@ class Moderation_(commands.Cog):
                 )
             )
         else:
-            await inter.response.send_message("Time specified incorrectly!!")
+            await inter.response.send_message(
+                "Time specified incorrectly!!", ephemeral=True
+            )
 
 
 def setup(bot: JAKDiscordBot):

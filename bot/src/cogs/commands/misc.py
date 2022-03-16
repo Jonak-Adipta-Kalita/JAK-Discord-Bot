@@ -269,8 +269,11 @@ class Misc(commands.Cog):
             and not message.content
             in [f"{prefix}chatbot" for prefix in self.bot.prefixes]
         ):
-            response = await funcs.chatbot_response(message=message.content)
-            await message.reply(response)
+            try:
+                response = await funcs.chatbot_response(message=message.content)
+                await message.reply(response)
+            except KeyError:
+                await message.reply("Something went Wrong!!")
 
     @commands.Cog.listener()
     async def on_member_join(self, member: disnake.Member):
