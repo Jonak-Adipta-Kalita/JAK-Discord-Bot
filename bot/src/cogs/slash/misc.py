@@ -71,8 +71,7 @@ class Misc_(commands.Cog):
 
         await inter.response.send_message(
             embed=embeds.rules_embed(
-                bot_name=self.bot.user.name,
-                bot_avatar_url=self.bot.user.avatar.url,
+                bot=self.bot,
                 rules=rules,
             )
         )

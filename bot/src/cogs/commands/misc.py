@@ -42,8 +42,7 @@ class Misc(commands.Cog):
 
         await ctx.reply(
             embed=embeds.rules_embed(
-                bot_name=self.bot.user.name,
-                bot_avatar_url=self.bot.user.avatar.url,
+                bot=self.bot,
                 rules=rules,
             )
         )

@@ -23,45 +23,52 @@ def get_rules(
 
         rules.append(
             {
-                "name": f"{emojis.numbers['one']}\t\t\tNo Negativity",
+                "name": f"{emojis.numbers['one']}\tNo Negativity",
                 "description": embed_blank_value,
             }
         )
         rules.append(
             {
-                "name": f"{emojis.numbers['two']}\t\t\tNo Spamming",
+                "name": f"{emojis.numbers['two']}\tNo Spamming",
                 "description": embed_blank_value,
             }
         )
         rules.append(
             {
-                "name": f"{emojis.numbers['three']}\t\t\tNo Swearing",
+                "name": f"{emojis.numbers['three']}\tNo Swearing",
                 "description": embed_blank_value,
             }
         )
         rules.append(
             {
-                "name": f"{emojis.numbers['four']}\t\t\tNo Discriminatory Or Hate Speech",
+                "name": f"{emojis.numbers['four']}\tNo Discriminatory Or Hate Speech",
                 "description": embed_blank_value,
             }
         )
         rules.append(
             {
-                "name": f"{emojis.numbers['five']}\t\t\tNo NSFW Content",
+                "name": f"{emojis.numbers['five']}\tNo NSFW Content",
                 "description": embed_blank_value,
             }
         )
         rules.append(
             {
-                "name": f"{emojis.numbers['six']}\t\t\tNo Potentially Harmful Content",
+                "name": f"{emojis.numbers['six']}\tNo Potentially Harmful Content",
                 "description": embed_blank_value,
             }
         )
 
         return rules
 
-    for rule in guild_rules:
-        pass
+    for i, rule in enumerate(guild_rules):
+        rules.append(
+            {
+                "name": f"{rule[0]}",
+                "description": f"{rule[1]}",
+            }
+        )
+
+        return rules
 
 
 def translate_text(text: str) -> dict:
