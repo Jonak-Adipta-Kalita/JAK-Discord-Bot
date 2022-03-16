@@ -20,6 +20,8 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { selectedSidebarOptionState } from "../../atoms/dashboard";
 import TrophyIcon from "../../components/icons/TrophyIcon";
 import BotIcon from "../../components/icons/BotIcon";
+import { child, get, ref, set } from "firebase/database";
+import { db } from "../../firebase";
 
 interface Props {
     id: string;
@@ -100,6 +102,17 @@ const Rules = ({ guild }: ExtensionProps) => {
     const [name, setName] = useState<string>("");
     const [description, setDescription] = useState<string>("");
 
+    const rulesRef = child(child(ref(db, `guilds`), guild?.id!), "rules");
+    let existingRules: string[] | null;
+
+    get(rulesRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            existingRules = snapshot.val();
+        } else {
+            existingRules = null;
+        }
+    });
+
     if (!guild)
         return (
             <div className="guildBodyContainer">
@@ -109,6 +122,16 @@ const Rules = ({ guild }: ExtensionProps) => {
 
     const addRule = (e: FormEvent) => {
         e.preventDefault();
+        if (name === "" || description === "") {
+            alert("Please fill in the Data properly!!");
+            return;
+        }
+        const newRules = existingRules
+            ? [...existingRules, [name, description]]
+            : [[name, description]];
+        set(rulesRef, newRules);
+        setName("");
+        setDescription("");
     };
 
     return (
