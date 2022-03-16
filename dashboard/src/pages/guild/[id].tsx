@@ -15,13 +15,15 @@ import {
     TranslateIcon,
     SparklesIcon,
     ClipboardListIcon,
+    XIcon,
 } from "@heroicons/react/outline";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { selectedSidebarOptionState } from "../../atoms/dashboard";
 import TrophyIcon from "../../components/icons/TrophyIcon";
 import BotIcon from "../../components/icons/BotIcon";
-import { child, get, ref, set } from "firebase/database";
+import { child, ref, set } from "firebase/database";
 import { db } from "../../firebase";
+import { useObjectVal } from "react-firebase-hooks/database";
 
 interface Props {
     id: string;
@@ -103,22 +105,39 @@ const Rules = ({ guild }: ExtensionProps) => {
     const [description, setDescription] = useState<string>("");
 
     const rulesRef = child(child(ref(db, `guilds`), guild?.id!), "rules");
-    let existingRules: string[] | null;
+    const [existingRules, existingRulesLoading, existingRulesErrors] =
+        useObjectVal<[]>(rulesRef);
 
-    get(rulesRef).then((snapshot) => {
-        if (snapshot.exists()) {
-            existingRules = snapshot.val();
-        } else {
-            existingRules = null;
-        }
-    });
-
-    if (!guild)
+    if (!guild || existingRulesLoading || existingRulesErrors)
         return (
             <div className="guildBodyContainer">
                 <p className="">Loading...</p>
             </div>
         );
+
+    const showExistingRules = () => {
+        if (!existingRules) return <div className=""></div>;
+
+        return (
+            <div className="mt-[70px]">
+                {existingRules.map((rule: string[], i) => (
+                    <div
+                        className="flex items-center justify-between rounded-xl bg-gray-700 px-6 py-3"
+                        key={i}
+                    >
+                        <div className="space-y-2">
+                            <p className="">Name: {rule[0]}</p>
+                            <p className="">Description: {rule[1]}</p>
+                        </div>
+                        <XIcon
+                            className="h-10 w-10 cursor-pointer"
+                            onClick={() => {}}
+                        />
+                    </div>
+                ))}
+            </div>
+        );
+    };
 
     const addRule = (e: FormEvent) => {
         e.preventDefault();
@@ -162,7 +181,7 @@ const Rules = ({ guild }: ExtensionProps) => {
                     Add Rule
                 </button>
             </form>
-            {/* Existing Rules */}
+            {showExistingRules()}
         </div>
     );
 };
