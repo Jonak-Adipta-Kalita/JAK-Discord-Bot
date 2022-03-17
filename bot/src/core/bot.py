@@ -7,6 +7,7 @@ from disnake.ext import commands
 
 class JAKDiscordBot(commands.Bot):
     def __init__(self):
+        self.support_server: disnake.Guild = None
         self.prefixes = funcs.get_prefixes()
         self.db: firebase_admin.db.Reference = None
         self.together_control: discord_together.DiscordTogether = None
@@ -37,6 +38,8 @@ class JAKDiscordBot(commands.Bot):
         print("Bot is Disconnected!!")
 
     async def on_ready(self):
+        self.support_server = self.get_guild(752800104112717826)
+
         self.together_control = await discord_together.DiscordTogether(
             credentials.TOKEN
         )
