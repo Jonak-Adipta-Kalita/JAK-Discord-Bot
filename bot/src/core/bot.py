@@ -96,8 +96,7 @@ class JAKDiscordBot(commands.Bot):
         if msg in [f"<@!{self.user.id}>", f"<@{self.user.id}>"]:
             await message.reply(
                 embed=embeds.ping_bot_embed(
-                    bot_name=self.user.name,
-                    bot_avatar_url=self.user.avatar.url,
+                    bot=self,
                     servers=len(self.guilds),
                 )
             )

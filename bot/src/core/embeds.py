@@ -32,7 +32,7 @@ def rules_embed(bot: commands.Bot, rules: typing.List[dict]) -> disnake.Embed:
 
 
 async def help_embed(
-    ctx: commands.Context, bot: commands.Bot, command_type: str = None
+    bot: commands.Bot, author: disnake.Member, command_type: str = None
 ) -> disnake.Embed:
     bot_commands = await funcs.get_commands()
 
@@ -75,16 +75,16 @@ async def help_embed(
             inline=False,
         )
     embed.set_footer(
-        text=f"Information Requested by: {ctx.author.display_name}",
-        icon_url=ctx.author.avatar.url,
+        text=f"Information Requested by: {author.display_name}",
+        icon_url=author.avatar.url,
     )
 
     return embed
 
 
 def commands_help_embed(
-    ctx: commands.Context,
     bot: commands.Bot,
+    author: disnake.Member,
     command: commands.Command,
     sub_command: commands.Command = None,
 ) -> disnake.Embed:
@@ -130,8 +130,8 @@ def commands_help_embed(
         inline=False,
     )
     embed.set_footer(
-        text=f"Information Requested by: {ctx.author.display_name}",
-        icon_url=ctx.author.avatar.url,
+        text=f"Information Requested by: {author.display_name}",
+        icon_url=author.avatar.url,
     )
 
     return embed

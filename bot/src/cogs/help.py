@@ -5,9 +5,9 @@ from disnake.ext import commands
 
 
 class Dropdown(disnake.ui.Select):
-    def __init__(self, ctx: commands.Context, bot: JAKDiscordBot):
-        self.ctx = ctx
+    def __init__(self, bot: JAKDiscordBot, author: disnake.Member):
         self.bot = bot
+        self.author = author
 
         super().__init__(
             placeholder="Choose a category!!",
@@ -31,49 +31,62 @@ class Dropdown(disnake.ui.Select):
         if label == "moderation_help_embed":
             await interaction.response.edit_message(
                 embed=await embeds.help_embed(
-                    ctx=self.ctx,
                     bot=self.bot,
+                    author=self.author,
                     command_type="moderation",
                 )
             )
         elif label == "games_help_embed":
             await interaction.response.edit_message(
                 embed=await embeds.help_embed(
-                    ctx=self.ctx,
                     bot=self.bot,
+                    author=self.author,
                     command_type="games",
                 )
             )
         elif label == "music_help_embed":
             await interaction.response.edit_message(
                 embed=await embeds.help_embed(
-                    ctx=self.ctx,
                     bot=self.bot,
+                    author=self.author,
                     command_type="music",
                 )
             )
         elif label == "fun_help_embed":
             await interaction.response.edit_message(
                 embed=await embeds.help_embed(
-                    ctx=self.ctx,
                     bot=self.bot,
+                    author=self.author,
                     command_type="fun",
                 )
             )
         elif label == "misc_help_embed":
             await interaction.response.edit_message(
                 embed=await embeds.help_embed(
-                    ctx=self.ctx,
                     bot=self.bot,
+                    author=self.author,
                     command_type="misc",
                 )
             )
 
 
 class DropdownView(disnake.ui.View):
-    def __init__(self, ctx: commands.Context, bot: JAKDiscordBot):
+    def __init__(self, bot: JAKDiscordBot, author: disnake.Member):
         super().__init__(timeout=300)
-        self.add_item(Dropdown(ctx, bot))
+
+        self.bot = bot
+        self.author = author
+
+        self.add_item(Dropdown(self.bot, self.author))
+
+    async def interaction_check(self, interaction: disnake.MessageInteraction) -> bool:
+        if interaction.author == self.author:
+            return True
+
+        await interaction.response.send_message(
+            "This is not your Help Menu!!", ephemeral=True
+        )
+        return False
 
 
 class Help(commands.Cog):
@@ -93,8 +106,8 @@ class Help(commands.Cog):
                     if sub_cmd:
                         await ctx.reply(
                             embed=embeds.commands_help_embed(
-                                ctx=ctx,
                                 bot=self.bot,
+                                author=ctx.author,
                                 command=cmd,
                                 sub_command=sub_cmd,
                             )
@@ -104,8 +117,8 @@ class Help(commands.Cog):
                 else:
                     await ctx.reply(
                         embed=embeds.commands_help_embed(
-                            ctx=ctx,
                             bot=self.bot,
+                            author=ctx.author,
                             command=cmd,
                         )
                     )
@@ -113,19 +126,16 @@ class Help(commands.Cog):
                 await ctx.reply("Command not found!!")
         else:
             await ctx.reply(
-                embed=await embeds.help_embed(
-                    ctx=ctx,
-                    bot=self.bot,
-                ),
-                view=DropdownView(ctx=ctx, bot=self.bot),
+                embed=await embeds.help_embed(bot=self.bot, author=ctx.author),
+                view=DropdownView(bot=self.bot, author=ctx.author),
             )
 
     @help.command(description="Show the Moderation Commands", aliases=["mod"])
     async def moderation(self, ctx: commands.Context):
         await ctx.reply(
             embed=await embeds.help_embed(
-                ctx=ctx,
                 bot=self.bot,
+                author=ctx.author,
                 command_type="moderation",
             )
         )
@@ -134,8 +144,8 @@ class Help(commands.Cog):
     async def games(self, ctx: commands.Context):
         await ctx.reply(
             embed=await embeds.help_embed(
-                ctx=ctx,
                 bot=self.bot,
+                author=ctx.author,
                 command_type="games",
             )
         )
@@ -144,8 +154,8 @@ class Help(commands.Cog):
     async def music(self, ctx: commands.Context):
         await ctx.reply(
             embed=await embeds.help_embed(
-                ctx=ctx,
                 bot=self.bot,
+                author=ctx.author,
                 command_type="music",
             )
         )
@@ -154,8 +164,8 @@ class Help(commands.Cog):
     async def fun(self, ctx: commands.Context):
         await ctx.reply(
             embed=await embeds.help_embed(
-                ctx=ctx,
                 bot=self.bot,
+                author=ctx.author,
                 command_type="fun",
             )
         )
@@ -164,8 +174,8 @@ class Help(commands.Cog):
     async def misc(self, ctx: commands.Context):
         await ctx.reply(
             embed=await embeds.help_embed(
-                ctx=ctx,
                 bot=self.bot,
+                author=ctx.author,
                 command_type="misc",
             )
         )

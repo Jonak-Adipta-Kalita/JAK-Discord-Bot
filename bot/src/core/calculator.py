@@ -40,7 +40,7 @@ class CalculatorButtons(disnake.ui.View):
             return True
 
         await interaction.response.send_message(
-            "This is not your calculator!", ephemeral=True
+            "This is not your calculator!!", ephemeral=True
         )
         return False
 
