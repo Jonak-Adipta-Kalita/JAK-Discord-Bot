@@ -289,7 +289,7 @@ class AkinatorButtons(disnake.ui.View):
         await interaction.response.defer()
         question = self.aki.answer("yes")
         self.counter += 1
-        self.embed.title = f"Quesion no. {self.counter}: {question}"
+        self.embed.title = f"Question no. {self.counter}: {question}"
         await interaction.edit_original_message(
             embed=self.embed,
         )
@@ -309,7 +309,7 @@ class AkinatorButtons(disnake.ui.View):
         await interaction.response.defer()
         question = self.aki.answer("no")
         self.counter += 1
-        self.embed.title = f"Quesion no. {self.counter}: {question}"
+        self.embed.title = f"Question no. {self.counter}: {question}"
         await interaction.edit_original_message(
             embed=self.embed,
         )
@@ -331,7 +331,7 @@ class AkinatorButtons(disnake.ui.View):
         await interaction.response.defer()
         question = self.aki.answer("idk")
         self.counter += 1
-        self.embed.title = f"Quesion no. {self.counter}: {question}"
+        self.embed.title = f"Question no. {self.counter}: {question}"
         await interaction.edit_original_message(
             embed=self.embed,
         )
@@ -353,7 +353,7 @@ class AkinatorButtons(disnake.ui.View):
         await interaction.response.defer()
         question = self.aki.answer("probably")
         self.counter += 1
-        self.embed.title = f"Quesion no. {self.counter}: {question}"
+        self.embed.title = f"Question no. {self.counter}: {question}"
         await interaction.edit_original_message(
             embed=self.embed,
         )
@@ -368,6 +368,7 @@ class AkinatorButtons(disnake.ui.View):
         label="Probably Not",
         style=disnake.ButtonStyle.blurple,
         emoji=emojis.faces["rolling_eyes"],
+        row=2,
     )
     async def probably_not(
         self, button: disnake.ui.Button, interaction: disnake.MessageInteraction
@@ -375,7 +376,7 @@ class AkinatorButtons(disnake.ui.View):
         await interaction.response.defer()
         question = self.aki.answer("probably not")
         self.counter += 1
-        self.embed.title = f"Quesion no. {self.counter}: {question}"
+        self.embed.title = f"Question no. {self.counter}: {question}"
         await interaction.edit_original_message(
             embed=self.embed,
         )
@@ -385,3 +386,35 @@ class AkinatorButtons(disnake.ui.View):
             await interaction.edit_original_message(
                 embed=embeds.akinator_embed(guess=self.aki.first_guess), view=None
             )
+
+    @disnake.ui.button(
+        label="Back",
+        style=disnake.ButtonStyle.blurple,
+        emoji=emojis.arrows["backward"],
+        row=2,
+    )
+    async def back(
+        self, button: disnake.ui.Button, interaction: disnake.MessageInteraction
+    ):
+        await interaction.response.defer()
+        try:
+            question = self.aki.back()
+            self.counter -= 1
+            self.embed.title = f"Question no. {self.counter}: {question}"
+            await interaction.edit_original_message(
+                embed=self.embed,
+            )
+        except akinator.CantGoBackAnyFurther:
+            pass
+
+    @disnake.ui.button(
+        label="Stop", style=disnake.ButtonStyle.blurple, emoji=emojis.rejected, row=2
+    )
+    async def stop_(
+        self, button: disnake.ui.Button, interaction: disnake.MessageInteraction
+    ):
+        await interaction.response.defer()
+        await interaction.edit_original_message(
+            content="Game Stopped!!", embed=None, view=None
+        )
+        self.stop()
