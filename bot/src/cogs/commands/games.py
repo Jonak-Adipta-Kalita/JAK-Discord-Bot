@@ -1,6 +1,7 @@
-import disnake, random, asyncio, requests
+import disnake, random, asyncio, requests, akinator as aki_
 import src.core.emojis as emojis
 import src.core.embeds as embeds
+import src.core.buttons as buttons
 from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 
@@ -95,6 +96,7 @@ class Games(commands.Cog):
             await ctx.reply("A game is already in progress!! Finish it or Stop it!!")
 
     @tictactoe.command(description="Place your position for Tic-Tac-Toe Game")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def place(self, ctx: commands.Context, pos: int):
         global tictactoe_count
 
@@ -152,6 +154,7 @@ class Games(commands.Cog):
             await ctx.reply("Please start a new game!!")
 
     @tictactoe.command(description="Stops Tic-Tac-Toe Game")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def stop(self, ctx: commands.Context):
         if not self.tictactoe_game_over:
             if ctx.author in self.tictactoe_players:
@@ -189,6 +192,7 @@ class Games(commands.Cog):
             await ctx.reply("One game is already running!!")
 
     @hangman.command(description="Guess Word in Hangman Game")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def guess(self, ctx: commands.Context, letter: str):
         if not self.hangman_game_over:
             if ctx.author == self.hangman_player:
@@ -234,6 +238,7 @@ class Games(commands.Cog):
             await ctx.reply("No game is currently running!!")
 
     @hangman.command(description="Stops Hangman Game")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def stop(self, ctx: commands.Context):
         if not self.hangman_game_over:
             if ctx.author == self.hangman_player:
@@ -248,6 +253,7 @@ class Games(commands.Cog):
     @commands.command(
         aliases=["rps", "rock_paper_scissor"], description="Play Rock Paper Scissor"
     )
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def rock_paper_scissors(self, ctx: commands.Context, move: str):
         moves = ["rock", "paper", "scissor"]
 
@@ -285,6 +291,21 @@ class Games(commands.Cog):
             )
         else:
             await ctx.reply("The Move must be `rock` `paper` or `scissor`")
+
+    @commands.command(description="Play Akinator Game", aliases=["aki"])
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
+    async def akinator(self, ctx: commands.Context):
+        aki = aki_.Akinator()
+        question = aki.start_game()
+        counter = 1
+
+        embed = embeds.akinator_embed(question, counter)
+        await ctx.reply(
+            embed=embed,
+            view=buttons.AkinatorButtons(
+                author=ctx.author, aki=aki, embed=embed, counter=counter
+            ),
+        )
 
 
 def setup(bot: JAKDiscordBot):

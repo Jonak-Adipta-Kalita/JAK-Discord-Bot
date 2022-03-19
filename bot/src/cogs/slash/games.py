@@ -1,5 +1,6 @@
-import disnake, random, requests
+import disnake, random, requests, akinator as aki_
 import src.core.embeds as embeds
+import src.core.buttons as buttons
 from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 
@@ -74,6 +75,23 @@ class Games_(commands.Cog):
             embed=embeds.rock_paper_scissor_embed(
                 player_move=move, comp_move=comp_choice, winner=winner
             )
+        )
+
+    @commands.slash_command(description="Play Akinator Game")
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
+    async def akinator(self, inter: disnake.ApplicationCommandInteraction):
+        await inter.response.defer()
+
+        aki = aki_.Akinator()
+        question = aki.start_game()
+        counter = 1
+
+        embed = embeds.akinator_embed(question, counter)
+        await inter.edit_original_message(
+            embed=embed,
+            view=buttons.AkinatorButtons(
+                author=inter.author, aki=aki, embed=embed, counter=counter
+            ),
         )
 
 

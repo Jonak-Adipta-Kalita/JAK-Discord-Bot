@@ -2,7 +2,7 @@ import asyncio, disnake, random, os, art
 import src.core.embeds as embeds
 import src.core.files as files
 import src.core.functions as funcs
-import src.core.calculator as calc
+import src.core.buttons as buttons
 from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 from PIL import Image, ImageDraw, ImageFont
@@ -266,7 +266,7 @@ class Fun_(commands.Cog):
         embed = embeds.calculator_embed()
 
         await inter.response.send_message(
-            embed=embed, view=calc.CalculatorButtons(embed, inter.author)
+            embed=embed, view=buttons.CalculatorButtons(embed, inter.author)
         )
 
     @commands.slash_command(

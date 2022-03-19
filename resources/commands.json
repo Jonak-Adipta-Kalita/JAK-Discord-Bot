@@ -192,6 +192,13 @@
             "usage": "$rock_paper_scissors <move>",
             "has_slash_command": true,
             "description": "Play Rock Paper Scissor Game"
+        },
+        {
+            "id": 8,
+            "name": "akinator",
+            "usage": "$akinator",
+            "has_slash_command": true,
+            "description": "Play Akinator Game"
         }
     ],
     "misc": [

@@ -52,6 +52,10 @@ punctuation = {
     "question": "❓",
 }
 
+thumbs = {"up": "👍", "down": "👎"}
+
+faces = {"thinking": "🤔", "rolling_eyes": "🙄"}
+
 abc = "🔤"
 white_large_square = "⬜"
 o2 = "🅾️"

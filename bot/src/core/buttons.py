@@ -1,4 +1,6 @@
-import disnake, simpleeval, re
+import disnake, simpleeval, re, akinator
+import src.core.emojis as emojis
+import src.core.embeds as embeds
 
 sup = {
     "0": "⁰",
@@ -252,3 +254,134 @@ class CalculatorButtons(disnake.ui.View):
     ):
         await interaction.response.edit_message()
         self.stop()
+
+
+class AkinatorButtons(disnake.ui.View):
+    def __init__(
+        self,
+        author: disnake.Member,
+        aki: akinator.Akinator,
+        embed: disnake.Embed,
+        counter: int,
+    ):
+        super().__init__(timeout=300)
+
+        self.author = author
+        self.aki = aki
+        self.embed = embed
+        self.counter = counter
+
+    async def interaction_check(self, interaction: disnake.MessageInteraction) -> bool:
+        if interaction.author == self.author:
+            return True
+
+        await interaction.response.send_message(
+            "This is not your Akinator Game!!", ephemeral=True
+        )
+        return False
+
+    @disnake.ui.button(
+        label="Yes", style=disnake.ButtonStyle.blurple, emoji=emojis.thumbs["up"]
+    )
+    async def yes(
+        self, button: disnake.ui.Button, interaction: disnake.MessageInteraction
+    ):
+        await interaction.response.defer()
+        question = self.aki.answer("yes")
+        self.counter += 1
+        self.embed.title = f"Quesion no. {self.counter}: {question}"
+        await interaction.edit_original_message(
+            embed=self.embed,
+        )
+
+        if self.aki.progression >= 85:
+            self.aki.win()
+            await interaction.edit_original_message(
+                embed=embeds.akinator_embed(guess=self.aki.first_guess), view=None
+            )
+
+    @disnake.ui.button(
+        label="No", style=disnake.ButtonStyle.blurple, emoji=emojis.thumbs["down"]
+    )
+    async def no(
+        self, button: disnake.ui.Button, interaction: disnake.MessageInteraction
+    ):
+        await interaction.response.defer()
+        question = self.aki.answer("no")
+        self.counter += 1
+        self.embed.title = f"Quesion no. {self.counter}: {question}"
+        await interaction.edit_original_message(
+            embed=self.embed,
+        )
+
+        if self.aki.progression >= 85:
+            self.aki.win()
+            await interaction.edit_original_message(
+                embed=embeds.akinator_embed(guess=self.aki.first_guess), view=None
+            )
+
+    @disnake.ui.button(
+        label="Don't Know",
+        style=disnake.ButtonStyle.blurple,
+        emoji=emojis.punctuation["question"],
+    )
+    async def dont_know(
+        self, button: disnake.ui.Button, interaction: disnake.MessageInteraction
+    ):
+        await interaction.response.defer()
+        question = self.aki.answer("idk")
+        self.counter += 1
+        self.embed.title = f"Quesion no. {self.counter}: {question}"
+        await interaction.edit_original_message(
+            embed=self.embed,
+        )
+
+        if self.aki.progression >= 85:
+            self.aki.win()
+            await interaction.edit_original_message(
+                embed=embeds.akinator_embed(guess=self.aki.first_guess), view=None
+            )
+
+    @disnake.ui.button(
+        label="Probably",
+        style=disnake.ButtonStyle.blurple,
+        emoji=emojis.faces["thinking"],
+    )
+    async def probably(
+        self, button: disnake.ui.Button, interaction: disnake.MessageInteraction
+    ):
+        await interaction.response.defer()
+        question = self.aki.answer("probably")
+        self.counter += 1
+        self.embed.title = f"Quesion no. {self.counter}: {question}"
+        await interaction.edit_original_message(
+            embed=self.embed,
+        )
+
+        if self.aki.progression >= 85:
+            self.aki.win()
+            await interaction.edit_original_message(
+                embed=embeds.akinator_embed(guess=self.aki.first_guess), view=None
+            )
+
+    @disnake.ui.button(
+        label="Probably Not",
+        style=disnake.ButtonStyle.blurple,
+        emoji=emojis.faces["rolling_eyes"],
+    )
+    async def probably_not(
+        self, button: disnake.ui.Button, interaction: disnake.MessageInteraction
+    ):
+        await interaction.response.defer()
+        question = self.aki.answer("probably not")
+        self.counter += 1
+        self.embed.title = f"Quesion no. {self.counter}: {question}"
+        await interaction.edit_original_message(
+            embed=self.embed,
+        )
+
+        if self.aki.progression >= 85:
+            self.aki.win()
+            await interaction.edit_original_message(
+                embed=embeds.akinator_embed(guess=self.aki.first_guess), view=None
+            )

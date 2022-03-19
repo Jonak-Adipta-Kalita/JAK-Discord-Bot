@@ -2,7 +2,7 @@ import asyncio, disnake, os, random, art
 import src.core.embeds as embeds
 import src.core.functions as funcs
 import src.core.files as files
-import src.core.calculator as calc
+import src.core.buttons as buttons
 from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 from PIL import Image, ImageDraw, ImageFont
@@ -149,7 +149,7 @@ class Fun(commands.Cog):
     async def calculator(self, ctx: commands.Context):
         embed = embeds.calculator_embed()
 
-        await ctx.send(embed=embed, view=calc.CalculatorButtons(embed, ctx.author))
+        await ctx.send(embed=embed, view=buttons.CalculatorButtons(embed, ctx.author))
 
     @commands.command(description="Find a Pokemon by Name")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)

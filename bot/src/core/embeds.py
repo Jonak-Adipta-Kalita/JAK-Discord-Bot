@@ -427,3 +427,19 @@ def brawler_embed(brawler: dict) -> disnake.Embed:
     embed.set_thumbnail(url=f"https://jak-api.vercel.app{brawler['image']}")
 
     return embed
+
+
+def akinator_embed(
+    question: str = None, counter: int = None, guess=None
+) -> disnake.Embed:
+    if guess and not (question and counter):
+        embed = disnake.Embed(title=f"My Guess", color=0x3498DB)
+        embed.add_field("Name", guess["name"], inline=False)
+        embed.add_field("Description", guess["description"], inline=False)
+        embed.set_thumbnail(guess["absolute_picture_path"])
+    else:
+        embed = disnake.Embed(
+            title=f"Question no. {counter}: {question}", color=0x3498DB
+        )
+
+    return embed
