@@ -320,113 +320,114 @@ const Guild = ({ id }: Props) => {
     };
 
     return (
-        <div className="flex h-screen flex-col text-gray-300">
+        <div className="flex flex-col text-gray-300">
             <Head>
                 <title>
                     JAK Discord Bot | Guild |{" "}
                     {guild?.name ? guild.name : "Loading"}
                 </title>
             </Head>
-            <Header />
-            <main className="flex-1 overflow-y-auto scrollbar-hide">
-                {session ? (
-                    <div className="">
-                        {guild ? (
-                            <div className="flex">
-                                <div
-                                    className="flex flex-col items-center border-r-[3px]"
-                                    style={{ flex: 0.2 }}
-                                >
-                                    <div className="mt-5" />
-                                    <div className="">
+            {session ? (
+                <div className="overflow-y-hidden">
+                    {guild ? (
+                        <div className="flex">
+                            <div
+                                className="flex h-screen flex-col items-center overflow-y-auto border-r-[3px] scrollbar-hide"
+                                style={{ flex: 0.2 }}
+                            >
+                                <div className="mt-5" />
+                                <div className="">
+                                    <SidebarOption
+                                        name="General"
+                                        Icon={HomeIcon}
+                                    />
+                                </div>
+                                <div className="mt-7">
+                                    <div className="flex justify-center">
+                                        <p className="mb-4 hidden text-sm font-bold lg:inline">
+                                            Server Management
+                                        </p>
+                                    </div>
+
+                                    <div className="space-y-2">
                                         <SidebarOption
-                                            name="General"
-                                            Icon={HomeIcon}
+                                            name="Welcome"
+                                            Icon={HandIcon}
+                                        />
+                                        <SidebarOption
+                                            name="Moderation"
+                                            Icon={StopIcon}
+                                        />
+                                        <SidebarOption
+                                            name="Rules"
+                                            Icon={DocumentTextIcon}
+                                        />
+                                        <SidebarOption
+                                            name="Reaction Roles"
+                                            Icon={HeartIcon}
+                                        />
+                                        <SidebarOption
+                                            name="Translation and Pronunciation"
+                                            Icon={TranslateIcon}
+                                        />
+                                        <SidebarOption
+                                            name="Poll"
+                                            Icon={ClipboardListIcon}
                                         />
                                     </div>
-                                    <div className="mt-7">
-                                        <div className="flex justify-center">
-                                            <p className="mb-4 hidden text-sm font-bold lg:inline">
-                                                Server Management
-                                            </p>
-                                        </div>
-
-                                        <div className="space-y-2">
-                                            <SidebarOption
-                                                name="Welcome"
-                                                Icon={HandIcon}
-                                            />
-                                            <SidebarOption
-                                                name="Moderation"
-                                                Icon={StopIcon}
-                                            />
-                                            <SidebarOption
-                                                name="Rules"
-                                                Icon={DocumentTextIcon}
-                                            />
-                                            <SidebarOption
-                                                name="Reaction Roles"
-                                                Icon={HeartIcon}
-                                            />
-                                            <SidebarOption
-                                                name="Translation and Pronunciation"
-                                                Icon={TranslateIcon}
-                                            />
-                                            <SidebarOption
-                                                name="Poll"
-                                                Icon={ClipboardListIcon}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="mt-7">
-                                        <div className="flex justify-center">
-                                            <p className="mb-4 hidden text-sm font-bold lg:inline">
-                                                Fun
-                                            </p>
-                                        </div>
-
-                                        <div className="space-y-2">
-                                            <SidebarOption
-                                                name="Experience"
-                                                Icon={TrophyIcon}
-                                            />
-                                            <SidebarOption
-                                                name="Reputation"
-                                                Icon={StarIcon}
-                                            />
-                                            <SidebarOption
-                                                name="Chatbot"
-                                                Icon={BotIcon}
-                                            />
-                                            <SidebarOption
-                                                name="Giveaway"
-                                                Icon={SparklesIcon}
-                                            />
-                                        </div>
-                                    </div>
                                 </div>
-                                <div
-                                    className="mt-[10px]"
-                                    style={{ flex: 0.8 }}
-                                >
-                                    {body()}
+                                <div className="mt-7">
+                                    <div className="flex justify-center">
+                                        <p className="mb-4 hidden text-sm font-bold lg:inline">
+                                            Fun
+                                        </p>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <SidebarOption
+                                            name="Experience"
+                                            Icon={TrophyIcon}
+                                        />
+                                        <SidebarOption
+                                            name="Reputation"
+                                            Icon={StarIcon}
+                                        />
+                                        <SidebarOption
+                                            name="Chatbot"
+                                            Icon={BotIcon}
+                                        />
+                                        <SidebarOption
+                                            name="Giveaway"
+                                            Icon={SparklesIcon}
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                        ) : (
+                            <div
+                                className="mt-[10px] h-screen overflow-y-auto scrollbar-hide"
+                                style={{ flex: 0.8 }}
+                            >
+                                <Header />
+                                {body()}
+                                <Footer />
+                            </div>
+                        </div>
+                    ) : (
+                        <>
+                            <Header />
                             <div className="mx-auto mt-5 flex justify-center md:mt-10 md:max-w-3xl lg:mt-[50px] lg:max-w-5xl">
                                 <p className="font-2xl font-bold">Loading...</p>
                             </div>
-                        )}
-                    </div>
-                ) : (
-                    <div className="mx-auto mt-5 flex justify-center md:mt-10 md:max-w-3xl lg:mt-[50px] lg:max-w-5xl">
-                        <p className="font-2xl font-bold">
-                            You need to Sign Up or Login first!!
-                        </p>
-                    </div>
-                )}
-            </main>
-            <Footer />
+                        </>
+                    )}
+                </div>
+            ) : (
+                <div className="mx-auto mt-5 flex justify-center md:mt-10 md:max-w-3xl lg:mt-[50px] lg:max-w-5xl">
+                    <p className="font-2xl font-bold">
+                        You need to Sign Up or Login first!!
+                    </p>
+                </div>
+            )}
         </div>
     );
 };

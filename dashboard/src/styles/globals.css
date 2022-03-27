@@ -37,6 +37,6 @@ button {
     }
 
     .guildBodyInput {
-        @apply w-[400px] rounded-lg border-[5px] border-gray-300 bg-bg-color p-4 outline-none sm:w-[500px];
+        @apply mx-[50px] w-[400px] rounded-lg border-[5px] border-gray-300 bg-bg-color p-4 outline-none sm:w-[500px];
     }
 }
