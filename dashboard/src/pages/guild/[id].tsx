@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import { useState, useEffect, FormEvent } from "react";
 import { Guild } from "../../types/typings";
 import { GetServerSideProps } from "next";
@@ -438,8 +438,11 @@ const Guild = ({ id }: Props) => {
 export default Guild;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+    const session = await getSession(context);
+
     return {
         props: {
+            session: session,
             id: context.query.id,
         },
     };

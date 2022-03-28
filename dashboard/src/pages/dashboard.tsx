@@ -1,8 +1,9 @@
-import { useSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";
 import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
 
 const Dashboard = () => {
     const { data: session } = useSession();
@@ -75,3 +76,13 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const session = await getSession(context);
+
+    return {
+        props: {
+            session: session,
+        },
+    };
+};
