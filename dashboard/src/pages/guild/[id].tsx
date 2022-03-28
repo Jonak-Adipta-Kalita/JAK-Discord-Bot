@@ -332,7 +332,7 @@ const Guild = ({ id }: Props) => {
                     {guild ? (
                         <div className="flex">
                             <div
-                                className="flex h-screen flex-col items-center overflow-y-auto border-r-[3px] scrollbar-hide"
+                                className="flex h-screen flex-col items-center overflow-y-auto border-r-[3px] pb-5 scrollbar-hide"
                                 style={{ flex: 0.2 }}
                             >
                                 <div className="mt-5" />

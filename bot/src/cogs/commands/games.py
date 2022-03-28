@@ -295,10 +295,11 @@ class Games(commands.Cog):
     @commands.command(description="Play Akinator Game", aliases=["aki"])
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def akinator(self, ctx: commands.Context):
-        aki = aki_.Akinator()
-        question = aki.start_game()
+        async with ctx.typing():
+            aki = aki_.Akinator()
+            question = aki.start_game()
+        
         counter = 1
-
         embed = embeds.akinator_embed(question, counter)
         await ctx.reply(
             embed=embed,

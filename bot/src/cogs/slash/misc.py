@@ -112,7 +112,8 @@ class Misc_(commands.Cog):
     @commands.slash_command(description="Show the Server Information")
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def server_stats(self, inter: disnake.ApplicationCommandInteraction):
-        await inter.response.send_message(
+        await inter.response.defer()
+        await inter.edit_original_message(
             embed=embeds.server_stats_embed(guild=inter.guild)
         )
 
