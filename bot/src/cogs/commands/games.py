@@ -298,7 +298,7 @@ class Games(commands.Cog):
         async with ctx.typing():
             aki = aki_.Akinator()
             question = aki.start_game()
-        
+
         counter = 1
         embed = embeds.akinator_embed(question, counter)
         await ctx.reply(

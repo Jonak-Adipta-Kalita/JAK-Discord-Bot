@@ -1,4 +1,4 @@
-import disnake
+import disnake, io, contextlib, textwrap, traceback
 from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 
@@ -57,6 +57,44 @@ class Staff(commands.Cog):
                 value=f"Reloaded COG: ``{extension}`` Successfully!!",
             )
             await ctx.send(embed=embed)
+
+    @commands.command(hidden=True)
+    async def eval(self, ctx: commands.Context, *, code: str):
+        code = disnake.utils.remove_markdown(code.strip()).strip()
+
+        local_variables = {
+            "disnake": disnake,
+            "commands": commands,
+            "bot": self.bot,
+            "client": self.bot,
+            "ctx": ctx,
+            "channel": ctx.channel,
+            "author": ctx.author,
+            "guild": ctx.guild,
+            "message": ctx.message,
+        }
+
+        stdout = io.StringIO()
+
+        try:
+            with contextlib.redirect_stdout(stdout):
+                exec(
+                    f"async def func():\n{textwrap.indent(code, '    ')}",
+                    local_variables,
+                )
+                obj = await local_variables["func"]()
+                result = f"{stdout.getvalue()}{obj}\n"
+        except Exception as e:
+            result = "".join(traceback.format_exception(e, e, e.__traceback__))
+
+        result = result.replace("`", "")
+        code = code.replace("`", "")
+        if result.replace("\n", "").endswith("None") and result != "None":
+            result = result[:-5]
+
+        if len(result) < 2000:
+            await ctx.send(f"```py\nIn[0]: {code}\nOut[0]: {result}\n```")
+            return
 
 
 def setup(bot: JAKDiscordBot):
