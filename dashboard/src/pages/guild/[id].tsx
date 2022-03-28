@@ -404,7 +404,7 @@ const Guild = ({ id }: Props) => {
                                 </div>
                             </div>
                             <div
-                                className="mt-[10px] h-screen overflow-y-auto scrollbar-hide"
+                                className="h-screen overflow-y-auto scrollbar-hide"
                                 style={{ flex: 0.8 }}
                             >
                                 <Header />
@@ -422,11 +422,14 @@ const Guild = ({ id }: Props) => {
                     )}
                 </div>
             ) : (
-                <div className="mx-auto mt-5 flex justify-center md:mt-10 md:max-w-3xl lg:mt-[50px] lg:max-w-5xl">
-                    <p className="font-2xl font-bold">
-                        You need to Sign Up or Login first!!
-                    </p>
-                </div>
+                <>
+                    <Header />
+                    <div className="mx-auto mt-5 flex justify-center md:mt-10 md:max-w-3xl lg:mt-[50px] lg:max-w-5xl">
+                        <p className="font-2xl font-bold">
+                            You need to Sign Up or Login first!!
+                        </p>
+                    </div>
+                </>
             )}
         </div>
     );

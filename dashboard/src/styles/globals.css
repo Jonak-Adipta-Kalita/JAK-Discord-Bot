@@ -33,10 +33,10 @@ button {
     }
 
     .guildBodyContainer {
-        @apply px-2 md:px-4 lg:px-6 xl:px-10;
+        @apply mt-[30px] px-2 md:px-4 lg:px-6 xl:px-10;
     }
 
     .guildBodyInput {
-        @apply mx-[50px] w-[400px] rounded-lg border-[5px] border-gray-300 bg-bg-color p-4 outline-none sm:w-[500px];
+        @apply w-[350px] rounded-lg border-[5px] border-gray-300 bg-bg-color p-4 outline-none sm:w-[500px];
     }
 }

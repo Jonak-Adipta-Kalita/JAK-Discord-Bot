@@ -21,8 +21,9 @@ const Header = () => {
                     alt="logo"
                     height={60}
                     width={60}
+                    className=""
                 />
-                <p className="cursor-pointer text-xs font-bold text-white sm:text-sm md:text-base">
+                <p className="cursor-pointer text-sm font-bold text-white md:text-base">
                     JAK Discord Bot
                 </p>
             </div>
@@ -42,7 +43,7 @@ const Header = () => {
                         onClick={() => setDropdownOpen(!dropdownOpen)}
                     >
                         <img
-                            className="h-10 w-10 rounded-full"
+                            className="hidden h-10 w-10 rounded-full md:inline"
                             src={session?.user?.image!}
                             alt="avatar"
                         />
