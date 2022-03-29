@@ -167,7 +167,7 @@ class JAKDiscordBot(commands.Bot):
                 f"This Command is currently in Cooldown for you!! Try again in {int(error.retry_after)} seconds!!"
             )
         else:
-            await ctx.reply(f"Something went Wrong!!\n```py{repr(error)}```")
+            await ctx.reply(f"Something went Wrong!!\n```py {repr(error)}```")
 
     async def on_slash_command_error(
         self, inter: disnake.ApplicationCommandInteraction, error: commands.CommandError
@@ -198,5 +198,5 @@ class JAKDiscordBot(commands.Bot):
             )
         else:
             await inter.response.send_message(
-                f"Something went Wrong!!\n```py{error}```", ephemeral=True
+                f"Something went Wrong!!\n```py {error}```", ephemeral=True
             )

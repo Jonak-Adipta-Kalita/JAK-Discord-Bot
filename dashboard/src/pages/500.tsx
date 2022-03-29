@@ -1,8 +1,6 @@
 import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { GetServerSideProps } from "next";
-import { getSession } from "next-auth/react";
 
 const _500 = () => {
     return (
@@ -22,13 +20,3 @@ const _500 = () => {
 };
 
 export default _500;
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const session = await getSession(context);
-
-    return {
-        props: {
-            session: session,
-        },
-    };
-};
