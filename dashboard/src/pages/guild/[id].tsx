@@ -286,6 +286,9 @@ const Giveaway = ({ guild }: ExtensionProps) => {
 
 const Guild = ({ id }: Props) => {
     const { data: session } = useSession();
+    const [dbGuild, dbGuildLoading, dbGuildError] = useObjectVal(
+        child(ref(db, `guilds`), id)
+    );
     const [guild, setGuild] = useState<Guild | undefined | null>(null);
     const selectedSidebarOption = useRecoilValue(selectedSidebarOptionState);
 
@@ -294,6 +297,23 @@ const Guild = ({ id }: Props) => {
     }, [session]);
 
     const body = () => {
+        if (dbGuildLoading || dbGuildError) {
+            return (
+                <div className="guildBodyContainer">
+                    <p className="">Loading...</p>
+                </div>
+            );
+        }
+        if (!dbGuild) {
+            return (
+                <div className="guildBodyContainer">
+                    <p className="">
+                        Your Server is not in JAK Discord Bot&apos;s Database!!
+                        Please re-invite the Bot when it is online!!
+                    </p>
+                </div>
+            );
+        }
         if (selectedSidebarOption === "general") {
             return <General guild={guild} />;
         } else if (selectedSidebarOption === "welcome") {
