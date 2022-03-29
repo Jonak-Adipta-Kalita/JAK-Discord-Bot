@@ -249,6 +249,41 @@ class Misc_(commands.Cog):
             embed=embeds.place_details_embed(place=place_details)
         )
 
+    @commands.slash_command(
+        description="Create Webhook",
+        options=[
+            disnake.Option(
+                name="member",
+                description="The User you want to make a Webhook of",
+                type=disnake.OptionType.mentionable,
+                required=True,
+            ),
+            disnake.Option(
+                name="text",
+                description="Text you want to send after creating the Webhook",
+                type=disnake.OptionType.string,
+            ),
+        ],
+    )
+    @commands.bot_has_permissions(manage_webhooks=True)
+    @commands.cooldown(rate=1, per=15, type=commands.BucketType.user)
+    async def create_webhook(
+        self, inter: disnake.ApplicationCommandInteraction, member: disnake.Member, text
+    ):
+        for k in await inter.channel.webhooks():
+            if k.user == inter.me:
+                await k.delete()
+        webhook = await inter.channel.create_webhook(name=f"{member}")
+
+        await webhook.send(
+            text,
+            username=member.name,
+            avatar_url=member.avatar.url,
+            allowed_mentions=disnake.AllowedMentions(
+                roles=False, users=False, everyone=False
+            ),
+        )
+
 
 def setup(bot: JAKDiscordBot):
     bot.add_cog(Misc_(bot))

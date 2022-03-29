@@ -188,6 +188,26 @@ class Misc(commands.Cog):
 
         await ctx.reply(embed=embeds.place_details_embed(place=place_details))
 
+    @commands.command(description="Create Webhook")
+    @commands.bot_has_permissions(manage_webhooks=True)
+    @commands.cooldown(rate=1, per=15, type=commands.BucketType.user)
+    async def create_webhook(
+        self, ctx: commands.Context, member: disnake.Member, *, text
+    ):
+        for k in await ctx.channel.webhooks():
+            if k.user == ctx.me:
+                await k.delete()
+        webhook = await ctx.channel.create_webhook(name=f"{member}")
+
+        await webhook.send(
+            text,
+            username=member.name,
+            avatar_url=member.avatar.url,
+            allowed_mentions=disnake.AllowedMentions(
+                roles=False, users=False, everyone=False
+            ),
+        )
+
     @commands.Cog.listener()
     async def on_message(self, message: disnake.Message):
         member = message.author
