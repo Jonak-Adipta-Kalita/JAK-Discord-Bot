@@ -9,10 +9,9 @@ class Staff(commands.Cog):
 
     async def cog_check(self, ctx: commands.Context):
         if not await self.bot.is_owner(ctx.author):
-            await ctx.reply(
-                "Only the Members of Dev Team are allowed to use this command!!"
+            raise commands.NotOwner(
+                "Only the Members of the Dev Team are allowed to use this command!!"
             )
-            return False
 
         return True
 
