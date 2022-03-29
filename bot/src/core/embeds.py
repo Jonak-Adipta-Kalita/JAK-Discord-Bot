@@ -17,20 +17,6 @@ def ping_bot_embed(bot: commands.Bot, servers: int) -> disnake.Embed:
     return embed
 
 
-def rules_embed(bot: commands.Bot, rules: typing.List[dict]) -> disnake.Embed:
-    embed = disnake.Embed(color=0x3498DB)
-    embed.set_author(name=f"{bot.user.name} - Rules", icon_url=bot.user.avatar.url)
-    embed.set_footer(text="Please Follow all the RULES!!")
-    for rule in rules:
-        embed.add_field(
-            name=rule["name"],
-            value=rule["description"],
-            inline=False,
-        )
-
-    return embed
-
-
 async def help_embed(
     bot: commands.Bot, author: disnake.Member, command_type: str = None
 ) -> disnake.Embed:
@@ -133,6 +119,20 @@ def commands_help_embed(
         text=f"Information Requested by: {author.display_name}",
         icon_url=author.avatar.url,
     )
+
+    return embed
+
+
+def rules_embed(bot: commands.Bot, rules: typing.List[dict]) -> disnake.Embed:
+    embed = disnake.Embed(color=0x3498DB)
+    embed.set_author(name=f"{bot.user.name} - Rules", icon_url=bot.user.avatar.url)
+    embed.set_footer(text="Please Follow all the RULES!!")
+    for rule in rules:
+        embed.add_field(
+            name=rule["name"],
+            value=rule["description"],
+            inline=False,
+        )
 
     return embed
 
