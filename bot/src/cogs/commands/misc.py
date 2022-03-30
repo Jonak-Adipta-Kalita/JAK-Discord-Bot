@@ -292,7 +292,9 @@ class Misc(commands.Cog):
                 response = await funcs.chatbot_response(message=message.content)
                 await message.reply(response)
             except KeyError:
-                await message.reply("Something went Wrong!!")
+                await message.reply(
+                    embed=embeds.error_embed("Didnt got any Response!!")
+                )
 
     @commands.Cog.listener()
     async def on_member_join(self, member: disnake.Member):

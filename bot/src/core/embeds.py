@@ -123,6 +123,12 @@ def commands_help_embed(
     return embed
 
 
+def error_embed(content: str) -> disnake.Embed:
+    embed = disnake.Embed(title="Error Occured", description=content, color=0x3498DB)
+
+    return embed
+
+
 def rules_embed(bot: commands.Bot, rules: typing.List[dict]) -> disnake.Embed:
     embed = disnake.Embed(color=0x3498DB)
     embed.set_author(name=f"{bot.user.name} - Rules", icon_url=bot.user.avatar.url)
@@ -154,6 +160,12 @@ def music_playing_embed(info: dict) -> disnake.Embed:
         color=0x3498DB,
     )
     embed.set_image(url=info["thumbnail"])
+
+    return embed
+
+
+def music_lyrics_embed(lyrics: str) -> disnake.Embed:
+    embed = disnake.Embed(description=lyrics, color=0x3498DB)
 
     return embed
 

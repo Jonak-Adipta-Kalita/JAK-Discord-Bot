@@ -435,3 +435,17 @@ async def get_brawlstars() -> dict:
     jsoned_data = res.json()
 
     return jsoned_data
+
+
+async def get_lyrics(name) -> dict:
+    async with aiohttp.ClientSession(
+        headers={"Content-Type": "application/json"},
+    ) as ses:
+        try:
+            request = await ses.get(f"https://some-random-api.ml/lyrics?title={name}")
+        except Exception:
+            pass
+
+        resp = await request.json()
+
+    return resp

@@ -1,5 +1,6 @@
 import disnake, youtube_dl
 import src.core.embeds as embeds
+import src.core.functions as funcs
 from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 
@@ -7,6 +8,8 @@ from disnake.ext import commands
 class Music(commands.Cog):
     def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
+
+        self.name: str = ""
 
     @commands.group(invoke_without_command=True, description="Connect/Leave VC")
     @commands.has_guild_permissions(connect=True)
@@ -77,6 +80,7 @@ class Music(commands.Cog):
 
                 if info:
                     await ctx.reply(embed=embeds.music_playing_embed(info))
+                    self.name = music_name
 
                 source = disnake.FFmpegPCMAudio(url, **FFMPEG_OPTIONS)
                 vc.play(source)
@@ -137,11 +141,33 @@ class Music(commands.Cog):
         if vc:
             if vc.is_playing() or vc.is_paused():
                 await ctx.reply("Song Stopped!!")
+                self.name = ""
                 vc.stop()
             else:
                 await ctx.reply("No Song is Playing")
         else:
             await ctx.reply("I am not Connected to any Voice Channel!!")
+
+    @music.command(description="Get the Lyrics of the playing Music")
+    @commands.has_guild_permissions(connect=True)
+    async def lyrics(self, ctx: commands.Context):
+        vc: disnake.VoiceClient = ctx.voice_client
+
+        if not (vc.is_playing() or vc.is_paused()):
+            await ctx.reply("No Song is Playing!!")
+            return
+
+        if self.name.startswith("https://"):
+            await ctx.reply("Links are not allowed to get Lyrics")
+            return
+
+        try:
+            lyrics = (await funcs.get_lyrics(name=self.name.replace(" ", "+")))[
+                "lyrics"
+            ]
+            await ctx.reply(embed=embeds.music_lyrics_embed(lyrics=lyrics))
+        except KeyError:
+            await ctx.reply(embed=embeds.error_embed("Lyrics not Found!!"))
 
 
 def setup(bot: JAKDiscordBot):

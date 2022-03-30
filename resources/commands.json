@@ -364,6 +364,13 @@
             "usage": "$music stop",
             "has_slash_command": false,
             "description": "Stops the Music"
+        },
+        {
+            "id": 7,
+            "name": "music",
+            "usage": "$music lyrics",
+            "has_slash_command": false,
+            "description": "Get the Lyrics of the playing Music"
         }
     ]
 }

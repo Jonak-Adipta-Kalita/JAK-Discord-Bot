@@ -148,55 +148,82 @@ class JAKDiscordBot(commands.Bot):
             return
         elif isinstance(error, commands.NotOwner):
             await ctx.reply(
-                "Only the Members of Dev Team are allowed to use this command!!"
+                embed=embeds.error_embed(
+                    "Only the Members of Dev Team are allowed to use this command!!"
+                )
             )
         elif isinstance(error, commands.MissingPermissions):
             await ctx.reply(
-                f"You don't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join([error.replace('_', ' ').title() for error in error.missing_permissions])}"
+                embed=embeds.error_embed(
+                    f"You don't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join([error.replace('_', ' ').title() for error in error.missing_permissions])}"
+                )
             )
         elif isinstance(error, commands.BotMissingPermissions):
             await ctx.reply(
-                f"Bot doesn't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join([error.replace('_', ' ').title() for error in error.missing_permissions])}"
+                embed=embeds.error_embed(
+                    f"Bot doesn't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join([error.replace('_', ' ').title() for error in error.missing_permissions])}"
+                )
             )
         elif isinstance(error, commands.MissingRequiredArgument):
-            await ctx.reply("Please make sure to provide all the required Arguments!!")
+            await ctx.reply(
+                embed=embeds.error_embed(
+                    "Please make sure to provide all the required Arguments!!"
+                )
+            )
         elif isinstance(error, commands.BadArgument):
-            await ctx.reply("Please make sure to provide the Arguments correctly!!")
+            await ctx.reply(
+                embed=embeds.error_embed(
+                    "Please make sure to provide the Arguments correctly!!"
+                )
+            )
         elif isinstance(error, commands.CommandOnCooldown):
             await ctx.reply(
-                f"This Command is currently in Cooldown for you!! Try again in {int(error.retry_after)} seconds!!"
+                embed=embeds.error_embed(
+                    f"This Command is currently in Cooldown for you!! Try again in {int(error.retry_after)} seconds!!"
+                )
             )
         else:
-            await ctx.reply(f"Something went Wrong!!\n```py {repr(error)}```")
+            await ctx.reply(embed=embeds.error_embed(repr(error)))
 
     async def on_slash_command_error(
         self, inter: disnake.ApplicationCommandInteraction, error: commands.CommandError
     ):
         if isinstance(error, commands.MissingPermissions):
             await inter.response.send_message(
-                f"You don't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join([error.replace('_', ' ').title() for error in error.missing_permissions])}",
+                embed=embeds.error_embed(
+                    f"You don't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join([error.replace('_', ' ').title() for error in error.missing_permissions])}"
+                ),
                 ephemeral=True,
             )
         elif isinstance(error, commands.MissingRequiredArgument):
             await inter.response.send_message(
-                "Please make sure to provide all the required Arguments!!",
+                embed=embeds.error_embed(
+                    "Please make sure to provide all the required Arguments!!"
+                ),
                 ephemeral=True,
             )
         elif isinstance(error, commands.BotMissingPermissions):
             await inter.response.send_message(
-                f"Bot doesn't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join([error.replace('_', ' ').title() for error in error.missing_permissions])}",
+                embed=embeds.error_embed(
+                    f"Bot doesn't have the Appropriate Permissions to run this command!! Permissions Missing: {', '.join([error.replace('_', ' ').title() for error in error.missing_permissions])}"
+                ),
                 ephemeral=True,
             )
         elif isinstance(error, commands.BadArgument):
             await inter.response.send_message(
-                "Please make sure to provide the Arguments correctly!!", ephemeral=True
+                embed=embeds.error_embed(
+                    "Please make sure to provide the Arguments correctly!!"
+                ),
+                ephemeral=True,
             )
         elif isinstance(error, commands.CommandOnCooldown):
             await inter.response.send_message(
-                f"This Command is currently in Cooldown for you!! Try again in {int(error.retry_after)} seconds!!",
+                embed=embeds.error_embed(
+                    f"This Command is currently in Cooldown for you!! Try again in {int(error.retry_after)} seconds!!"
+                ),
                 ephemeral=True,
             )
         else:
             await inter.response.send_message(
-                f"Something went Wrong!!\n```py {error}```", ephemeral=True
+                embed=embeds.error_embed(repr(error)), ephemeral=True
             )
