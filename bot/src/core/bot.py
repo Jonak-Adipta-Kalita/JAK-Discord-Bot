@@ -7,13 +7,32 @@ from disnake.ext import commands
 
 class JAKDiscordBot(commands.Bot):
     def __init__(self):
+        firebase_admin.initialize_app(
+            credential=firebase_admin.credentials.Certificate(
+                {
+                    "type": credentials.FIREBASE_TYPE,
+                    "project_id": credentials.FIREBASE_PROJECT_ID,
+                    "private_key_id": credentials.FIREBASE_PRIVATE_KEY_ID,
+                    "private_key": credentials.FIREBASE_PRIVATE_KEY,
+                    "client_email": credentials.FIREBASE_CLIENT_EMAIL,
+                    "client_id": credentials.FIREBASE_CLIENT_ID,
+                    "auth_uri": credentials.FIREBASE_AUTH_URI,
+                    "token_uri": credentials.FIREBASE_TOKEN_URI,
+                    "auth_provider_x509_cert_url": credentials.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
+                    "client_x509_cert_url": credentials.FIREBASE_CLIENT_X509_CERT_URL,
+                }
+            )
+        ) if not len(firebase_admin._apps) else firebase_admin.get_app()
+
         self.support_server: disnake.Guild = None
-        self.prefixes = funcs.get_prefixes()
-        self.db: firebase_admin.db.Reference = None
         self.together_control: discord_together.DiscordTogether = None
+        self.db: firebase_admin.db.Reference = firebase_admin.db.reference(
+            url=credentials.FIREBASE_DATABASE_URL
+        )
+        self.prefixes = funcs.get_prefixes()
 
         super().__init__(
-            command_prefix=commands.when_mentioned_or(*self.prefixes),
+            command_prefix=self.get_prefix,
             intents=disnake.Intents.all(),
             help_command=None,
             description="JAK Discord Bot is a Multi Purpose Bot, Made with `disnake`. It has features like: Moderation, Games, Music, Translation, Meme, Jokes, Discord Together, Chatbot, etc.",
@@ -44,27 +63,6 @@ class JAKDiscordBot(commands.Bot):
             credentials.TOKEN
         )
 
-        firebase_admin.initialize_app(
-            credential=firebase_admin.credentials.Certificate(
-                {
-                    "type": credentials.FIREBASE_TYPE,
-                    "project_id": credentials.FIREBASE_PROJECT_ID,
-                    "private_key_id": credentials.FIREBASE_PRIVATE_KEY_ID,
-                    "private_key": credentials.FIREBASE_PRIVATE_KEY,
-                    "client_email": credentials.FIREBASE_CLIENT_EMAIL,
-                    "client_id": credentials.FIREBASE_CLIENT_ID,
-                    "auth_uri": credentials.FIREBASE_AUTH_URI,
-                    "token_uri": credentials.FIREBASE_TOKEN_URI,
-                    "auth_provider_x509_cert_url": credentials.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
-                    "client_x509_cert_url": credentials.FIREBASE_CLIENT_X509_CERT_URL,
-                }
-            )
-        ) if not len(firebase_admin._apps) else firebase_admin.get_app()
-
-        self.db: firebase_admin.db.Reference = firebase_admin.db.reference(
-            url=credentials.FIREBASE_DATABASE_URL
-        )
-
         for type_, message in itertools.cycle(
             [
                 ("listening", f"{self.prefixes[0]}help"),
@@ -84,6 +82,18 @@ class JAKDiscordBot(commands.Bot):
                 ),
             )
             await asyncio.sleep(60)
+
+    async def get_prefix(self, message: disnake.Message):
+        guild_prefix: str = (
+            self.db.child("guilds").child(str(message.guild.id)).child("prefix").get()
+        )
+
+        if guild_prefix:
+            prefixes = [guild_prefix]
+        else:
+            prefixes = self.prefixes
+
+        return commands.when_mentioned_or(*prefixes)(self, message)
 
     async def on_message(self, message: disnake.Message):
         member = message.author
