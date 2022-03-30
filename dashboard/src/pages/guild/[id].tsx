@@ -80,6 +80,7 @@ const General = ({ guild }: ExtensionProps) => {
 
     return (
         <div className="guildBodyContainer">
+            <div className="pt-[60px]" />
             <div className="flex flex-col">
                 <form
                     onSubmit={(e) => addCustomPrefix(e)}
