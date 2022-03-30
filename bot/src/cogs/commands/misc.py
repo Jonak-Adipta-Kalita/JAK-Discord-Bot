@@ -215,7 +215,19 @@ class Misc(commands.Cog):
         msg = message.content
         channel = message.channel
 
-        for prefix in self.bot.prefixes:
+        guild_prefix = (
+            self.bot.db.child("guilds")
+            .child(str(message.guild.id))
+            .child("prefix")
+            .get()
+        )
+
+        if guild_prefix:
+            prefixes = self.bot.prefixes + guild_prefix
+        else:
+            prefixes = self.bot.prefixes
+
+        for prefix in prefixes:
             if msg.startswith(prefix) or member == self.bot.user:
                 return
 
@@ -285,8 +297,7 @@ class Misc(commands.Cog):
         if (
             self.chatbot_on
             and message.channel == self.chatbot_channel
-            and not message.content
-            in [f"{prefix}chatbot" for prefix in self.bot.prefixes]
+            and not message.content in [f"{prefix}chatbot" for prefix in prefixes]
         ):
             try:
                 response = await funcs.chatbot_response(message=message.content)

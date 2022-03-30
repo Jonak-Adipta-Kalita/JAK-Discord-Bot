@@ -107,6 +107,7 @@ class Help(commands.Cog):
                         await ctx.reply(
                             embed=embeds.commands_help_embed(
                                 bot=self.bot,
+                                prefixes=self.bot.prefixes,
                                 author=ctx.author,
                                 command=cmd,
                                 sub_command=sub_cmd,
@@ -118,6 +119,7 @@ class Help(commands.Cog):
                     await ctx.reply(
                         embed=embeds.commands_help_embed(
                             bot=self.bot,
+                            prefixes=self.bot.prefixes,
                             author=ctx.author,
                             command=cmd,
                         )
@@ -135,6 +137,7 @@ class Help(commands.Cog):
         await ctx.reply(
             embed=await embeds.help_embed(
                 bot=self.bot,
+                prefixes=self.bot.prefixes,
                 author=ctx.author,
                 command_type="moderation",
             )
@@ -145,6 +148,7 @@ class Help(commands.Cog):
         await ctx.reply(
             embed=await embeds.help_embed(
                 bot=self.bot,
+                prefixes=self.bot.prefixes,
                 author=ctx.author,
                 command_type="games",
             )
@@ -155,6 +159,7 @@ class Help(commands.Cog):
         await ctx.reply(
             embed=await embeds.help_embed(
                 bot=self.bot,
+                prefixes=self.bot.prefixes,
                 author=ctx.author,
                 command_type="music",
             )
@@ -165,6 +170,7 @@ class Help(commands.Cog):
         await ctx.reply(
             embed=await embeds.help_embed(
                 bot=self.bot,
+                prefixes=self.bot.prefixes,
                 author=ctx.author,
                 command_type="fun",
             )
@@ -175,6 +181,7 @@ class Help(commands.Cog):
         await ctx.reply(
             embed=await embeds.help_embed(
                 bot=self.bot,
+                prefixes=self.bot.prefixes,
                 author=ctx.author,
                 command_type="misc",
             )

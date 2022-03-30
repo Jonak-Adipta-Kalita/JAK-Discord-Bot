@@ -6,12 +6,6 @@ import firebase_admin.db
 from pyMorseTranslator import translator as morse_translator
 
 
-def get_prefixes() -> typing.List[str]:
-    prefixes = ["$", "!JAK "]
-
-    return prefixes
-
-
 def get_rules(
     db: firebase_admin.db.Reference, guild: disnake.Guild
 ) -> typing.List[dict]:

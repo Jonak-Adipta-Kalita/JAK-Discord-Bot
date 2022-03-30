@@ -3,13 +3,11 @@ import src.core.functions as funcs
 import src.core.emojis as emojis
 from disnake.ext import commands
 
-prefix = funcs.get_prefixes()
 
-
-def ping_bot_embed(bot: commands.Bot, servers: int) -> disnake.Embed:
+def ping_bot_embed(bot: commands.Bot, servers: int, prefixes) -> disnake.Embed:
     embed = disnake.Embed(
         title=f"Hello Buddy!!",
-        description=f"My Prefix is `{prefix[0]}`\nUse `{prefix[0]}help` to see the Help Embed!!\n\nTotal Servers = {servers}",
+        description=f"My Prefix is `{prefixes[0]}`\nUse `{prefixes[0]}help` to see the Help Embed!!\n\nTotal Servers = {servers}",
         color=0x3498DB,
     )
     embed.set_author(name=bot.user.name, icon_url=bot.user.avatar.url)
@@ -18,7 +16,10 @@ def ping_bot_embed(bot: commands.Bot, servers: int) -> disnake.Embed:
 
 
 async def help_embed(
-    bot: commands.Bot, author: disnake.Member, command_type: str = None
+    bot: commands.Bot,
+    prefixes: typing.List[str],
+    author: disnake.Member,
+    command_type: str = None,
 ) -> disnake.Embed:
     bot_commands = await funcs.get_commands()
 
@@ -36,27 +37,27 @@ async def help_embed(
             )
     else:
         embed.add_field(
-            name=f"{prefix[0]}help moderation",
+            name=f"{prefixes[0]}help moderation",
             value="Show the Moderation Commands",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix[0]}help games",
+            name=f"{prefixes[0]}help games",
             value="Show the Game Commands",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix[0]}help music",
+            name=f"{prefixes[0]}help music",
             value="Show the Music Commands",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix[0]}help fun",
+            name=f"{prefixes[0]}help fun",
             value="Show the Fun Commands",
             inline=False,
         )
         embed.add_field(
-            name=f"{prefix[0]}help misc",
+            name=f"{prefixes[0]}help misc",
             value="Show the Misc Commands",
             inline=False,
         )
@@ -70,6 +71,7 @@ async def help_embed(
 
 def commands_help_embed(
     bot: commands.Bot,
+    prefixes: typing.List[str],
     author: disnake.Member,
     command: commands.Command,
     sub_command: commands.Command = None,
@@ -101,12 +103,12 @@ def commands_help_embed(
     )
     embed.add_field(
         name="Usage:",
-        value=(f"`{prefix[0]}{command.name} {sub_command.name}`")
+        value=(f"`{prefixes[0]}{command.name} {sub_command.name}`")
         if sub_command
         else (
-            f"`{prefix[0]}{command.name} {command.signature}`"
+            f"`{prefixes[0]}{command.name} {command.signature}`"
             if command.signature
-            else f"`{prefix[0]}{command.name}`"
+            else f"`{prefixes[0]}{command.name}`"
         ),
         inline=False,
     )

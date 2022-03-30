@@ -63,7 +63,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                                             headers: {
                                                 "Content-Type":
                                                     "application/json",
-                                                Authorization: `Bot ${process.env.TOKEN}`,
+                                                Authorization: `Bearer ${token.accessToken}`,
                                             },
                                         }
                                     )

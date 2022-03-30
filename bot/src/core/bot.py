@@ -29,7 +29,7 @@ class JAKDiscordBot(commands.Bot):
         self.db: firebase_admin.db.Reference = firebase_admin.db.reference(
             url=credentials.FIREBASE_DATABASE_URL
         )
-        self.prefixes = funcs.get_prefixes()
+        self.prefixes = ["$", "!JAK "]
 
         super().__init__(
             command_prefix=self.get_prefix,
@@ -106,8 +106,7 @@ class JAKDiscordBot(commands.Bot):
         if msg in [f"<@!{self.user.id}>", f"<@{self.user.id}>"]:
             await message.reply(
                 embed=embeds.ping_bot_embed(
-                    bot=self,
-                    servers=len(self.guilds),
+                    bot=self, servers=len(self.guilds), prefixes=self.prefixes
                 )
             )
 
