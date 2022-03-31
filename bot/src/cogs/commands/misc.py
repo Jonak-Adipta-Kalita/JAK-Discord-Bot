@@ -1,5 +1,5 @@
 from urllib.request import urlopen
-import disnake, asyncio, inspect, credentials, googletrans
+import disnake, asyncio, inspect, credentials, googletrans, aiohttp, os
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 import src.core.functions as funcs
@@ -207,6 +207,30 @@ class Misc(commands.Cog):
                 roles=False, users=False, everyone=False
             ),
         )
+
+    @commands.command(description="Convert Image to Text", aliases=["ocr"])
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
+    async def optical_character_recognition(
+        self, ctx: commands.Context, link: str = None
+    ):
+        attachments = ctx.message.attachments
+
+        if attachments or link:
+            msg = await ctx.reply("Identifying Image, this may take some time!!")
+            try:
+                url = attachments[0].url if attachments else link
+                async with aiohttp.ClientSession() as ses:
+                    req = await ses.get(url)
+
+                ocr = funcs.convert_image_to_string(req.content)
+
+                msg.delete()
+
+                await ctx.reply(f"`{ocr}`")
+            except Exception:
+                pass
+        else:
+            ctx.reply("Provide a Link or a Attachment!!")
 
     @commands.Cog.listener()
     async def on_message(self, message: disnake.Message):

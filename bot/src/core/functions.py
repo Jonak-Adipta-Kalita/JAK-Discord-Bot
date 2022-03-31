@@ -1,9 +1,10 @@
-import disnake, typing, googletrans, jokeapi, eng_to_ipa, aiohttp
+import disnake, typing, googletrans, jokeapi, eng_to_ipa, aiohttp, io, pytesseract
 import randfacts, credentials, json, requests, random, credentials
 import src.core.emojis as emojis_list
 import src.core.emojis as emojis
 import firebase_admin.db
 from pyMorseTranslator import translator as morse_translator
+from PIL import Image
 
 
 def get_rules(
@@ -443,3 +444,10 @@ async def get_lyrics(name) -> dict:
         resp = await request.json()
 
     return resp
+
+
+def convert_image_to_string(content: str) -> str:
+    img = Image.open(io.BytesIO(content))
+    text = pytesseract.image_to_string(img)
+
+    return text

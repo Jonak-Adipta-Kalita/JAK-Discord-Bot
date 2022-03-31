@@ -1,4 +1,4 @@
-import disnake, inspect, credentials
+import disnake, inspect, credentials, os, asyncio, aiohttp
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 import src.core.functions as funcs
@@ -283,6 +283,43 @@ class Misc_(commands.Cog):
                 roles=False, users=False, everyone=False
             ),
         )
+
+    @commands.slash_command(
+        description="Convert Image to Text",
+        options=[
+            disnake.Option(
+                name="link",
+                description="Link of the Image",
+                type=disnake.OptionType.string,
+                required=False,
+            )
+        ],
+    )
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
+    async def optical_character_recognition(
+        self, inter: disnake.ApplicationCommandInteraction, link: str = None
+    ):
+        attachments = inter.message.attachments
+
+        if attachments or link:
+            inter.response.defer()
+
+            await inter.edit_original_message(
+                "Identifying Image, this may take some time!!"
+            )
+
+            try:
+                url = attachments[0].url if attachments else link
+                async with aiohttp.ClientSession() as ses:
+                    req = await ses.get(url)
+
+                ocr = funcs.convert_image_to_string(req.content)
+
+                await inter.edit_original_message(f"`{ocr}`")
+            except Exception:
+                pass
+        else:
+            inter.edit_original_message("Provide a Link or a Attachment!!")
 
 
 def setup(bot: JAKDiscordBot):

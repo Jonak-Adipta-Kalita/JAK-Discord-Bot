@@ -313,6 +313,13 @@
             "usage": "$place_details <place>",
             "has_slash_command": true,
             "description": "Display the Details of a Place"
+        },
+        {
+            "id": 16,
+            "name": "optical_character_recognition",
+            "usage": "$optical_character_recognition [link]",
+            "has_slash_command": true,
+            "description": "Convert Text to Image"
         }
     ],
     "music": [
