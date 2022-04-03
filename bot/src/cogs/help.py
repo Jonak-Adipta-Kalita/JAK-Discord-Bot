@@ -128,7 +128,9 @@ class Help(commands.Cog):
                 await ctx.reply("Command not found!!")
         else:
             await ctx.reply(
-                embed=await embeds.help_embed(bot=self.bot, author=ctx.author),
+                embed=await embeds.help_embed(
+                    bot=self.bot, prefixes=self.bot.prefixes, author=ctx.author
+                ),
                 view=DropdownView(bot=self.bot, author=ctx.author),
             )
 
