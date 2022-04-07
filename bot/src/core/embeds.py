@@ -4,7 +4,7 @@ import src.core.emojis as emojis
 from disnake.ext import commands
 
 
-def ping_bot_embed(bot: commands.Bot, servers: int, prefixes) -> disnake.Embed:
+def ping_bot_embed(bot: commands.Bot, servers: int, prefixes: typing.List[str]) -> disnake.Embed:
     embed = disnake.Embed(
         title=f"Hello Buddy!!",
         description=f"My Prefix is `{prefixes[0]}`\nUse `{prefixes[0]}help` to see the Help Embed!!\n\nTotal Servers = {servers}",
