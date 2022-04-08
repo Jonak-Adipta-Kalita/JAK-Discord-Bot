@@ -35,7 +35,7 @@ class JAKDiscordBot(commands.Bot):
             command_prefix=self.get_prefix,
             intents=disnake.Intents.all(),
             help_command=None,
-            description="JAK Discord Bot is a Multi Purpose Bot, Made with `disnake`. It has features like: Moderation, Games, Music, Translation, Meme, Jokes, Discord Together, Chatbot, etc.",
+            description="JAK Discord Bot is a Multi Purpose Bot, Made with `disnake`. It has features like: Moderation, Games, Music, Translation, Meme, Jokes, Discord Together, Chatbot, etc. It is made by xxJonakAdiptaxx#2464",
         )
 
         self.load_extension("jishaku")

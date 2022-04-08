@@ -32,6 +32,7 @@ class Dropdown(disnake.ui.Select):
             await interaction.response.edit_message(
                 embed=await embeds.help_embed(
                     bot=self.bot,
+                    prefixes=self.bot.prefixes,
                     author=self.author,
                     command_type="moderation",
                 )
@@ -40,6 +41,7 @@ class Dropdown(disnake.ui.Select):
             await interaction.response.edit_message(
                 embed=await embeds.help_embed(
                     bot=self.bot,
+                    prefixes=self.bot.prefixes,
                     author=self.author,
                     command_type="games",
                 )
@@ -48,6 +50,7 @@ class Dropdown(disnake.ui.Select):
             await interaction.response.edit_message(
                 embed=await embeds.help_embed(
                     bot=self.bot,
+                    prefixes=self.bot.prefixes,
                     author=self.author,
                     command_type="music",
                 )
@@ -56,6 +59,7 @@ class Dropdown(disnake.ui.Select):
             await interaction.response.edit_message(
                 embed=await embeds.help_embed(
                     bot=self.bot,
+                    prefixes=self.bot.prefixes,
                     author=self.author,
                     command_type="fun",
                 )
@@ -64,6 +68,7 @@ class Dropdown(disnake.ui.Select):
             await interaction.response.edit_message(
                 embed=await embeds.help_embed(
                     bot=self.bot,
+                    prefixes=self.bot.prefixes,
                     author=self.author,
                     command_type="misc",
                 )
