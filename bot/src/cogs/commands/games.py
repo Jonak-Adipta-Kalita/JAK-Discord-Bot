@@ -7,10 +7,8 @@ from disnake.ext import commands
 
 
 class Games(commands.Cog):
-    def __init__(self, bot: JAKDiscordBot, _8ball_responses: list, hangman_words: list):
+    def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
-
-        self._8ball_responses = _8ball_responses
 
         self.tictactoe_players: list = []
         self.tictactoe_player1: str = ""
@@ -29,7 +27,6 @@ class Games(commands.Cog):
             [2, 4, 6],
         ]
 
-        self.hangman_words = hangman_words
         self.hangman_game_over: bool = True
         self.hangman_player: disnake.Member = None
         self.hangman_guesses: list = []
@@ -49,7 +46,7 @@ class Games(commands.Cog):
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def _8ball(self, ctx: commands.Context, *, question):
         await ctx.reply(
-            f"Question: **{question}**\nAnswer: **{random.choice(self._8ball_responses)}**"
+            f"Question: **{question}**\nAnswer: **{random.choice(self.bot._8ball_responses)}**"
         )
 
     @commands.group(invoke_without_command=True, description="Play Tic-Tac-Toe Game")
@@ -172,7 +169,7 @@ class Games(commands.Cog):
             self.hangman_player = ctx.author
             self.hangman_guesses_left = 7
             self.hangman_game_over = False
-            self.hangman_word = random.choice(self.hangman_words).strip()
+            self.hangman_word = random.choice(self.bot.hangman_words).strip()
             self.hangman_guesses = []
 
             await ctx.reply(
@@ -310,12 +307,4 @@ class Games(commands.Cog):
 
 
 def setup(bot: JAKDiscordBot):
-    hangman_words = requests.get(
-        "https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/hangmanWords.txt"
-    ).text.splitlines()
-
-    _8ball_responses = requests.get(
-        "https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/8ballResponses.txt"
-    ).text.splitlines()
-
-    bot.add_cog(Games(bot, _8ball_responses, hangman_words))
+    bot.add_cog(Games(bot))

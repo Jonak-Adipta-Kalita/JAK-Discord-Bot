@@ -5,9 +5,8 @@ from disnake.ext import commands
 
 
 class Moderation(commands.Cog):
-    def __init__(self, bot: JAKDiscordBot, bad_words: list):
+    def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
-        self.bad_words = bad_words
 
     @commands.command(description="Kick Member or Bot")
     @commands.has_guild_permissions(kick_members=True)
@@ -118,7 +117,7 @@ class Moderation(commands.Cog):
         perms = channel.permissions_for(guild.me)
 
         if perms.manage_messages and not channel.is_nsfw():
-            for word in self.bad_words:
+            for word in self.bot.bad_words:
                 if word in msg.lower().split(" "):
                     try:
                         await member.send(
@@ -135,10 +134,4 @@ class Moderation(commands.Cog):
 
 
 def setup(bot: JAKDiscordBot):
-    bad_words = []
-
-    bad_words = requests.get(
-        "https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/profanity.txt"
-    ).text.splitlines()
-
-    bot.add_cog(Moderation(bot, bad_words))
+    bot.add_cog(Moderation(bot))

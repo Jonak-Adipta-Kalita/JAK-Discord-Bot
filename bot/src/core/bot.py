@@ -31,6 +31,10 @@ class JAKDiscordBot(commands.Bot):
         )
         self.prefixes = ["$", "!JAK "]
 
+        self.bad_words: list = None
+        self.hangman_words: list = None
+        self._8ball_responses: list = None
+
         super().__init__(
             command_prefix=self.get_prefix,
             intents=disnake.Intents.all(),
@@ -62,6 +66,10 @@ class JAKDiscordBot(commands.Bot):
         self.together_control = await discord_together.DiscordTogether(
             credentials.TOKEN
         )
+
+        self.bad_words = await funcs.get_profanity_words()
+        self.hangman_words = await funcs.get_hangman_words()
+        self._8ball_responses = await funcs.get_8ball_responses()
 
         for type_, message in itertools.cycle(
             [

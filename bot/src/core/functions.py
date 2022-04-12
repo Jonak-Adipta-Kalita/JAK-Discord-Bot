@@ -451,3 +451,51 @@ def convert_image_to_string(content: str) -> str:
     text = pytesseract.image_to_string(img)
 
     return text
+
+
+async def get_profanity_words() -> list:
+    async with aiohttp.ClientSession(
+        headers={"Content-Type": "application/json"},
+    ) as ses:
+        try:
+            request = await ses.get(
+                f"https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/profanity.txt"
+            )
+        except Exception:
+            pass
+
+        resp = await request.text()
+
+    return resp
+
+
+async def get_hangman_words() -> list:
+    async with aiohttp.ClientSession(
+        headers={"Content-Type": "application/json"},
+    ) as ses:
+        try:
+            request = await ses.get(
+                f"https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/hangmanWords.txt"
+            )
+        except Exception:
+            pass
+
+        resp = await request.text()
+
+    return resp
+
+
+async def get_8ball_responses() -> list:
+    async with aiohttp.ClientSession(
+        headers={"Content-Type": "application/json"},
+    ) as ses:
+        try:
+            request = await ses.get(
+                f"https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/8BallResponses.txt"
+            )
+        except Exception:
+            pass
+
+        resp = await request.text()
+
+    return resp
