@@ -53,6 +53,13 @@ class Music(commands.Cog):
     @music.command(description="Plays the Music")
     @commands.has_guild_permissions(connect=True)
     async def play(self, ctx: commands.Context, *, music_name: str):
+        if (
+            not music_name.startswith("https://")
+            and music_name in self.bot.bad_words
+            and not ctx.channel.is_nsfw
+        ):
+            return
+
         vc: disnake.VoiceClient = ctx.voice_client
 
         if vc:
