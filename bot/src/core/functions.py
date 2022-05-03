@@ -1,5 +1,5 @@
 import disnake, typing, googletrans, jokeapi, eng_to_ipa, aiohttp, io, pytesseract
-import randfacts, credentials, json, requests, random, credentials
+import randfacts, credentials, json, requests, random, credentials, jak_python_package.api
 import src.core.emojis as emojis_list
 import src.core.emojis as emojis
 import firebase_admin.db
@@ -418,18 +418,9 @@ async def get_place_details(place: str) -> dict:
 
 
 async def get_brawlstars() -> dict:
-    res = requests.request(
-        "GET",
-        "https://jak_api.p.rapidapi.com/brawlStars",
-        headers={
-            "x-rapidapi-host": "jak_api.p.rapidapi.com",
-            "x-rapidapi-key": credentials.RAPID_API_KEY,
-        },
-    )
+    jak_api = jak_python_package.api.API(credentials.RAPID_API_KEY)
 
-    jsoned_data = res.json()
-
-    return jsoned_data
+    return jak_api.get_brawl_stars()
 
 
 async def get_lyrics(name) -> dict:
