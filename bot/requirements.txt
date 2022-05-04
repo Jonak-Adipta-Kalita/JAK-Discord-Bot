@@ -6,7 +6,7 @@ astunparse==1.6.3
 async-timeout==3.0.1
 asyncio==3.4.3
 attrs==21.2.0
-beast-night-tv==2.0.1
+beast-night-tv==2.0.2
 black==21.9b0
 braceexpand==0.1.7
 CacheControl==0.12.10

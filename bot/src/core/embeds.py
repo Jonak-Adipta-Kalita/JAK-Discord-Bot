@@ -436,9 +436,9 @@ def place_details_embed(place: dict) -> disnake.Embed:
 def brawler_embed(brawler: dict) -> disnake.Embed:
     embed = disnake.Embed(title=f"{brawler['name']}'s Details", color=0x3498DB)
     embed.add_field(name="Category", value=brawler["category"], inline=False)
-    embed.add_field(name="Gadgets", value=", ".join(brawler["gadget"]), inline=False)
+    embed.add_field(name="Gadgets", value=", ".join(brawler["gadget"]) if brawler["gadget"][1] else brawler["gadget"][0], inline=False)
     embed.add_field(
-        name="Star Powers", value=", ".join(brawler["starpower"]), inline=False
+        name="Star Powers", value=", ".join(brawler["starpower"]) if brawler["starpower"][1] else brawler["starpower"][0], inline=False
     )
     embed.set_thumbnail(url=f"https://jak-api.vercel.app{brawler['image']}")
 
