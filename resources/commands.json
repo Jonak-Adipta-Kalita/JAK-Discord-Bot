@@ -41,6 +41,13 @@
             "usage": "$remove_channel <channel> [reason]",
             "has_slash_command": true,
             "description": "Remove a Channel"
+        },
+        {
+            "id": 6,
+            "name": "remove_message",
+            "usage": "$remove_message <message_id> [reason]",
+            "has_slash_command": true,
+            "description": "Remove a Message"
         }
     ],
     "fun": [

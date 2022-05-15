@@ -148,6 +148,42 @@ class Moderation_(commands.Cog):
         await channel.delete(reason=reason)
 
     @commands.slash_command(
+        description="Remove a Message",
+        options=[
+            disnake.Option(
+                name="message",
+                description="ID of the Message",
+                type=disnake.OptionType.string,
+                required=True,
+            ),
+            disnake.Option(
+                name="reason",
+                description="Reason for the deletion of the message",
+                type=disnake.OptionType.string,
+                required=False,
+            ),
+        ],
+    )
+    @commands.bot_has_guild_permissions(manage_messages=True)
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
+    async def remove_message(
+        self,
+        inter: disnake.ApplicationCommandInteraction,
+        message_id: str,
+        reason: str = "Nothing",
+    ):
+        message = self.bot.get_message(int(message_id))
+
+        inter.response.send_message(
+            embed=embeds.moderation_embed(
+                title=f"{message.author.display_name}#{message.author.discriminator}",
+                status="WARNED and REMOVED MESSAGE",
+                message=f"Reason: {reason}",
+            )
+        )
+        await message.delete()
+
+    @commands.slash_command(
         description="Timeout Member or Bot",
         options=[
             disnake.Option(

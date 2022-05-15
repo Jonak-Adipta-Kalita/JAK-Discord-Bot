@@ -79,6 +79,27 @@ class Moderation(commands.Cog):
     ):
         await channel.delete(reason=reason)
 
+    @commands.command(description="Remove a Message")
+    @commands.bot_has_guild_permissions(manage_messages=True)
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
+    async def remove_message(
+        self,
+        ctx: commands.Context,
+        message_id: str,
+        *,
+        reason: str = "Nothing",
+    ):
+        message = self.bot.get_message(int(message_id))
+
+        await ctx.reply(
+            embed=embeds.moderation_embed(
+                title=f"{message.author.display_name}#{message.author.discriminator}",
+                status="WARNED and REMOVED MESSAGE",
+                message=f"Reason: {reason}",
+            )
+        )
+        await message.delete()
+
     @commands.command(description="Timeout Member or Bot")
     @commands.has_guild_permissions(moderate_members=True)
     @commands.bot_has_guild_permissions(moderate_members=True)
