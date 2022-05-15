@@ -236,6 +236,9 @@ class Misc(commands.Cog):
     async def on_message(self, message: disnake.Message):
         member = message.author
 
+        if member == self.bot.user:
+            return
+
         msg = message.content
         channel = message.channel
 
