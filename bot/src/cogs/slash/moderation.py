@@ -151,7 +151,7 @@ class Moderation_(commands.Cog):
         description="Remove a Message",
         options=[
             disnake.Option(
-                name="message",
+                name="message_id",
                 description="ID of the Message",
                 type=disnake.OptionType.string,
                 required=True,
