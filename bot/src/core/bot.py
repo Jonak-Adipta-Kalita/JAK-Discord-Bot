@@ -31,9 +31,9 @@ class JAKDiscordBot(commands.Bot):
         )
         self.prefixes = ["$", "!JAK "]
 
-        self.bad_words: list = None
-        self.hangman_words: list = None
-        self._8ball_responses: list = None
+        self.bad_words: list[str] = None
+        self.hangman_words: list[str] = None
+        self._8ball_responses: list[str] = None
 
         super().__init__(
             command_prefix=self.get_prefix,

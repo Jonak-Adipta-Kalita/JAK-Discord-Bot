@@ -455,7 +455,9 @@ async def get_profanity_words() -> list:
         except Exception:
             pass
 
-        resp = await request.text()
+        resp = (await request.text()).split("\n")
+
+    resp[0] = resp[0].split("\ufeff")[1]
 
     return resp
 
@@ -471,7 +473,7 @@ async def get_hangman_words() -> list:
         except Exception:
             pass
 
-        resp = await request.text()
+        resp = (await request.text()).split("\n")
 
     return resp
 
@@ -482,11 +484,11 @@ async def get_8ball_responses() -> list:
     ) as ses:
         try:
             request = await ses.get(
-                f"https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/8BallResponses.txt"
+                f"https://raw.githubusercontent.com/Jonak-Adipta-Kalita/JAK-Discord-Bot/main/resources/8ballResponses.txt"
             )
         except Exception:
             pass
 
-        resp = await request.text()
+        resp = (await request.text()).split("\n")
 
     return resp
