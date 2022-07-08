@@ -18,7 +18,7 @@ charset-normalizer==2.0.7
 click==8.0.3
 colorama==0.4.4
 discord==1.7.3
-discord-together==1.2.2
+discord-together==1.2.6
 discord.py==1.7.3
 disnake==2.3.0
 disnake-jishaku==2.6.5
