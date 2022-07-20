@@ -450,6 +450,9 @@ def brawler_embed(brawler: dict) -> disnake.Embed:
         else brawler["starpower"][0],
         inline=False,
     )
+    embed.add_field(name="Total Pins", value=len(brawler["pins"]))
+    if brawler["sprays"]:
+        embed.add_field(name="Total Sprays", value=len(brawler["sprays"]))
     embed.set_thumbnail(url=f"https://jak-api.vercel.app{brawler['image']}")
 
     return embed
