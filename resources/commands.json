@@ -327,6 +327,13 @@
             "usage": "$optical_character_recognition [link]",
             "has_slash_command": true,
             "description": "Convert Text to Image"
+        },
+        {
+            "id": 17,
+            "name": "has_role",
+            "usage": "$has_role <role>",
+            "has_slash_command": true,
+            "description": "Display which members have a certain role"
         }
     ],
     "music": [

@@ -480,3 +480,14 @@ def akinator_embed(
         )
 
     return embed
+
+
+def has_role_embed(role: disnake.Role, members: typing.List[disnake.Member]):
+    embed = disnake.Embed(title=f"Members that has {role.name} role", color=0x3498DB)
+    embed.add_field(
+        name=f"Members: ({len(members)})",
+        value="".join([",".join([member.mention for member in members])]),
+        inline=False,
+    )
+
+    return embed

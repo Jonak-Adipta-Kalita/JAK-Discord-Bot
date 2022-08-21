@@ -321,6 +321,29 @@ class Misc_(commands.Cog):
         else:
             inter.edit_original_message("Provide a Link or a Attachment!!")
 
+    @commands.slash_command(
+        description="Display which members have a certain role",
+        options=[
+            disnake.Option(
+                name="role",
+                description="The role",
+                type=disnake.OptionType.role,
+                required=True,
+            )
+        ],
+    )
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def has_role(
+        self, inter: disnake.ApplicationCommandInteraction, role: disnake.Role
+    ):
+        members_with_role = [
+            member for member in inter.guild.members if role in member.roles
+        ]
+
+        await inter.response.send_message(
+            embed=embeds.has_role_embed(role=role, members=members_with_role)
+        )
+
 
 def setup(bot: JAKDiscordBot):
     bot.add_cog(Misc_(bot))

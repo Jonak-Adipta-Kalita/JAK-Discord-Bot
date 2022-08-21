@@ -1,5 +1,5 @@
 from urllib.request import urlopen
-import disnake, asyncio, inspect, credentials, googletrans, aiohttp, os
+import disnake, asyncio, inspect, credentials, googletrans, aiohttp
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 import src.core.functions as funcs
@@ -231,6 +231,17 @@ class Misc(commands.Cog):
                 pass
         else:
             ctx.reply("Provide a Link or a Attachment!!")
+
+    @commands.command(description="Display which members have a certain role")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def has_role(self, ctx: commands.Context, role: disnake.Role):
+        members_with_role = [
+            member for member in ctx.guild.members if role in member.roles
+        ]
+
+        await ctx.reply(
+            embed=embeds.has_role_embed(role=role, members=members_with_role)
+        )
 
     @commands.Cog.listener()
     async def on_message(self, message: disnake.Message):
