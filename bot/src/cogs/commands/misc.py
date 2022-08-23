@@ -243,6 +243,21 @@ class Misc(commands.Cog):
             embed=embeds.has_role_embed(role=role, members=members_with_role)
         )
 
+    @commands.group(
+        invoke_without_command=True, description="Display a Astrophotography of a Type"
+    )
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def astrophotography(self, ctx: commands.Context, type_: str):
+        await ctx.reply("Command not Found!!")
+
+    @astrophotography.command(description="Display the Astronomy Picture of the Day")
+    async def apod(self, ctx: commands.Context):
+        astrophotography_data = funcs.get_astrophotography_data(
+            link="https://api.nasa.gov/planetary/apod"
+        )
+
+        await ctx.reply(embed=embeds.astrophotography_embed(data=astrophotography_data))
+
     @commands.Cog.listener()
     async def on_message(self, message: disnake.Message):
         member = message.author

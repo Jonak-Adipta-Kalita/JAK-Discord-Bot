@@ -1,5 +1,5 @@
 import disnake, typing, googletrans, jokeapi, eng_to_ipa, aiohttp, io, pytesseract
-import randfacts, credentials, json, requests, random, credentials, jak_python_package.api
+import randfacts, credentials, json, requests, random, jak_python_package.api
 import src.core.emojis as emojis_list
 import src.core.emojis as emojis
 import firebase_admin.db
@@ -492,3 +492,10 @@ async def get_8ball_responses() -> list:
         resp = (await request.text()).split("\n")
 
     return resp
+
+
+def get_astrophotography_data(link: str) -> dict:
+    res = requests.get(f"{link}?api_key={credentials.NASA_API_KEY}")
+    res = res.json()
+
+    return res
