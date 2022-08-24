@@ -493,12 +493,12 @@ def has_role_embed(role: disnake.Role, members: typing.List[disnake.Member]):
     return embed
 
 
-def astrophotography_embed(data: dict):
+def astrophotography_embed(title: str, description: str, image_url: str):
     embed = disnake.Embed(
-        title=f"{data['title']} - {data['copyright']}",
-        description=data["explanation"],
+        title=title,
+        description=description,
         color=0x3498DB,
     )
-    embed.set_image(url=data["hdurl"])
+    embed.set_image(url=image_url)
 
     return embed

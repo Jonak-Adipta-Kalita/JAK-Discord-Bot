@@ -1,5 +1,5 @@
 from urllib.request import urlopen
-import disnake, asyncio, inspect, credentials, googletrans, aiohttp
+import disnake, asyncio, inspect, credentials, googletrans, aiohttp, random
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 import src.core.functions as funcs
@@ -256,7 +256,37 @@ class Misc(commands.Cog):
             link="https://api.nasa.gov/planetary/apod"
         )
 
-        await ctx.reply(embed=embeds.astrophotography_embed(data=astrophotography_data))
+        await ctx.reply(
+            embed=embeds.astrophotography_embed(
+                title=f"{astrophotography_data['title']} - {astrophotography_data['copyright']}",
+                description=astrophotography_data["explanation"],
+                image_url=astrophotography_data["hdurl"],
+            )
+        )
+
+    @astrophotography.command(
+        description="Display the a random Image of Earth Polychromatic Imaging Camera"
+    )
+    async def epic(self, ctx: commands.Context):
+        astrophotography_data = funcs.get_astrophotography_data(
+            link=f"https://api.nasa.gov/EPIC/api/natural"
+        )
+        astrophotography_data = astrophotography_data[
+            random.randint(0, len(astrophotography_data) - 1)
+        ]
+
+        image_splitted = astrophotography_data["image"].split("_")[2]
+        year = image_splitted[:4]
+        month = image_splitted[:6][-2:]
+        day = image_splitted[:8][-2:]
+
+        await ctx.reply(
+            embed=embeds.astrophotography_embed(
+                title=astrophotography_data["caption"],
+                description=f"Taken on {year}/{month}/{day}",
+                image_url=f"https://epic.gsfc.nasa.gov/archive/natural/{year}/{month}/{day}/png/{astrophotography_data['image']}.png",
+            )
+        )
 
     @commands.Cog.listener()
     async def on_message(self, message: disnake.Message):
