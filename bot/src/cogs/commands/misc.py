@@ -253,7 +253,7 @@ class Misc(commands.Cog):
     @astrophotography.command(description="Display the Astronomy Picture of the Day")
     async def apod(self, ctx: commands.Context):
         astrophotography_data = funcs.get_astrophotography_data(
-            link="https://api.nasa.gov/planetary/apod"
+            link=f"https://api.nasa.gov/planetary/apod?api_key={credentials.NASA_API_KEY}"
         )
 
         await ctx.reply(
@@ -265,11 +265,11 @@ class Misc(commands.Cog):
         )
 
     @astrophotography.command(
-        description="Display the a random Image of Earth Polychromatic Imaging Camera"
+        description="Display a random Image of Earth Polychromatic Imaging Camera"
     )
     async def epic(self, ctx: commands.Context):
         astrophotography_data = funcs.get_astrophotography_data(
-            link=f"https://api.nasa.gov/EPIC/api/natural"
+            link=f"https://api.nasa.gov/EPIC/api/natural?api_key={credentials.NASA_API_KEY}"
         )
         astrophotography_data = astrophotography_data[
             random.randint(0, len(astrophotography_data) - 1)
@@ -283,8 +283,25 @@ class Misc(commands.Cog):
         await ctx.reply(
             embed=embeds.astrophotography_embed(
                 title=astrophotography_data["caption"],
-                description=f"Taken on {year}/{month}/{day}",
+                description=f"Taken on: {year}/{month}/{day}",
                 image_url=f"https://epic.gsfc.nasa.gov/archive/natural/{year}/{month}/{day}/png/{astrophotography_data['image']}.png",
+            )
+        )
+
+    @astrophotography.command(description="Display a random Image from a Rover in Mars")
+    async def mars(self, ctx: commands.Context):
+        astrophotography_data = funcs.get_astrophotography_data(
+            link=f"https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key={credentials.NASA_API_KEY}"
+        )
+        astrophotography_data = astrophotography_data["photos"][
+            random.randint(0, len(astrophotography_data["photos"]) - 1)
+        ]
+
+        await ctx.reply(
+            embed=embeds.astrophotography_embed(
+                title=astrophotography_data["camera"]["full_name"],
+                description=f"Taken on: {astrophotography_data['earth_date'].replace('_', '/')}\nRover Name: {astrophotography_data['rover']['name']}\nRover Landing Date: {astrophotography_data['rover']['landing_date']}",
+                image_url=astrophotography_data["img_src"],
             )
         )
 

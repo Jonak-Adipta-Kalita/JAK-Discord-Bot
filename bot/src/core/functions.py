@@ -495,7 +495,7 @@ async def get_8ball_responses() -> list:
 
 
 def get_astrophotography_data(link: str) -> dict:
-    res = requests.get(f"{link}?api_key={credentials.NASA_API_KEY}")
+    res = requests.get(link)
     res = res.json()
 
     return res

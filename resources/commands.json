@@ -334,6 +334,13 @@
             "usage": "$has_role <role>",
             "has_slash_command": true,
             "description": "Display which members have a certain role"
+        },
+        {
+            "id": 18,
+            "name": "astrophotography",
+            "usage": "$astrophotography <type_>",
+            "has_slash_command": false,
+            "description": "Display a Astrophotography of a Type"
         }
     ],
     "music": [
