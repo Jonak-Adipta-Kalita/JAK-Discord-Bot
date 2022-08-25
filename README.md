@@ -67,7 +67,11 @@ Use the [passwordgenerator](https://passwordsgenerator.net/) website to generate
 ### Getting the `PLACE_API_KEY`
 
 Go to [WeatherAPIMap](https://openweathermap.org/) and Login after that go to [ApiKeys](https://home.openweathermap.org/api_keys),
-there u will find your key.
+there you will find your key.
+
+### Getting the `NASA_API_KEY`
+
+Go to [NASA API](https://api.nasa.gov/#signUp) website, Sign Up, then you will get a key this is your `<NASA_API_KEY>`
 
 ### Getting the Firebase Credentials
 
@@ -92,6 +96,7 @@ For `bot/.env`
 TOKEN=<YOUR_BOT_TOKEN>
 CHATBOT_KEY=<YOUR_CHATBOT_KEY>
 PLACE_API_KEY=<YOUR_PLACE_API_KEY>
+NASA_API_KEY=<YOUR_NASA_API_KEY>
 LOCAL=true
 
 # Firebase
