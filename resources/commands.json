@@ -338,9 +338,30 @@
         {
             "id": 18,
             "name": "astrophotography",
-            "usage": "$astrophotography <type_>",
+            "usage": "$astrophotography apod",
             "has_slash_command": false,
-            "description": "Display a Astrophotography of a Type"
+            "description": "Display the Astronomy Picture of the Day"
+        },
+        {
+            "id": 19,
+            "name": "astrophotography",
+            "usage": "$astrophotography epic",
+            "has_slash_command": false,
+            "description": "Display a random Image of Earth Polychromatic Imaging Camera"
+        },
+        {
+            "id": 20,
+            "name": "astrophotography",
+            "usage": "$astrophotography mars",
+            "has_slash_command": false,
+            "description": "Display a random Image from a Rover in Mars"
+        },
+        {
+            "id": 21,
+            "name": "astrophotography",
+            "usage": "$astrophotography search",
+            "has_slash_command": false,
+            "description": "Search Astrophotography"
         }
     ],
     "music": [
