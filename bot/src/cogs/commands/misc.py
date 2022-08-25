@@ -305,6 +305,33 @@ class Misc(commands.Cog):
             )
         )
 
+    @astrophotography.command(description="Search Astrophotography")
+    async def search(self, ctx: commands.Context, *, query: str):
+        astrophotography_data = funcs.get_astrophotography_data(
+            link=f"https://images-api.nasa.gov/search?q={query.replace(' ', '+')}"
+        )
+        if not astrophotography_data["collection"]["items"]:
+            await ctx.reply("No Data Found!!")
+            return
+        astrophotography_data = astrophotography_data["collection"]["items"][
+            random.randint(0, len(astrophotography_data["collection"]["items"]) - 1)
+        ]
+
+        image_url = ""
+
+        for link in astrophotography_data["links"]:
+            if link["rel"] == "preview":
+                image_url = link["href"]
+                break
+
+        await ctx.reply(
+            embed=embeds.astrophotography_embed(
+                title=astrophotography_data["data"][0]["title"],
+                description=astrophotography_data["data"][0]["description"],
+                image_url=image_url,
+            )
+        )
+
     @commands.Cog.listener()
     async def on_message(self, message: disnake.Message):
         member = message.author
