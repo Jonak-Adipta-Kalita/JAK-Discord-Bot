@@ -482,7 +482,7 @@ def akinator_embed(
     return embed
 
 
-def has_role_embed(role: disnake.Role, members: typing.List[disnake.Member]):
+def has_role_embed(role: disnake.Role, members: typing.List[disnake.Member]) -> disnake.Embed:
     embed = disnake.Embed(title=f"Members that has {role.name} role", color=0x3498DB)
     embed.add_field(
         name=f"Members: ({len(members)})",
@@ -493,7 +493,7 @@ def has_role_embed(role: disnake.Role, members: typing.List[disnake.Member]):
     return embed
 
 
-def astrophotography_embed(title: str, description: str, image_url: str):
+def astrophotography_embed(title: str, description: str, image_url: str) -> disnake.Embed:
     embed = disnake.Embed(
         title=title,
         description=description,
