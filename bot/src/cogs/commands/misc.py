@@ -247,7 +247,7 @@ class Misc(commands.Cog):
         invoke_without_command=True, description="Display a Astrophotography of a Type"
     )
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def astrophotography(self, ctx: commands.Context, type_: str):
+    async def astrophotography(self, ctx: commands.Context, command: str):
         await ctx.reply("Command not Found!!")
 
     @astrophotography.command(description="Display the Astronomy Picture of the Day")
