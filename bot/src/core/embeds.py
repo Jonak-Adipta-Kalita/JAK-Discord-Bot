@@ -34,33 +34,33 @@ async def help_embed(
         for commands in bot_commands[command_type]:
             embed.add_field(
                 name=commands["usage"],
-                value=commands["description"],
+                value=f"```{commands['description']}```",
                 inline=False,
             )
     else:
         embed.add_field(
             name=f"{prefixes[0]}help moderation",
-            value="Show the Moderation Commands",
+            value="```Show the Moderation Commands```",
             inline=False,
         )
         embed.add_field(
             name=f"{prefixes[0]}help games",
-            value="Show the Game Commands",
+            value="```Show the Game Commands```",
             inline=False,
         )
         embed.add_field(
             name=f"{prefixes[0]}help music",
-            value="Show the Music Commands",
+            value="```Show the Music Commands```",
             inline=False,
         )
         embed.add_field(
             name=f"{prefixes[0]}help fun",
-            value="Show the Fun Commands",
+            value="```Show the Fun Commands```",
             inline=False,
         )
         embed.add_field(
             name=f"{prefixes[0]}help misc",
-            value="Show the Misc Commands",
+            value="```Show the Misc Commands```",
             inline=False,
         )
     embed.set_footer(
@@ -85,38 +85,40 @@ def commands_help_embed(
     )
     embed.add_field(
         name="Name:",
-        value=f"`{command.name.replace('_', ' ').title()} {sub_command.name.replace('_', ' ').title() if sub_command else ''}`",
+        value=f"```{command.name.replace('_', ' ').title()} {sub_command.name.replace('_', ' ').title() if sub_command else ''}```",
         inline=False,
     )
     embed.add_field(
         name="Alias:",
         value=(
-            f"{', '.join([f'`{k}`' for k in sub_command.aliases if sub_command.aliases])} "
+            f"```{', '.join([f'`{k}`' for k in sub_command.aliases if sub_command.aliases])}```"
             if sub_command.aliases
-            else f"`none`"
+            else f"```none```"
         )
         if sub_command
         else (
-            f"{', '.join([f'`{k}`' for k in command.aliases if command.aliases])} "
+            f"```{', '.join([f'`{k}`' for k in command.aliases if command.aliases])}```"
             if command.aliases
-            else f"`none`"
+            else f"```none```"
         ),
         inline=False,
     )
     embed.add_field(
         name="Usage:",
-        value=(f"`{prefixes[0]}{command.name} {sub_command.name}`")
+        value=(f"```{prefixes[0]}{command.name} {sub_command.name}```")
         if sub_command
         else (
-            f"`{prefixes[0]}{command.name} {command.signature}`"
+            f"```{prefixes[0]}{command.name} {command.signature}```"
             if command.signature
-            else f"`{prefixes[0]}{command.name}`"
+            else f"```{prefixes[0]}{command.name}```"
         ),
         inline=False,
     )
     embed.add_field(
         name="Description:",
-        value=sub_command.description if sub_command else command.description,
+        value=f"```{sub_command.description}```"
+        if sub_command
+        else f"```{command.description}```",
         inline=False,
     )
     embed.set_footer(
@@ -140,7 +142,7 @@ def rules_embed(bot: commands.Bot, rules: typing.List[dict]) -> disnake.Embed:
     for rule in rules:
         embed.add_field(
             name=rule["name"],
-            value=rule["description"],
+            value=f"```{rule['description']}```",
             inline=False,
         )
 
@@ -184,9 +186,13 @@ def translation_embed(
 ) -> disnake.Embed:
     embed = disnake.Embed(color=0x3498DB)
     embed.set_author(name=f"Author: {author.display_name}")
-    embed.add_field(name="Translation (en)", value=translated_text, inline=True)
     embed.add_field(
-        name=f"Original ({language_iso} - {language_name})", value=text, inline=True
+        name="Translation (en)", value=f"```{translated_text}```", inline=True
+    )
+    embed.add_field(
+        name=f"Original ({language_iso} - {language_name})",
+        value=f"```{text}```",
+        inline=True,
     )
     if author_reacted:
         embed.set_footer(
@@ -204,8 +210,8 @@ def pronunciation_embed(
 ) -> disnake.Embed:
     embed = disnake.Embed(color=0x3498DB)
     embed.set_author(name=f"Author: {author.display_name}")
-    embed.add_field(name="Text", value=text, inline=True)
-    embed.add_field(name=f"Pronunciation", value=pronunciation, inline=True)
+    embed.add_field(name="Text", value=f"```{text}```", inline=True)
+    embed.add_field(name=f"Pronunciation", value=f"```{pronunciation}```", inline=True)
     embed.set_footer(
         text=f"Request: {author_reacted.display_name}",
     )
@@ -226,10 +232,10 @@ def member_details_embed(
     roles_list = [role.mention for role in member.roles if role.name != "@everyone"]
 
     embed = disnake.Embed(color=0x3498DB)
-    embed.add_field(name="ID:", value=member.id, inline=False)
+    embed.add_field(name="ID:", value=f"```{member.id}```", inline=False)
     embed.add_field(
         name="Name:",
-        value=f"{member.display_name}#{member.discriminator}",
+        value=f"```{member.display_name}#{member.discriminator}```",
         inline=False,
     )
     embed.add_field(
@@ -244,11 +250,11 @@ def member_details_embed(
     )
     embed.add_field(
         name=f"Roles: ({len(roles_list)})",
-        value="".join([",".join(roles_list)]),
+        value=f'```{"".join([",".join(roles_list)])}```',
         inline=False,
     )
     embed.add_field(name="Top Role:", value=member.top_role.mention, inline=False)
-    embed.add_field(name="Is Bot:", value=member.bot, inline=False)
+    embed.add_field(name="Is Bot:", value=f"```{member.bot}```", inline=False)
     embed.set_author(name=f"User Info - {member}")
     embed.set_thumbnail(url=member.display_avatar.url)
     if fetched_member.banner:
@@ -267,28 +273,34 @@ def server_stats_embed(guild: disnake.Guild) -> disnake.Embed:
         color=0x3498DB,
     )
     embed.set_thumbnail(url=guild.icon.url)
-    embed.add_field(name="Owner", value=guild.owner, inline=False)
-    embed.add_field(name="Server ID", value=guild.id, inline=False)
+    embed.add_field(name="Owner", value=guild.owner.mention, inline=False)
+    embed.add_field(name="Server ID", value=f"```{guild.id}```", inline=False)
     embed.add_field(
         name="Created At:",
         value=f"<t:{int(guild.created_at.timestamp())}:F>",
         inline=False,
     )
-    embed.add_field(name="Member Count", value=guild.member_count, inline=False)
     embed.add_field(
-        name="Text Channels Count", value=len(guild.text_channels), inline=False
+        name="Member Count", value=f"```{guild.member_count}```", inline=False
     )
     embed.add_field(
-        name="Voice Channels Count", value=len(guild.voice_channels), inline=False
+        name="Text Channels Count",
+        value=f"```{len(guild.text_channels)}```",
+        inline=False,
+    )
+    embed.add_field(
+        name="Voice Channels Count",
+        value=f"```{len(guild.voice_channels)}```",
+        inline=False,
     )
     embed.add_field(
         name=f"Emojis ({len(emojis_list)})",
-        value="".join([", ".join(emojis_list)]),
+        value=f'```{"".join([", ".join(emojis_list)])}```',
         inline=False,
     )
     embed.add_field(
         name=f"Roles ({len(roles_list)})",
-        value=f'{"".join([", ".join(roles_list[::-1][:20])])}, etc',
+        value=f'```{"".join([", ".join(roles_list[::-1][:20])])}, etc```',
         inline=False,
     )
     if guild.banner:
@@ -343,9 +355,11 @@ def rock_paper_scissor_embed(
     player_move: str, comp_move: str, winner: str
 ) -> disnake.Embed:
     embed = disnake.Embed(color=0x3498DB)
-    embed.add_field(name="Player's Move", value=player_move, inline=False)
-    embed.add_field(name="CPU's Move", value=comp_move, inline=False)
-    embed.add_field(name="Winner", value=winner if winner else "Draw", inline=False)
+    embed.add_field(name="Player's Move", value=f"```{player_move}```", inline=False)
+    embed.add_field(name="CPU's Move", value=f"```{comp_move}```", inline=False)
+    embed.add_field(
+        name="Winner", value=f"```{winner}```" if winner else "```Draw```", inline=False
+    )
 
     return embed
 
@@ -372,9 +386,9 @@ def pokemon_embed(pokemon: dict) -> disnake.Embed:
         description=description,
         color=0x3498DB,
     )
-    embed.add_field(name="Types:", value=types, inline=False)
-    embed.add_field(name="Species:", value=species, inline=False)
-    embed.add_field(name="Abilities:", value=abilities, inline=False)
+    embed.add_field(name="Types:", value=f"```{types}```", inline=False)
+    embed.add_field(name="Species:", value=f"```{species}```", inline=False)
+    embed.add_field(name="Abilities:", value=f"```{abilities}```", inline=False)
     embed.set_thumbnail(url=sprite)
 
     return embed
@@ -418,15 +432,19 @@ def place_details_embed(place: dict) -> disnake.Embed:
     embed = disnake.Embed(title=f"{name}'s Detail", color=0x3498DB)
     embed.add_field(
         name="Country",
-        value=country["country"] if country else place["sys"]["country"],
+        value=f'```{country["country"]}```'
+        if country
+        else f'```{place["sys"]["country"]}```',
         inline=False,
     )
-    embed.add_field(name="Weather", value=weather_description.title(), inline=False)
-    embed.add_field(name="Temperature", value=temperature, inline=False)
-    embed.add_field(name="Humidity", value=humidity, inline=False)
+    embed.add_field(
+        name="Weather", value=f"```{weather_description.title()}```", inline=False
+    )
+    embed.add_field(name="Temperature", value=f"```{temperature}```", inline=False)
+    embed.add_field(name="Humidity", value=f"```{humidity}```", inline=False)
     embed.add_field(
         name="Coordinates",
-        value=f"Longitude: {coordinates['lon']}, Latitude: {coordinates['lat']}",
+        value=f"```Longitude: {coordinates['lon']}, Latitude: {coordinates['lat']}```",
         inline=False,
     )
 
@@ -435,30 +453,30 @@ def place_details_embed(place: dict) -> disnake.Embed:
 
 def brawler_embed(brawler: dict) -> disnake.Embed:
     embed = disnake.Embed(title=f"{brawler['name']}'s Details", color=0x3498DB)
-    embed.add_field(name="Category", value=brawler["category"], inline=False)
+    embed.add_field(name="Category", value=f'```{brawler["category"]}```', inline=False)
     embed.add_field(
         name="Gadgets",
-        value=", ".join(brawler["gadget"])
+        value=f'```{", ".join(brawler["gadget"])}```'
         if brawler["gadget"][1]
-        else brawler["gadget"][0],
+        else f'```{brawler["gadget"][0]}```',
         inline=False,
     )
     embed.add_field(
         name="Star Powers",
-        value=", ".join(brawler["starpower"])
+        value=f'```{", ".join(brawler["starpower"])}```'
         if brawler["starpower"][1]
-        else brawler["starpower"][0],
+        else f'```{brawler["starpower"][0]}```',
         inline=False,
     )
     embed.add_field(
         name="Total Pins",
-        value=len(brawler["pins"]),
+        value=f'```{len(brawler["pins"])}```',
         inline=False,
     )
     if brawler["sprays"]:
         embed.add_field(
             name="Total Sprays",
-            value=len(brawler["sprays"]),
+            value=f'```{len(brawler["sprays"])}```',
             inline=False,
         )
     embed.set_thumbnail(url=f"https://jak-api.vercel.app{brawler['image']}")
@@ -471,8 +489,8 @@ def akinator_embed(
 ) -> disnake.Embed:
     if guess and not (question and counter):
         embed = disnake.Embed(title=f"My Guess", color=0x3498DB)
-        embed.add_field("Name", guess["name"], inline=False)
-        embed.add_field("Description", guess["description"], inline=False)
+        embed.add_field("Name", f'```{guess["name"]}```', inline=False)
+        embed.add_field("Description", f'```{guess["description"]}```', inline=False)
         embed.set_thumbnail(guess["absolute_picture_path"])
     else:
         embed = disnake.Embed(
@@ -482,7 +500,9 @@ def akinator_embed(
     return embed
 
 
-def has_role_embed(role: disnake.Role, members: typing.List[disnake.Member]) -> disnake.Embed:
+def has_role_embed(
+    role: disnake.Role, members: typing.List[disnake.Member]
+) -> disnake.Embed:
     embed = disnake.Embed(title=f"Members that has {role.name} role", color=0x3498DB)
     embed.add_field(
         name=f"Members: ({len(members)})",
@@ -493,7 +513,9 @@ def has_role_embed(role: disnake.Role, members: typing.List[disnake.Member]) -> 
     return embed
 
 
-def astrophotography_embed(title: str, description: str, image_url: str) -> disnake.Embed:
+def astrophotography_embed(
+    title: str, description: str, image_url: str
+) -> disnake.Embed:
     embed = disnake.Embed(
         title=title,
         description=description,
