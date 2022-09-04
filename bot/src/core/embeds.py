@@ -518,7 +518,9 @@ def astrophotography_embed(
 ) -> disnake.Embed:
     embed = disnake.Embed(
         title=title,
-        description=f"{description[:4096]}..." if len(description) > 4096 else description,
+        description=f"{description[:4096]}..."
+        if len(description) > 4096
+        else description,
         color=0x3498DB,
     )
     embed.set_image(url=image_url)
