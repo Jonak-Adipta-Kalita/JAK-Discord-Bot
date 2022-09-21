@@ -347,7 +347,7 @@ class Misc_(commands.Cog):
     @commands.slash_command(description="Display a Astrophotography of a Type")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def astrophotography(self, inter: disnake.ApplicationCommandInteraction):
-        await inter.response.send_message("Use a Type!!", ephemeral=True)
+        pass
 
     @astrophotography.sub_command(
         description="Display the Astronomy Picture of the Day"
