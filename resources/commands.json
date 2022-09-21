@@ -155,21 +155,21 @@
             "id": 1,
             "name": "tictactoe",
             "usage": "$tictactoe @<1st Player> @<2nd Player>",
-            "has_slash_command": false,
+            "has_slash_command": true,
             "description": "Play Tic-Tac-Toe Game"
         },
         {
             "id": 2,
             "name": "tictactoe",
             "usage": "$tictactoe place <Position in Integer>",
-            "has_slash_command": false,
+            "has_slash_command": true,
             "description": "Place your position for Tic-Tac-Toe Game"
         },
         {
             "id": 3,
             "name": "tictactoe",
             "usage": "$tictactoe stop",
-            "has_slash_command": false,
+            "has_slash_command": true,
             "description": "Stops Tic-Tac-Toe Game"
         },
         {
