@@ -343,23 +343,21 @@ class Misc_(commands.Cog):
         await inter.response.send_message(
             embed=embeds.has_role_embed(role=role, members=members_with_role)
         )
-    
-    @commands.slash_command(
-        description="Run Chatbot Commands"
-    )
+
+    @commands.slash_command(description="Run Chatbot Commands")
     async def chatbot(self, inter: disnake.ApplicationCommandInteraction):
         pass
-    
-    @chatbot.sub_command(
-        description="Start Chatbot for 5 Minutes"
-    )
+
+    @chatbot.sub_command(description="Start Chatbot for 5 Minutes")
     async def start(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer()
 
         if not self.bot.chatbot_on:
             self.bot.chatbot_on = True
             self.bot.chatbot_channel = inter.channel
-            await inter.edit_original_message("Started Chatbot!! Will be Active for 5 Mins!!")
+            await inter.edit_original_message(
+                "Started Chatbot!! Will be Active for 5 Mins!!"
+            )
 
             await asyncio.sleep(300)
             if self.bot.chatbot_on:
@@ -370,10 +368,10 @@ class Misc_(commands.Cog):
     @chatbot.sub_command(description="Stop Chatbot")
     async def stop(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer()
-        
+
         self.bot.chatbot_on = False
         self.bot.chatbot_channel = None
-        
+
         await inter.edit_original_message("Stopped Chatbot!!")
 
     @commands.slash_command(description="Display a Astrophotography of a Type")

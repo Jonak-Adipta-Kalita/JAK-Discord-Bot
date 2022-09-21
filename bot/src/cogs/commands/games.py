@@ -10,15 +10,6 @@ class Games(commands.Cog):
     def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
 
-    def tictactoe_check_winner(self, winning_conditions, mark):
-        for condition in winning_conditions:
-            if (
-                self.bot.tictactoe_board[condition[0]] == mark
-                and self.bot.tictactoe_board[condition[1]] == mark
-                and self.bot.tictactoe_board[condition[2]] == mark
-            ):
-                self.bot.tictactoe_game_over = True
-
     @commands.command(name="8ball", description="Play 8Ball Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def _8ball(self, ctx: commands.Context, *, question):
@@ -31,8 +22,6 @@ class Games(commands.Cog):
     async def tictactoe(
         self, ctx: commands.Context, p1: disnake.Member, p2: disnake.Member
     ):
-        global tictactoe_count
-
         if self.bot.tictactoe_game_over:
             self.bot.tictactoe_board = [
                 emojis.white_large_square,
@@ -47,7 +36,7 @@ class Games(commands.Cog):
             ]
             self.bot.tictactoe_turn = ""
             self.bot.tictactoe_game_over = False
-            tictactoe_count = 0
+            self.bot.tictactoe_count = 0
             self.bot.tictactoe_player1 = p1
             self.bot.tictactoe_player2 = p2
             self.bot.tictactoe_players = [p1, p2]
@@ -72,8 +61,6 @@ class Games(commands.Cog):
     @tictactoe.command(description="Place your position for Tic-Tac-Toe Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def place(self, ctx: commands.Context, pos: int):
-        global tictactoe_count
-
         if not self.bot.tictactoe_game_over:
             mark = ""
             if self.bot.tictactoe_turn == ctx.author:
@@ -84,10 +71,11 @@ class Games(commands.Cog):
                         mark = emojis.o2
                     if (
                         0 < pos < 10
-                        and self.bot.tictactoe_board[pos - 1] == emojis.white_large_square
+                        and self.bot.tictactoe_board[pos - 1]
+                        == emojis.white_large_square
                     ):
                         self.bot.tictactoe_board[pos - 1] = mark
-                        tictactoe_count += 1
+                        self.bot.tictactoe_count += 1
                         line = ""
                         for x in range(len(self.bot.tictactoe_board)):
                             if x == 2 or x == 5 or x == 8:
@@ -101,7 +89,7 @@ class Games(commands.Cog):
                         )
                         if self.bot.tictactoe_game_over == True:
                             await ctx.send(f"{mark} WINS!!")
-                        elif tictactoe_count >= 9:
+                        elif self.bot.tictactoe_count >= 9:
                             self.bot.tictactoe_game_over = True
                             await ctx.send("It's a TIE!!")
 
@@ -151,7 +139,9 @@ class Games(commands.Cog):
 
             await ctx.reply(
                 embed=embeds.hangman_embed(
-                    guesses_left=7, word=self.bot.hangman_word, guesses=self.bot.hangman_guesses
+                    guesses_left=7,
+                    word=self.bot.hangman_word,
+                    guesses=self.bot.hangman_guesses,
                 )
             )
 
@@ -180,7 +170,9 @@ class Games(commands.Cog):
                     self.bot.hangman_guesses = []
                     await ctx.reply(f"That is the word! {WORD_WAS}")
                     return
-                if all([w in self.bot.hangman_guesses for w in list(self.bot.hangman_word)]):
+                if all(
+                    [w in self.bot.hangman_guesses for w in list(self.bot.hangman_word)]
+                ):
                     self.bot.hangman_game_over = True
                     self.bot.hangman_guesses = []
                     await ctx.reply(f"Well done! You got the word. {WORD_WAS}")
