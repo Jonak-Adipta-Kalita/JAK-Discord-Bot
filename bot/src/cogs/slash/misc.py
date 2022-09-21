@@ -1,4 +1,4 @@
-import disnake, inspect, credentials, os, asyncio, aiohttp
+import disnake, inspect, credentials, aiohttp, random
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 import src.core.functions as funcs
@@ -342,6 +342,115 @@ class Misc_(commands.Cog):
 
         await inter.response.send_message(
             embed=embeds.has_role_embed(role=role, members=members_with_role)
+        )
+
+    @commands.slash_command(description="Display a Astrophotography of a Type")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def astrophotography(self, inter: disnake.ApplicationCommandInteraction):
+        await inter.response.send_message("Use a Type!!", ephemeral=True)
+
+    @astrophotography.sub_command(
+        description="Display the Astronomy Picture of the Day"
+    )
+    async def apod(self, inter: disnake.ApplicationCommandInteraction):
+        await inter.response.defer()
+
+        astrophotography_data = funcs.get_astrophotography_data(
+            link=f"https://api.nasa.gov/planetary/apod?api_key={credentials.NASA_API_KEY}"
+        )
+
+        await inter.edit_original_message(
+            embed=embeds.astrophotography_embed(
+                title=f"{astrophotography_data['title']} - {astrophotography_data['copyright']}",
+                description=astrophotography_data["explanation"],
+                image_url=astrophotography_data["hdurl"],
+            )
+        )
+
+    @astrophotography.sub_command(
+        description="Display a random Image of Earth Polychromatic Imaging Camera"
+    )
+    async def epic(self, inter: disnake.ApplicationCommandInteraction):
+        await inter.response.defer()
+
+        astrophotography_data = funcs.get_astrophotography_data(
+            link=f"https://api.nasa.gov/EPIC/api/natural?api_key={credentials.NASA_API_KEY}"
+        )
+        astrophotography_data = astrophotography_data[
+            random.randint(0, len(astrophotography_data) - 1)
+        ]
+
+        image_splitted = astrophotography_data["image"].split("_")[2]
+        year = image_splitted[:4]
+        month = image_splitted[:6][-2:]
+        day = image_splitted[:8][-2:]
+
+        await inter.edit_original_message(
+            embed=embeds.astrophotography_embed(
+                title=astrophotography_data["caption"],
+                description=f"Taken on: {year}/{month}/{day}",
+                image_url=f"https://epic.gsfc.nasa.gov/archive/natural/{year}/{month}/{day}/png/{astrophotography_data['image']}.png",
+            )
+        )
+
+    @astrophotography.sub_command(
+        description="Display a random Image from a Rover in Mars"
+    )
+    async def mars(self, inter: disnake.ApplicationCommandInteraction):
+        await inter.response.defer()
+
+        astrophotography_data = funcs.get_astrophotography_data(
+            link=f"https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key={credentials.NASA_API_KEY}"
+        )
+        astrophotography_data = astrophotography_data["photos"][
+            random.randint(0, len(astrophotography_data["photos"]) - 1)
+        ]
+
+        await inter.edit_original_message(
+            embed=embeds.astrophotography_embed(
+                title=astrophotography_data["camera"]["full_name"],
+                description=f"Taken on: {astrophotography_data['earth_date'].replace('_', '/')}\nRover Name: {astrophotography_data['rover']['name']}\nRover Landing Date: {astrophotography_data['rover']['landing_date']}",
+                image_url=astrophotography_data["img_src"],
+            )
+        )
+
+    @astrophotography.sub_command(
+        description="Search Astrophotography",
+        options=[
+            disnake.Option(
+                name="query",
+                description="Query of the Astrophotography Search",
+                type=disnake.OptionType.string,
+                required=True,
+            )
+        ],
+    )
+    async def search(self, inter: disnake.ApplicationCommandInteraction, query: str):
+        await inter.response.defer()
+
+        astrophotography_data = funcs.get_astrophotography_data(
+            link=f"https://images-api.nasa.gov/search?q={query.replace(' ', '+')}"
+        )
+        if not astrophotography_data["collection"]["items"]:
+            await inter.edit_original_message("No Data Found!!")
+            return
+        astrophotography_data = astrophotography_data["collection"]["items"][
+            random.randint(0, len(astrophotography_data["collection"]["items"]) - 1)
+        ]
+
+        image_url = ""
+
+        for link in astrophotography_data["links"]:
+            if link["rel"] == "preview":
+                image_url = link["href"]
+                break
+
+        await inter.edit_original_message(
+            embed=embeds.astrophotography_embed(
+                title=astrophotography_data["data"][0]["title"],
+                description=astrophotography_data["data"][0]["description"],
+                image_url=image_url,
+            )
         )
 
 
