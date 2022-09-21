@@ -185,6 +185,7 @@ class JAKDiscordBot(commands.Bot):
     async def on_command_error(
         self, ctx: commands.Context, error: commands.CommandError
     ):
+        print(error)
         if isinstance(error, commands.CheckFailure):
             pass
         if isinstance(error, commands.CommandNotFound):
@@ -231,6 +232,7 @@ class JAKDiscordBot(commands.Bot):
     async def on_slash_command_error(
         self, inter: disnake.ApplicationCommandInteraction, error: commands.CommandError
     ):
+        print(error)
         if isinstance(error, commands.MissingPermissions):
             await inter.response.send_message(
                 embed=embeds.error_embed(
