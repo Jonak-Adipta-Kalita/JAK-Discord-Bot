@@ -255,14 +255,14 @@
             "id": 6,
             "name": "chatbot",
             "usage": "$chatbot",
-            "has_slash_command": false,
+            "has_slash_command": true,
             "description": "Start Chatbot for 5 Minutes"
         },
         {
             "id": 7,
             "name": "chatbot",
             "usage": "$chatbot stop",
-            "has_slash_command": false,
+            "has_slash_command": true,
             "description": "Stop Chatbot"
         },
         {
