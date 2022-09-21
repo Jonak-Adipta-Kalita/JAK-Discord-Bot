@@ -207,7 +207,7 @@ class Fun_(commands.Cog):
             himher = "him"
             girlguy = "girl"
         else:
-            await inter.edit_original_message("Incorrect Gender Entered!!")
+            await inter.edit_original_message(content="Incorrect Gender Entered!!")
             return
 
         lines = funcs.generate_name_fact(name, heshe, hisher, guygirl, himher, girlguy)
@@ -374,7 +374,7 @@ class Fun_(commands.Cog):
             )
 
         except UnboundLocalError:
-            await inter.edit_original_message("Please provide a Valid Brawler Name!!")
+            await inter.edit_original_message(content="Please provide a Valid Brawler Name!!")
 
 
 def setup(bot: JAKDiscordBot):

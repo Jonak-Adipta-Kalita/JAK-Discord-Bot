@@ -319,7 +319,7 @@ class Misc_(commands.Cog):
             except Exception:
                 pass
         else:
-            inter.edit_original_message("Provide a Link or a Attachment!!")
+            inter.edit_original_message(content="Provide a Link or a Attachment!!")
 
     @commands.slash_command(
         description="Display which members have a certain role",
@@ -363,7 +363,7 @@ class Misc_(commands.Cog):
             if self.bot.chatbot_on:
                 self.bot.chatbot_on = False
                 self.bot.chatbot_channel = None
-                await inter.edit_original_message("Chatbot Stopped!!")
+                await inter.edit_original_message(content="Chatbot Stopped!!")
 
     @chatbot.sub_command(description="Stop Chatbot")
     async def stop(self, inter: disnake.ApplicationCommandInteraction):
@@ -372,7 +372,7 @@ class Misc_(commands.Cog):
         self.bot.chatbot_on = False
         self.bot.chatbot_channel = None
 
-        await inter.edit_original_message("Stopped Chatbot!!")
+        await inter.edit_original_message(content="Stopped Chatbot!!")
 
     @commands.slash_command(description="Display a Astrophotography of a Type")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
@@ -468,7 +468,7 @@ class Misc_(commands.Cog):
             link=f"https://images-api.nasa.gov/search?q={query.replace(' ', '+')}"
         )
         if not astrophotography_data["collection"]["items"]:
-            await inter.edit_original_message("No Data Found!!")
+            await inter.edit_original_message(content="No Data Found!!")
             return
         astrophotography_data = astrophotography_data["collection"]["items"][
             random.randint(0, len(astrophotography_data["collection"]["items"]) - 1)

@@ -126,9 +126,9 @@ class Games_(commands.Cog):
                 self.bot.hangman_guesses = []
                 self.bot.hangman_game_over = True
 
-                await inter.edit_original_message("Time Out!!")
+                await inter.edit_original_message(content="Time Out!!")
         else:
-            await inter.edit_original_message("One game is already running!!")
+            await inter.edit_original_message(content="One game is already running!!")
 
     @hangman.sub_command(
         description="Guess Word in Hangman Game",
@@ -190,9 +190,9 @@ class Games_(commands.Cog):
                     )
                 )
             else:
-                await inter.edit_original_message("You are not Playing!!")
+                await inter.edit_original_message(content="You are not Playing!!")
         else:
-            await inter.edit_original_message("No game is currently running!!")
+            await inter.edit_original_message(content="No game is currently running!!")
 
     @hangman.sub_command(description="Stops Hangman Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
@@ -203,11 +203,11 @@ class Games_(commands.Cog):
             if inter.author == self.bot.hangman_player:
                 self.bot.hangman_game_over = True
                 self.bot.hangman_guesses = []
-                await inter.edit_original_message("Stopped the Game!!")
+                await inter.edit_original_message(content="Stopped the Game!!")
             else:
-                await inter.edit_original_message("You are not Playing!!")
+                await inter.edit_original_message(content="You are not Playing!!")
         else:
-            await inter.edit_original_message("No game is currently running!!")
+            await inter.edit_original_message(content="No game is currently running!!")
 
     @commands.slash_command(description="Use Tic-Tac-Toe Game Commands")
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
@@ -327,7 +327,7 @@ class Games_(commands.Cog):
                             await inter.edit_original_message(f"{mark} WINS!!")
                         elif self.bot.tictactoe_count >= 9:
                             self.bot.tictactoe_game_over = True
-                            await inter.edit_original_message("It's a TIE!!")
+                            await inter.edit_original_message(content="It's a TIE!!")
 
                         if not self.bot.tictactoe_game_over:
                             if self.bot.tictactoe_turn == self.bot.tictactoe_player1:
@@ -345,13 +345,13 @@ class Games_(commands.Cog):
                             "Be sure to choose an integer between 1 and 9 (inclusive) and an unmarked tile!!"
                         )
                 else:
-                    await inter.edit_original_message("It is not your turn!!")
+                    await inter.edit_original_message(content="It is not your turn!!")
             else:
                 await inter.edit_original_message(
                     "You are not a Player of the Current Game!!"
                 )
         else:
-            await inter.edit_original_message("Please start a new game!!")
+            await inter.edit_original_message(content="Please start a new game!!")
 
     @tictactoe.sub_command(description="Stops Tic-Tac-Toe Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
@@ -361,13 +361,13 @@ class Games_(commands.Cog):
         if not self.bot.tictactoe_game_over:
             if inter.author in self.bot.tictactoe_players:
                 self.bot.tictactoe_game_over = True
-                await inter.edit_original_message("Stopped the Game!!")
+                await inter.edit_original_message(content="Stopped the Game!!")
             else:
                 await inter.edit_original_message(
                     "You are not a Player of the Current Game!!"
                 )
         else:
-            await inter.edit_original_message("No game is currently running!!")
+            await inter.edit_original_message(content="No game is currently running!!")
 
 
 def setup(bot: JAKDiscordBot):
