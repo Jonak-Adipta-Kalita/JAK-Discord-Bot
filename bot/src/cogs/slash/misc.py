@@ -359,9 +359,15 @@ class Misc_(commands.Cog):
             link=f"https://api.nasa.gov/planetary/apod?api_key={credentials.NASA_API_KEY}"
         )
 
+        title = astrophotography_data["title"]
+        try:
+            title += f" - {astrophotography_data['copyright']}"
+        except KeyError:
+            pass
+
         await inter.edit_original_message(
             embed=embeds.astrophotography_embed(
-                title=f"{astrophotography_data['title']} {'- ' + astrophotography_data['copyright'] if astrophotography_data['copyright'] else ''}",
+                title=title,
                 description=astrophotography_data["explanation"],
                 image_url=astrophotography_data["hdurl"],
             )
