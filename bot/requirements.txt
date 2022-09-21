@@ -1,5 +1,5 @@
 aiohttp==3.7.4
-akinator.py==5.0.0
+akinator.py==0.2.1
 appdirs==1.4.4
 art==5.5
 astunparse==1.6.3
@@ -91,7 +91,7 @@ tqdm==4.62.3
 typed-ast==1.4.3
 typing-extensions==3.10.0.2
 uritemplate==4.1.1
-urllib3==1.26.5
+urllib3==1.25.8
 yarl==1.7.0
 youtube-dl==2021.6.6
 zipp==3.6.0
