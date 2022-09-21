@@ -130,7 +130,17 @@ class Games_(commands.Cog):
         else:
             await inter.edit_original_message("One game is already running!!")
 
-    @hangman.sub_command(description="Guess Word in Hangman Game")
+    @hangman.sub_command(
+        description="Guess Word in Hangman Game",
+        options=[
+            disnake.Option(
+                name="letter",
+                description="The Guessing Letter",
+                type=disnake.OptionType.string,
+                required=True,
+            )
+        ],
+    )
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def guess(self, inter: disnake.ApplicationCommandInteraction, letter: str):
         await inter.response.defer()
