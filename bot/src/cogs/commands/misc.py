@@ -108,6 +108,8 @@ class Misc(commands.Cog):
     @chatbot.command(description="Stop Chatbot")
     async def stop(self, ctx: commands.Context):
         self.chatbot_on = False
+        self.chatbot_channel = None
+        
         await ctx.reply("Stopped Chatbot!!")
 
     @commands.command(description="Displays the total number of Commands")

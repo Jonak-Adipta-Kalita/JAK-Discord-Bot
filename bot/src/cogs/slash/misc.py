@@ -1,4 +1,4 @@
-import disnake, inspect, credentials, aiohttp, random
+import disnake, inspect, credentials, aiohttp, random, asyncio
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 import src.core.functions as funcs
@@ -10,6 +10,8 @@ from urllib.request import urlopen
 class Misc_(commands.Cog):
     def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
+        self.chatbot_on: bool = False
+        self.chatbot_channel: disnake.TextChannel = None
 
     @commands.slash_command(
         description="Create a Poll",
@@ -343,6 +345,38 @@ class Misc_(commands.Cog):
         await inter.response.send_message(
             embed=embeds.has_role_embed(role=role, members=members_with_role)
         )
+    
+    @commands.slash_command(
+        description="Run Chatbot Commands"
+    )
+    async def chatbot(self, inter: disnake.ApplicationCommandInteraction):
+        pass
+    
+    @commands.slash_command(
+        description="Start Chatbot for 5 Minutes"
+    )
+    async def chatbot_start(self, inter: disnake.ApplicationCommandInteraction):
+        await inter.response.defer()
+
+        if not self.chatbot_on:
+            self.chatbot_on = True
+            self.chatbot_channel = inter.channel
+            await inter.reply("Started Chatbot!! Will be Active for 5 Mins!!")
+
+            await asyncio.sleep(300)
+            if self.chatbot_on:
+                self.chatbot_on = False
+                self.chatbot_channel = None
+                await inter.edit_original_message("Chatbot Stopped!!")
+
+    @chatbot.sub_command(description="Stop Chatbot")
+    async def chatbot_stop(self, inter: disnake.ApplicationCommandInteraction):
+        await inter.response.defer()
+        
+        self.chatbot_on = False
+        self.chatbot_channel = None
+        
+        await inter.edit_original_message("Stopped Chatbot!!")
 
     @commands.slash_command(description="Display a Astrophotography of a Type")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
