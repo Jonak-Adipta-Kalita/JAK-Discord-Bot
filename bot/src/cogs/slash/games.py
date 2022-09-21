@@ -102,7 +102,7 @@ class Games_(commands.Cog):
 
     @hangman.sub_command(description="Play Hangman Game")
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
-    async def hangman(self, inter: disnake.ApplicationCommandInteraction):
+    async def start(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer()
 
         if self.bot.hangman_game_over:
@@ -259,10 +259,14 @@ class Games_(commands.Cog):
             num = random.randint(1, 2)
             if num == 1:
                 self.bot.tictactoe_turn = self.bot.tictactoe_player1
-                await inter.edit_original_message(f"Its {self.bot.tictactoe_player1.mention}'s turn!!")
+                await inter.edit_original_message(
+                    f"Its {self.bot.tictactoe_player1.mention}'s turn!!"
+                )
             elif num == 2:
                 self.bot.tictactoe_turn = self.bot.tictactoe_player2
-                await inter.edit_original_message(f"Its {self.bot.tictactoe_player2.mention}'s turn!!")
+                await inter.edit_original_message(
+                    f"Its {self.bot.tictactoe_player2.mention}'s turn!!"
+                )
         else:
             await inter.edit_original_message(
                 "A game is already in progress!! Finish it or Stop it!!"
