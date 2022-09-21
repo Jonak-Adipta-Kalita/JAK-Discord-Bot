@@ -352,7 +352,7 @@ class Misc_(commands.Cog):
     async def chatbot(self, inter: disnake.ApplicationCommandInteraction):
         pass
     
-    @commands.slash_command(
+    @chatbot.sub_command(
         description="Start Chatbot for 5 Minutes"
     )
     async def start(self, inter: disnake.ApplicationCommandInteraction):
