@@ -355,7 +355,7 @@ class Misc_(commands.Cog):
     @commands.slash_command(
         description="Start Chatbot for 5 Minutes"
     )
-    async def chatbot_start(self, inter: disnake.ApplicationCommandInteraction):
+    async def start(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer()
 
         if not self.chatbot_on:
@@ -370,7 +370,7 @@ class Misc_(commands.Cog):
                 await inter.edit_original_message("Chatbot Stopped!!")
 
     @chatbot.sub_command(description="Stop Chatbot")
-    async def chatbot_stop(self, inter: disnake.ApplicationCommandInteraction):
+    async def stop(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer()
         
         self.chatbot_on = False
