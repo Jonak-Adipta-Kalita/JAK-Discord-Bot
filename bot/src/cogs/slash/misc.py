@@ -361,7 +361,7 @@ class Misc_(commands.Cog):
         if not self.chatbot_on:
             self.chatbot_on = True
             self.chatbot_channel = inter.channel
-            await inter.reply("Started Chatbot!! Will be Active for 5 Mins!!")
+            await inter.edit_original_message("Started Chatbot!! Will be Active for 5 Mins!!")
 
             await asyncio.sleep(300)
             if self.chatbot_on:
