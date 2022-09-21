@@ -258,7 +258,7 @@ class Misc(commands.Cog):
 
         await ctx.reply(
             embed=embeds.astrophotography_embed(
-                title=f"{astrophotography_data['title']} - {astrophotography_data['copyright']}",
+                ttitle=f"{astrophotography_data['title']} {'- ' + astrophotography_data['copyright'] if astrophotography_data['copyright'] else ''}",
                 description=astrophotography_data["explanation"],
                 image_url=astrophotography_data["hdurl"],
             )

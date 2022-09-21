@@ -361,7 +361,7 @@ class Misc_(commands.Cog):
 
         await inter.edit_original_message(
             embed=embeds.astrophotography_embed(
-                title=f"{astrophotography_data['title']} - {astrophotography_data['copyright']}",
+                title=f"{astrophotography_data['title']} {'- ' + astrophotography_data['copyright'] if astrophotography_data['copyright'] else ''}",
                 description=astrophotography_data["explanation"],
                 image_url=astrophotography_data["hdurl"],
             )
