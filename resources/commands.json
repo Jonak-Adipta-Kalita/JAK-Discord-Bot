@@ -176,21 +176,21 @@
             "id": 4,
             "name": "hangman",
             "usage": "$hangman",
-            "has_slash_command": false,
+            "has_slash_command": true,
             "description": "Play Hangman Game"
         },
         {
             "id": 5,
             "name": "hangman",
             "usage": "$hangman guess <word/letter>",
-            "has_slash_command": false,
+            "has_slash_command": true,
             "description": "Guess Word in Hangman Game"
         },
         {
             "id": 6,
             "name": "hangman",
             "usage": "$hangman stop",
-            "has_slash_command": false,
+            "has_slash_command": true,
             "description": "Stops Hangman Game"
         },
         {

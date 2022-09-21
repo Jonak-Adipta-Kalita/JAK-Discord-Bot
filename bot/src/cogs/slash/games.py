@@ -1,4 +1,4 @@
-import disnake, random, requests, akinator as aki_
+import disnake, random, requests, asyncio, akinator as aki_
 import src.core.embeds as embeds
 import src.core.buttons as buttons
 from src.core.bot import JAKDiscordBot
@@ -93,6 +93,102 @@ class Games_(commands.Cog):
                 author=inter.author, aki=aki, embed=embed, counter=counter
             ),
         )
+    
+    @commands.slash_command(description="Use Hangman Game Commands")
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
+    async def hangman(self, inter: disnake.ApplicationCommandInteraction):
+        pass
+    
+    @hangman.sub_command(description="Play Hangman Game")
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
+    async def hangman(self, inter: disnake.ApplicationCommandInteraction):
+        await inter.response.defer()
+
+        if self.bot.hangman_game_over:
+            self.bot.hangman_player = inter.author
+            self.bot.hangman_guesses_left = 7
+            self.bot.hangman_game_over = False
+            self.bot.hangman_word = random.choice(self.bot.hangman_words).strip()
+            self.bot.hangman_guesses = []
+
+            await inter.edit_original_message(
+                embed=embeds.hangman_embed(
+                    guesses_left=7, word=self.bot.hangman_word, guesses=self.bot.hangman_guesses
+                )
+            )
+
+            await asyncio.sleep(300)
+
+            if not self.bot.hangman_game_over:
+                self.bot.hangman_guesses = []
+                self.bot.hangman_game_over = True
+
+                await inter.edit_original_message("Time Out!!")
+        else:
+            await inter.edit_original_message("One game is already running!!")
+
+    @hangman.sub_command(description="Guess Word in Hangman Game")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def guess(self, inter: disnake.ApplicationCommandInteraction, letter: str):
+        await inter.response.defer()
+        
+        if not self.bot.hangman_game_over:
+            if inter.author == self.bot.hangman_player:
+                WORD_WAS = f"The word was `{self.bot.hangman_word}`"
+
+                content = letter.lower()
+                self.bot.hangman_guesses.append(content)
+
+                if content == self.bot.hangman_word:
+                    self.bot.hangman_game_over = True
+                    self.bot.hangman_guesses = []
+                    await inter.edit_original_message(f"That is the word! {WORD_WAS}")
+                    return
+                if all([w in self.bot.hangman_guesses for w in list(self.bot.hangman_word)]):
+                    self.bot.hangman_game_over = True
+                    self.bot.hangman_guesses = []
+                    await inter.edit_original_message(f"Well done! You got the word. {WORD_WAS}")
+                    return
+                if self.bot.hangman_guesses_left == 1:
+                    self.bot.hangman_game_over = True
+                    self.bot.hangman_guesses = []
+                    await inter.edit_original_message(f"Unlucky, you ran out of guesses! {WORD_WAS}")
+                    return
+                if len(content) >= 2:
+                    await inter.edit_original_message(
+                        f"`{content}` is not the word! Try sending letters one at a time"
+                    )
+
+                if content not in self.bot.hangman_guesses[:-1]:
+                    if content not in self.bot.hangman_word:
+                        self.bot.hangman_guesses_left -= 1
+
+                await inter.edit_original_message(
+                    embed=embeds.hangman_embed(
+                        guesses_left=self.bot.hangman_guesses_left,
+                        word=self.bot.hangman_word,
+                        guesses=self.bot.hangman_guesses,
+                    )
+                )
+            else:
+                await inter.edit_original_message("You are not Playing!!")
+        else:
+            await inter.edit_original_message("No game is currently running!!")
+
+    @hangman.sub_command(description="Stops Hangman Game")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def stop(self, inter: disnake.ApplicationCommandInteraction):
+        await inter.response.defer()
+        
+        if not self.bot.hangman_game_over:
+            if inter.author == self.bot.hangman_player:
+                self.bot.hangman_game_over = True
+                self.bot.hangman_guesses = []
+                await inter.edit_original_message("Stopped the Game!!")
+            else:
+                await inter.edit_original_message("You are not Playing!!")
+        else:
+            await inter.edit_original_message("No game is currently running!!")
 
 
 def setup(bot: JAKDiscordBot):

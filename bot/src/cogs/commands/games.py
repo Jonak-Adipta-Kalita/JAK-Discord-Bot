@@ -1,4 +1,4 @@
-import disnake, random, asyncio, requests, akinator as aki_
+import disnake, random, asyncio, akinator as aki_
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 import src.core.buttons as buttons
