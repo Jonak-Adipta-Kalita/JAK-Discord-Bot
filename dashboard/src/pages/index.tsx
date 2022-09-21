@@ -49,13 +49,13 @@ const Home = ({ commandsData }: Props) => {
                     )}
                     <div className="">
                         <p className="text-2xl font-bold">Commands</p>
-                        <div className="mt-[20px] flex items-center justify-center space-x-4 rounded-xl border-[0.1px] p-4">
+                        <div className="mt-[20px] flex items-center justify-center space-x-4 rounded-xl border-[3px] p-4">
                             {categories.map((category) => (
                                 <p
                                     className={`cursor-pointer text-lg ${
                                         category === currentCategory
-                                            ? "text-gray-500"
-                                            : "text-gray-300"
+                                            ? "text-gray-300"
+                                            : "text-gray-400"
                                     }`}
                                     key={category}
                                     onClick={() => setCurrentCategory(category)}
@@ -64,27 +64,27 @@ const Home = ({ commandsData }: Props) => {
                                 </p>
                             ))}
                         </div>
-                        <div className="mt-[20px] space-y-4 rounded-xl border-[0.1px] p-4">
+                        <div className="mt-[20px] space-y-4 rounded-xl border-[3px] p-4">
                             {commands?.map((command) => (
                                 <div
-                                    className="space-y-[10px] rounded-xl border-[0.1px] p-4"
+                                    className="space-y-[10px] rounded-xl border-[3px] p-4 bg-gray-700"
                                     key={command.id}
                                 >
-                                    <p className="">
-                                        Name:{" "}
+                                    <p className="text-gray-200">
+                                        Name:{" "}<span className="text-white text-lg">
                                         {new editMessage(
                                             command.name.replaceAll("_", " ")
-                                        ).toTitleCase()}
+                                        ).toTitleCase()}</span>
                                     </p>
-                                    <p className="">Usage: {command.usage}</p>
-                                    <p className="">
-                                        Has Slash Command:{" "}
+                                    <p className="text-gray-200">Usage: <span className="text-white text-lg">{command.usage}</span></p>
+                                    <p className="text-gray-200">
+                                        Has Slash Command:{" "}<span className="text-white text-lg">
                                         {command.has_slash_command
                                             ? "Yes"
-                                            : "No"}
+                                            : "No"}</span>
                                     </p>
-                                    <p className="">
-                                        Description: {command.description}
+                                    <p className="text-gray-200">
+                                        Description: <span className="text-white text-lg">{command.description}</span>
                                     </p>
                                 </div>
                             ))}
