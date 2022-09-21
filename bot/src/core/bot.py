@@ -32,8 +32,34 @@ class JAKDiscordBot(commands.Bot):
         self.prefixes = ["$", "!JAK "]
 
         self.bad_words: list[str] = None
-        self.hangman_words: list[str] = None
         self._8ball_responses: list[str] = None
+
+        self.tictactoe_players: list = []
+        self.tictactoe_player1: str = ""
+        self.tictactoe_player2: str = ""
+        self.tictactoe_turn: str = ""
+        self.tictactoe_game_over: bool = True
+        self.tictactoe_board: list = []
+        self.tictactoe_winning_conditions: list = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ]
+
+        self.hangman_game_over: bool = True
+        self.hangman_player: disnake.Member = None
+        self.hangman_guesses: list = []
+        self.hangman_guesses_left: int = 0
+        self.hangman_words: list[str] = None
+        self.hangman_word: str = None
+
+        self.chatbot_on: bool = False
+        self.chatbot_channel: disnake.TextChannel = None
 
         super().__init__(
             command_prefix=self.get_prefix,

@@ -10,8 +10,6 @@ from urllib.request import urlopen
 class Misc_(commands.Cog):
     def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
-        self.chatbot_on: bool = False
-        self.chatbot_channel: disnake.TextChannel = None
 
     @commands.slash_command(
         description="Create a Poll",
@@ -358,23 +356,23 @@ class Misc_(commands.Cog):
     async def start(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer()
 
-        if not self.chatbot_on:
-            self.chatbot_on = True
-            self.chatbot_channel = inter.channel
+        if not self.bot.chatbot_on:
+            self.bot.chatbot_on = True
+            self.bot.chatbot_channel = inter.channel
             await inter.edit_original_message("Started Chatbot!! Will be Active for 5 Mins!!")
 
             await asyncio.sleep(300)
-            if self.chatbot_on:
-                self.chatbot_on = False
-                self.chatbot_channel = None
+            if self.bot.chatbot_on:
+                self.bot.chatbot_on = False
+                self.bot.chatbot_channel = None
                 await inter.edit_original_message("Chatbot Stopped!!")
 
     @chatbot.sub_command(description="Stop Chatbot")
     async def stop(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer()
         
-        self.chatbot_on = False
-        self.chatbot_channel = None
+        self.bot.chatbot_on = False
+        self.bot.chatbot_channel = None
         
         await inter.edit_original_message("Stopped Chatbot!!")
 

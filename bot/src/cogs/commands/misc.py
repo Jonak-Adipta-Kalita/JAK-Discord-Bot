@@ -10,8 +10,6 @@ from disnake.ext import commands
 class Misc(commands.Cog):
     def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
-        self.chatbot_on: bool = False
-        self.chatbot_channel: disnake.TextChannel = None
 
     @commands.command(description="Create a Poll")
     async def poll(
@@ -94,22 +92,22 @@ class Misc(commands.Cog):
             await ctx.reply("Command not Found!!")
             return
 
-        if not self.chatbot_on:
-            self.chatbot_on = True
-            self.chatbot_channel = ctx.channel
+        if not self.bot.chatbot_on:
+            self.bot.chatbot_on = True
+            self.bot.chatbot_channel = ctx.channel
             await ctx.reply("Started Chatbot!! Will be Active for 5 Mins!!")
 
             await asyncio.sleep(300)
-            if self.chatbot_on:
-                self.chatbot_on = False
-                self.chatbot_channel = None
+            if self.bot.chatbot_on:
+                self.bot.chatbot_on = False
+                self.bot.chatbot_channel = None
                 await ctx.reply("Chatbot Stopped!!")
 
     @chatbot.command(description="Stop Chatbot")
     async def stop(self, ctx: commands.Context):
-        self.chatbot_on = False
-        self.chatbot_channel = None
-        
+        self.bot.chatbot_on = False
+        self.bot.chatbot_channel = None
+
         await ctx.reply("Stopped Chatbot!!")
 
     @commands.command(description="Displays the total number of Commands")
@@ -430,8 +428,8 @@ class Misc(commands.Cog):
                     pass
 
         if (
-            self.chatbot_on
-            and message.channel == self.chatbot_channel
+            self.bot.chatbot_on
+            and message.channel == self.bot.chatbot_channel
             and not message.content in [f"{prefix}chatbot" for prefix in prefixes]
         ):
             try:

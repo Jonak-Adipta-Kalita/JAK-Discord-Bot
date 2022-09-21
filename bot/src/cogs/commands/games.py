@@ -10,37 +10,14 @@ class Games(commands.Cog):
     def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
 
-        self.tictactoe_players: list = []
-        self.tictactoe_player1: str = ""
-        self.tictactoe_player2: str = ""
-        self.tictactoe_turn: str = ""
-        self.tictactoe_game_over: bool = True
-        self.tictactoe_board: list = []
-        self.tictactoe_winning_conditions: list = [
-            [0, 1, 2],
-            [3, 4, 5],
-            [6, 7, 8],
-            [0, 3, 6],
-            [1, 4, 7],
-            [2, 5, 8],
-            [0, 4, 8],
-            [2, 4, 6],
-        ]
-
-        self.hangman_game_over: bool = True
-        self.hangman_player: disnake.Member = None
-        self.hangman_guesses: list = []
-        self.hangman_guesses_left: int = 0
-        self.hangman_word: str = None
-
     def tictactoe_check_winner(self, winning_conditions, mark):
         for condition in winning_conditions:
             if (
-                self.tictactoe_board[condition[0]] == mark
-                and self.tictactoe_board[condition[1]] == mark
-                and self.tictactoe_board[condition[2]] == mark
+                self.bot.tictactoe_board[condition[0]] == mark
+                and self.bot.tictactoe_board[condition[1]] == mark
+                and self.bot.tictactoe_board[condition[2]] == mark
             ):
-                self.tictactoe_game_over = True
+                self.bot.tictactoe_game_over = True
 
     @commands.command(name="8ball", description="Play 8Ball Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
@@ -56,8 +33,8 @@ class Games(commands.Cog):
     ):
         global tictactoe_count
 
-        if self.tictactoe_game_over:
-            self.tictactoe_board = [
+        if self.bot.tictactoe_game_over:
+            self.bot.tictactoe_board = [
                 emojis.white_large_square,
                 emojis.white_large_square,
                 emojis.white_large_square,
@@ -68,27 +45,27 @@ class Games(commands.Cog):
                 emojis.white_large_square,
                 emojis.white_large_square,
             ]
-            self.tictactoe_turn = ""
-            self.tictactoe_game_over = False
+            self.bot.tictactoe_turn = ""
+            self.bot.tictactoe_game_over = False
             tictactoe_count = 0
-            self.tictactoe_player1 = p1
-            self.tictactoe_player2 = p2
-            self.tictactoe_players = [p1, p2]
+            self.bot.tictactoe_player1 = p1
+            self.bot.tictactoe_player2 = p2
+            self.bot.tictactoe_players = [p1, p2]
             line = ""
-            for x in range(len(self.tictactoe_board)):
+            for x in range(len(self.bot.tictactoe_board)):
                 if x == 2 or x == 5 or x == 8:
-                    line += " " + self.tictactoe_board[x]
+                    line += " " + self.bot.tictactoe_board[x]
                     await ctx.send(line)
                     line = ""
                 else:
-                    line += " " + self.tictactoe_board[x]
+                    line += " " + self.bot.tictactoe_board[x]
             num = random.randint(1, 2)
             if num == 1:
-                self.tictactoe_turn = self.tictactoe_player1
-                await ctx.send(f"Its {self.tictactoe_player1.mention}'s turn!!")
+                self.bot.tictactoe_turn = self.bot.tictactoe_player1
+                await ctx.send(f"Its {self.bot.tictactoe_player1.mention}'s turn!!")
             elif num == 2:
-                self.tictactoe_turn = self.tictactoe_player2
-                await ctx.send(f"Its {self.tictactoe_player2.mention}'s turn!!")
+                self.bot.tictactoe_turn = self.bot.tictactoe_player2
+                await ctx.send(f"Its {self.bot.tictactoe_player2.mention}'s turn!!")
         else:
             await ctx.reply("A game is already in progress!! Finish it or Stop it!!")
 
@@ -97,47 +74,47 @@ class Games(commands.Cog):
     async def place(self, ctx: commands.Context, pos: int):
         global tictactoe_count
 
-        if not self.tictactoe_game_over:
+        if not self.bot.tictactoe_game_over:
             mark = ""
-            if self.tictactoe_turn == ctx.author:
-                if ctx.author in self.tictactoe_players:
-                    if self.tictactoe_turn == self.tictactoe_player1:
+            if self.bot.tictactoe_turn == ctx.author:
+                if ctx.author in self.bot.tictactoe_players:
+                    if self.bot.tictactoe_turn == self.bot.tictactoe_player1:
                         mark = emojis.alphabets["regional_indicator_x"]
-                    elif self.tictactoe_turn == self.tictactoe_player2:
+                    elif self.bot.tictactoe_turn == self.bot.tictactoe_player2:
                         mark = emojis.o2
                     if (
                         0 < pos < 10
-                        and self.tictactoe_board[pos - 1] == emojis.white_large_square
+                        and self.bot.tictactoe_board[pos - 1] == emojis.white_large_square
                     ):
-                        self.tictactoe_board[pos - 1] = mark
+                        self.bot.tictactoe_board[pos - 1] = mark
                         tictactoe_count += 1
                         line = ""
-                        for x in range(len(self.tictactoe_board)):
+                        for x in range(len(self.bot.tictactoe_board)):
                             if x == 2 or x == 5 or x == 8:
-                                line += " " + self.tictactoe_board[x]
+                                line += " " + self.bot.tictactoe_board[x]
                                 await ctx.send(line)
                                 line = ""
                             else:
-                                line += " " + self.tictactoe_board[x]
-                        self.tictactoe_check_winner(
-                            self.tictactoe_winning_conditions, mark
+                                line += " " + self.bot.tictactoe_board[x]
+                        self.bot.tictactoe_check_winner(
+                            self.bot.tictactoe_winning_conditions, mark
                         )
-                        if self.tictactoe_game_over == True:
+                        if self.bot.tictactoe_game_over == True:
                             await ctx.send(f"{mark} WINS!!")
                         elif tictactoe_count >= 9:
-                            self.tictactoe_game_over = True
+                            self.bot.tictactoe_game_over = True
                             await ctx.send("It's a TIE!!")
 
-                        if not self.tictactoe_game_over:
-                            if self.tictactoe_turn == self.tictactoe_player1:
-                                self.tictactoe_turn = self.tictactoe_player2
+                        if not self.bot.tictactoe_game_over:
+                            if self.bot.tictactoe_turn == self.bot.tictactoe_player1:
+                                self.bot.tictactoe_turn = self.bot.tictactoe_player2
                                 await ctx.send(
-                                    f"Its {self.tictactoe_player2.mention}'s turn!!"
+                                    f"Its {self.bot.tictactoe_player2.mention}'s turn!!"
                                 )
-                            elif self.tictactoe_turn == self.tictactoe_player2:
-                                self.tictactoe_turn = self.tictactoe_player1
+                            elif self.bot.tictactoe_turn == self.bot.tictactoe_player2:
+                                self.bot.tictactoe_turn = self.bot.tictactoe_player1
                                 await ctx.send(
-                                    f"Its {self.tictactoe_player1.mention}'s turn!!"
+                                    f"Its {self.bot.tictactoe_player1.mention}'s turn!!"
                                 )
                     else:
                         await ctx.reply(
@@ -153,9 +130,9 @@ class Games(commands.Cog):
     @tictactoe.command(description="Stops Tic-Tac-Toe Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def stop(self, ctx: commands.Context):
-        if not self.tictactoe_game_over:
-            if ctx.author in self.tictactoe_players:
-                self.tictactoe_game_over = True
+        if not self.bot.tictactoe_game_over:
+            if ctx.author in self.bot.tictactoe_players:
+                self.bot.tictactoe_game_over = True
                 await ctx.reply("Stopped the Game!!")
             else:
                 await ctx.reply("You are not a Player of the Current Game!!")
@@ -165,24 +142,24 @@ class Games(commands.Cog):
     @commands.group(invoke_without_command=True, description="Play Hangman Game")
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def hangman(self, ctx: commands.Context):
-        if self.hangman_game_over:
-            self.hangman_player = ctx.author
-            self.hangman_guesses_left = 7
-            self.hangman_game_over = False
-            self.hangman_word = random.choice(self.bot.hangman_words).strip()
-            self.hangman_guesses = []
+        if self.bot.hangman_game_over:
+            self.bot.hangman_player = ctx.author
+            self.bot.hangman_guesses_left = 7
+            self.bot.hangman_game_over = False
+            self.bot.hangman_word = random.choice(self.bot.hangman_words).strip()
+            self.bot.hangman_guesses = []
 
             await ctx.reply(
                 embed=embeds.hangman_embed(
-                    guesses_left=7, word=self.hangman_word, guesses=self.hangman_guesses
+                    guesses_left=7, word=self.bot.hangman_word, guesses=self.bot.hangman_guesses
                 )
             )
 
             await asyncio.sleep(300)
 
-            if not self.hangman_game_over:
-                self.hangman_guesses = []
-                self.hangman_game_over = True
+            if not self.bot.hangman_game_over:
+                self.bot.hangman_guesses = []
+                self.bot.hangman_game_over = True
 
                 await ctx.reply("Time Out!!")
         else:
@@ -191,26 +168,26 @@ class Games(commands.Cog):
     @hangman.command(description="Guess Word in Hangman Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def guess(self, ctx: commands.Context, letter: str):
-        if not self.hangman_game_over:
-            if ctx.author == self.hangman_player:
-                WORD_WAS = f"The word was `{self.hangman_word}`"
+        if not self.bot.hangman_game_over:
+            if ctx.author == self.bot.hangman_player:
+                WORD_WAS = f"The word was `{self.bot.hangman_word}`"
 
                 content = letter.lower()
-                self.hangman_guesses.append(content)
+                self.bot.hangman_guesses.append(content)
 
-                if content == self.hangman_word:
-                    self.hangman_game_over = True
-                    self.hangman_guesses = []
+                if content == self.bot.hangman_word:
+                    self.bot.hangman_game_over = True
+                    self.bot.hangman_guesses = []
                     await ctx.reply(f"That is the word! {WORD_WAS}")
                     return
-                if all([w in self.hangman_guesses for w in list(self.hangman_word)]):
-                    self.hangman_game_over = True
-                    self.hangman_guesses = []
+                if all([w in self.bot.hangman_guesses for w in list(self.bot.hangman_word)]):
+                    self.bot.hangman_game_over = True
+                    self.bot.hangman_guesses = []
                     await ctx.reply(f"Well done! You got the word. {WORD_WAS}")
                     return
-                if self.hangman_guesses_left == 1:
-                    self.hangman_game_over = True
-                    self.hangman_guesses = []
+                if self.bot.hangman_guesses_left == 1:
+                    self.bot.hangman_game_over = True
+                    self.bot.hangman_guesses = []
                     await ctx.reply(f"Unlucky, you ran out of guesses! {WORD_WAS}")
                     return
                 if len(content) >= 2:
@@ -218,15 +195,15 @@ class Games(commands.Cog):
                         f"`{content}` is not the word! Try sending letters one at a time"
                     )
 
-                if content not in self.hangman_guesses[:-1]:
-                    if content not in self.hangman_word:
-                        self.hangman_guesses_left -= 1
+                if content not in self.bot.hangman_guesses[:-1]:
+                    if content not in self.bot.hangman_word:
+                        self.bot.hangman_guesses_left -= 1
 
                 await ctx.reply(
                     embed=embeds.hangman_embed(
-                        guesses_left=self.hangman_guesses_left,
-                        word=self.hangman_word,
-                        guesses=self.hangman_guesses,
+                        guesses_left=self.bot.hangman_guesses_left,
+                        word=self.bot.hangman_word,
+                        guesses=self.bot.hangman_guesses,
                     )
                 )
             else:
@@ -237,10 +214,10 @@ class Games(commands.Cog):
     @hangman.command(description="Stops Hangman Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def stop(self, ctx: commands.Context):
-        if not self.hangman_game_over:
-            if ctx.author == self.hangman_player:
-                self.hangman_game_over = True
-                self.hangman_guesses = []
+        if not self.bot.hangman_game_over:
+            if ctx.author == self.bot.hangman_player:
+                self.bot.hangman_game_over = True
+                self.bot.hangman_guesses = []
                 await ctx.reply("Stopped the Game!!")
             else:
                 await ctx.reply("You are not Playing!!")
