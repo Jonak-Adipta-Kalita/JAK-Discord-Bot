@@ -154,7 +154,7 @@
         {
             "id": 1,
             "name": "tictactoe",
-            "usage": "$tictactoe @<1st Player> @<2nd Player>",
+            "usage": "$tictactoe start @<1st Player> @<2nd Player>",
             "has_slash_command": true,
             "description": "Play Tic-Tac-Toe Game"
         },
@@ -175,7 +175,7 @@
         {
             "id": 4,
             "name": "hangman",
-            "usage": "$hangman",
+            "usage": "$hangman start",
             "has_slash_command": true,
             "description": "Play Hangman Game"
         },
@@ -254,7 +254,7 @@
         {
             "id": 6,
             "name": "chatbot",
-            "usage": "$chatbot",
+            "usage": "$chatbot start",
             "has_slash_command": true,
             "description": "Start Chatbot for 5 Minutes"
         },
