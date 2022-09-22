@@ -128,7 +128,7 @@ class Games_(commands.Cog):
 
                 await inter.edit_original_message(content="Time Out!!")
         else:
-            await inter.edit_original_message(content="One game is already running!!")
+            await inter.edit_original_message(content="One game is already running!!", ephemeral=True)
 
     @hangman.sub_command(
         description="Guess Word in Hangman Game",
@@ -192,9 +192,9 @@ class Games_(commands.Cog):
                     )
                 )
             else:
-                await inter.edit_original_message(content="You are not Playing!!")
+                await inter.edit_original_message(content="You are not Playing!!", ephemeral=True)
         else:
-            await inter.edit_original_message(content="No game is currently running!!")
+            await inter.edit_original_message(content="No game is currently running!!", ephemeral=True)
 
     @hangman.sub_command(description="Stops Hangman Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
@@ -207,9 +207,9 @@ class Games_(commands.Cog):
                 self.bot.hangman_guesses = []
                 await inter.edit_original_message(content="Stopped the Game!!")
             else:
-                await inter.edit_original_message(content="You are not Playing!!")
+                await inter.edit_original_message(content="You are not Playing!!", ephemeral=True)
         else:
-            await inter.edit_original_message(content="No game is currently running!!")
+            await inter.edit_original_message(content="No game is currently running!!", ephemeral=True)
 
     @commands.slash_command(description="Use Tic-Tac-Toe Game Commands")
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
@@ -281,7 +281,7 @@ class Games_(commands.Cog):
                 )
         else:
             await inter.edit_original_message(
-                content="A game is already in progress!! Finish it or Stop it!!"
+                content="A game is already in progress!! Finish it or Stop it!!", ephemeral=True
             )
 
     @tictactoe.sub_command(
@@ -344,16 +344,16 @@ class Games_(commands.Cog):
                                 )
                     else:
                         await inter.edit_original_message(
-                            content="Be sure to choose an integer between 1 and 9 (inclusive) and an unmarked tile!!"
+                            content="Be sure to choose an integer between 1 and 9 (inclusive) and an unmarked tile!!", ephemeral=True
                         )
                 else:
-                    await inter.edit_original_message(content="It is not your turn!!")
+                    await inter.edit_original_message(content="It is not your turn!!", ephemeral=True)
             else:
                 await inter.edit_original_message(
-                    content="You are not a Player of the Current Game!!"
+                    content="You are not a Player of the Current Game!!", ephemeral=True
                 )
         else:
-            await inter.edit_original_message(content="Please start a new game!!")
+            await inter.edit_original_message(content="Please start a new game!!", ephemeral=True)
 
     @tictactoe.sub_command(description="Stops Tic-Tac-Toe Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
@@ -366,10 +366,10 @@ class Games_(commands.Cog):
                 await inter.edit_original_message(content="Stopped the Game!!")
             else:
                 await inter.edit_original_message(
-                    content="You are not a Player of the Current Game!!"
+                    content="You are not a Player of the Current Game!!", ephemeral=True
                 )
         else:
-            await inter.edit_original_message(content="No game is currently running!!")
+            await inter.edit_original_message(content="No game is currently running!!", ephemeral=True)
 
 
 def setup(bot: JAKDiscordBot):
