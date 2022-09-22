@@ -16,10 +16,17 @@ class Games(commands.Cog):
         await ctx.reply(
             f"Question: **{question}**\nAnswer: **{random.choice(self.bot._8ball_responses)}**"
         )
+    
+    @commands.command(invoke_without_command=True, description="Use Tic-Tac-Toe Command")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def tictactoe(self, ctx: commands.Context, command: str = None):
+        if command:
+            await ctx.reply("Command not Found!!")
+            return
 
-    @commands.group(invoke_without_command=True, description="Play Tic-Tac-Toe Game")
+    @tictactoe.command(description="Play Tic-Tac-Toe Game")
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
-    async def tictactoe(
+    async def start(
         self, ctx: commands.Context, p1: disnake.Member, p2: disnake.Member
     ):
         if self.bot.tictactoe_game_over:
@@ -126,10 +133,17 @@ class Games(commands.Cog):
                 await ctx.reply("You are not a Player of the Current Game!!")
         else:
             await ctx.reply("No game is currently running!!")
-
+    
     @commands.group(invoke_without_command=True, description="Play Hangman Game")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def hangman(self, ctx: commands.Context, command: str = None):
+        if command:
+            await ctx.reply("Command not Found!!")
+            return
+
+    @hangman.command(invoke_without_command=True, description="Play Hangman Game")
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
-    async def hangman(self, ctx: commands.Context):
+    async def start(self, ctx: commands.Context):
         if self.bot.hangman_game_over:
             self.bot.hangman_player = ctx.author
             self.bot.hangman_guesses_left = 7

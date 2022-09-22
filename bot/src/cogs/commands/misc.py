@@ -85,13 +85,15 @@ class Misc(commands.Cog):
         await ctx.reply(embed=embeds.message_source_embed(msg=msg))
 
     @commands.group(
-        invoke_without_command=True, description="Start Chatbot for 5 Minutes"
+        invoke_without_command=True, description="Use Chatbot Commands"
     )
     async def chatbot(self, ctx: commands.Context, command: str = None):
         if command:
             await ctx.reply("Command not Found!!")
             return
-
+    
+    @chatbot.command(description="Start Chatbot for 5 Minutes")
+    async def start(self, ctx: commands.Context):
         if not self.bot.chatbot_on:
             self.bot.chatbot_on = True
             self.bot.chatbot_channel = ctx.channel

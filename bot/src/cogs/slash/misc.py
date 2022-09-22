@@ -157,7 +157,7 @@ class Misc_(commands.Cog):
         hidden_commands = [command for command in self.bot.commands if command.hidden]
 
         await inter.edit_original_message(
-            f"Available Commands: {len(available_commands)}\nHidden Commands: {len(hidden_commands)}"
+            content=f"Available Commands: {len(available_commands)}\nHidden Commands: {len(hidden_commands)}"
         )
 
     @commands.slash_command(description="Display the Servers the Bot is in")
@@ -305,7 +305,7 @@ class Misc_(commands.Cog):
             inter.response.defer()
 
             await inter.edit_original_message(
-                "Identifying Image, this may take some time!!"
+                content="Identifying Image, this may take some time!!"
             )
 
             try:
@@ -315,7 +315,7 @@ class Misc_(commands.Cog):
 
                 ocr = funcs.convert_image_to_string(req.content)
 
-                await inter.edit_original_message(f"`{ocr}`")
+                await inter.edit_original_message(content=f"`{ocr}`")
             except Exception:
                 pass
         else:
@@ -356,7 +356,7 @@ class Misc_(commands.Cog):
             self.bot.chatbot_on = True
             self.bot.chatbot_channel = inter.channel
             await inter.edit_original_message(
-                "Started Chatbot!! Will be Active for 5 Mins!!"
+                content="Started Chatbot!! Will be Active for 5 Mins!!"
             )
 
             await asyncio.sleep(300)

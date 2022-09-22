@@ -155,7 +155,7 @@ class Games_(commands.Cog):
                 if content == self.bot.hangman_word:
                     self.bot.hangman_game_over = True
                     self.bot.hangman_guesses = []
-                    await inter.edit_original_message(f"That is the word! {WORD_WAS}")
+                    await inter.edit_original_message(content=f"That is the word! {WORD_WAS}")
                     return
                 if all(
                     [w in self.bot.hangman_guesses for w in list(self.bot.hangman_word)]
@@ -163,19 +163,19 @@ class Games_(commands.Cog):
                     self.bot.hangman_game_over = True
                     self.bot.hangman_guesses = []
                     await inter.edit_original_message(
-                        f"Well done! You got the word. {WORD_WAS}"
+                        content=f"Well done! You got the word. {WORD_WAS}"
                     )
                     return
                 if self.bot.hangman_guesses_left == 1:
                     self.bot.hangman_game_over = True
                     self.bot.hangman_guesses = []
                     await inter.edit_original_message(
-                        f"Unlucky, you ran out of guesses! {WORD_WAS}"
+                        content=f"Unlucky, you ran out of guesses! {WORD_WAS}"
                     )
                     return
                 if len(content) >= 2:
                     await inter.edit_original_message(
-                        f"`{content}` is not the word! Try sending letters one at a time"
+                        content=f"`{content}` is not the word! Try sending letters one at a time"
                     )
 
                 if content not in self.bot.hangman_guesses[:-1]:
@@ -262,7 +262,7 @@ class Games_(commands.Cog):
             for x in range(len(self.bot.tictactoe_board)):
                 if x == 2 or x == 5 or x == 8:
                     line += " " + self.bot.tictactoe_board[x]
-                    await inter.edit_original_message(line)
+                    await inter.edit_original_message(content=line)
                     line = ""
                 else:
                     line += " " + self.bot.tictactoe_board[x]
@@ -270,16 +270,16 @@ class Games_(commands.Cog):
             if num == 1:
                 self.bot.tictactoe_turn = self.bot.tictactoe_player1
                 await inter.edit_original_message(
-                    f"Its {self.bot.tictactoe_player1.mention}'s turn!!"
+                content=f"Its {self.bot.tictactoe_player1.mention}'s turn!!"
                 )
             elif num == 2:
                 self.bot.tictactoe_turn = self.bot.tictactoe_player2
                 await inter.edit_original_message(
-                    f"Its {self.bot.tictactoe_player2.mention}'s turn!!"
+                content=f"Its {self.bot.tictactoe_player2.mention}'s turn!!"
                 )
         else:
             await inter.edit_original_message(
-                "A game is already in progress!! Finish it or Stop it!!"
+                content="A game is already in progress!! Finish it or Stop it!!"
             )
 
     @tictactoe.sub_command(
@@ -316,7 +316,7 @@ class Games_(commands.Cog):
                         for x in range(len(self.bot.tictactoe_board)):
                             if x == 2 or x == 5 or x == 8:
                                 line += " " + self.bot.tictactoe_board[x]
-                                await inter.edit_original_message(line)
+                                await inter.edit_original_message(content=line)
                                 line = ""
                             else:
                                 line += " " + self.bot.tictactoe_board[x]
@@ -324,7 +324,7 @@ class Games_(commands.Cog):
                             self.bot.tictactoe_winning_conditions, mark
                         )
                         if self.bot.tictactoe_game_over == True:
-                            await inter.edit_original_message(f"{mark} WINS!!")
+                            await inter.edit_original_message(content=f"{mark} WINS!!")
                         elif self.bot.tictactoe_count >= 9:
                             self.bot.tictactoe_game_over = True
                             await inter.edit_original_message(content="It's a TIE!!")
@@ -333,22 +333,22 @@ class Games_(commands.Cog):
                             if self.bot.tictactoe_turn == self.bot.tictactoe_player1:
                                 self.bot.tictactoe_turn = self.bot.tictactoe_player2
                                 await inter.edit_original_message(
-                                    f"Its {self.bot.tictactoe_player2.mention}'s turn!!"
+                                    content=f"Its {self.bot.tictactoe_player2.mention}'s turn!!"
                                 )
                             elif self.bot.tictactoe_turn == self.bot.tictactoe_player2:
                                 self.bot.tictactoe_turn = self.bot.tictactoe_player1
                                 await inter.edit_original_message(
-                                    f"Its {self.bot.tictactoe_player1.mention}'s turn!!"
+                                    content=f"Its {self.bot.tictactoe_player1.mention}'s turn!!"
                                 )
                     else:
                         await inter.edit_original_message(
-                            "Be sure to choose an integer between 1 and 9 (inclusive) and an unmarked tile!!"
+                            content="Be sure to choose an integer between 1 and 9 (inclusive) and an unmarked tile!!"
                         )
                 else:
                     await inter.edit_original_message(content="It is not your turn!!")
             else:
                 await inter.edit_original_message(
-                    "You are not a Player of the Current Game!!"
+                    content="You are not a Player of the Current Game!!"
                 )
         else:
             await inter.edit_original_message(content="Please start a new game!!")
@@ -364,7 +364,7 @@ class Games_(commands.Cog):
                 await inter.edit_original_message(content="Stopped the Game!!")
             else:
                 await inter.edit_original_message(
-                    "You are not a Player of the Current Game!!"
+                    content="You are not a Player of the Current Game!!"
                 )
         else:
             await inter.edit_original_message(content="No game is currently running!!")
