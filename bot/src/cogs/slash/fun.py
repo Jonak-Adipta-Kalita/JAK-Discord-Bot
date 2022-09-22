@@ -374,7 +374,9 @@ class Fun_(commands.Cog):
             )
 
         except UnboundLocalError:
-            await inter.edit_original_message(content="Please provide a Valid Brawler Name!!")
+            await inter.edit_original_message(
+                content="Please provide a Valid Brawler Name!!"
+            )
 
 
 def setup(bot: JAKDiscordBot):

@@ -155,7 +155,9 @@ class Games_(commands.Cog):
                 if content == self.bot.hangman_word:
                     self.bot.hangman_game_over = True
                     self.bot.hangman_guesses = []
-                    await inter.edit_original_message(content=f"That is the word! {WORD_WAS}")
+                    await inter.edit_original_message(
+                        content=f"That is the word! {WORD_WAS}"
+                    )
                     return
                 if all(
                     [w in self.bot.hangman_guesses for w in list(self.bot.hangman_word)]
@@ -270,12 +272,12 @@ class Games_(commands.Cog):
             if num == 1:
                 self.bot.tictactoe_turn = self.bot.tictactoe_player1
                 await inter.edit_original_message(
-                content=f"Its {self.bot.tictactoe_player1.mention}'s turn!!"
+                    content=f"Its {self.bot.tictactoe_player1.mention}'s turn!!"
                 )
             elif num == 2:
                 self.bot.tictactoe_turn = self.bot.tictactoe_player2
                 await inter.edit_original_message(
-                content=f"Its {self.bot.tictactoe_player2.mention}'s turn!!"
+                    content=f"Its {self.bot.tictactoe_player2.mention}'s turn!!"
                 )
         else:
             await inter.edit_original_message(

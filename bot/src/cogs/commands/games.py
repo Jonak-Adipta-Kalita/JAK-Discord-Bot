@@ -16,8 +16,10 @@ class Games(commands.Cog):
         await ctx.reply(
             f"Question: **{question}**\nAnswer: **{random.choice(self.bot._8ball_responses)}**"
         )
-    
-    @commands.command(invoke_without_command=True, description="Use Tic-Tac-Toe Command")
+
+    @commands.command(
+        invoke_without_command=True, description="Use Tic-Tac-Toe Command"
+    )
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def tictactoe(self, ctx: commands.Context, command: str = None):
         if command:
@@ -133,7 +135,7 @@ class Games(commands.Cog):
                 await ctx.reply("You are not a Player of the Current Game!!")
         else:
             await ctx.reply("No game is currently running!!")
-    
+
     @commands.group(invoke_without_command=True, description="Play Hangman Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def hangman(self, ctx: commands.Context, command: str = None):
