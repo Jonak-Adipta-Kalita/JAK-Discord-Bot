@@ -17,7 +17,7 @@ class Games(commands.Cog):
             f"Question: **{question}**\nAnswer: **{random.choice(self.bot._8ball_responses)}**"
         )
 
-    @commands.command(
+    @commands.group(
         invoke_without_command=True, description="Use Tic-Tac-Toe Command"
     )
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
@@ -136,14 +136,14 @@ class Games(commands.Cog):
         else:
             await ctx.reply("No game is currently running!!")
 
-    @commands.group(invoke_without_command=True, description="Play Hangman Game")
+    @commands.group(invoke_without_command=True, description="Use Hangman Commands")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def hangman(self, ctx: commands.Context, command: str = None):
         if command:
             await ctx.reply("Command not Found!!")
             return
 
-    @hangman.command(invoke_without_command=True, description="Play Hangman Game")
+    @hangman.command(description="Play Hangman Game")
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def start(self, ctx: commands.Context):
         if self.bot.hangman_game_over:
