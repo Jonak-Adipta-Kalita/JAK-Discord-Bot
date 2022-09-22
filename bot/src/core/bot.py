@@ -276,8 +276,8 @@ class JAKDiscordBot(commands.Bot):
     def tictactoe_check_winner(self, winning_conditions, mark):
         for condition in winning_conditions:
             if (
-                self.bot.tictactoe_board[condition[0]] == mark
-                and self.bot.tictactoe_board[condition[1]] == mark
-                and self.bot.tictactoe_board[condition[2]] == mark
+                self.tictactoe_board[condition[0]] == mark
+                and self.tictactoe_board[condition[1]] == mark
+                and self.tictactoe_board[condition[2]] == mark
             ):
-                self.bot.tictactoe_game_over = True
+                self.tictactoe_game_over = True
