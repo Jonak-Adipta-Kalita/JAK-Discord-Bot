@@ -90,8 +90,8 @@ class Misc(commands.Cog):
             await ctx.reply("Command not Found!!")
             return
 
-    @chatbot.command(description="Start Chatbot for 5 Minutes")
-    async def start(self, ctx: commands.Context):
+    @chatbot.command(name="start",description="Start Chatbot for 5 Minutes")
+    async def chatbot_start(self, ctx: commands.Context):
         if not self.bot.chatbot_on:
             self.bot.chatbot_on = True
             self.bot.chatbot_channel = ctx.channel
@@ -103,8 +103,8 @@ class Misc(commands.Cog):
                 self.bot.chatbot_channel = None
                 await ctx.reply("Chatbot Stopped!!")
 
-    @chatbot.command(description="Stop Chatbot")
-    async def stop(self, ctx: commands.Context):
+    @chatbot.command(name="stop",description="Stop Chatbot")
+    async def chatbot_stop(self, ctx: commands.Context):
         self.bot.chatbot_on = False
         self.bot.chatbot_channel = None
 
@@ -250,8 +250,8 @@ class Misc(commands.Cog):
     async def astrophotography(self, ctx: commands.Context, command: str):
         await ctx.reply("Command not Found!!")
 
-    @astrophotography.command(description="Display the Astronomy Picture of the Day")
-    async def apod(self, ctx: commands.Context):
+    @astrophotography.command(name="apod",description="Display the Astronomy Picture of the Day")
+    async def astrophotography_apod(self, ctx: commands.Context):
         astrophotography_data = funcs.get_astrophotography_data(
             link=f"https://api.nasa.gov/planetary/apod?api_key={credentials.NASA_API_KEY}"
         )
@@ -271,9 +271,10 @@ class Misc(commands.Cog):
         )
 
     @astrophotography.command(
+        name="epic",
         description="Display a random Image of Earth Polychromatic Imaging Camera"
     )
-    async def epic(self, ctx: commands.Context):
+    async def astrophotography_epic(self, ctx: commands.Context):
         astrophotography_data = funcs.get_astrophotography_data(
             link=f"https://api.nasa.gov/EPIC/api/natural?api_key={credentials.NASA_API_KEY}"
         )
@@ -294,8 +295,8 @@ class Misc(commands.Cog):
             )
         )
 
-    @astrophotography.command(description="Display a random Image from a Rover in Mars")
-    async def mars(self, ctx: commands.Context):
+    @astrophotography.command(name="mars",description="Display a random Image from a Rover in Mars")
+    async def astrophotography_mars(self, ctx: commands.Context):
         astrophotography_data = funcs.get_astrophotography_data(
             link=f"https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key={credentials.NASA_API_KEY}"
         )
@@ -311,8 +312,8 @@ class Misc(commands.Cog):
             )
         )
 
-    @astrophotography.command(description="Search Astrophotography")
-    async def search(self, ctx: commands.Context, *, query: str):
+    @astrophotography.command(name="search",description="Search Astrophotography")
+    async def astrophotography_search(self, ctx: commands.Context, *, query: str):
         astrophotography_data = funcs.get_astrophotography_data(
             link=f"https://images-api.nasa.gov/search?q={query.replace(' ', '+')}"
         )

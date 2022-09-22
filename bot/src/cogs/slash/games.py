@@ -100,9 +100,9 @@ class Games_(commands.Cog):
     async def hangman(self, inter: disnake.ApplicationCommandInteraction):
         pass
 
-    @hangman.sub_command(description="Play Hangman Game")
+    @hangman.sub_command(name="start", description="Play Hangman Game")
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
-    async def start(self, inter: disnake.ApplicationCommandInteraction):
+    async def hangman_start(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer()
 
         if self.bot.hangman_game_over:
@@ -130,7 +130,7 @@ class Games_(commands.Cog):
         else:
             await inter.edit_original_message(content="One game is already running!!")
 
-    @hangman.sub_command(
+    @hangman.sub_command(name="guess", 
         description="Guess Word in Hangman Game",
         options=[
             disnake.Option(
@@ -142,7 +142,7 @@ class Games_(commands.Cog):
         ],
     )
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def guess(self, inter: disnake.ApplicationCommandInteraction, letter: str):
+    async def hangman_guess(self, inter: disnake.ApplicationCommandInteraction, letter: str):
         await inter.response.defer()
 
         if not self.bot.hangman_game_over:
@@ -196,9 +196,9 @@ class Games_(commands.Cog):
         else:
             await inter.edit_original_message(content="No game is currently running!!")
 
-    @hangman.sub_command(description="Stops Hangman Game")
+    @hangman.sub_command(name="stop", description="Stops Hangman Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def stop(self, inter: disnake.ApplicationCommandInteraction):
+    async def hangman_stop(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer()
 
         if not self.bot.hangman_game_over:
@@ -216,17 +216,17 @@ class Games_(commands.Cog):
     async def tictactoe(self, inter: disnake.ApplicationCommandInteraction):
         pass
 
-    @tictactoe.sub_command(
+    @tictactoe.sub_command(name="start", 
         description="Play Tic-Tac-Toe Game",
         options=[
             disnake.Option(
-                name="p1",
+                name="player_1",
                 description="Player 1",
                 type=disnake.OptionType.user,
                 required=True,
             ),
             disnake.Option(
-                name="p2",
+                name="player_2",
                 description="Player 2",
                 type=disnake.OptionType.user,
                 required=True,
@@ -234,11 +234,11 @@ class Games_(commands.Cog):
         ],
     )
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
-    async def start(
+    async def tictactoe_start(
         self,
         inter: disnake.ApplicationCommandInteraction,
-        p1: disnake.Member,
-        p2: disnake.Member,
+        player_1: disnake.Member,
+        player_2: disnake.Member,
     ):
         await inter.response.defer()
 
@@ -257,9 +257,9 @@ class Games_(commands.Cog):
             self.bot.tictactoe_turn = ""
             self.bot.tictactoe_game_over = False
             self.bot.tictactoe_count = 0
-            self.bot.tictactoe_player1 = p1
-            self.bot.tictactoe_player2 = p2
-            self.bot.tictactoe_players = [p1, p2]
+            self.bot.tictactoe_player1 = player_1
+            self.bot.tictactoe_player2 = player_2
+            self.bot.tictactoe_players = [player_1, player_2]
             line = ""
             for x in range(len(self.bot.tictactoe_board)):
                 if x == 2 or x == 5 or x == 8:
@@ -284,7 +284,7 @@ class Games_(commands.Cog):
                 content="A game is already in progress!! Finish it or Stop it!!"
             )
 
-    @tictactoe.sub_command(
+    @tictactoe.sub_command(name="place", 
         description="Place your position for Tic-Tac-Toe Game",
         options=[
             disnake.Option(
@@ -296,7 +296,7 @@ class Games_(commands.Cog):
         ],
     )
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def place(self, inter: disnake.ApplicationCommandInteraction, pos: int):
+    async def tictactoe_place(self, inter: disnake.ApplicationCommandInteraction, pos: int):
         await inter.response.defer()
 
         if not self.bot.tictactoe_game_over:
@@ -355,9 +355,9 @@ class Games_(commands.Cog):
         else:
             await inter.edit_original_message(content="Please start a new game!!")
 
-    @tictactoe.sub_command(description="Stops Tic-Tac-Toe Game")
+    @tictactoe.sub_command(name="stop", description="Stops Tic-Tac-Toe Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def stop(self, inter: disnake.ApplicationCommandInteraction):
+    async def tictactoe_stop(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer()
 
         if not self.bot.tictactoe_game_over:

@@ -26,10 +26,10 @@ class Games(commands.Cog):
             await ctx.reply("Command not Found!!")
             return
 
-    @tictactoe.command(description="Play Tic-Tac-Toe Game")
+    @tictactoe.command(name="start", description="Play Tic-Tac-Toe Game")
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
-    async def start(
-        self, ctx: commands.Context, p1: disnake.Member, p2: disnake.Member
+    async def tictactoe_start(
+        self, ctx: commands.Context, player_1: disnake.Member, player_2: disnake.Member
     ):
         if self.bot.tictactoe_game_over:
             self.bot.tictactoe_board = [
@@ -46,9 +46,9 @@ class Games(commands.Cog):
             self.bot.tictactoe_turn = ""
             self.bot.tictactoe_game_over = False
             self.bot.tictactoe_count = 0
-            self.bot.tictactoe_player1 = p1
-            self.bot.tictactoe_player2 = p2
-            self.bot.tictactoe_players = [p1, p2]
+            self.bot.tictactoe_player1 = player_1
+            self.bot.tictactoe_player2 = player_2
+            self.bot.tictactoe_players = [player_1, player_2]
             line = ""
             for x in range(len(self.bot.tictactoe_board)):
                 if x == 2 or x == 5 or x == 8:
@@ -67,9 +67,9 @@ class Games(commands.Cog):
         else:
             await ctx.reply("A game is already in progress!! Finish it or Stop it!!")
 
-    @tictactoe.command(description="Place your position for Tic-Tac-Toe Game")
+    @tictactoe.command(name="place", description="Place your position for Tic-Tac-Toe Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def place(self, ctx: commands.Context, pos: int):
+    async def tictactoe_place(self, ctx: commands.Context, pos: int):
         if not self.bot.tictactoe_game_over:
             mark = ""
             if self.bot.tictactoe_turn == ctx.author:
@@ -124,9 +124,9 @@ class Games(commands.Cog):
         else:
             await ctx.reply("Please start a new game!!")
 
-    @tictactoe.command(description="Stops Tic-Tac-Toe Game")
+    @tictactoe.command(name="stop",description="Stops Tic-Tac-Toe Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def stop(self, ctx: commands.Context):
+    async def tictactoe_stop(self, ctx: commands.Context):
         if not self.bot.tictactoe_game_over:
             if ctx.author in self.bot.tictactoe_players:
                 self.bot.tictactoe_game_over = True
@@ -143,9 +143,9 @@ class Games(commands.Cog):
             await ctx.reply("Command not Found!!")
             return
 
-    @hangman.command(description="Play Hangman Game")
+    @hangman.command(name="start",description="Play Hangman Game")
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
-    async def start(self, ctx: commands.Context):
+    async def hangman_start(self, ctx: commands.Context):
         if self.bot.hangman_game_over:
             self.bot.hangman_player = ctx.author
             self.bot.hangman_guesses_left = 7
@@ -171,9 +171,9 @@ class Games(commands.Cog):
         else:
             await ctx.reply("One game is already running!!")
 
-    @hangman.command(description="Guess Word in Hangman Game")
+    @hangman.command(name="guess",description="Guess Word in Hangman Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def guess(self, ctx: commands.Context, letter: str):
+    async def hangman_guess(self, ctx: commands.Context, letter: str):
         if not self.bot.hangman_game_over:
             if ctx.author == self.bot.hangman_player:
                 WORD_WAS = f"The word was `{self.bot.hangman_word}`"
@@ -219,9 +219,9 @@ class Games(commands.Cog):
         else:
             await ctx.reply("No game is currently running!!")
 
-    @hangman.command(description="Stops Hangman Game")
+    @hangman.command(name="stop",description="Stops Hangman Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def stop(self, ctx: commands.Context):
+    async def hangman_stop(self, ctx: commands.Context):
         if not self.bot.hangman_game_over:
             if ctx.author == self.bot.hangman_player:
                 self.bot.hangman_game_over = True
