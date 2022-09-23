@@ -264,7 +264,7 @@ class Games_(commands.Cog):
             self.bot.tictactoe_player1 = player_1
             self.bot.tictactoe_player2 = player_2
             self.bot.tictactoe_players = [player_1, player_2]
-            lines = ""
+            lines = " "
             for x in range(len(self.bot.tictactoe_board)):
                 if x == 2 or x == 5 or x == 8:
                     lines += " " + self.bot.tictactoe_board[x]
@@ -317,7 +317,7 @@ class Games_(commands.Cog):
                     ):
                         self.bot.tictactoe_board[pos - 1] = mark
                         self.bot.tictactoe_count += 1
-                        lines = ""
+                        lines = " "
                         for x in range(len(self.bot.tictactoe_board)):
                             if x == 2 or x == 5 or x == 8:
                                 lines += " " + self.bot.tictactoe_board[x]
