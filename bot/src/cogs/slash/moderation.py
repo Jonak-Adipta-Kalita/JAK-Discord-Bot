@@ -114,7 +114,7 @@ class Moderation_(commands.Cog):
             disnake.Option(
                 name="amount",
                 description="Amount of Messages you want to delete",
-                type=disnake.OptionType.string,
+                type=disnake.OptionType.integer,
                 required=True,
             ),
         ],
