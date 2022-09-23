@@ -130,7 +130,8 @@ class Games_(commands.Cog):
         else:
             await inter.edit_original_message(content="One game is already running!!")
 
-    @hangman.sub_command(name="guess", 
+    @hangman.sub_command(
+        name="guess",
         description="Guess Word in Hangman Game",
         options=[
             disnake.Option(
@@ -142,7 +143,9 @@ class Games_(commands.Cog):
         ],
     )
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def hangman_guess(self, inter: disnake.ApplicationCommandInteraction, letter: str):
+    async def hangman_guess(
+        self, inter: disnake.ApplicationCommandInteraction, letter: str
+    ):
         await inter.response.defer()
 
         if not self.bot.hangman_game_over:
@@ -216,7 +219,8 @@ class Games_(commands.Cog):
     async def tictactoe(self, inter: disnake.ApplicationCommandInteraction):
         pass
 
-    @tictactoe.sub_command(name="start", 
+    @tictactoe.sub_command(
+        name="start",
         description="Play Tic-Tac-Toe Game",
         options=[
             disnake.Option(
@@ -260,31 +264,28 @@ class Games_(commands.Cog):
             self.bot.tictactoe_player1 = player_1
             self.bot.tictactoe_player2 = player_2
             self.bot.tictactoe_players = [player_1, player_2]
-            line = ""
+            lines = ""
             for x in range(len(self.bot.tictactoe_board)):
                 if x == 2 or x == 5 or x == 8:
-                    line += " " + self.bot.tictactoe_board[x]
-                    await inter.edit_original_message(content=line)
-                    line = ""
+                    lines += " " + self.bot.tictactoe_board[x]
+                    lines += "\n"
                 else:
-                    line += " " + self.bot.tictactoe_board[x]
+                    lines += " " + self.bot.tictactoe_board[x]
             num = random.randint(1, 2)
             if num == 1:
                 self.bot.tictactoe_turn = self.bot.tictactoe_player1
-                await inter.edit_original_message(
-                    content=f"Its {self.bot.tictactoe_player1.mention}'s turn!!"
-                )
             elif num == 2:
                 self.bot.tictactoe_turn = self.bot.tictactoe_player2
-                await inter.edit_original_message(
-                    content=f"Its {self.bot.tictactoe_player2.mention}'s turn!!"
-                )
+            await inter.edit_original_message(
+                content=f"{lines}\n\nIts {self.bot.tictactoe_turn.mention}'s turn!!"
+            )
         else:
             await inter.edit_original_message(
                 content="A game is already in progress!! Finish it or Stop it!!"
             )
 
-    @tictactoe.sub_command(name="place", 
+    @tictactoe.sub_command(
+        name="place",
         description="Place your position for Tic-Tac-Toe Game",
         options=[
             disnake.Option(
@@ -296,7 +297,9 @@ class Games_(commands.Cog):
         ],
     )
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
-    async def tictactoe_place(self, inter: disnake.ApplicationCommandInteraction, pos: int):
+    async def tictactoe_place(
+        self, inter: disnake.ApplicationCommandInteraction, pos: int
+    ):
         await inter.response.defer()
 
         if not self.bot.tictactoe_game_over:
@@ -314,34 +317,35 @@ class Games_(commands.Cog):
                     ):
                         self.bot.tictactoe_board[pos - 1] = mark
                         self.bot.tictactoe_count += 1
-                        line = ""
+                        lines = ""
                         for x in range(len(self.bot.tictactoe_board)):
                             if x == 2 or x == 5 or x == 8:
-                                line += " " + self.bot.tictactoe_board[x]
-                                await inter.edit_original_message(content=line)
-                                line = ""
+                                lines += " " + self.bot.tictactoe_board[x]
+                                lines += "\n"
                             else:
-                                line += " " + self.bot.tictactoe_board[x]
+                                lines += " " + self.bot.tictactoe_board[x]
                         self.bot.tictactoe_check_winner(
                             self.bot.tictactoe_winning_conditions, mark
                         )
                         if self.bot.tictactoe_game_over == True:
-                            await inter.edit_original_message(content=f"{mark} WINS!!")
+                            await inter.edit_original_message(
+                                content=f"{lines}\n\n{mark} WINS!!"
+                            )
                         elif self.bot.tictactoe_count >= 9:
                             self.bot.tictactoe_game_over = True
-                            await inter.edit_original_message(content="It's a TIE!!")
+                            await inter.edit_original_message(
+                                content=f"{lines}\n\nIt's a TIE!!"
+                            )
 
                         if not self.bot.tictactoe_game_over:
                             if self.bot.tictactoe_turn == self.bot.tictactoe_player1:
                                 self.bot.tictactoe_turn = self.bot.tictactoe_player2
-                                await inter.edit_original_message(
-                                    content=f"Its {self.bot.tictactoe_player2.mention}'s turn!!"
-                                )
                             elif self.bot.tictactoe_turn == self.bot.tictactoe_player2:
                                 self.bot.tictactoe_turn = self.bot.tictactoe_player1
-                                await inter.edit_original_message(
-                                    content=f"Its {self.bot.tictactoe_player1.mention}'s turn!!"
-                                )
+
+                            await inter.edit_original_message(
+                                content=f"{lines}\n\nIts {self.bot.tictactoe_turn.mention}'s turn!!"
+                            )
                     else:
                         await inter.edit_original_message(
                             content="Be sure to choose an integer between 1 and 9 (inclusive) and an unmarked tile!!"

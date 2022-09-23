@@ -379,8 +379,8 @@ class Misc_(commands.Cog):
     async def astrophotography(self, inter: disnake.ApplicationCommandInteraction):
         pass
 
-    @astrophotography.sub_command(name="apod", 
-        description="Display the Astronomy Picture of the Day"
+    @astrophotography.sub_command(
+        name="apod", description="Display the Astronomy Picture of the Day"
     )
     async def astrophotography_apod(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer()
@@ -405,7 +405,7 @@ class Misc_(commands.Cog):
 
     @astrophotography.sub_command(
         name="epic",
-        description="Display a random Image of Earth Polychromatic Imaging Camera"
+        description="Display a random Image of Earth Polychromatic Imaging Camera",
     )
     async def astrophotography_epic(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer()
@@ -431,8 +431,7 @@ class Misc_(commands.Cog):
         )
 
     @astrophotography.sub_command(
-        name="mars",
-        description="Display a random Image from a Rover in Mars"
+        name="mars", description="Display a random Image from a Rover in Mars"
     )
     async def astrophotography_mars(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer()
@@ -464,7 +463,9 @@ class Misc_(commands.Cog):
             )
         ],
     )
-    async def astrophotography_search(self, inter: disnake.ApplicationCommandInteraction, query: str):
+    async def astrophotography_search(
+        self, inter: disnake.ApplicationCommandInteraction, query: str
+    ):
         await inter.response.defer()
 
         astrophotography_data = funcs.get_astrophotography_data(

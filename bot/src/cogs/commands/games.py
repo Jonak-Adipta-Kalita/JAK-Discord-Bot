@@ -17,9 +17,7 @@ class Games(commands.Cog):
             f"Question: **{question}**\nAnswer: **{random.choice(self.bot._8ball_responses)}**"
         )
 
-    @commands.group(
-        invoke_without_command=True, description="Use Tic-Tac-Toe Command"
-    )
+    @commands.group(invoke_without_command=True, description="Use Tic-Tac-Toe Command")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def tictactoe(self, ctx: commands.Context, command: str = None):
         if command:
@@ -67,7 +65,9 @@ class Games(commands.Cog):
         else:
             await ctx.reply("A game is already in progress!! Finish it or Stop it!!")
 
-    @tictactoe.command(name="place", description="Place your position for Tic-Tac-Toe Game")
+    @tictactoe.command(
+        name="place", description="Place your position for Tic-Tac-Toe Game"
+    )
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def tictactoe_place(self, ctx: commands.Context, pos: int):
         if not self.bot.tictactoe_game_over:
@@ -124,7 +124,7 @@ class Games(commands.Cog):
         else:
             await ctx.reply("Please start a new game!!")
 
-    @tictactoe.command(name="stop",description="Stops Tic-Tac-Toe Game")
+    @tictactoe.command(name="stop", description="Stops Tic-Tac-Toe Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def tictactoe_stop(self, ctx: commands.Context):
         if not self.bot.tictactoe_game_over:
@@ -143,7 +143,7 @@ class Games(commands.Cog):
             await ctx.reply("Command not Found!!")
             return
 
-    @hangman.command(name="start",description="Play Hangman Game")
+    @hangman.command(name="start", description="Play Hangman Game")
     @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
     async def hangman_start(self, ctx: commands.Context):
         if self.bot.hangman_game_over:
@@ -171,7 +171,7 @@ class Games(commands.Cog):
         else:
             await ctx.reply("One game is already running!!")
 
-    @hangman.command(name="guess",description="Guess Word in Hangman Game")
+    @hangman.command(name="guess", description="Guess Word in Hangman Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def hangman_guess(self, ctx: commands.Context, letter: str):
         if not self.bot.hangman_game_over:
@@ -219,7 +219,7 @@ class Games(commands.Cog):
         else:
             await ctx.reply("No game is currently running!!")
 
-    @hangman.command(name="stop",description="Stops Hangman Game")
+    @hangman.command(name="stop", description="Stops Hangman Game")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
     async def hangman_stop(self, ctx: commands.Context):
         if not self.bot.hangman_game_over:
