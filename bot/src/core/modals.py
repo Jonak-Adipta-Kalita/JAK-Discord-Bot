@@ -29,9 +29,7 @@ class CodeSnippetModal(disnake.ui.Modal):
             if key == "code":
                 code = value
 
-        code_edited = disnake.utils.remove_markdown(code.strip()).strip()
-
-        resp = await funcs.convert_to_snippet(code=code_edited)
+        resp = await funcs.convert_to_snippet(code=code)
 
         if not os.path.isdir("snippets"):
             os.mkdir("snippets")
@@ -40,7 +38,7 @@ class CodeSnippetModal(disnake.ui.Modal):
             f.write(resp)
             carbon_file = f
 
-        await interaction.response.send_message(
+        await interaction.edit_original_message(
             file=files.code_snippet_file(
                 carbon_file=os.path.realpath(carbon_file.name),
                 author_id=author_id,
