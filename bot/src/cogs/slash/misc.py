@@ -2,6 +2,7 @@ import disnake, inspect, credentials, aiohttp, random, asyncio
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 import src.core.functions as funcs
+import src.core.modals as modals
 from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 from urllib.request import urlopen
@@ -492,6 +493,11 @@ class Misc_(commands.Cog):
                 image_url=image_url,
             )
         )
+
+    @commands.slash_command(description="Execute Code")
+    @commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
+    async def execute_code(self, inter: disnake.ApplicationCommandInteraction):
+        await inter.response.send_modal(modal=modals.ExecuteCodeModal())
 
 
 def setup(bot: JAKDiscordBot):
