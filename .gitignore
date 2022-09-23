@@ -155,3 +155,5 @@ Thumbs.db #thumbnail cache on Windows
 
 dashboard/public/sw.*
 dashboard/public/workbox-*
+
+bot/snippets

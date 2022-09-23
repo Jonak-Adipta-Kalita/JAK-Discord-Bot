@@ -3,6 +3,7 @@ import src.core.embeds as embeds
 import src.core.files as files
 import src.core.functions as funcs
 import src.core.buttons as buttons
+import src.core.modals as modals
 from src.core.bot import JAKDiscordBot
 from disnake.ext import commands
 from PIL import Image, ImageDraw, ImageFont
@@ -377,6 +378,13 @@ class Fun_(commands.Cog):
             await inter.edit_original_message(
                 content="Please provide a Valid Brawler Name!!"
             )
+
+    @commands.slash_command(description="Covert Code Block to Snippet")
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
+    async def code_snippet(self, inter: disnake.ApplicationCommandInteraction):
+        await inter.response.send_modal(
+            modal=modals.CodeSnippetModal(author=inter.author)
+        )
 
 
 def setup(bot: JAKDiscordBot):

@@ -76,7 +76,7 @@
             "id": 3,
             "name": "code_snippet",
             "usage": "$code_snippet <code>",
-            "has_slash_command": false,
+            "has_slash_command": true,
             "description": "Convert Code Block to Snippet"
         },
         {
