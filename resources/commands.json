@@ -297,7 +297,7 @@
             "id": 12,
             "name": "execute_code",
             "usage": "$execute_code <language> <code>",
-            "has_slash_command": false,
+            "has_slash_command": true,
             "description": "Execute some Code"
         },
         {
