@@ -39,7 +39,7 @@ class Fun(commands.Cog):
 
         if code.startswith("```") and code.endswith("```"):
             author_id = member.id
-            code_edited = disnake.utils.remove_markdown(code.strip()).strip()
+            code_edited = code.replace("```", "").strip()
 
             resp = await funcs.convert_to_snippet(code=code_edited)
 

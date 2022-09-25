@@ -59,7 +59,7 @@ class Staff(commands.Cog):
 
     @commands.command(hidden=True)
     async def eval(self, ctx: commands.Context, *, code: str):
-        code = disnake.utils.remove_markdown(code.strip()).strip()
+        code = code.replace("```", "").strip()
 
         local_variables = {
             "disnake": disnake,

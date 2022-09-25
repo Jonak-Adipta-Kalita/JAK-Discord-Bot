@@ -149,7 +149,7 @@ class Misc(commands.Cog):
         if not code.startswith("```") and code.endswith("```"):
             raise commands.BadArgument("Arguments not specified correctly.")
 
-        code_edited = disnake.utils.remove_markdown(code.strip()).strip()
+        code_edited = code.replace("```", "").strip()
         code_response = funcs.get_code_output(language, code_edited)
 
         await ctx.reply(f"```{code_response}```")
