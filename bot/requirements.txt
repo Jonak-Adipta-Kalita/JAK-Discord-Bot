@@ -94,4 +94,4 @@ uritemplate==4.1.1
 urllib3==1.25.8
 yarl==1.7.0
 youtube-dl==2021.6.6
-zipp==3.6.0
+zipp==3.9.0
