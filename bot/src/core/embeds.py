@@ -91,7 +91,7 @@ def commands_help_embed(
     embed.add_field(
         name="Alias:",
         value=(
-            f"```{', '.join([f'`{k}`' for k in sub_command.aliases if sub_command.aliases])}```"
+            f"```{', '.join([f'{k}' for k in sub_command.aliases if sub_command.aliases])}```"
             if sub_command.aliases
             else f"```none```"
         )
