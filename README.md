@@ -188,8 +188,8 @@ and press Enter.
 ## Technology(s) Used
 
 -   Language: [Python](https://python.org/), [TypeScript](https://www.typescriptlang.org/)
--   Frameworks: [discord.py](https://discordpy.readthedocs.io/), [NextJS](https://nextjs.org/)
--   Hosted: [Heroku](https://heroku.com/), [Vercel](https://vercel.com/)
+-   Frameworks: [disnake](https://docs.disnake.dev/en/stable/), [NextJS](https://nextjs.org/)
+-   Hosted: [Vercel](https://vercel.com/)
 
 ## Contributors
 
