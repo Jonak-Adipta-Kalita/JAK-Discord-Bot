@@ -15,7 +15,7 @@
 -   Note: [Formatting](#format-code) the Code before Pushing is Important!!
 -   Prefix: $
 
-[Invite Bot to your Server](https://jak-discord-bot.vercel.app/),
+[Invite Bot to your Server](https://discord-bot.jonakadiptakalita.tk/),
 [Vote in top.gg](https://top.gg/bot/756402881913028689)
 
 ## Steps

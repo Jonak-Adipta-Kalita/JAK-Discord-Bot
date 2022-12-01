@@ -300,9 +300,7 @@ class Misc_(commands.Cog):
     async def optical_character_recognition(
         self, inter: disnake.ApplicationCommandInteraction, link: str = None
     ):
-        attachments = inter.message.attachments
-
-        if attachments or link:
+        if link:
             inter.response.defer()
 
             await inter.edit_original_message(
@@ -310,7 +308,7 @@ class Misc_(commands.Cog):
             )
 
             try:
-                url = attachments[0].url if attachments else link
+                url = link
                 async with aiohttp.ClientSession() as ses:
                     req = await ses.get(url)
 
@@ -320,7 +318,7 @@ class Misc_(commands.Cog):
             except Exception:
                 pass
         else:
-            inter.edit_original_message(content="Provide a Link or a Attachment!!")
+            inter.edit_original_message(content="Provide a Link!!")
 
     @commands.slash_command(
         description="Display which members have a certain role",
