@@ -7,7 +7,9 @@ export const middleware = async (req: any) => {
 
     if (
         !token &&
-        (pathname.includes("/dashboard") || pathname.includes("/guild"))
+        (pathname.includes("/dashboard") ||
+            pathname.includes("/guild") ||
+            pathname.includes("/suggestion"))
     ) {
         const url = req.nextUrl.clone();
         url.pathname = "/login";

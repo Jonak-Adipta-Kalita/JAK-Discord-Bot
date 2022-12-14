@@ -1,5 +1,6 @@
 import { initializeApp, getApp, getApps } from "firebase/app";
 import { getDatabase } from "firebase/database";
+import { getFirestore } from "firebase/firestore";
 
 const app = !getApps().length
     ? initializeApp({
@@ -16,5 +17,6 @@ const app = !getApps().length
     : getApp();
 
 const db = getDatabase();
+const firestoreDB = getFirestore();
 
-export { app, db };
+export { app, db, firestoreDB };
