@@ -2,7 +2,7 @@ import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { getSession, useSession } from "next-auth/react";
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, FormEvent, MouseEvent } from "react";
 import { Guild } from "../../types/typings";
 import { GetServerSideProps } from "next";
 import {
@@ -24,6 +24,8 @@ import BotIcon from "../../components/icons/BotIcon";
 import { child, ref, set } from "firebase/database";
 import { db } from "../../firebase";
 import { useObjectVal } from "react-firebase-hooks/database";
+import toast from "react-hot-toast";
+import toastDefaultOptions from "../../utils/toastDefaultOptions";
 
 interface Props {
     id: string;
@@ -70,11 +72,23 @@ const General = ({ guild }: ExtensionProps) => {
 
     const addCustomPrefix = (e: FormEvent) => {
         e.preventDefault();
+
+        const notification = toast.loading("Adding Custom Prefix...");
+
         if (customPrefix === "") {
-            alert("Please fill in the Data properly!!");
+            toast.error("Please fill in the Data properly!!", {
+                ...toastDefaultOptions,
+                id: notification,
+            });
             return;
         }
         set(prefixRef, customPrefix);
+
+        toast.success("Successfully Added Custom Prefix!!", {
+            ...toastDefaultOptions,
+            id: notification,
+        });
+
         setCustomPrefix("");
     };
 
@@ -148,6 +162,24 @@ const Rules = ({ guild }: ExtensionProps) => {
     const [existingRules, existingRulesLoading, existingRulesError] =
         useObjectVal<[]>(rulesRef);
 
+    const removeRule = (
+        e: MouseEvent<SVGSVGElement, globalThis.MouseEvent>,
+        index: number
+    ) => {
+        e.preventDefault();
+
+        const notification = toast.loading("Removing Rule...");
+
+        const modifiedRules = existingRules;
+        delete modifiedRules?.[index];
+        set(rulesRef, modifiedRules);
+
+        toast.success("Rule Removed!", {
+            ...toastDefaultOptions,
+            id: notification,
+        });
+    };
+
     if (!guild || existingRulesLoading || existingRulesError)
         return (
             <div className="guildBodyContainer">
@@ -171,7 +203,7 @@ const Rules = ({ guild }: ExtensionProps) => {
                         </div>
                         <XIcon
                             className="h-10 w-10 cursor-pointer"
-                            onClick={() => {}}
+                            onClick={(e) => removeRule(e, i)}
                         />
                     </div>
                 ))}
@@ -181,14 +213,26 @@ const Rules = ({ guild }: ExtensionProps) => {
 
     const addRule = (e: FormEvent) => {
         e.preventDefault();
+
+        const notification = toast("Adding Rule...");
+
         if (name === "" || description === "") {
-            alert("Please fill in the Data properly!!");
+            toast.error("Please fill in the Data properly!!", {
+                ...toastDefaultOptions,
+                id: notification,
+            });
             return;
         }
         const newRules = existingRules
             ? [...existingRules, [name, description]]
             : [[name, description]];
         set(rulesRef, newRules);
+
+        toast.success("Rule Added!", {
+            ...toastDefaultOptions,
+            id: notification,
+        });
+
         setName("");
         setDescription("");
     };
