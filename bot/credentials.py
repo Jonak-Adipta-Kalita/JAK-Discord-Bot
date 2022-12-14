@@ -6,6 +6,7 @@ PLACE_API_KEY = config("PLACE_API_KEY")
 RAPID_API_KEY = config("RAPID_API_KEY")
 NASA_API_KEY = config("NASA_API_KEY")
 LOCAL = False if config("LOCAL").lower() == "false" else True
+TESSERACT_PATH = config("TESSERACT_PATH")
 
 FIREBASE_TYPE = config("FIREBASE_TYPE")
 FIREBASE_PROJECT_ID = config("FIREBASE_PROJECT_ID")

@@ -314,7 +314,7 @@ class Misc_(commands.Cog):
 
                 ocr = funcs.convert_image_to_string(req.content)
 
-                await inter.edit_original_message(content=f"`{ocr}`")
+                await inter.edit_original_message(content=f"```{ocr}```")
             except Exception:
                 pass
         else:

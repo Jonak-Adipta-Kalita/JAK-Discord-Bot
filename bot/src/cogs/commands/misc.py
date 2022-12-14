@@ -226,7 +226,7 @@ class Misc(commands.Cog):
 
                 msg.delete()
 
-                await ctx.reply(f"`{ocr}`")
+                await ctx.reply(f"```{ocr}```")
             except Exception:
                 pass
         else:

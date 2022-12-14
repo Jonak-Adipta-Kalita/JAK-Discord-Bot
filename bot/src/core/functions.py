@@ -438,8 +438,8 @@ async def get_lyrics(name) -> dict:
 
 
 def convert_image_to_string(content: str) -> str:
-    img = Image.open(io.BytesIO(content))
-    text = pytesseract.image_to_string(img)
+    pytesseract.pytesseract.tesseract_cmd = credentials.TESSERACT_PATH
+    text = pytesseract.image_to_string(Image.open(io.BytesIO(content)))
 
     return text
 
