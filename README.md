@@ -73,6 +73,8 @@ there you will find your key.
 
 Go to [NASA API](https://api.nasa.gov/#signUp) website, Sign Up, then you will get a key this is your `<NASA_API_KEY>`
 
+### Getting the `TESSERACT_PATH`
+
 ### Getting the Firebase Credentials
 
 Go to [Firebase Console](http://console.firebase.google.com/) and create a Project. Enable
@@ -98,6 +100,7 @@ CHATBOT_KEY=<YOUR_CHATBOT_KEY>
 PLACE_API_KEY=<YOUR_PLACE_API_KEY>
 NASA_API_KEY=<YOUR_NASA_API_KEY>
 LOCAL=true
+TESSERACT_PATH=<YOUR_TESSERACT_PATH>
 
 # Firebase
 FIREBASE_TYPE=<YOUR_FIREBASE_TYPE>
