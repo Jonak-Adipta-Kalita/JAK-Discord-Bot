@@ -439,7 +439,10 @@ async def get_lyrics(name) -> dict:
 
 def convert_image_to_string(content: str) -> str:
     pytesseract.pytesseract.tesseract_cmd = credentials.TESSERACT_PATH
-    text = pytesseract.image_to_string(Image.open(io.BytesIO(content)))
+    img = Image.open(io.BytesIO(content))
+    img = img.convert("L")
+    text = pytesseract.image_to_string(img)
+    print(text)
 
     return text
 
