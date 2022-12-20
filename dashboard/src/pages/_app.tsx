@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import { RecoilRoot } from "recoil";
+import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import Progressbar from "@badrap/bar-of-progress";
 import Router from "next/router";
@@ -19,7 +20,9 @@ Router.events.on("routeChangeError", progress.finish);
 const MyApp = ({
     Component,
     pageProps: { session, ...pageProps },
-}: AppProps) => {
+}: AppProps<{
+    session: Session;
+}>) => {
     return (
         <SessionProvider session={session}>
             <RecoilRoot>
