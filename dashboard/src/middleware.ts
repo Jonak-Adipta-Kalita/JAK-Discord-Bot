@@ -1,9 +1,9 @@
 import { NextResponse, NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-export const middleware = async (req: any) => {
+export const middleware = async (req: NextRequest) => {
     const token = await getToken({ req, secret: process.env.JWT_SECRET! });
-    const { pathname }: NextRequest["nextUrl"] = req.nextUrl;
+    const { pathname } = req.nextUrl;
 
     if (
         !token &&
