@@ -19,12 +19,12 @@ Router.events.on("routeChangeError", progress.finish);
 
 const MyApp = ({
     Component,
-    pageProps: { session, ...pageProps },
+    pageProps,
 }: AppProps<{
     session: Session;
 }>) => {
     return (
-        <SessionProvider session={session}>
+        <SessionProvider session={pageProps.session}>
             <RecoilRoot>
                 <Component {...pageProps} />
             </RecoilRoot>
