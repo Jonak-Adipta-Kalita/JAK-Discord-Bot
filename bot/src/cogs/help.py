@@ -98,8 +98,10 @@ class Help(commands.Cog):
     def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
 
-    @commands.group(invoke_without_command=True, description="Show the Help Menu")
-    async def help(
+    @commands.group(
+        name="help", invoke_without_command=True, description="Show the Help Menu"
+    )
+    async def help_command(
         self, ctx: commands.Context, command: str = None, sub_command: str = None
     ):
         if command:
@@ -139,7 +141,7 @@ class Help(commands.Cog):
                 view=DropdownView(bot=self.bot, author=ctx.author),
             )
 
-    @help.command(description="Show the Moderation Commands", aliases=["mod"])
+    @help_command.command(description="Show the Moderation Commands", aliases=["mod"])
     async def moderation(self, ctx: commands.Context):
         await ctx.reply(
             embed=await embeds.help_embed(
@@ -150,7 +152,7 @@ class Help(commands.Cog):
             )
         )
 
-    @help.command(description="Show the Game Commands")
+    @help_command.command(description="Show the Game Commands")
     async def games(self, ctx: commands.Context):
         await ctx.reply(
             embed=await embeds.help_embed(
@@ -161,7 +163,7 @@ class Help(commands.Cog):
             )
         )
 
-    @help.command(description="Show the Music Commands")
+    @help_command.command(description="Show the Music Commands")
     async def music(self, ctx: commands.Context):
         await ctx.reply(
             embed=await embeds.help_embed(
@@ -172,7 +174,7 @@ class Help(commands.Cog):
             )
         )
 
-    @help.command(description="Show the Fun Commands")
+    @help_command.command(description="Show the Fun Commands")
     async def fun(self, ctx: commands.Context):
         await ctx.reply(
             embed=await embeds.help_embed(
@@ -183,7 +185,7 @@ class Help(commands.Cog):
             )
         )
 
-    @help.command(description="Show the Misc Commands")
+    @help_command.command(description="Show the Misc Commands")
     async def misc(self, ctx: commands.Context):
         await ctx.reply(
             embed=await embeds.help_embed(
@@ -193,6 +195,66 @@ class Help(commands.Cog):
                 command_type="misc",
             )
         )
+
+    @commands.slash_command(
+        name="slash",
+        description="Show the Help Menu",
+        options=[
+            disnake.Option(
+                name="command",
+                description="The command to get help for",
+                type=disnake.OptionType.string,
+            ),
+            disnake.Option(
+                name="sub_command",
+                description="The sub command to get help for",
+                type=disnake.OptionType.string,
+            ),
+        ],
+    )
+    async def help_slash(
+        self,
+        inter: disnake.ApplicationCommandInteraction,
+        command: str = None,
+        sub_command: str = None,
+    ):
+        await inter.response.defer()
+
+        if command:
+            cmd = self.bot.get_command(command)
+            if cmd:
+                if sub_command:
+                    sub_cmd = self.bot.get_command(f"{command} {sub_command}")
+                    if sub_cmd:
+                        await inter.edit_original_message(
+                            embed=embeds.commands_help_embed(
+                                bot=self.bot,
+                                prefixes=self.bot.prefixes,
+                                author=inter.author,
+                                command=cmd,
+                                sub_command=sub_cmd,
+                            )
+                        )
+                    else:
+                        await inter.edit_original_message("Sub Command not found!!")
+                else:
+                    await inter.edit_original_message(
+                        embed=embeds.commands_help_embed(
+                            bot=self.bot,
+                            prefixes=self.bot.prefixes,
+                            author=inter.author,
+                            command=cmd,
+                        )
+                    )
+            else:
+                await inter.edit_original_message("Command not found!!")
+        else:
+            await inter.edit_original_message(
+                embed=await embeds.help_embed(
+                    bot=self.bot, prefixes=self.bot.prefixes, author=inter.author
+                ),
+                view=DropdownView(bot=self.bot, author=inter.author),
+            )
 
 
 def setup(bot: JAKDiscordBot):
