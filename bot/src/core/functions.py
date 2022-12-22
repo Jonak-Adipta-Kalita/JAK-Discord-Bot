@@ -166,20 +166,14 @@ async def convert_to_snippet(code) -> bytes:
 
 
 async def chatbot_response(message: str, ai: str) -> typing.Optional[str]:
-    async with aiohttp.ClientSession(
-        headers={"Content-Type": "application/json"},
-    ) as client:
-        try:
-            request = await client.get(
-                f"https://some-random-api.ml/chatbot",
-                json={"message": message, "key": credentials.CHATBOT_KEY},
-            )
-        except Exception:
-            pass
+    response = ""
+    
+    if ai == "alexis":
+        response = "Alexis is not available right now."
+    elif ai == "chat-gpt":
+        response = "Chat GPT is not available right now."
 
-        resp = await request.json()
-
-    return resp["response"]
+    return response
 
 
 async def find_pokemon(name) -> dict:

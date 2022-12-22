@@ -56,10 +56,6 @@ yarn
 
 and hit enter.
 
-### Getting `CHATBOT_KEY`
-
-Follow this: [https://some-random-api.ml/docs/Welcome/Keys](https://some-random-api.ml/docs/Welcome/Keys)
-
 ### Getting `JWT_SECRET`
 
 Use the [passwordgenerator](https://passwordsgenerator.net/) website to generate your secret.
@@ -96,7 +92,6 @@ For `bot/.env`
 
 ```env
 TOKEN=<YOUR_BOT_TOKEN>
-CHATBOT_KEY=<YOUR_CHATBOT_KEY>
 PLACE_API_KEY=<YOUR_PLACE_API_KEY>
 NASA_API_KEY=<YOUR_NASA_API_KEY>
 LOCAL=true
