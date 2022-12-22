@@ -6,22 +6,7 @@ from disnake.ext import commands
 
 
 class JAKDiscordBot(commands.Bot):
-    together_choices: list = [
-        "youtube",
-        "poker",
-        "chess",
-        "letter-league",
-        "word-snack",
-        "sketch-heads",
-        "spellcast",
-        "awkword",
-        "checkers",
-        "blazing-8s",
-        "land-io",
-        "putt-party",
-        "bobble-league",
-        "ask-away",
-    ]
+    together_choices: list = discord_together.DiscordTogether.default_choices
 
     ai_choices: list = ["alexis", "chat-gpt"]
 
