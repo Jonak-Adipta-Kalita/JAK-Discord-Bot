@@ -141,6 +141,13 @@
             "usage": "$find_brawler <name>",
             "has_slash_command": true,
             "description": "Find a brawler by Name"
+        },
+        {
+            "id": 13,
+            "name": "generate_ambigram",
+            "usage": "$generate_ambigram <word_1> <word_2>",
+            "has_slash_command": true,
+            "description": "Generate ambigram with two words"
         }
     ],
     "games": [
@@ -254,7 +261,7 @@
         {
             "id": 6,
             "name": "chatbot",
-            "usage": "$chatbot start",
+            "usage": "$chatbot start <ai>",
             "has_slash_command": true,
             "description": "Start Chatbot for 5 Minutes"
         },

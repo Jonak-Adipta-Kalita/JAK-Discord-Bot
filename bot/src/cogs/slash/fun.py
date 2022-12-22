@@ -370,6 +370,27 @@ class Fun_(commands.Cog):
         await inter.response.send_modal(
             modal=modals.CodeSnippetModal(author=inter.author)
         )
+    
+    @commands.slash_command(description="Generate ambigram with two words")
+    @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
+    async def ambigram(self, inter: disnake.ApplicationCommandInteraction, word_1: str, word_2: str):
+        await inter.response.defer()
+        
+        if not os.path.isdir("ambigrams"):
+            os.mkdir("ambigrams")
+
+        file_name = funcs.generate_ambigram(
+            word1=word_1, word2=word_2, author_id=inter.author.id
+        )
+
+        await inter.edit_original_message(
+            file=files.ambigram_file(file=file_name, author_id=inter.author.id)
+        )
+
+        await asyncio.sleep(60)
+
+        if os.path.isfile(file_name):
+            os.remove(file_name)
 
 
 def setup(bot: JAKDiscordBot):

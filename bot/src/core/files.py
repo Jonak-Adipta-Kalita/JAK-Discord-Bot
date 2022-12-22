@@ -11,3 +11,9 @@ def name_fact_file(file: str, author_id: int):
     file = disnake.File(file, filename=f"name_fact/{author_id}.png")
 
     return file
+
+
+def ambigram_file(file: str, author_id: int):
+    file = disnake.File(file, filename=f"ambigrams/{author_id}.png")
+
+    return file

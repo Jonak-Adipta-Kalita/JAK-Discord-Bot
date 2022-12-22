@@ -1,5 +1,6 @@
 import disnake, typing, googletrans, jokeapi, eng_to_ipa, aiohttp, io, pytesseract
 import randfacts, credentials, json, requests, random, jak_python_package.api
+import cairo
 import src.core.emojis as emojis_list
 import src.core.emojis as emojis
 import firebase_admin.db
@@ -167,7 +168,7 @@ async def convert_to_snippet(code) -> bytes:
 
 async def chatbot_response(message: str, ai: str) -> typing.Optional[str]:
     response = ""
-    
+
     if ai == "alexis":
         response = "Alexis is not available right now."
     elif ai == "chat-gpt":
@@ -496,3 +497,46 @@ def get_astrophotography_data(link: str) -> dict:
     res = res.json()
 
     return res
+
+
+def generate_ambigram(
+    word1: str, word2: str, author_id: int, font_size=72, font_color=(0, 0, 0)
+) -> str:
+    file_name = f"ambigrams/{author_id}.png"
+    surface = cairo.ImageSurface(cairo.FORMAT_ARGB32, 500, 500)
+    ctx = cairo.Context(surface)
+
+    ctx.set_source_rgb(1, 1, 1)
+    ctx.paint()
+
+    ctx.select_font_face("Arial", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_BOLD)
+    ctx.set_font_size(font_size)
+    word1_width, word1_height = ctx.text_extents(word1)[2:4]
+    word2_width, word2_height = ctx.text_extents(word2)[2:4]
+    canvas_width = max(word1_width, word2_width)
+    canvas_height = word1_height + word2_height
+
+    r, g, b = font_color
+    ctx.set_source_rgb(r, g, b)
+
+    x1 = (500 - word1_width) / 2
+    y1 = (500 - canvas_height) / 2
+
+    ctx.save()
+    ctx.scale(-1, 1)
+    ctx.translate(-x1 - word1_width, y1)
+    ctx.show_text(word1)
+    ctx.restore()
+
+    x2 = (500 - word2_width) / 2
+    y2 = y1 + word1_height
+
+    ctx.save()
+    ctx.scale(1, -1)
+    ctx.translate(x2, -y2 - word2_height)
+    ctx.show_text(word2)
+    ctx.restore()
+
+    surface.write_to_png(file_name)
+
+    return file_name
