@@ -45,7 +45,7 @@ hpack==3.0.0
 hstspreload==2021.11.1
 httpcore==0.9.1
 httplib2==0.20.4
-httpx==0.13.3
+httpx==0.23.1
 hyperframe==5.2.0
 idna==2.10
 import-expression==1.1.4
