@@ -81,6 +81,8 @@ to get the other credentials click on `Service accounts` in `Project settings`. 
 `Generate new private key`. This will download a JSON file, you will get the remaining Credentials from
 that JSON file.
 
+### Getting the Google Search Credentials
+
 ### Creating the Bot:
 
 Create `bot/.env` and `dashboard/.env.local`. Now go to [Discord Developers Portal](https://discord.com/developers/applications) and create a new application.
