@@ -370,12 +370,14 @@ class Fun_(commands.Cog):
         await inter.response.send_modal(
             modal=modals.CodeSnippetModal(author=inter.author)
         )
-    
+
     @commands.slash_command(description="Generate ambigram with two words")
     @commands.cooldown(rate=1, per=60, type=commands.BucketType.user)
-    async def ambigram(self, inter: disnake.ApplicationCommandInteraction, word_1: str, word_2: str):
+    async def ambigram(
+        self, inter: disnake.ApplicationCommandInteraction, word_1: str, word_2: str
+    ):
         await inter.response.defer()
-        
+
         if not os.path.isdir("ambigrams"):
             os.mkdir("ambigrams")
 

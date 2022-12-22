@@ -514,6 +514,35 @@ class Misc_(commands.Cog):
     async def execute_code(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.send_modal(modal=modals.ExecuteCodeModal())
 
+    @commands.slash_command(
+        description="Get google search results",
+        options=[
+            disnake.Option(
+                name="query",
+                description="Query of the google search",
+                type=disnake.OptionType.string,
+                required=True,
+            )
+        ],
+    )
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def google(self, inter: disnake.ApplicationCommandInteraction, query: str):
+        await inter.response.defer()
+
+        search_results = await funcs.get_google_search_results(query)
+
+        if not search_results:
+            await inter.edit_original_message("No Data Found!!")
+            return
+
+        search_results = search_results
+
+        await inter.edit_original_message(
+            embed=embeds.google_embed(
+                search_results=search_results,
+            )
+        )
+
 
 def setup(bot: JAKDiscordBot):
     bot.add_cog(Misc_(bot))

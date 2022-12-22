@@ -1,4 +1,4 @@
-import disnake, typing
+import disnake, typing, random
 import src.core.functions as funcs
 import src.core.emojis as emojis
 from disnake.ext import commands
@@ -524,5 +524,20 @@ def astrophotography_embed(
         color=0x3498DB,
     )
     embed.set_image(url=image_url)
+
+    return embed
+
+
+def google_embed(search_results: list):
+    embed = disnake.Embed(
+        title=f"Google Search Results ({len(search_results)})",
+        description="\n\n".join(
+            [
+                f"[{result['title']}]({result['link']})\n{result['snippet']}"
+                for result in random.sample(search_results, k=5)
+            ]
+        ),
+        color=0x3498DB,
+    )
 
     return embed

@@ -540,3 +540,19 @@ def generate_ambigram(
     surface.write_to_png(file_name)
 
     return file_name
+
+
+async def get_google_search_results(query: str) -> dict:
+    async with aiohttp.ClientSession(
+        headers={"Content-Type": "application/json"},
+    ) as ses:
+        try:
+            request = await ses.get(
+                f"https://www.googleapis.com/customsearch/v1/siterestrict?cx={credentials.GOOGLE_SEARCH_ENGINE_ID}&key={credentials.GOOGLE_SEARCH_API_KEY}&q={query}"
+            )
+        except Exception:
+            pass
+
+        resp = await request.json()
+
+    return resp["items"]

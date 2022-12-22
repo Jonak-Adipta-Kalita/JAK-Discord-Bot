@@ -148,6 +148,13 @@
             "usage": "$generate_ambigram <word_1> <word_2>",
             "has_slash_command": true,
             "description": "Generate ambigram with two words"
+        },
+        {
+            "id": 14,
+            "name": "google",
+            "usage": "$google <query>",
+            "has_slash_command": true,
+            "description": "Get Google Search Results"
         }
     ],
     "games": [

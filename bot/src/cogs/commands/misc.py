@@ -352,6 +352,23 @@ class Misc(commands.Cog):
             )
         )
 
+    @commands.command(description="Get google search results")
+    @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
+    async def google(self, ctx: commands.Context, *, query: str):
+        search_results = await funcs.get_google_search_results(query)
+
+        if not search_results:
+            await ctx.reply("No Data Found!!")
+            return
+
+        search_results = search_results
+
+        await ctx.reply(
+            embed=embeds.google_embed(
+                search_results=search_results,
+            )
+        )
+
     @commands.Cog.listener()
     async def on_message(self, message: disnake.Message):
         member = message.author
