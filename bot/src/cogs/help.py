@@ -197,7 +197,7 @@ class Help(commands.Cog):
         )
 
     @commands.slash_command(
-        name="slash",
+        name="help",
         description="Show the Help Menu",
         options=[
             disnake.Option(
