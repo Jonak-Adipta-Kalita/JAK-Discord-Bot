@@ -347,12 +347,27 @@ class Misc_(commands.Cog):
     async def chatbot(self, inter: disnake.ApplicationCommandInteraction):
         pass
 
-    @chatbot.sub_command(name="start", description="Start Chatbot for 5 Minutes")
-    async def chatbot_start(self, inter: disnake.ApplicationCommandInteraction):
+    @chatbot.sub_command(
+        name="start",
+        description="Start Chatbot for 5 Minutes",
+        options=[
+            disnake.Option(
+                name="ai",
+                description="The AI you want to use",
+                type=disnake.OptionType.string,
+                required=True,
+                choices=JAKDiscordBot.ai_choices,
+            )
+        ],
+    )
+    async def chatbot_start(
+        self, inter: disnake.ApplicationCommandInteraction, ai: str
+    ):
         await inter.response.defer()
 
         if not self.bot.chatbot_on:
             self.bot.chatbot_on = True
+            self.bot.chatbot_ai = ai
             self.bot.chatbot_channel = inter.channel
             await inter.edit_original_message(
                 content="Started Chatbot!! Will be Active for 5 Mins!!"
@@ -361,6 +376,7 @@ class Misc_(commands.Cog):
             await asyncio.sleep(300)
             if self.bot.chatbot_on:
                 self.bot.chatbot_on = False
+                self.bot.chatbot_ai = None
                 self.bot.chatbot_channel = None
                 await inter.edit_original_message(content="Chatbot Stopped!!")
 
@@ -369,6 +385,7 @@ class Misc_(commands.Cog):
         await inter.response.defer()
 
         self.bot.chatbot_on = False
+        self.bot.chatbot_ai = None
         self.bot.chatbot_channel = None
 
         await inter.edit_original_message(content="Stopped Chatbot!!")

@@ -165,7 +165,7 @@ async def convert_to_snippet(code) -> bytes:
     return resp
 
 
-async def chatbot_response(message: str) -> typing.Optional[str]:
+async def chatbot_response(message: str, ai: str) -> typing.Optional[str]:
     async with aiohttp.ClientSession(
         headers={"Content-Type": "application/json"},
     ) as client:

@@ -121,6 +121,11 @@ class Fun(commands.Cog):
         if ctx.author.voice is None:
             await ctx.reply("You are not Connected to a Voice Channel!!")
             return
+        if activity not in JAKDiscordBot.together_choices:
+            await ctx.reply(
+                f"Activity must be one of {', '.join(JAKDiscordBot.together_choices)}"
+            )
+            return
         link = await self.bot.together_control.create_link(
             ctx.author.voice.channel.id, activity.replace("_", "-"), max_age=60
         )

@@ -308,22 +308,7 @@ class Fun_(commands.Cog):
                 description="The Activity you want to use",
                 type=disnake.OptionType.string,
                 required=True,
-                choices=[
-                    "youtube",
-                    "poker",
-                    "chess",
-                    "letter-league",
-                    "word-snack",
-                    "sketch-heads",
-                    "spellcast",
-                    "awkword",
-                    "checkers",
-                    "blazing-8s",
-                    "land-io",
-                    "putt-party",
-                    "bobble-league",
-                    "ask-away",
-                ],
+                choices=JAKDiscordBot.together_choices,
             )
         ],
     )

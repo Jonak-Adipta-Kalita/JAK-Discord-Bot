@@ -6,6 +6,25 @@ from disnake.ext import commands
 
 
 class JAKDiscordBot(commands.Bot):
+    together_choices: list = [
+        "youtube",
+        "poker",
+        "chess",
+        "letter-league",
+        "word-snack",
+        "sketch-heads",
+        "spellcast",
+        "awkword",
+        "checkers",
+        "blazing-8s",
+        "land-io",
+        "putt-party",
+        "bobble-league",
+        "ask-away",
+    ]
+
+    ai_choices: list = ["alexis", "chat-gpt"]
+
     def __init__(self):
         firebase_admin.initialize_app(
             credential=firebase_admin.credentials.Certificate(
@@ -59,6 +78,7 @@ class JAKDiscordBot(commands.Bot):
         self.hangman_word: str = None
 
         self.chatbot_on: bool = False
+        self.chatbot_ai: str = None
         self.chatbot_channel: disnake.TextChannel = None
 
         super().__init__(

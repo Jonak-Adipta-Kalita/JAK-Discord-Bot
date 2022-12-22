@@ -91,21 +91,30 @@ class Misc(commands.Cog):
             return
 
     @chatbot.command(name="start", description="Start Chatbot for 5 Minutes")
-    async def chatbot_start(self, ctx: commands.Context):
+    async def chatbot_start(self, ctx: commands.Context, ai: str):
+        if ai not in JAKDiscordBot.ai_choices:
+            await ctx.reply(
+                f"AI not Found!! Please choose from {', '.join(JAKDiscordBot.ai_choices)}"
+            )
+            return
+
         if not self.bot.chatbot_on:
             self.bot.chatbot_on = True
+            self.bot.chatbot_ai = ai
             self.bot.chatbot_channel = ctx.channel
             await ctx.reply("Started Chatbot!! Will be Active for 5 Mins!!")
 
             await asyncio.sleep(300)
             if self.bot.chatbot_on:
                 self.bot.chatbot_on = False
+                self.bot.chatbot_ai = None
                 self.bot.chatbot_channel = None
                 await ctx.reply("Chatbot Stopped!!")
 
     @chatbot.command(name="stop", description="Stop Chatbot")
     async def chatbot_stop(self, ctx: commands.Context):
         self.bot.chatbot_on = False
+        self.bot.chatbot_ai = None
         self.bot.chatbot_channel = None
 
         await ctx.reply("Stopped Chatbot!!")
@@ -438,7 +447,9 @@ class Misc(commands.Cog):
             and not message.content in [f"{prefix}chatbot" for prefix in prefixes]
         ):
             try:
-                response = await funcs.chatbot_response(message=message.content)
+                response = await funcs.chatbot_response(
+                    message=message.content, ai=self.bot.chatbot_ai
+                )
                 await message.reply(response)
             except KeyError:
                 await message.reply(
