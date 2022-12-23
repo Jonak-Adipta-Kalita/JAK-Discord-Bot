@@ -168,9 +168,10 @@ async def convert_to_snippet(code) -> bytes:
 
 async def chatbot_response(message: str, ai: str) -> typing.Optional[str]:
     response = ""
+    jak_api = jak_python_package.api.API(credentials.RAPID_API_KEY)
 
     if ai == "alexis":
-        response = "Alexis is not available right now."
+        response = jak_api.get_alexis_response(message=message)
     elif ai == "chat-gpt":
         response = "Chat GPT is not available right now."
 
