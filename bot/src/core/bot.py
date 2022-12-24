@@ -62,9 +62,7 @@ class JAKDiscordBot(commands.Bot):
         self.hangman_words: list[str] = None
         self.hangman_word: str = None
 
-        self.chatbot_on: bool = False
-        self.chatbot_ai: str = None
-        self.chatbot_channel: disnake.TextChannel = None
+        self.chatbot_data: dict = None
 
         super().__init__(
             command_prefix=self.get_prefix,

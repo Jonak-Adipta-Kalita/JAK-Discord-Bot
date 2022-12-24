@@ -365,30 +365,15 @@ class Misc_(commands.Cog):
     ):
         await inter.response.defer()
 
-        if not self.bot.chatbot_on:
-            self.bot.chatbot_on = True
-            self.bot.chatbot_ai = ai
-            self.bot.chatbot_channel = inter.channel
-            await inter.edit_original_message(
-                content="Started Chatbot!! Will be Active for 5 Mins!!"
-            )
-
-            await asyncio.sleep(300)
-            if self.bot.chatbot_on:
-                self.bot.chatbot_on = False
-                self.bot.chatbot_ai = None
-                self.bot.chatbot_channel = None
-                await inter.edit_original_message(content="Chatbot Stopped!!")
+        funcs.add_chatbot(self.bot.db, inter.guild, inter.channel, ai)
+        await inter.edit_original_message(content="Started Chatbot in this channel!!")
 
     @chatbot.sub_command(name="stop", description="Stop Chatbot")
     async def chatbot_stop(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer()
 
-        self.bot.chatbot_on = False
-        self.bot.chatbot_ai = None
-        self.bot.chatbot_channel = None
-
-        await inter.edit_original_message(content="Stopped Chatbot!!")
+        funcs.remove_chatbot(self.bot.db, inter.guild, inter.channel)
+        await inter.edit_original_message(content="Stopped Chatbot in this channel!!")
 
     @commands.slash_command(description="Display a Astrophotography of a Type")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)

@@ -166,6 +166,44 @@ async def convert_to_snippet(code) -> bytes:
     return resp
 
 
+def add_chatbot(
+    db: firebase_admin.db.Reference,
+    guild: disnake.Guild,
+    channel: disnake.TextChannel,
+    ai: str,
+):
+    current_data: list = db.child("guilds").child(str(guild.id)).child("chatbot").get()
+
+    if current_data:
+        for data in current_data:
+            if data[0] == channel.id:
+                return
+    else:
+        current_data = []
+
+    current_data.append(
+        [
+            channel.id,
+            ai,
+        ]
+    )
+
+    db.child("guilds").child(str(guild.id)).child("chatbot").set(current_data)
+
+
+def remove_chatbot(
+    db: firebase_admin.db.Reference, guild: disnake.Guild, channel: disnake.TextChannel
+):
+    current_data: list = db.child("guilds").child(str(guild.id)).child("chatbot").get()
+
+    if current_data:
+        for i, data in enumerate(current_data):
+            if data[0] == channel.id:
+                current_data.pop(i)
+
+        db.child("guilds").child(str(guild.id)).child("chatbot").set(current_data)
+
+
 def chatbot_response(message: str, ai: str) -> typing.Optional[str]:
     response = ""
     jak_api = jak_python_package.api.API(credentials.RAPID_API_KEY)

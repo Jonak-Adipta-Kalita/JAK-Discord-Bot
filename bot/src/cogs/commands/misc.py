@@ -98,26 +98,14 @@ class Misc(commands.Cog):
             )
             return
 
-        if not self.bot.chatbot_on:
-            self.bot.chatbot_on = True
-            self.bot.chatbot_ai = ai
-            self.bot.chatbot_channel = ctx.channel
-            await ctx.reply("Started Chatbot!! Will be Active for 5 Mins!!")
-
-            await asyncio.sleep(300)
-            if self.bot.chatbot_on:
-                self.bot.chatbot_on = False
-                self.bot.chatbot_ai = None
-                self.bot.chatbot_channel = None
-                await ctx.reply("Chatbot Stopped!!")
+        funcs.add_chatbot(self.bot.db, ctx.guild, ctx.channel, ai)
+        await ctx.reply("Started Chatbot in this channel!!")
 
     @chatbot.command(name="stop", description="Stop Chatbot")
     async def chatbot_stop(self, ctx: commands.Context):
-        self.bot.chatbot_on = False
-        self.bot.chatbot_ai = None
-        self.bot.chatbot_channel = None
+        funcs.remove_chatbot(self.bot.db, ctx.guild, ctx.channel)
 
-        await ctx.reply("Stopped Chatbot!!")
+        await ctx.reply("Stopped Chatbot in this channel!!")
 
     @commands.command(description="Displays the total number of Commands")
     @commands.cooldown(rate=1, per=5, type=commands.BucketType.user)
@@ -458,15 +446,23 @@ class Misc(commands.Cog):
                 except asyncio.TimeoutError:
                     pass
 
-        if (
-            self.bot.chatbot_on
-            and message.channel == self.bot.chatbot_channel
-            and not message.content in [f"{prefix}chatbot" for prefix in prefixes]
-        ):
-            response = funcs.chatbot_response(
-                message=message.content, ai=self.bot.chatbot_ai
-            )
-            await message.reply(response)
+        chatbot_data: list[list] = (
+            self.bot.db.child("guilds")
+            .child(str(message.guild.id))
+            .child("chatbot")
+            .get()
+        )
+
+        if not chatbot_data:
+            return
+
+        for data in chatbot_data:
+            if data[0] == message.channel.id:
+                if not msg in [f"{prefix}chatbot" for prefix in prefixes]:
+                    response = funcs.chatbot_response(message=msg, ai=data[1])
+                    await message.reply(response)
+
+                break
 
     @commands.Cog.listener()
     async def on_member_join(self, member: disnake.Member):
