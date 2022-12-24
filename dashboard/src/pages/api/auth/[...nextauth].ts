@@ -28,7 +28,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 if (account && user) {
                     const commonGuilds: Guild[] = [];
 
-                    const userGuildsRes = await axios.get(
+                    const userGuildsRes = await axios.get<Guild[]>(
                         "https://discord.com/api/v8/users/@me/guilds",
                         {
                             headers: {
@@ -38,7 +38,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                         }
                     );
 
-                    const botGuildsRes = await axios.get(
+                    const botGuildsRes = await axios.get<Guild[]>(
                         "https://discord.com/api/v8/users/@me/guilds",
                         {
                             headers: {
@@ -57,13 +57,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                                 const allowedRoles: Role[] = [];
 
                                 axios
-                                    .get(
+                                    .get<Role[]>(
                                         `https://discord.com/api/v8/guilds/${userGuild.id}/roles`,
                                         {
                                             headers: {
                                                 "Content-Type":
                                                     "application/json",
-                                                Authorization: `Bearer ${token.accessToken}`,
+                                                Authorization: `Bot ${process.env.TOKEN}`,
                                             },
                                         }
                                     )
@@ -74,9 +74,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                                                     role.name !== "@everyone" &&
                                                     !role.managed
                                             )
-                                            .map((role: Role) => {
-                                                allowedRoles.push(role);
-                                            });
+                                            .map((role: Role) =>
+                                                allowedRoles.push(role)
+                                            );
                                     });
 
                                 commonGuilds.push({

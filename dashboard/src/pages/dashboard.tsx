@@ -9,10 +9,12 @@ const Dashboard = () => {
     const { data: session } = useSession();
     const router = useRouter();
 
+    console.log(session?.user?.guilds);
+
     return (
         <div className="flex h-screen flex-col text-gray-300">
             <Head>
-                <title>JAK Website | Dashboard</title>
+                <title>JAK Discord Bot | Dashboard</title>
             </Head>
             <Header />
             {session ? (
