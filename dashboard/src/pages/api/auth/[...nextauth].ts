@@ -58,7 +58,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
                                 axios
                                     .get<Role[]>(
-                                        `https://discord.com/api/v8/guilds/${userGuild.id}/roles`,
+                                        `https://discord.com/api/v8/guilds/${botGuild.id}/roles`,
                                         {
                                             headers: {
                                                 "Content-Type":
@@ -77,10 +77,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                                             .map((role: Role) =>
                                                 allowedRoles.push(role)
                                             );
+
+                                        // allowedRoles has roles
                                     });
 
+                                // allowedRoles is empty
+
                                 commonGuilds.push({
-                                    ...userGuild,
+                                    ...botGuild,
                                     roles: allowedRoles,
                                 });
                             }
