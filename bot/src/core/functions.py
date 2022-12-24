@@ -166,7 +166,7 @@ async def convert_to_snippet(code) -> bytes:
     return resp
 
 
-async def chatbot_response(message: str, ai: str) -> typing.Optional[str]:
+def chatbot_response(message: str, ai: str) -> typing.Optional[str]:
     response = ""
     jak_api = jak_python_package.api.API(credentials.RAPID_API_KEY)
 

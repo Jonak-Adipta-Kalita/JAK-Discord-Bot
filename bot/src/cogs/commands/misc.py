@@ -463,15 +463,10 @@ class Misc(commands.Cog):
             and message.channel == self.bot.chatbot_channel
             and not message.content in [f"{prefix}chatbot" for prefix in prefixes]
         ):
-            try:
-                response = await funcs.chatbot_response(
-                    message=message.content, ai=self.bot.chatbot_ai
-                )
-                await message.reply(response)
-            except KeyError:
-                await message.reply(
-                    embed=embeds.error_embed("Didnt got any Response!!")
-                )
+            response = funcs.chatbot_response(
+                message=message.content, ai=self.bot.chatbot_ai
+            )
+            await message.reply(response)
 
     @commands.Cog.listener()
     async def on_member_join(self, member: disnake.Member):
