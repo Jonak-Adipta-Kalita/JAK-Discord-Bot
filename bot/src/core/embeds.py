@@ -230,17 +230,17 @@ def member_details_embed(
     member: disnake.Member, fetched_member: disnake.User
 ) -> disnake.Embed:
     roles_list = [
-        f"{i_role + 1}) {role.name}\n"
-        for i_role, role in enumerate(member.roles)
+        f"{role.name}\n"
+        for role in member.roles
         if role.name != "@everyone"
     ]
     badges_list = [
-        f"{i_badge + 1}) {badge.name}\n"
-        for i_badge, badge in enumerate(member.public_flags.all())
+        f"{badge.name.replace('_', ' ').title()}\n"
+        for badge in member.public_flags.all()
     ]
     permissions_list = [
-        f"{i_perm + 1}) {permission[0]}\n"
-        for i_perm, permission in enumerate(member.guild_permissions)
+        f"{permission[0]}\n"
+        for permission in member.guild_permissions
         if permission[1]
     ]
 
@@ -268,7 +268,7 @@ def member_details_embed(
     )
     embed.add_field(
         name=f"Roles: ({len(roles_list)})",
-        value=f'```{["".join(roles_list[::-1][:20])]}```',
+        value=f'```{"".join(roles_list[::-1][:20])}```',
         inline=False,
     )
     embed.add_field(name="Top Role:", value=member.top_role.mention, inline=False)
