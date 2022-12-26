@@ -54,3 +54,5 @@ export type SelectedSiderbarOptionsTitleCase =
     | "Reputation"
     | "Chatbot"
     | "Giveaway";
+
+export type ChatbotAIChoices = "Alexis" | "Chat-GPT";
