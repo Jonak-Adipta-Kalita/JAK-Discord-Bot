@@ -235,7 +235,8 @@ def member_details_embed(
         if role.name != "@everyone"
     ]
     badges_list = [
-        f"{i_badge + 1}) {badge.name}\n" for i_badge, badge in enumerate(member.public_flags.all())
+        f"{i_badge + 1}) {badge.name}\n"
+        for i_badge, badge in enumerate(member.public_flags.all())
     ]
     permissions_list = [
         f"{i_perm + 1}) {permission[0]}\n"
@@ -267,7 +268,7 @@ def member_details_embed(
     )
     embed.add_field(
         name=f"Roles: ({len(roles_list)})",
-        value=f'```{"".join([",".join(roles_list[::-1][:20])])}```',
+        value=f'```{["".join(roles_list[::-1][:20])]}```',
         inline=False,
     )
     embed.add_field(name="Top Role:", value=member.top_role.mention, inline=False)
