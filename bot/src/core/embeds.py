@@ -239,7 +239,7 @@ def member_details_embed(
         for badge in member.public_flags.all()
     ]
     permissions_list = [
-        f"{permission[0]}\n"
+        f"{permission[0].replace('_', ' ').title()}\n"
         for permission in member.guild_permissions
         if permission[1]
     ]
