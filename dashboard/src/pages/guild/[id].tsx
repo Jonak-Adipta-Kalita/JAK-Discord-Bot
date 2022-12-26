@@ -3,7 +3,11 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { getSession, useSession } from "next-auth/react";
 import { useState, useEffect, FormEvent, MouseEvent } from "react";
-import { Guild } from "../../types/typings";
+import {
+    Guild,
+    SelectedSiderbarOptions,
+    SelectedSiderbarOptionsTitleCase,
+} from "../../types/typings";
 import { GetServerSideProps } from "next";
 import {
     HomeIcon,
@@ -35,7 +39,13 @@ interface ExtensionProps {
     guild: Guild | null | undefined;
 }
 
-const SidebarOption = ({ name, Icon }: { name: string; Icon: any }) => {
+const SidebarOption = ({
+    name,
+    Icon,
+}: {
+    name: SelectedSiderbarOptionsTitleCase;
+    Icon: any;
+}) => {
     const [selectedSidebarOption, setSelectedSidebarOption] = useRecoilState(
         selectedSidebarOptionState
     );
@@ -47,7 +57,11 @@ const SidebarOption = ({ name, Icon }: { name: string; Icon: any }) => {
                     ? "bg-gray-700"
                     : "hover:bg-gray-700"
             } lg:w-[200px] xl:w-[240px]`}
-            onClick={() => setSelectedSidebarOption(name.toLowerCase())}
+            onClick={() =>
+                setSelectedSidebarOption(
+                    name.toLowerCase() as SelectedSiderbarOptions
+                )
+            }
         >
             <Icon className="h-7 w-7 text-gray-300"></Icon>
             <p className="text-md flex-end hidden cursor-pointer font-semibold lg:inline">

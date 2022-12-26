@@ -28,3 +28,29 @@ export interface Guild {
     features: string[];
     roles: Role[];
 }
+
+export type SelectedSiderbarOptions =
+    | "general"
+    | "welcome"
+    | "moderation"
+    | "rules"
+    | "reaction roles"
+    | "translation and pronunciation"
+    | "poll"
+    | "experience"
+    | "reputation"
+    | "chatbot"
+    | "giveaway";
+
+export type SelectedSiderbarOptionsTitleCase =
+    | "General"
+    | "Welcome"
+    | "Moderation"
+    | "Rules"
+    | "Reaction Roles"
+    | "Translation and Pronunciation"
+    | "Poll"
+    | "Experience"
+    | "Reputation"
+    | "Chatbot"
+    | "Giveaway";
