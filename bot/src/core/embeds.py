@@ -229,11 +229,8 @@ def meme_embed(label: str, image: str) -> disnake.Embed:
 def member_details_embed(
     member: disnake.Member, fetched_member: disnake.User
 ) -> disnake.Embed:
-    roles_list = [
-        f"{role.name}\n"
-        for role in member.roles
-        if role.name != "@everyone"
-    ]
+    backslash_n_char = "\n"
+    roles_list = [f"{role.name}\n" for role in member.roles if role.name != "@everyone"]
     badges_list = [
         f"{badge.name.replace('_', ' ').title()}\n"
         for badge in member.public_flags.all()
@@ -263,18 +260,18 @@ def member_details_embed(
     )
     embed.add_field(
         name=f"Badges: ({len(badges_list)})",
-        value=f"```{''.join(badges_list[::-1][:20])}```",
+        value=f"```{''.join(badges_list[::-1][:20])}{f'{backslash_n_char}etc' if len(badges_list) > 20 else ''}```",
         inline=False,
     )
     embed.add_field(
         name=f"Roles: ({len(roles_list)})",
-        value=f'```{"".join(roles_list[::-1][:20])}```',
+        value=f'```{"".join(roles_list[::-1][:20])}{f"{backslash_n_char}etc" if len(roles_list) > 20 else ""}```',
         inline=False,
     )
     embed.add_field(name="Top Role:", value=member.top_role.mention, inline=False)
     embed.add_field(
         name=f"Permissions: ({len(permissions_list)})",
-        value=f"```{''.join(permissions_list[::-1][:20])}```",
+        value=f"```{''.join(permissions_list[::-1][:20])}{f'{backslash_n_char}etc' if len(permissions_list) > 20 else ''}```",
         inline=False,
     )
     embed.add_field(name="Is Bot:", value=f"```{member.bot}```", inline=False)
