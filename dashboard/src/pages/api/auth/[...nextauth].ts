@@ -2,11 +2,11 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import NextAuth from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import axios from "axios";
-import { Guild, Role } from "../../../types/typings";
+import { Channel, Guild, Role } from "../../../types/typings";
 
-const getRoles = async (botGuild: Guild): Promise<Role[]> => {
+const getRoles = async (guild: Guild): Promise<Role[]> => {
     const res = await axios.get<Role[]>(
-        `https://discord.com/api/v8/guilds/${botGuild.id}/roles`,
+        `https://discord.com/api/v8/guilds/${guild.id}/roles`,
         {
             headers: {
                 "Content-Type": "application/json",
@@ -16,8 +16,25 @@ const getRoles = async (botGuild: Guild): Promise<Role[]> => {
     );
 
     return res.data.filter(
-        (role: Role) => role.name !== "@everyone" && !role.managed
+        (role) => role.name !== "@everyone" && !role.managed
     );
+};
+
+const getChannels = async (
+    guild: Guild,
+    accessToken: string
+): Promise<Channel[]> => {
+    const res = await axios.get<Channel[]>(
+        `https://discord.com/api/v8/guilds/${guild.id}/channels`,
+        {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken}`,
+            },
+        }
+    );
+
+    return res.data;
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -65,29 +82,28 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                     );
 
                     const pushPromises = userGuildsRes.data.map(
-                        async (userGuild: Guild) => {
+                        async (userGuild) => {
                             return Promise.all(
-                                botGuildsRes.data.map(
-                                    async (botGuild: Guild) => {
-                                        if (
-                                            userGuild.id === botGuild.id &&
-                                            userGuild.owner
-                                        ) {
-                                            const roles = await getRoles(
-                                                botGuild
-                                            );
-                                            return new Promise<void>(
-                                                (resolve) => {
-                                                    commonGuilds.push({
-                                                        ...botGuild,
-                                                        roles,
-                                                    });
-                                                    resolve();
-                                                }
-                                            );
-                                        }
+                                botGuildsRes.data.map(async (botGuild) => {
+                                    if (
+                                        userGuild.id === botGuild.id &&
+                                        userGuild.owner
+                                    ) {
+                                        const roles = await getRoles(botGuild);
+                                        // const channels = await getChannels(
+                                        //     userGuild,
+                                        //     token.accessToken!
+                                        // );
+                                        return new Promise<void>((resolve) => {
+                                            commonGuilds.push({
+                                                ...botGuild,
+                                                roles,
+                                                // channels,
+                                            });
+                                            resolve();
+                                        });
                                     }
-                                )
+                                })
                             );
                         }
                     );
