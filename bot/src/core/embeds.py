@@ -230,16 +230,16 @@ def member_details_embed(
     member: disnake.Member, fetched_member: disnake.User
 ) -> disnake.Embed:
     roles_list = [
-        f"{i + 1}) {role.name}\n"
-        for i, role in enumerate(member.roles)
+        f"{i_role + 1}) {role.name}\n"
+        for i_role, role in enumerate(member.roles)
         if role.name != "@everyone"
     ]
     badges_list = [
-        f"{i + 1}) {badge}\n" for i, badge in enumerate(member.public_flags.all())
+        f"{i_badge + 1}) {badge.name}\n" for i_badge, badge in enumerate(member.public_flags.all())
     ]
     permissions_list = [
-        f"{i + 1}) {permission}\n"
-        for i, permission in enumerate(member.guild_permissions)
+        f"{i_perm + 1}) {permission[0]}\n"
+        for i_perm, permission in enumerate(member.guild_permissions)
         if permission[1]
     ]
 
@@ -262,7 +262,7 @@ def member_details_embed(
     )
     embed.add_field(
         name=f"Badges: ({len(badges_list)})",
-        value=f"```{', '.join(badges_list[::-1][:20])}```",
+        value=f"```{''.join(badges_list[::-1][:20])}```",
         inline=False,
     )
     embed.add_field(
@@ -273,7 +273,7 @@ def member_details_embed(
     embed.add_field(name="Top Role:", value=member.top_role.mention, inline=False)
     embed.add_field(
         name=f"Permissions: ({len(permissions_list)})",
-        value=f"```{', '.join(permissions_list[::-1][:20])}```",
+        value=f"```{''.join(permissions_list[::-1][:20])}```",
         inline=False,
     )
     embed.add_field(name="Is Bot:", value=f"```{member.bot}```", inline=False)
