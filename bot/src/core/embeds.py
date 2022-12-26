@@ -229,7 +229,19 @@ def meme_embed(label: str, image: str) -> disnake.Embed:
 def member_details_embed(
     member: disnake.Member, fetched_member: disnake.User
 ) -> disnake.Embed:
-    roles_list = [role.mention for role in member.roles if role.name != "@everyone"]
+    roles_list = [
+        f"{i + 1}) {role.name}\n"
+        for i, role in enumerate(member.roles)
+        if role.name != "@everyone"
+    ]
+    badges_list = [
+        f"{i + 1}) {badge}\n" for i, badge in enumerate(member.public_flags.all())
+    ]
+    permissions_list = [
+        f"{i + 1}) {permission}\n"
+        for i, permission in enumerate(member.guild_permissions)
+        if permission[1]
+    ]
 
     embed = disnake.Embed(color=0x3498DB)
     embed.add_field(name="ID:", value=f"```{member.id}```", inline=False)
@@ -249,11 +261,21 @@ def member_details_embed(
         inline=False,
     )
     embed.add_field(
+        name=f"Badges: ({len(badges_list)})",
+        value=f"```{', '.join(badges_list[::-1][:20])}```",
+        inline=False,
+    )
+    embed.add_field(
         name=f"Roles: ({len(roles_list)})",
-        value=f'```{"".join([",".join(roles_list)])}```',
+        value=f'```{"".join([",".join(roles_list[::-1][:20])])}```',
         inline=False,
     )
     embed.add_field(name="Top Role:", value=member.top_role.mention, inline=False)
+    embed.add_field(
+        name=f"Permissions: ({len(permissions_list)})",
+        value=f"```{', '.join(permissions_list[::-1][:20])}```",
+        inline=False,
+    )
     embed.add_field(name="Is Bot:", value=f"```{member.bot}```", inline=False)
     embed.set_author(name=f"User Info - {member}")
     embed.set_thumbnail(url=member.display_avatar.url)
@@ -264,8 +286,12 @@ def member_details_embed(
 
 
 def server_stats_embed(guild: disnake.Guild) -> disnake.Embed:
-    emojis_list = [f"<:{emoji.name}:{emoji.id}>" for emoji in guild.emojis]
-    roles_list = [role.mention for role in guild.roles if role.name != "@everyone"]
+    emojis_list = [f"{i + 1}) {emoji.name}" for i, emoji in enumerate(guild.emojis)]
+    roles_list = [
+        f"{i + 1}) {role.name}\n"
+        for i, role in enumerate(guild.roles)
+        if role.name != "@everyone"
+    ]
 
     embed = disnake.Embed(
         title=f"{guild.name}'s Stats",
@@ -402,15 +428,11 @@ def pokemon_card_embed(card: dict) -> disnake.Embed:
 
 
 def servers_in_embed(servers: typing.List[disnake.Guild]) -> disnake.Embed:
-    servers_name = []
-    number = 0
-    for server in servers:
-        number += 1
-        servers_name.append(f"{number})  **{server.name}**")
+    servers_names = [f"{i + 1}) {server.name}" for i, server in enumerate(servers)]
 
     embed = disnake.Embed(
         title="Servers:",
-        description="\n".join(servers_name),
+        description=f'```{"".join([", ".join(servers_names)])}, etc```',
         color=0x3498DB,
     )
 
