@@ -20,16 +20,13 @@ const getRoles = async (guild: Guild): Promise<Role[]> => {
     );
 };
 
-const getChannels = async (
-    guild: Guild,
-    accessToken: string
-): Promise<Channel[]> => {
+const getChannels = async (guild: Guild): Promise<Channel[]> => {
     const res = await axios.get<Channel[]>(
         `https://discord.com/api/v8/guilds/${guild.id}/channels`,
         {
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${accessToken}`,
+                Authorization: `Bot ${process.env.TOKEN}`,
             },
         }
     );
@@ -90,18 +87,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                                         userGuild.owner
                                     ) {
                                         const roles = await getRoles(botGuild);
-                                        // const channels = await getChannels(
-                                        //     userGuild,
-                                        //     token.accessToken!
-                                        // );
-                                        return new Promise<void>((resolve) => {
-                                            commonGuilds.push({
-                                                ...botGuild,
-                                                roles,
-                                                // channels,
-                                            });
-                                            resolve();
-                                        });
+                                        const channels = await getChannels(
+                                            botGuild
+                                        );
+                                        return new Promise<void>(
+                                            (resolve, reject) => {
+                                                try {
+                                                    commonGuilds.push({
+                                                        ...botGuild,
+                                                        roles,
+                                                        // channels,
+                                                    });
+                                                    resolve();
+                                                } catch (err) {
+                                                    reject(err);
+                                                }
+                                            }
+                                        );
                                     }
                                 })
                             );
