@@ -67,27 +67,52 @@ const Home = ({ commandsData }: Props) => {
                         <div className="mt-[20px] space-y-4 rounded-xl border-[3px] p-4">
                             {commands?.map((command) => (
                                 <div
-                                    className="space-y-[10px] rounded-xl border-[3px] p-4 bg-gray-700"
+                                    className="space-y-[10px] rounded-xl border-[3px] bg-gray-700 p-4"
                                     key={command.id}
                                 >
                                     <p className="text-gray-200">
-                                        Name:{" "}<span className="text-white text-lg">
-                                        {new editMessage(
-                                            command.name.replaceAll("_", " ")
-                                        ).toTitleCase()}</span>
-                                    </p>
-                                    <p className="text-gray-200">Usage: <span className="text-white text-lg">{command.usage}</span></p>
-                                    <p className="text-gray-200">
-                                        Has Slash Command:{" "}<span className="text-white text-lg">
-                                        {command.has_slash_command
-                                            ? "Yes"
-                                            : "No"}</span>
+                                        Name:{" "}
+                                        <span className="text-lg text-white">
+                                            {new editMessage(
+                                                command.name.replaceAll(
+                                                    "_",
+                                                    " "
+                                                )
+                                            ).toTitleCase()}
+                                        </span>
                                     </p>
                                     <p className="text-gray-200">
-                                        Description: <span className="text-white text-lg">{command.description}</span>
+                                        Usage:{" "}
+                                        <span className="text-lg text-white">
+                                            {command.usage}
+                                        </span>
+                                    </p>
+                                    <p className="text-gray-200">
+                                        Has Slash Command:{" "}
+                                        <span className="text-lg text-white">
+                                            {command.has_slash_command
+                                                ? "Yes"
+                                                : "No"}
+                                        </span>
+                                    </p>
+                                    <p className="text-gray-200">
+                                        Description:{" "}
+                                        <span className="text-lg text-white">
+                                            {command.description}
+                                        </span>
                                     </p>
                                 </div>
                             ))}
+                        </div>
+                    </div>
+                    <div className="">
+                        <p className="text-2xl font-bold">Features</p>
+                        <div className="space-y-2 px-4">
+                            <p>
+                                1) Using 🔤 as reaction: If it is not English,
+                                it will send an embed with the Translation else
+                                send the Pronunciation.
+                            </p>
                         </div>
                     </div>
                 </div>
