@@ -2,6 +2,7 @@
 
 # JAK-Discord-Bot
 
+![Website](https://img.shields.io/website?down_color=red&down_message=Offline&style=for-the-badge&up_color=green&up_message=Online&url=https%3A%2F%2Fjak-discord-bot.vercel.app)
 [![Discord](https://img.shields.io/discord/752800104112717826?style=for-the-badge)](https://discord.gg/S3UfGkW)
 [![Code Style: Black](https://img.shields.io/badge/Code%20Style-Black-000000.svg?style=for-the-badge)](https://github.com/psf/black)
 ![License](https://img.shields.io/github/license/Jonak-Adipta-Kalita/JAK-Discord-Bot?style=for-the-badge)
