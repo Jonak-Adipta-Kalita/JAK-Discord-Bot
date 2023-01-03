@@ -2,7 +2,15 @@ version: 2
 
 updates:
   - package-ecosystem: "pip"
-    directory: "/"
+    directory: "/bot"
     schedule:
-      interval: "daily"
-    open-pull-requests-limit: 15
+      interval: "weekly"
+      day: "saturday"
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: "npm"
+    directory: "/dashboard"
+    schedule:
+      interval: "weekly"
+      day: "saturday"
+    open-pull-requests-limit: 5
