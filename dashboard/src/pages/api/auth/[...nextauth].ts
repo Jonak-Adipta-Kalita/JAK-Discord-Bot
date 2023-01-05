@@ -47,6 +47,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 },
             }),
         ],
+        debug: true,
         secret: process.env.JWT_SECRET,
         pages: {
             signIn: "/login",
@@ -93,11 +94,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                                         return new Promise<void>(
                                             (resolve, reject) => {
                                                 try {
-                                                    commonGuilds.push({
+                                                    const newGuildData = {
                                                         ...botGuild,
                                                         roles,
                                                         // channels,
-                                                    });
+                                                    };
+                                                    commonGuilds.push(
+                                                        newGuildData
+                                                    );
                                                     resolve();
                                                 } catch (err) {
                                                     reject(err);
