@@ -86,6 +86,8 @@ that JSON file.
 
 ### Getting Lavalink Credentials
 
+Get one from [here](https://lavalink-list.darrennathanael.com/SSL/lavalink-with-ssl/)
+
 ### Creating the Bot:
 
 Create `bot/.env` and `dashboard/.env.local`. Now go to [Discord Developers Portal](https://discord.com/developers/applications) and create a new application.
