@@ -84,6 +84,8 @@ that JSON file.
 
 ### Getting the Google Search Credentials
 
+### Getting Lavalink Credentials
+
 ### Creating the Bot:
 
 Create `bot/.env` and `dashboard/.env.local`. Now go to [Discord Developers Portal](https://discord.com/developers/applications) and create a new application.
@@ -116,6 +118,12 @@ FIREBASE_DATABASE_URL=<YOUR_FIREBASE_DATABASE_URL>
 # Google
 GOOGLE_SEARCH_API_KEY=<YOUR_GOOGLE_SEARCH_API_KEY>
 GOOGLE_SEARCH_ENGINE_ID=<YOUR_GOOGLE_SEARCH_ENGINE_ID>
+
+# Lavalink
+
+LAVALINK_HOST=<YOUR_LAVALINK_HOST>
+LAVALINK_PORT=<YOUR_LAVALINK_PORT>
+LAVALINK_PASSWORD=<YOUR_LAVALINK_PASSWORD>
 ```
 
 For `dashboard/.env.local`

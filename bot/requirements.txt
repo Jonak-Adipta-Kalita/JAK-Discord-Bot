@@ -20,7 +20,7 @@ colorama==0.4.4
 discord==1.7.3
 discord-together==1.2.6
 discord.py==1.7.3
-disnake==2.7.0
+disnake==2.8.0
 disnake-jishaku==2.6.5
 eng-to-ipa==0.0.2
 et-xmlfile==1.1.0
@@ -52,6 +52,7 @@ import-expression==1.1.4
 importlib-metadata==4.8.1
 joblib==1.1.0
 jokeapi==0.2.8
+lavalink==4.0.5
 msgpack==1.0.3
 multidict==5.2.0
 mypy-extensions==0.4.3
@@ -94,5 +95,4 @@ typing-extensions==3.10.0.2
 uritemplate==4.1.1
 urllib3==1.25.8
 yarl==1.7.0
-youtube-dl==2021.6.6
 zipp==3.6.0

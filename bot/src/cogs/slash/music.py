@@ -1,4 +1,4 @@
-import disnake, youtube_dl
+import disnake
 import src.core.embeds as embeds
 import src.core.functions as funcs
 from src.core.bot import JAKDiscordBot
@@ -90,32 +90,32 @@ class Music_(commands.Cog):
                 await inter.edit_original_message("One song is already playing!!")
                 return
 
-            FFMPEG_OPTIONS = {
-                "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
-                "options": "-vn",
-            }
-            YDL_OPTIONS = {"formats": "bestaudio"}
-            with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
-                info = {}
-                url = ""
+            # FFMPEG_OPTIONS = {
+            #     "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
+            #     "options": "-vn",
+            # }
+            # YDL_OPTIONS = {"formats": "bestaudio"}
+            # with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
+            #     info = {}
+            #     url = ""
 
-                if music_name.startswith("https://"):
-                    info = ydl.extract_info(music_name, download=False)
-                    url = info["formats"][0]["url"]
-                else:
-                    info_ = ydl.extract_info(f"ytsearch:{music_name}", download=False)
-                    url_ = info_["entries"][0]["webpage_url"]
-                    info = ydl.extract_info(url_, download=False)
-                    url = info["formats"][0]["url"]
+            #     if music_name.startswith("https://"):
+            #         info = ydl.extract_info(music_name, download=False)
+            #         url = info["formats"][0]["url"]
+            #     else:
+            #         info_ = ydl.extract_info(f"ytsearch:{music_name}", download=False)
+            #         url_ = info_["entries"][0]["webpage_url"]
+            #         info = ydl.extract_info(url_, download=False)
+            #         url = info["formats"][0]["url"]
 
-                if info:
-                    await inter.edit_original_message(
-                        embed=embeds.music_playing_embed(info)
-                    )
-                    self.name = music_name
+            #     if info:
+            #         await inter.edit_original_message(
+            #             embed=embeds.music_playing_embed(info)
+            #         )
+            #         self.name = music_name
 
-                source = disnake.FFmpegPCMAudio(url, **FFMPEG_OPTIONS)
-                vc.play(source)
+            #     source = disnake.FFmpegPCMAudio(url, **FFMPEG_OPTIONS)
+            #     vc.play(source)
 
         else:
             await inter.edit_original_message(

@@ -1,4 +1,4 @@
-import disnake, youtube_dl
+import disnake, wavelink
 import src.core.embeds as embeds
 import src.core.functions as funcs
 from src.core.bot import JAKDiscordBot
@@ -52,13 +52,11 @@ class Music(commands.Cog):
 
     @music.command(description="Plays the Music")
     @commands.has_guild_permissions(connect=True)
-    async def play(self, ctx: commands.Context, *, music_name: str):
-        if (
-            not music_name.startswith("https://")
-            and music_name in self.bot.bad_words
-            and not ctx.channel.is_nsfw
-        ):
-            return
+    async def play(self, ctx: commands.Context, *, track: wavelink.YouTubeTrack):
+        print(track)
+        # if track in self.bot.bad_words:
+        #     await ctx.reply("You can't use this word!!")
+        #     return
 
         vc: disnake.VoiceClient = ctx.voice_client
 
@@ -67,31 +65,9 @@ class Music(commands.Cog):
                 await ctx.reply("One song is already playing!!")
                 return
 
-            FFMPEG_OPTIONS = {
-                "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
-                "options": "-vn",
-            }
-            YDL_OPTIONS = {"formats": "bestaudio"}
-            with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
-                info = {}
-                url = ""
-
-                if music_name.startswith("https://"):
-                    info = ydl.extract_info(music_name, download=False)
-                    url = info["formats"][0]["url"]
-                else:
-                    info_ = ydl.extract_info(f"ytsearch:{music_name}", download=False)
-                    url_ = info_["entries"][0]["webpage_url"]
-                    info = ydl.extract_info(url_, download=False)
-                    url = info["formats"][0]["url"]
-
-                if info:
-                    await ctx.reply(embed=embeds.music_playing_embed(info))
-                    self.name = music_name
-
-                source = disnake.FFmpegPCMAudio(url, **FFMPEG_OPTIONS)
-                vc.play(source)
-
+            # if info:
+            #     await ctx.reply(embed=embeds.music_playing_embed(info))
+            #     self.name = music_name
         else:
             await ctx.reply("I am not Connected to any Voice Channel!!")
 

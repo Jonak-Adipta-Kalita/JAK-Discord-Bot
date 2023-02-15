@@ -595,3 +595,7 @@ async def get_google_search_results(query: str) -> dict:
         resp = await request.json()
 
     return resp["items"]
+
+
+def get_music_info(music_name: str):
+    pass
