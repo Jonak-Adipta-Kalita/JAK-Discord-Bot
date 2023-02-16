@@ -281,7 +281,13 @@ class JAKDiscordBot(commands.Bot):
     async def connect_nodes(self):
         await self.wait_until_ready()
 
-        await wavelink.NodePool.create_node(bot=self, host=credentials.LAVALINK_HOST, port=credentials.LAVALINK_PORT, password=credentials.LAVALINK_PASSWORD, https=True)
+        await wavelink.NodePool.create_node(
+            bot=self,
+            host=credentials.LAVALINK_HOST,
+            port=credentials.LAVALINK_PORT,
+            password=credentials.LAVALINK_PASSWORD,
+            https=True
+        )
 
     def tictactoe_check_winner(self, winning_conditions, mark):
         for condition in winning_conditions:
