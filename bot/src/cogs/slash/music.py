@@ -90,7 +90,7 @@ class Music_(commands.Cog):
                 await inter.edit_original_message("One song is already playing!!")
                 return
 
-            info, source = funcs.get_music_info(music_name)
+            info, source = await funcs.get_music_info(music_name)
 
             if info and source:
                 self.bot.music_name = music_name
