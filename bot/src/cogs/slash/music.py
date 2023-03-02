@@ -90,32 +90,15 @@ class Music_(commands.Cog):
                 await inter.edit_original_message("One song is already playing!!")
                 return
 
-            # FFMPEG_OPTIONS = {
-            #     "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
-            #     "options": "-vn",
-            # }
-            # YDL_OPTIONS = {"formats": "bestaudio"}
-            # with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
-            #     info = {}
-            #     url = ""
+            info, source = funcs.get_music_info(music_name)
 
-            #     if music_name.startswith("https://"):
-            #         info = ydl.extract_info(music_name, download=False)
-            #         url = info["formats"][0]["url"]
-            #     else:
-            #         info_ = ydl.extract_info(f"ytsearch:{music_name}", download=False)
-            #         url_ = info_["entries"][0]["webpage_url"]
-            #         info = ydl.extract_info(url_, download=False)
-            #         url = info["formats"][0]["url"]
+            if info and source:
+                self.bot.music_name = music_name
+                await inter.edit_original_message(
+                    embed=embeds.music_playing_embed(info)
+                )
 
-            #     if info:
-            #         await inter.edit_original_message(
-            #             embed=embeds.music_playing_embed(info)
-            #         )
-            #         self.name = music_name
-
-            #     source = disnake.FFmpegPCMAudio(url, **FFMPEG_OPTIONS)
-            #     vc.play(source)
+                vc.play(source)
 
         else:
             await inter.edit_original_message(
@@ -140,7 +123,7 @@ class Music_(commands.Cog):
                 "I am not Connected to any Voice Channel!!"
             )
 
-    @music.sub_command(name="resumt", description="Resumes the Music")
+    @music.sub_command(name="resume", description="Resumes the Music")
     @commands.has_guild_permissions(connect=True)
     async def music_resume(self, inter: disnake.ApplicationCommandInteraction):
         await inter.response.defer()
@@ -155,7 +138,7 @@ class Music_(commands.Cog):
                 await inter.edit_original_message("No Song is Paused!!")
         else:
             await inter.edit_original_message(
-                " I am not Connected to any Voice Channel!!"
+                "I am not Connected to any Voice Channel!!"
             )
 
     @music.sub_command(

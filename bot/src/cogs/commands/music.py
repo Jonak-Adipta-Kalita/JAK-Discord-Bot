@@ -1,4 +1,4 @@
-import disnake, wavelink
+import disnake
 import src.core.embeds as embeds
 import src.core.functions as funcs
 from src.core.bot import JAKDiscordBot
@@ -8,8 +8,6 @@ from disnake.ext import commands
 class Music(commands.Cog):
     def __init__(self, bot: JAKDiscordBot):
         self.bot = bot
-
-        self.name: str = ""
 
     @commands.group(invoke_without_command=True, description="Connect/Leave VC")
     @commands.has_guild_permissions(connect=True)
@@ -52,11 +50,13 @@ class Music(commands.Cog):
 
     @music.command(description="Plays the Music")
     @commands.has_guild_permissions(connect=True)
-    async def play(self, ctx: commands.Context, *, track: wavelink.YouTubeTrack):
-        print(track)
-        # if track in self.bot.bad_words:
-        #     await ctx.reply("You can't use this word!!")
-        #     return
+    async def play(self, ctx: commands.Context, *, music_name: str):
+        if (
+            not music_name.startswith("https://")
+            and music_name in self.bot.bad_words
+            and not ctx.channel.is_nsfw
+        ):
+            return
 
         vc: disnake.VoiceClient = ctx.voice_client
 
@@ -65,9 +65,27 @@ class Music(commands.Cog):
                 await ctx.reply("One song is already playing!!")
                 return
 
-            # if info:
-            #     await ctx.reply(embed=embeds.music_playing_embed(info))
-            #     self.name = music_name
+            info, source = funcs.get_music_info(music_name)
+
+            if info and source:
+                self.bot.music_name = music_name
+                await ctx.reply(embed=embeds.music_playing_embed(info))
+                vc.play(source)
+
+        else:
+            await ctx.reply("I am not Connected to any Voice Channel!!")
+
+    @music.command(description="Pauses the Music")
+    @commands.has_guild_permissions(connect=True)
+    async def pause(self, ctx: commands.Context):
+        vc: disnake.VoiceClient = ctx.voice_client
+
+        if vc:
+            if vc.is_playing():
+                await ctx.reply("Song Paused!!")
+                vc.pause()
+            else:
+                await ctx.reply("No Song is Playing!!")
         else:
             await ctx.reply("I am not Connected to any Voice Channel!!")
 

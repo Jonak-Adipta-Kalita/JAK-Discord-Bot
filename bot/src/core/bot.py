@@ -1,4 +1,4 @@
-import disnake, os, asyncio, itertools, credentials, discord_together, wavelink
+import disnake, os, asyncio, itertools, credentials, discord_together
 import src.core.functions as funcs
 import src.core.embeds as embeds
 import firebase_admin, firebase_admin.db, firebase_admin.credentials
@@ -64,14 +64,14 @@ class JAKDiscordBot(commands.Bot):
 
         self.chatbot_data: dict = None
 
+        self.music_name: str = ""
+
         super().__init__(
             command_prefix=self.get_prefix,
             intents=disnake.Intents.all(),
             help_command=None,
             description="JAK Discord Bot is a Multi Purpose Bot, Made with `disnake`. It has features like: Moderation, Games, Music, Translation, Meme, Jokes, Discord Together, Chatbot, etc. It is made by xxJonakAdiptaxx#2464",
         )
-
-        self.loop.create_task(self.connect_nodes())
 
         self.load_extension("jishaku")
         self.load_extension("src.cogs.help")
@@ -277,17 +277,6 @@ class JAKDiscordBot(commands.Bot):
             await inter.response.send_message(
                 embed=embeds.error_embed(repr(error)), ephemeral=True
             )
-
-    async def connect_nodes(self):
-        await self.wait_until_ready()
-
-        await wavelink.NodePool.create_node(
-            bot=self,
-            host=credentials.LAVALINK_HOST,
-            port=credentials.LAVALINK_PORT,
-            password=credentials.LAVALINK_PASSWORD,
-            https=True
-        )
 
     def tictactoe_check_winner(self, winning_conditions, mark):
         for condition in winning_conditions:

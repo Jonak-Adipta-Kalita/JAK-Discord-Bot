@@ -1,6 +1,6 @@
 import disnake, typing, googletrans, jokeapi, eng_to_ipa, aiohttp, io, pytesseract
 import randfacts, credentials, json, requests, random, jak_python_package.api
-import cairo
+import cairo, youtube_dl
 import src.core.emojis as emojis_list
 import src.core.emojis as emojis
 import firebase_admin.db
@@ -597,5 +597,25 @@ async def get_google_search_results(query: str) -> dict:
     return resp["items"]
 
 
-def get_music_info(music_name: str):
-    pass
+async def get_music_info(music_name: str):
+    FFMPEG_OPTIONS = {
+        "before_options": "-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5",
+        "options": "-vn",
+    }
+    YDL_OPTIONS = {"formats": "bestaudio"}
+    with youtube_dl.YoutubeDL(YDL_OPTIONS) as ydl:
+        info = {}
+        url = ""
+
+        if music_name.startswith("https://"):
+            info = ydl.extract_info(music_name, download=False)
+            url = info["formats"][0]["url"]
+        else:
+            info_ = ydl.extract_info(f"ytsearch:{music_name}", download=False)
+            url_ = info_["entries"][0]["webpage_url"]
+            info = ydl.extract_info(url_, download=False)
+            url = info["formats"][0]["url"]
+
+        source = disnake.FFmpegPCMAudio(url, **FFMPEG_OPTIONS)
+
+        return info, source
