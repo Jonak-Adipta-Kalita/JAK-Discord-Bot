@@ -89,20 +89,6 @@ class Music(commands.Cog):
         else:
             await ctx.reply("I am not Connected to any Voice Channel!!")
 
-    @music.command(description="Pauses the Music")
-    @commands.has_guild_permissions(connect=True)
-    async def pause(self, ctx: commands.Context):
-        vc: disnake.VoiceClient = ctx.voice_client
-
-        if vc:
-            if vc.is_playing():
-                await ctx.reply("Song Paused!!")
-                vc.pause()
-            else:
-                await ctx.reply("No Song is Playing!!")
-        else:
-            await ctx.reply("I am not Connected to any Voice Channel!!")
-
     @music.command(description="Resumes the Music")
     @commands.has_guild_permissions(connect=True)
     async def resume(self, ctx: commands.Context):
