@@ -93,6 +93,6 @@ typed-ast==1.4.3
 typing-extensions==3.10.0.2
 uritemplate==4.1.1
 urllib3==1.25.8
-yarl==1.7.0
+yarl==1.8.2
 youtube-dl==2021.12.17
 zipp==3.6.0
