@@ -3,6 +3,8 @@ import src.core.functions as funcs
 import src.core.emojis as emojis
 from disnake.ext import commands
 
+EMBED_VALUE_CAP = 1024 / 2
+
 
 def ping_bot_embed(
     bot: commands.Bot, servers: int, prefixes: typing.List[str]
@@ -229,17 +231,49 @@ def meme_embed(label: str, image: str) -> disnake.Embed:
 def member_details_embed(
     member: disnake.Member, fetched_member: disnake.User
 ) -> disnake.Embed:
-    backslash_n_char = "\n"
-    roles_list = [f"{role.name}\n" for role in member.roles if role.name != "@everyone"]
+    roles_list = [
+        f"{i}) {role.name}\n"
+        for i, role in enumerate(member.roles)
+        if role.name != "@everyone"
+    ]
     badges_list = [
-        f"{badge.name.replace('_', ' ').title()}\n"
-        for badge in member.public_flags.all()
+        f"{i}) {badge.name.replace('_', ' ').title()}\n"
+        for i, badge in enumerate(member.public_flags.all())
     ]
     permissions_list = [
         f"{permission[0].replace('_', ' ').title()}\n"
         for permission in member.guild_permissions
         if permission[1]
     ]
+
+    roles_value = "```"
+    badges_value = "```"
+    permissions_value = "```"
+
+    for role in roles_list:
+        if len(roles_value + role + "\netc```") > EMBED_VALUE_CAP:
+            roles_value += "\netc"
+            break
+        roles_value += role
+
+    for badge in badges_list:
+        if len(badges_value + badge + "\netc```") > EMBED_VALUE_CAP:
+            badges_value += "\netc"
+            break
+        badges_value += badge
+
+    for i, permission in enumerate(permissions_list):
+        if (
+            len(permissions_value + f"{i+1}) {permission}" + "\netc```")
+            > EMBED_VALUE_CAP
+        ):
+            permissions_value += "\netc"
+            break
+        permissions_value += f"{i+1}) {permission}"
+
+    roles_value += "```"
+    badges_value += "```"
+    permissions_value += "```"
 
     embed = disnake.Embed(color=0x3498DB)
     embed.add_field(name="ID:", value=f"```{member.id}```", inline=False)
@@ -260,18 +294,18 @@ def member_details_embed(
     )
     embed.add_field(
         name=f"Badges: ({len(badges_list)})",
-        value=f"```{''.join(badges_list[::-1])}{f'{backslash_n_char}etc' if len(badges_list) > 20 else ''}```",
+        value=badges_value,
         inline=False,
     )
     embed.add_field(
         name=f"Roles: ({len(roles_list)})",
-        value=f'```{"".join(roles_list[::-1])}{f"{backslash_n_char}etc" if len(roles_list) > 20 else ""}```',
+        value=roles_value,
         inline=False,
     )
     embed.add_field(name="Top Role:", value=member.top_role.mention, inline=False)
     embed.add_field(
         name=f"Permissions: ({len(permissions_list)})",
-        value=f"```{''.join(permissions_list[::-1])}{f'{backslash_n_char}etc' if len(permissions_list) > 20 else ''}```",
+        value=permissions_value,
         inline=False,
     )
     embed.add_field(name="Is Bot:", value=f"```{member.bot}```", inline=False)
@@ -284,12 +318,30 @@ def member_details_embed(
 
 
 def server_stats_embed(guild: disnake.Guild) -> disnake.Embed:
-    emojis_list = [f"{i + 1}) {emoji.name}" for i, emoji in enumerate(guild.emojis)]
+    emojis_list = [f"{i + 1}) {emoji.name}\n" for i, emoji in enumerate(guild.emojis)]
     roles_list = [
-        f"{i + 1}) {role.name}\n"
+        f"{i}) {role.name}\n"
         for i, role in enumerate(guild.roles)
         if role.name != "@everyone"
     ]
+
+    emojis_value = "```"
+    roles_value = "```"
+
+    for emoji in emojis_list:
+        if len(emojis_value + emoji + "\netc```") > EMBED_VALUE_CAP:
+            emojis_value += "\netc"
+            break
+        emojis_value += emoji
+
+    for role in roles_list:
+        if len(roles_value + role + "\netc```") > EMBED_VALUE_CAP:
+            roles_value += "\netc"
+            break
+        roles_value += role
+
+    emojis_value += "```"
+    roles_value += "```"
 
     embed = disnake.Embed(
         title=f"{guild.name}'s Stats",
@@ -319,12 +371,12 @@ def server_stats_embed(guild: disnake.Guild) -> disnake.Embed:
     )
     embed.add_field(
         name=f"Emojis ({len(emojis_list)})",
-        value=f'```{"".join([", ".join(emojis_list)])}```',
+        value=emojis_value,
         inline=False,
     )
     embed.add_field(
         name=f"Roles ({len(roles_list)})",
-        value=f'```{"".join([", ".join(roles_list[::-1])])}, etc```',
+        value=roles_value,
         inline=False,
     )
     if guild.banner:
