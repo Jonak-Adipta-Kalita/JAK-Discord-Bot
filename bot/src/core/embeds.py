@@ -260,18 +260,18 @@ def member_details_embed(
     )
     embed.add_field(
         name=f"Badges: ({len(badges_list)})",
-        value=f"```{''.join(badges_list[::-1][:20])}{f'{backslash_n_char}etc' if len(badges_list) > 20 else ''}```",
+        value=f"```{''.join(badges_list[::-1])}{f'{backslash_n_char}etc' if len(badges_list) > 20 else ''}```",
         inline=False,
     )
     embed.add_field(
         name=f"Roles: ({len(roles_list)})",
-        value=f'```{"".join(roles_list[::-1][:20])}{f"{backslash_n_char}etc" if len(roles_list) > 20 else ""}```',
+        value=f'```{"".join(roles_list[::-1])}{f"{backslash_n_char}etc" if len(roles_list) > 20 else ""}```',
         inline=False,
     )
     embed.add_field(name="Top Role:", value=member.top_role.mention, inline=False)
     embed.add_field(
         name=f"Permissions: ({len(permissions_list)})",
-        value=f"```{''.join(permissions_list[::-1][:20])}{f'{backslash_n_char}etc' if len(permissions_list) > 20 else ''}```",
+        value=f"```{''.join(permissions_list[::-1])}{f'{backslash_n_char}etc' if len(permissions_list) > 20 else ''}```",
         inline=False,
     )
     embed.add_field(name="Is Bot:", value=f"```{member.bot}```", inline=False)
@@ -324,7 +324,7 @@ def server_stats_embed(guild: disnake.Guild) -> disnake.Embed:
     )
     embed.add_field(
         name=f"Roles ({len(roles_list)})",
-        value=f'```{"".join([", ".join(roles_list[::-1][:20])])}, etc```',
+        value=f'```{"".join([", ".join(roles_list[::-1])])}, etc```',
         inline=False,
     )
     if guild.banner:
