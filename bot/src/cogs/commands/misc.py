@@ -459,9 +459,10 @@ class Misc(commands.Cog):
         for data in chatbot_data:
             if data[0] == message.channel.id:
                 if not msg in [f"{prefix}chatbot" for prefix in prefixes]:
-                    response = funcs.chatbot_response(message=msg, ai=data[1])
-                    await message.reply(response)
+                    async with message.channel.typing():
+                        response = funcs.chatbot_response(message=msg, ai=data[1])
 
+                    await message.reply(response)
                 break
 
     @commands.Cog.listener()
