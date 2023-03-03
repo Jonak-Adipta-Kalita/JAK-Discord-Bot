@@ -273,6 +273,10 @@ class JAKDiscordBot(commands.Bot):
                 ),
                 ephemeral=True,
             )
+        elif isinstance(error, disnake.errors.InteractionResponded):
+            await inter.edit_original_message(
+                embed=embeds.error_embed()
+            )
         else:
             await inter.response.send_message(
                 embed=embeds.error_embed(repr(error)), ephemeral=True
