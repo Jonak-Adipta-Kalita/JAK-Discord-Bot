@@ -190,7 +190,6 @@ class JAKDiscordBot(commands.Bot):
     async def on_command_error(
         self, ctx: commands.Context, error: commands.CommandError
     ):
-        print(error)
         if isinstance(error, commands.CheckFailure):
             pass
         if isinstance(error, commands.CommandNotFound):
@@ -273,14 +272,13 @@ class JAKDiscordBot(commands.Bot):
                 ),
                 ephemeral=True,
             )
-        elif isinstance(error, disnake.errors.InteractionResponded):
-            await inter.edit_original_message(
-                embed=embeds.error_embed()
-            )
         else:
-            await inter.response.send_message(
-                embed=embeds.error_embed(repr(error)), ephemeral=True
-            )
+            try:
+                await inter.response.send_message(
+                    embed=embeds.error_embed(repr(error)), ephemeral=True
+                )
+            except disnake.errors.InteractionResponded:
+                await inter.edit_original_message(embed=embeds.error_embed(repr(error)))
 
     def tictactoe_check_winner(self, winning_conditions, mark):
         for condition in winning_conditions:
