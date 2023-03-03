@@ -1,4 +1,4 @@
-import asyncio, disnake, os, random, art
+import asyncio, os, random, art
 import src.core.embeds as embeds
 import src.core.functions as funcs
 import src.core.files as files
