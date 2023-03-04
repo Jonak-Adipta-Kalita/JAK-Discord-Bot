@@ -51,8 +51,6 @@ export interface Guild {
     owner: boolean;
     permissions: string;
     features: string[];
-    roles: Role[];
-    channels: Channel[];
 }
 
 export interface Channel {
