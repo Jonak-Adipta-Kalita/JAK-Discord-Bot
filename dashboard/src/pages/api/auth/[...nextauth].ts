@@ -47,11 +47,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 },
             }),
         ],
-        debug: true,
-        secret: process.env.JWT_SECRET,
-        pages: {
-            signIn: "/login",
-        },
         callbacks: {
             async jwt({ token, account, user }) {
                 if (account) token.accessToken = account.access_token;

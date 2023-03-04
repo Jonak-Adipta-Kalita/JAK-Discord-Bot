@@ -57,9 +57,10 @@ yarn
 
 and hit enter.
 
-### Getting `JWT_SECRET`
+### Getting `NEXTAUTH_SECRET`
 
-Use the [passwordgenerator](https://passwordsgenerator.net/) website to generate your secret.
+You can use the command `[jose](https://www.npmjs.com/package/node-jose-tools) newkey -s 512 -t oct -a HS512`
+to generate a Secret Key.
 
 ### Getting the `PLACE_API_KEY`
 
@@ -127,7 +128,7 @@ DISCORD_CLIENT_SECRET=<YOUR_DISCORD_CLIENT_SECRET>
 TOKEN=<YOUR_BOT_TOKEN>
 
 # Auth
-JWT_SECRET=<YOUR_JWT_STRING>
+NEXTAUTH_SECRET=<YOUR_JWT_STRING>
 NEXTAUTH_URL=http://localhost:3000
 
 # Firebase

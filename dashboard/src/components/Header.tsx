@@ -34,7 +34,7 @@ const Header = () => {
                         <div className="mr-4">
                             <button
                                 className="transform cursor-pointer rounded-xl border-[0.1px] border-gray-400 p-4 px-10 transition duration-100 ease-out hover:scale-125 focus:outline-none focus:ring-2"
-                                onClick={() => signIn()}
+                                onClick={() => signIn("discord")}
                             >
                                 Login
                             </button>
