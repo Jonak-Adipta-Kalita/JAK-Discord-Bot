@@ -361,6 +361,7 @@ const Chatbot = ({ guild }: ExtensionProps) => {
                 <p className="">Loading...</p>
             </div>
         );
+
     return (
         <div className="guildBodyContainer">
             <p className="">Still in Development</p>
