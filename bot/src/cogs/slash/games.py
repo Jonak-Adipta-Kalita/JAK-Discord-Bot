@@ -1,4 +1,4 @@
-import disnake, random, requests, asyncio, akinator as aki_
+import disnake, random, requests, asyncio, akinator.async_aki as aki_
 import src.core.embeds as embeds
 import src.core.buttons as buttons
 import src.core.emojis as emojis
@@ -84,7 +84,7 @@ class Games_(commands.Cog):
         await inter.response.defer()
 
         aki = aki_.Akinator()
-        question = aki.start_game()
+        question = await aki.start_game()
         counter = 1
 
         embed = embeds.akinator_embed(question, counter)

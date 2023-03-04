@@ -1,4 +1,4 @@
-import disnake, random, asyncio, akinator as aki_
+import disnake, random, asyncio, akinator.async_aki as aki_
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 import src.core.buttons as buttons
@@ -279,7 +279,7 @@ class Games(commands.Cog):
     async def akinator(self, ctx: commands.Context):
         async with ctx.typing():
             aki = aki_.Akinator()
-            question = aki.start_game()
+            question = await aki.start_game()
 
         counter = 1
         embed = embeds.akinator_embed(question, counter)

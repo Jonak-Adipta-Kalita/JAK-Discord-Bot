@@ -1,4 +1,4 @@
-import disnake, simpleeval, re, akinator
+import disnake, simpleeval, re, akinator.async_aki as akinator
 import src.core.emojis as emojis
 import src.core.embeds as embeds
 
@@ -280,6 +280,13 @@ class AkinatorButtons(disnake.ui.View):
         )
         return False
 
+    async def check_for_progression(self, interaction: disnake.MessageInteraction):
+        if self.aki.progression >= 85:
+            await self.aki.win()
+            await interaction.edit_original_message(
+                embed=embeds.akinator_embed(guess=self.aki.first_guess), view=None
+            )
+
     @disnake.ui.button(
         label="Yes", style=disnake.ButtonStyle.blurple, emoji=emojis.thumbs["up"]
     )
@@ -287,18 +294,14 @@ class AkinatorButtons(disnake.ui.View):
         self, button: disnake.ui.Button, interaction: disnake.MessageInteraction
     ):
         await interaction.response.defer()
-        question = self.aki.answer("yes")
+        question = await self.aki.answer("yes")
         self.counter += 1
         self.embed.title = f"Question no. {self.counter}: {question}"
         await interaction.edit_original_message(
             embed=self.embed,
         )
 
-        if self.aki.progression >= 85:
-            self.aki.win()
-            await interaction.edit_original_message(
-                embed=embeds.akinator_embed(guess=self.aki.first_guess), view=None
-            )
+        await self.check_for_progression(interaction=interaction)
 
     @disnake.ui.button(
         label="No", style=disnake.ButtonStyle.blurple, emoji=emojis.thumbs["down"]
@@ -307,18 +310,14 @@ class AkinatorButtons(disnake.ui.View):
         self, button: disnake.ui.Button, interaction: disnake.MessageInteraction
     ):
         await interaction.response.defer()
-        question = self.aki.answer("no")
+        question = await self.aki.answer("no")
         self.counter += 1
         self.embed.title = f"Question no. {self.counter}: {question}"
         await interaction.edit_original_message(
             embed=self.embed,
         )
 
-        if self.aki.progression >= 85:
-            self.aki.win()
-            await interaction.edit_original_message(
-                embed=embeds.akinator_embed(guess=self.aki.first_guess), view=None
-            )
+        await self.check_for_progression(interaction=interaction)
 
     @disnake.ui.button(
         label="Don't Know",
@@ -329,18 +328,14 @@ class AkinatorButtons(disnake.ui.View):
         self, button: disnake.ui.Button, interaction: disnake.MessageInteraction
     ):
         await interaction.response.defer()
-        question = self.aki.answer("idk")
+        question = await self.aki.answer("idk")
         self.counter += 1
         self.embed.title = f"Question no. {self.counter}: {question}"
         await interaction.edit_original_message(
             embed=self.embed,
         )
 
-        if self.aki.progression >= 85:
-            self.aki.win()
-            await interaction.edit_original_message(
-                embed=embeds.akinator_embed(guess=self.aki.first_guess), view=None
-            )
+        await self.check_for_progression(interaction=interaction)
 
     @disnake.ui.button(
         label="Probably",
@@ -351,18 +346,14 @@ class AkinatorButtons(disnake.ui.View):
         self, button: disnake.ui.Button, interaction: disnake.MessageInteraction
     ):
         await interaction.response.defer()
-        question = self.aki.answer("probably")
+        question = await self.aki.answer("probably")
         self.counter += 1
         self.embed.title = f"Question no. {self.counter}: {question}"
         await interaction.edit_original_message(
             embed=self.embed,
         )
 
-        if self.aki.progression >= 85:
-            self.aki.win()
-            await interaction.edit_original_message(
-                embed=embeds.akinator_embed(guess=self.aki.first_guess), view=None
-            )
+        await self.check_for_progression(interaction=interaction)
 
     @disnake.ui.button(
         label="Probably Not",
@@ -374,18 +365,14 @@ class AkinatorButtons(disnake.ui.View):
         self, button: disnake.ui.Button, interaction: disnake.MessageInteraction
     ):
         await interaction.response.defer()
-        question = self.aki.answer("probably not")
+        question = await self.aki.answer("probably not")
         self.counter += 1
         self.embed.title = f"Question no. {self.counter}: {question}"
         await interaction.edit_original_message(
             embed=self.embed,
         )
 
-        if self.aki.progression >= 85:
-            self.aki.win()
-            await interaction.edit_original_message(
-                embed=embeds.akinator_embed(guess=self.aki.first_guess), view=None
-            )
+        await self.check_for_progression(interaction=interaction)
 
     @disnake.ui.button(
         label="Back",
@@ -398,7 +385,7 @@ class AkinatorButtons(disnake.ui.View):
     ):
         await interaction.response.defer()
         try:
-            question = self.aki.back()
+            question = await self.aki.back()
             self.counter -= 1
             self.embed.title = f"Question no. {self.counter}: {question}"
             await interaction.edit_original_message(
