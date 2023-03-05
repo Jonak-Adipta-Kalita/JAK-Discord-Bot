@@ -6,15 +6,19 @@ import { child, ref } from "firebase/database";
 import { Fragment, useEffect, useState } from "react";
 import { useObjectVal } from "react-firebase-hooks/database";
 import { db } from "../../firebase";
-import { ExtensionProps } from "../../types/typings";
+import { Channel, ExtensionProps } from "../../types/typings";
 import ModifyButtons from "../ModifyButtons";
 import Switch from "../Switch";
+import ChannelsList from "./ChannelsList";
 
 const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
     const aiChoices = [{ id: 0, name: "alexis", unavailable: false }];
 
     const [enabled, setEnabled] = useState<boolean>(false);
     const [selectedAI, setSelectedAI] = useState(aiChoices[0]);
+    const [selectedChannel, setSelectedChannel] = useState<Channel>(
+        guildProps.channels[0]
+    );
 
     const chatbotRef = child(child(ref(db, `guilds`), guild?.id!), "chatbot");
     const [chatbotData, chatbotDataLoading, chatbotDataError] =
@@ -51,9 +55,9 @@ const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
             {enabled ? (
                 <>
                     <hr className="mt-10 -mb-10 text-gray-600" />
-                    <div className="my-20 flex flex-col items-center justify-center">
+                    <div className="my-20 flex flex-col items-center justify-center space-y-5">
                         <div className="flex items-center space-x-5">
-                            <p className="text-xl">Select AI : </p>
+                            <p className="text-sm md:text-xl">Select AI : </p>
                             <div className="relative w-52">
                                 <Listbox
                                     value={selectedAI}
@@ -106,7 +110,7 @@ const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
                                                                 {ai.name}
                                                             </span>
                                                             {selected ? (
-                                                                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                                                                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                                                                     <CheckIcon
                                                                         className="h-5 w-5"
                                                                         aria-hidden="true"
@@ -121,6 +125,16 @@ const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
                                     </Transition>
                                 </Listbox>
                             </div>
+                        </div>
+                        <div className="flex items-center space-x-5">
+                            <p className="text-sm md:text-xl">
+                                Select channel :
+                            </p>
+                            <ChannelsList
+                                channels={guildProps.channels}
+                                selectedChannel={selectedChannel}
+                                setSelectedChannel={setSelectedChannel}
+                            />
                         </div>
                     </div>
                 </>
