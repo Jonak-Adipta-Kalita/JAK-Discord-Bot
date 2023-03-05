@@ -7,6 +7,7 @@ export const getGuild = async (guild_id: string) => {
         {
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bot ${process.env.TOKEN}`,
             },
         }
     );

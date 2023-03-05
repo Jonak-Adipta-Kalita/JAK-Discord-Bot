@@ -4,7 +4,9 @@ import Footer from "../../components/Footer";
 import { getSession, useSession } from "next-auth/react";
 import { useState, useEffect, FormEvent, MouseEvent } from "react";
 import {
+    Channel,
     Guild,
+    Role,
     SelectedSiderbarOptions,
     SelectedSiderbarOptionsTitleCase,
 } from "../../types/typings";
@@ -30,6 +32,7 @@ import { db } from "../../firebase";
 import { useObjectVal } from "react-firebase-hooks/database";
 import toast from "react-hot-toast";
 import toastDefaultOptions from "../../utils/toastDefaultOptions";
+import axios from "axios";
 
 interface Props {
     id: string;
@@ -562,10 +565,31 @@ export default Guild;
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const session = await getSession(context);
 
+    if (!context.query.id) {
+        return {
+            props: {},
+        };
+    }
+
+    const roles = await (
+        await axios.post<Role[]>(`${process.env.NEXTAUTH_URL}/api/getRoles`, {
+            guild_id: context.query.id,
+        })
+    ).data;
+
+    const channels = await (
+        await axios.post<Channel[]>(
+            `${process.env.NEXTAUTH_URL}/api/getChannels`,
+            { guild_id: context.query.id }
+        )
+    ).data;
+
     return {
         props: {
             session: session,
             id: context.query.id,
+            roles,
+            channels,
         },
     };
 };
