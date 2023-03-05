@@ -33,13 +33,20 @@ import { useObjectVal } from "react-firebase-hooks/database";
 import toast from "react-hot-toast";
 import toastDefaultOptions from "../../utils/toastDefaultOptions";
 import axios from "axios";
+import { Session } from "next-auth";
 
 interface Props {
     id: string;
+    roles: Role[];
+    channels: Channel[];
+    session: Session | null | undefined;
 }
 
 interface ExtensionProps {
     guild: Guild | null | undefined;
+    roles: Role[];
+    channels: Channel[];
+    session: Session | null | undefined;
 }
 
 const SidebarOption = ({
@@ -357,7 +364,7 @@ const Reputation = ({ guild }: ExtensionProps) => {
     );
 };
 
-const Chatbot = ({ guild }: ExtensionProps) => {
+const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
     if (!guild)
         return (
             <div className="guildBodyContainer">
@@ -389,7 +396,7 @@ const Giveaway = ({ guild }: ExtensionProps) => {
     );
 };
 
-const Guild = ({ id }: Props) => {
+const Guild = ({ id, ...guildProps }: Props) => {
     const { data: session } = useSession();
     const [dbGuild, dbGuildLoading, dbGuildError] = useObjectVal(
         child(ref(db, `guilds`), id)
@@ -420,27 +427,29 @@ const Guild = ({ id }: Props) => {
             );
         }
         if (selectedSidebarOption === "general") {
-            return <General guild={guild} />;
+            return <General guild={guild} {...guildProps} />;
         } else if (selectedSidebarOption === "welcome") {
-            return <Welcome guild={guild} />;
+            return <Welcome guild={guild} {...guildProps} />;
         } else if (selectedSidebarOption === "moderation") {
-            return <Moderation guild={guild} />;
+            return <Moderation guild={guild} {...guildProps} />;
         } else if (selectedSidebarOption === "rules") {
-            return <Rules guild={guild} />;
+            return <Rules guild={guild} {...guildProps} />;
         } else if (selectedSidebarOption === "reaction roles") {
-            return <ReactionRoles guild={guild} />;
+            return <ReactionRoles guild={guild} {...guildProps} />;
         } else if (selectedSidebarOption === "translation and pronunciation") {
-            return <TranslationAndPronunciation guild={guild} />;
+            return (
+                <TranslationAndPronunciation guild={guild} {...guildProps} />
+            );
         } else if (selectedSidebarOption === "poll") {
-            return <Poll guild={guild} />;
+            return <Poll guild={guild} {...guildProps} />;
         } else if (selectedSidebarOption === "experience") {
-            return <Experience guild={guild} />;
+            return <Experience guild={guild} {...guildProps} />;
         } else if (selectedSidebarOption === "reputation") {
-            return <Reputation guild={guild} />;
+            return <Reputation guild={guild} {...guildProps} />;
         } else if (selectedSidebarOption === "chatbot") {
-            return <Chatbot guild={guild} />;
+            return <Chatbot guild={guild} {...guildProps} />;
         } else if (selectedSidebarOption === "giveaway") {
-            return <Giveaway guild={guild} />;
+            return <Giveaway guild={guild} {...guildProps} />;
         }
     };
 
@@ -568,6 +577,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     if (!context.query.id) {
         return {
             props: {},
+        };
+    }
+
+    if (!session) {
+        return {
+            props: {
+                session: session,
+                id: context.query.id,
+            },
         };
     }
 
