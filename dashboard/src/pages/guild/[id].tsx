@@ -34,6 +34,7 @@ import toast from "react-hot-toast";
 import toastDefaultOptions from "../../utils/toastDefaultOptions";
 import axios from "axios";
 import { Session } from "next-auth";
+import Switch from "../../components/Switch";
 
 interface Props {
     id: string;
@@ -365,7 +366,17 @@ const Reputation = ({ guild }: ExtensionProps) => {
 };
 
 const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
-    if (!guild)
+    const [enabled, setEnabled] = useState<boolean>(false);
+
+    const chatbotRef = child(child(ref(db, `guilds`), guild?.id!), "chatbot");
+    const [chatbotData, chatbotDataLoading, chatbotDataError] =
+        useObjectVal<[]>(chatbotRef);
+
+    useEffect(() => {
+        if (chatbotData) setEnabled(true);
+    }, [chatbotData]);
+
+    if (!guild || chatbotDataLoading || chatbotDataError)
         return (
             <div className="guildBodyContainer">
                 <p className="">Loading...</p>
@@ -374,10 +385,9 @@ const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
 
     return (
         <div className="guildBodyContainer">
-            <div className="flex justify-center space-x-10">
-                <p className="text-2xl">Enable :</p>
-                {/* Switch */}
-            </div>
+            <Switch enabled={enabled} setEnabled={setEnabled} />
+
+            {enabled && <div></div>}
         </div>
     );
 };
