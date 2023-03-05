@@ -6,7 +6,7 @@ type Props = {
 
 const ModifyButtons = ({ saveFunc, cancelFunc, disabled }: Props) => {
     return (
-        <div className="mt-5 flex justify-end space-x-10">
+        <div className="mt-5 flex justify-center space-x-10">
             <button
                 onClick={cancelFunc}
                 disabled={disabled}
