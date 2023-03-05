@@ -23,7 +23,7 @@ const Header = () => {
                         alt="logo"
                         height={60}
                         width={60}
-                        className=""
+                        className="hidden md:inline"
                     />
                     <p className="cursor-pointer text-sm font-bold text-white md:text-base">
                         JAK Discord Bot

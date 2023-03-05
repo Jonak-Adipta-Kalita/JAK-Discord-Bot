@@ -44,7 +44,7 @@ const General = ({ guild }: ExtensionProps) => {
     return (
         <div className="guildBodyContainer">
             <div className="pt-[60px]" />
-            <div className="flex flex-col">
+            <div className="flex flex-col items-center justify-center">
                 <form
                     onSubmit={(e) => addCustomPrefix(e)}
                     className="justify-center space-y-4 md:flex md:items-center md:space-y-0 md:space-x-6"

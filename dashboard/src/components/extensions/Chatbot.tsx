@@ -83,7 +83,7 @@ const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
                                                     className={({ active }) =>
                                                         `relative cursor-default select-none py-2 pl-10 pr-4 ${
                                                             active
-                                                                ? "rounded-md bg-gray-500 text-gray-900"
+                                                                ? "rounded-md bg-gray-700"
                                                                 : "text-gray-300"
                                                         }`
                                                     }
