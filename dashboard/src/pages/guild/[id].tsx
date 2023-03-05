@@ -2,9 +2,10 @@ import Head from "next/head";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { getSession, useSession } from "next-auth/react";
-import { useState, useEffect, FormEvent, MouseEvent, Fragment } from "react";
+import { useState, useEffect, Fragment } from "react";
 import {
     Channel,
+    ExtensionProps,
     Guild,
     Role,
     SelectedSiderbarOptions,
@@ -21,33 +22,22 @@ import {
     TranslateIcon,
     SparklesIcon,
     ClipboardListIcon,
-    XIcon,
 } from "@heroicons/react/outline";
-import { CheckIcon, ChevronDownIcon } from "@heroicons/react/solid";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { selectedSidebarOptionState } from "../../atoms/dashboard";
 import TrophyIcon from "../../components/icons/TrophyIcon";
 import BotIcon from "../../components/icons/BotIcon";
-import { child, ref, set } from "firebase/database";
+import { child, ref } from "firebase/database";
 import { db } from "../../firebase";
 import { useObjectVal } from "react-firebase-hooks/database";
-import toast from "react-hot-toast";
-import toastDefaultOptions from "../../utils/toastDefaultOptions";
 import axios from "axios";
 import { Session } from "next-auth";
-import Switch from "../../components/Switch";
-import ModifyButtons from "../../components/ModifyButtons";
-import { Listbox, Transition } from "@headlessui/react";
+import General from "../../components/extensions/General";
+import Rules from "../../components/extensions/Rules";
+import Chatbot from "../../components/extensions/Chatbot";
 
 interface Props {
     id: string;
-    roles: Role[];
-    channels: Channel[];
-    session: Session | null | undefined;
-}
-
-interface ExtensionProps {
-    guild: Guild | null | undefined;
     roles: Role[];
     channels: Channel[];
     session: Session | null | undefined;
@@ -85,73 +75,6 @@ const SidebarOption = ({
     );
 };
 
-const General = ({ guild }: ExtensionProps) => {
-    const [customPrefix, setCustomPrefix] = useState<string>("");
-    const prefixRef = child(child(ref(db, `guilds`), guild?.id!), "prefix");
-    const [currentPrefix, currentPrefixLoading, currentPrefixError] =
-        useObjectVal<string>(prefixRef);
-
-    if (!guild || currentPrefixLoading || currentPrefixError)
-        return (
-            <div className="guildBodyContainer">
-                <p className="">Loading...</p>
-            </div>
-        );
-
-    const addCustomPrefix = (e: FormEvent) => {
-        e.preventDefault();
-
-        const notification = toast.loading("Adding Custom Prefix...");
-
-        if (customPrefix === "") {
-            toast.error("Please fill in the Data properly!!", {
-                ...toastDefaultOptions,
-                id: notification,
-            });
-            return;
-        }
-        set(prefixRef, customPrefix);
-
-        toast.success("Successfully Added Custom Prefix!!", {
-            ...toastDefaultOptions,
-            id: notification,
-        });
-
-        setCustomPrefix("");
-    };
-
-    return (
-        <div className="guildBodyContainer">
-            <div className="pt-[60px]" />
-            <div className="flex flex-col">
-                <form
-                    onSubmit={(e) => addCustomPrefix(e)}
-                    className="justify-center space-y-4 md:flex md:items-center md:space-y-0 md:space-x-6"
-                >
-                    <p className="text-xl">Prefix</p>
-                    <input
-                        type="text"
-                        className="guildBodyInput"
-                        placeholder={
-                            currentPrefix
-                                ? `Current Prefix: ${currentPrefix}`
-                                : "Your Custom Prefix"
-                        }
-                        value={customPrefix}
-                        onChange={(e) => setCustomPrefix(e.target.value)}
-                    />
-                    <button
-                        className="ml-[120px] mt-4 transform rounded-xl border-[4px] p-4 transition duration-100 ease-out hover:scale-125 md:mt-0 md:ml-0"
-                        type="submit"
-                    >
-                        Submit
-                    </button>
-                </form>
-            </div>
-        </div>
-    );
-};
-
 const Welcome = ({ guild }: ExtensionProps) => {
     if (!guild)
         return (
@@ -178,122 +101,6 @@ const Moderation = ({ guild }: ExtensionProps) => {
     return (
         <div className="guildBodyContainer">
             <p className="">Still in Development</p>
-        </div>
-    );
-};
-
-const Rules = ({ guild }: ExtensionProps) => {
-    const [name, setName] = useState<string>("");
-    const [description, setDescription] = useState<string>("");
-
-    const rulesRef = child(child(ref(db, `guilds`), guild?.id!), "rules");
-    const [existingRules, existingRulesLoading, existingRulesError] =
-        useObjectVal<[]>(rulesRef);
-
-    const removeRule = (
-        e: MouseEvent<SVGSVGElement, globalThis.MouseEvent>,
-        index: number
-    ) => {
-        e.preventDefault();
-
-        const notification = toast.loading("Removing Rule...");
-
-        const modifiedRules = existingRules;
-        delete modifiedRules?.[index];
-        set(rulesRef, modifiedRules);
-
-        toast.success("Rule Removed!", {
-            ...toastDefaultOptions,
-            id: notification,
-        });
-    };
-
-    if (!guild || existingRulesLoading || existingRulesError)
-        return (
-            <div className="guildBodyContainer">
-                <p className="">Loading...</p>
-            </div>
-        );
-
-    const showExistingRules = () => {
-        if (!existingRules) return <div className=""></div>;
-
-        return (
-            <div className="mt-[70px]">
-                {existingRules.map((rule: string[], i) => (
-                    <div
-                        className="flex items-center justify-between rounded-xl bg-gray-700 px-6 py-3"
-                        key={i}
-                    >
-                        <div className="space-y-2">
-                            <p className="">Name: {rule[0]}</p>
-                            <p className="">Description: {rule[1]}</p>
-                        </div>
-                        <XIcon
-                            className="h-10 w-10 cursor-pointer"
-                            onClick={(e) => removeRule(e, i)}
-                        />
-                    </div>
-                ))}
-            </div>
-        );
-    };
-
-    const addRule = (e: FormEvent) => {
-        e.preventDefault();
-
-        const notification = toast("Adding Rule...");
-
-        if (name === "" || description === "") {
-            toast.error("Please fill in the Data properly!!", {
-                ...toastDefaultOptions,
-                id: notification,
-            });
-            return;
-        }
-        const newRules = existingRules
-            ? [...existingRules, [name, description]]
-            : [[name, description]];
-        set(rulesRef, newRules);
-
-        toast.success("Rule Added!", {
-            ...toastDefaultOptions,
-            id: notification,
-        });
-
-        setName("");
-        setDescription("");
-    };
-
-    return (
-        <div className="guildBodyContainer">
-            <form
-                className="flex flex-col items-center space-y-5"
-                onSubmit={(e) => addRule(e)}
-            >
-                <input
-                    type="text"
-                    className="guildBodyInput"
-                    placeholder="Body"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                />
-                <input
-                    type="text"
-                    className="guildBodyInput"
-                    placeholder="Description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                />
-                <button
-                    className="transform rounded-lg border-[5px] border-gray-300 p-4 transition duration-100 ease-out hover:scale-125"
-                    aria-label="add-rule"
-                    type="submit"
-                >
-                    Add Rule
-                </button>
-            </form>
-            {showExistingRules()}
         </div>
     );
 };
@@ -364,129 +171,6 @@ const Reputation = ({ guild }: ExtensionProps) => {
     return (
         <div className="guildBodyContainer">
             <p className="">Still in Development</p>
-        </div>
-    );
-};
-
-const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
-    const aiChoices = [{ id: 0, name: "alexis", unavailable: false }];
-
-    const [enabled, setEnabled] = useState<boolean>(false);
-    const [selectedAI, setSelectedAI] = useState(aiChoices[0]);
-
-    const chatbotRef = child(child(ref(db, `guilds`), guild?.id!), "chatbot");
-    const [chatbotData, chatbotDataLoading, chatbotDataError] =
-        useObjectVal<[]>(chatbotRef);
-
-    useEffect(() => {
-        if (chatbotData) {
-            setEnabled(true);
-            setSelectedAI(
-                aiChoices[
-                    aiChoices.findIndex(
-                        ({ name }) => name === chatbotData[0][1]
-                    )
-                ]
-            );
-        }
-    }, [chatbotData]);
-
-    if (!guild || chatbotDataLoading || chatbotDataError)
-        return (
-            <div className="guildBodyContainer">
-                <p className="">Loading...</p>
-            </div>
-        );
-
-    const save = () => {};
-
-    const cancel = () => {};
-
-    return (
-        <div className="guildBodyContainer">
-            <Switch enabled={enabled} setEnabled={setEnabled} />
-
-            {enabled ? (
-                <>
-                    <hr className="mt-10 -mb-10 text-gray-600" />
-                    <div className="my-20 flex flex-col items-center justify-center">
-                        <div className="flex items-center space-x-5">
-                            <p className="text-xl">Select AI : </p>
-                            <div className="relative w-52">
-                                <Listbox
-                                    value={selectedAI}
-                                    onChange={setSelectedAI}
-                                >
-                                    <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
-                                        <span className="block truncate text-gray-900">
-                                            {selectedAI.name}
-                                        </span>
-                                        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                                            <ChevronDownIcon
-                                                className="h-5 w-5 text-gray-400"
-                                                aria-hidden="true"
-                                            />
-                                        </span>
-                                    </Listbox.Button>
-                                    <Transition
-                                        as={Fragment}
-                                        leave="transition ease-in duration-100"
-                                        leaveFrom="opacity-100"
-                                        leaveTo="opacity-0"
-                                    >
-                                        <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                            {aiChoices.map((ai) => (
-                                                <Listbox.Option
-                                                    key={ai.id}
-                                                    className={({ active }) =>
-                                                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                                            active
-                                                                ? "bg-amber-100 text-amber-900"
-                                                                : "text-gray-900"
-                                                        }`
-                                                    }
-                                                    value={ai}
-                                                    disabled={ai.unavailable}
-                                                >
-                                                    {({
-                                                        selected,
-                                                    }: {
-                                                        selected: boolean;
-                                                    }) => (
-                                                        <>
-                                                            <span
-                                                                className={`block truncate ${
-                                                                    selected
-                                                                        ? "font-medium"
-                                                                        : "font-normal"
-                                                                }`}
-                                                            >
-                                                                {ai.name}
-                                                            </span>
-                                                            {selected ? (
-                                                                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-                                                                    <CheckIcon
-                                                                        className="h-5 w-5"
-                                                                        aria-hidden="true"
-                                                                    />
-                                                                </span>
-                                                            ) : null}
-                                                        </>
-                                                    )}
-                                                </Listbox.Option>
-                                            ))}
-                                        </Listbox.Options>
-                                    </Transition>
-                                </Listbox>
-                            </div>
-                        </div>
-                    </div>
-                </>
-            ) : (
-                <div className="mb-10" />
-            )}
-
-            <ModifyButtons cancelFunc={cancel} saveFunc={save} disabled />
         </div>
     );
 };

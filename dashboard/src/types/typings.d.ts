@@ -105,3 +105,10 @@ export type SelectedSiderbarOptionsTitleCase =
     | "Giveaway";
 
 export type ChatbotAIChoices = "Alexis" | "Chat-GPT";
+
+interface ExtensionProps {
+    guild: Guild | null | undefined;
+    roles: Role[];
+    channels: Channel[];
+    session: Session | null | undefined;
+}
