@@ -39,4 +39,8 @@ button {
     .guildBodyInput {
         @apply w-[350px] rounded-lg border-[5px] border-gray-300 bg-bg-color p-4 outline-none sm:w-[500px];
     }
+
+    .pluginModifyButton {
+        @apply rounded-xl border-[2px] px-6 py-3 text-white transition duration-100 ease-out hover:opacity-80;
+    }
 }
