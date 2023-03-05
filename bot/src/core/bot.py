@@ -8,7 +8,7 @@ from disnake.ext import commands
 class JAKDiscordBot(commands.Bot):
     together_choices: list = discord_together.DiscordTogether.default_choices
 
-    ai_choices: list = ["alexis", "chat-gpt"]
+    ai_choices: list = ["alexis"]
 
     def __init__(self):
         firebase_admin.initialize_app(
