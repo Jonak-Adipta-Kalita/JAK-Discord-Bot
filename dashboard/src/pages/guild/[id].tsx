@@ -364,7 +364,10 @@ const Chatbot = ({ guild }: ExtensionProps) => {
 
     return (
         <div className="guildBodyContainer">
-            <p className="">Still in Development</p>
+            <div className="flex justify-center space-x-10">
+                <p className="text-2xl">Enable :</p>
+                {/* Switch */}
+            </div>
         </div>
     );
 };
