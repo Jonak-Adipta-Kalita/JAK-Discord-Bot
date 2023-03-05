@@ -35,6 +35,7 @@ import toastDefaultOptions from "../../utils/toastDefaultOptions";
 import axios from "axios";
 import { Session } from "next-auth";
 import Switch from "../../components/Switch";
+import ModifyButtons from "../../components/ModifyButtons";
 
 interface Props {
     id: string;
@@ -383,18 +384,17 @@ const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
             </div>
         );
 
+    const save = () => {};
+
+    const cancel = () => {};
+
     return (
         <div className="guildBodyContainer">
             <Switch enabled={enabled} setEnabled={setEnabled} />
 
             {enabled && <div></div>}
 
-            <div className="mt-5 flex justify-end space-x-10">
-                <button className="pluginModifyButton bg-red-500">
-                    Cancel
-                </button>
-                <button className="pluginModifyButton bg-blue-500">Save</button>
-            </div>
+            <ModifyButtons cancelFunc={cancel} saveFunc={save} />
         </div>
     );
 };
