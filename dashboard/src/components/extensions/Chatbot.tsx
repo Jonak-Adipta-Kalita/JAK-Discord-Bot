@@ -11,7 +11,7 @@ import { Channel, ExtensionProps } from "../../types/typings";
 import toastDefaultOptions from "../../utils/toastDefaultOptions";
 import ModifyButtons from "../ModifyButtons";
 import Switch from "../Switch";
-import ChannelsList from "./ChannelsList";
+import ChannelsList from "../ChannelsList";
 
 const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
     const aiChoices = [{ id: 0, name: "alexis", unavailable: false }];

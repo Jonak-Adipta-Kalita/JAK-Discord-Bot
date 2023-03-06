@@ -1,7 +1,7 @@
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/solid";
 import { Dispatch, Fragment, SetStateAction } from "react";
-import { Channel } from "../../types/typings";
+import { Channel } from "../types/typings";
 
 type Props = {
     channels: Channel[];
