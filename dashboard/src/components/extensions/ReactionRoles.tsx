@@ -22,6 +22,7 @@ const ReactionRole_ = ({
     const [selectedEmoji, setSelectedEmoji] = useState<EmojiClickData | null>(
         null
     );
+    const [selectedRole, setSelectedRole] = useState<Role>(roles[0]);
 
     const onEmojiClick = (emoji: EmojiClickData, e: MouseEvent) => {
         e.preventDefault();
@@ -31,7 +32,7 @@ const ReactionRole_ = ({
     };
 
     return (
-        <div>
+        <div className="space-y-4">
             <div className="flex items-center space-x-5">
                 <p className="text-sm md:text-xl">Emoji : </p>
                 <div className="relative">
@@ -63,7 +64,11 @@ const ReactionRole_ = ({
             </div>
             <div className="flex items-center space-x-5">
                 <p className="text-sm md:text-xl">Role : </p>
-                <RolesList roles={roles} />
+                <RolesList
+                    roles={roles}
+                    selectedRole={selectedRole}
+                    setSelectedRole={setSelectedRole}
+                />
             </div>
         </div>
     );
