@@ -39,7 +39,9 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
                 />
             </div>
             <div className="flex items-center space-x-3 md:space-x-5">
-                <p className="text-sm md:text-xl">Embed Desc... :</p>
+                <p className="text-sm md:text-xl">
+                    Embed <span className="truncate">Description</span> :
+                </p>
                 <textarea
                     value={embedDescription}
                     maxLength={1024}
