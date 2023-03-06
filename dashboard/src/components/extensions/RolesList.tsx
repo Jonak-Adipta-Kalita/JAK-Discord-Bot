@@ -15,9 +15,12 @@ const RolesList = ({ roles, selectedRole, setSelectedRole }: Props) => {
             <Listbox value={selectedRole} onChange={setSelectedRole}>
                 <Listbox.Button className="relative w-full cursor-default rounded-lg bg-[#17181e] py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                     <span
-                        className={`block truncate text-[#${selectedRole.color
-                            .toString(16)
-                            .padStart(6, "0")}]`}
+                        className="block truncate"
+                        style={{
+                            color: `#${selectedRole.color
+                                .toString(16)
+                                .padStart(6, "0")}`,
+                        }}
                     >
                         {selectedRole.name}
                     </span>
@@ -50,13 +53,16 @@ const RolesList = ({ roles, selectedRole, setSelectedRole }: Props) => {
                                 {({ selected }: { selected: boolean }) => (
                                     <>
                                         <span
-                                            className={`block truncate text-[#${role.color
-                                                .toString(16)
-                                                .padStart(6, "0")}] ${
+                                            className={`block truncate ${
                                                 selected
                                                     ? "font-medium"
                                                     : "font-normal"
                                             }`}
+                                            style={{
+                                                color: `#${role.color
+                                                    .toString(16)
+                                                    .padStart(6, "0")}`,
+                                            }}
                                         >
                                             {role.name}
                                         </span>
