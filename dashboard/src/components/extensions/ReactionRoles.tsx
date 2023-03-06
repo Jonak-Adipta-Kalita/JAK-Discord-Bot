@@ -11,7 +11,13 @@ interface ReactionRole {
     role: Role;
 }
 
-const ShowEmojiPickerButton = () => {
+const ReactionRole_ = ({
+    roles,
+    reactionRole,
+}: {
+    roles: Role[];
+    reactionRole: ReactionRole;
+}) => {
     const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
     const [selectedEmoji, setSelectedEmoji] = useState<EmojiClickData | null>(
         null
@@ -25,32 +31,40 @@ const ShowEmojiPickerButton = () => {
     };
 
     return (
-        <div className="relative">
-            {showEmojiPicker && (
-                <div className="absolute z-50">
-                    <EmojiPicker
-                        lazyLoadEmojis
-                        theme={Theme.DARK}
-                        onEmojiClick={onEmojiClick}
-                    />
+        <div>
+            <div className="flex items-center space-x-5">
+                <p className="text-sm md:text-xl">Emoji : </p>
+                <div className="relative">
+                    {showEmojiPicker && (
+                        <div className="absolute z-50">
+                            <EmojiPicker
+                                lazyLoadEmojis
+                                theme={Theme.DARK}
+                                onEmojiClick={onEmojiClick}
+                            />
+                        </div>
+                    )}
+                    {selectedEmoji ? (
+                        <p
+                            onClick={() => setShowEmojiPicker(true)}
+                            className="cursor-pointer text-2xl"
+                        >
+                            {selectedEmoji.emoji}
+                        </p>
+                    ) : (
+                        <button
+                            onClick={() => setShowEmojiPicker(true)}
+                            className="rounded-xl border-[0.8px] p-2 text-xs"
+                        >
+                            Show Emoji Picker
+                        </button>
+                    )}
                 </div>
-            )}
-            {console.log(selectedEmoji)}
-            {selectedEmoji ? (
-                <p
-                    onClick={() => setShowEmojiPicker(true)}
-                    className="cursor-pointer text-2xl"
-                >
-                    {selectedEmoji.emoji}
-                </p>
-            ) : (
-                <button
-                    onClick={() => setShowEmojiPicker(true)}
-                    className="rounded-xl border-[0.8px] p-2 text-xs"
-                >
-                    Show Emoji Picker
-                </button>
-            )}
+            </div>
+            <div className="flex items-center space-x-5">
+                <p className="text-sm md:text-xl">Role : </p>
+                <RolesList roles={roles} />
+            </div>
         </div>
     );
 };
@@ -115,16 +129,11 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
             <div className="mt-10" />
 
             {reactionRoles.map((reactionRole, i) => (
-                <div key={i}>
-                    <div className="flex items-center space-x-5">
-                        <p className="text-sm md:text-xl">Emoji : </p>
-                        <ShowEmojiPickerButton />
-                    </div>
-                    <div className="flex items-center space-x-5">
-                        <p className="text-sm md:text-xl">Role : </p>
-                        <RolesList roles={guildProps.roles} />
-                    </div>
-                </div>
+                <ReactionRole_
+                    key={i}
+                    reactionRole={reactionRole}
+                    roles={guildProps.roles}
+                />
             ))}
 
             <PlusCircleIcon
