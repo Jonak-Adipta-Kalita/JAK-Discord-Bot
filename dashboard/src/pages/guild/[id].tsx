@@ -35,6 +35,7 @@ import { Session } from "next-auth";
 import General from "../../components/extensions/General";
 import Rules from "../../components/extensions/Rules";
 import Chatbot from "../../components/extensions/Chatbot";
+import ReactionRoles from "../../components/extensions/ReactionRoles";
 
 interface Props {
     id: string;
@@ -98,20 +99,6 @@ const Moderation = ({ guild }: ExtensionProps) => {
             </div>
         );
 
-    return (
-        <div className="guildBodyContainer">
-            <p className="">Still in Development</p>
-        </div>
-    );
-};
-
-const ReactionRoles = ({ guild }: ExtensionProps) => {
-    if (!guild)
-        return (
-            <div className="guildBodyContainer">
-                <p className="">Loading...</p>
-            </div>
-        );
     return (
         <div className="guildBodyContainer">
             <p className="">Still in Development</p>
