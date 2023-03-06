@@ -2,11 +2,13 @@
 
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronDownIcon } from "@heroicons/react/solid";
-import { child, ref } from "firebase/database";
+import { child, ref, set } from "firebase/database";
 import { Fragment, useEffect, useState } from "react";
 import { useObjectVal } from "react-firebase-hooks/database";
+import { toast } from "react-hot-toast";
 import { db } from "../../firebase";
 import { Channel, ExtensionProps } from "../../types/typings";
+import toastDefaultOptions from "../../utils/toastDefaultOptions";
 import ModifyButtons from "../ModifyButtons";
 import Switch from "../Switch";
 import ChannelsList from "./ChannelsList";
@@ -44,7 +46,25 @@ const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
             </div>
         );
 
-    const save = () => {};
+    const save = () => {
+        const notification = toast.loading("Saving...", {
+            ...toastDefaultOptions,
+        });
+
+        if (enabled) {
+            set(chatbotRef, [[selectedChannel.id, selectedAI.name]]);
+            toast.success("Enabled chatbot!!", {
+                ...toastDefaultOptions,
+                id: notification,
+            });
+        } else {
+            set(chatbotRef, []);
+            toast.success("Disabled chatbot!!", {
+                ...toastDefaultOptions,
+                id: notification,
+            });
+        }
+    };
 
     const cancel = () => {};
 
@@ -142,7 +162,7 @@ const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
                 <div className="mb-10" />
             )}
 
-            <ModifyButtons cancelFunc={cancel} saveFunc={save} disabled />
+            <ModifyButtons cancelFunc={cancel} saveFunc={save} />
         </div>
     );
 };
