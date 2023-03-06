@@ -36,6 +36,13 @@ const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
                     )
                 ]
             );
+            setSelectedChannel(
+                guildProps.channels[
+                    guildProps.channels.findIndex(
+                        ({ id }) => id === chatbotData[0][0]
+                    )
+                ]
+            );
         }
     }, [chatbotData]);
 
@@ -66,7 +73,48 @@ const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
         }
     };
 
-    const cancel = () => {};
+    const checkForChange = () => {
+        if (!chatbotData && !enabled) return false;
+        if (chatbotData && enabled) {
+            if (
+                chatbotData[0][0] === selectedChannel.id &&
+                chatbotData[0][1] === selectedAI.name
+            )
+                return false;
+        }
+        return true;
+    };
+
+    const cancel = () => {
+        const notification = toast.loading("Cancelling...", {
+            ...toastDefaultOptions,
+        });
+
+        if (chatbotData) {
+            setEnabled(true);
+            setSelectedAI(
+                aiChoices[
+                    aiChoices.findIndex(
+                        ({ name }) => name === chatbotData[0][1]
+                    )
+                ]
+            );
+            setSelectedChannel(
+                guildProps.channels[
+                    guildProps.channels.findIndex(
+                        ({ id }) => id === chatbotData[0][0]
+                    )
+                ]
+            );
+        } else {
+            setEnabled(false);
+        }
+
+        toast.success("Cancelled!!", {
+            ...toastDefaultOptions,
+            id: notification,
+        });
+    };
 
     return (
         <div className="guildBodyContainer">
@@ -162,7 +210,11 @@ const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
                 <div className="mb-10" />
             )}
 
-            <ModifyButtons cancelFunc={cancel} saveFunc={save} />
+            <ModifyButtons
+                cancelFunc={cancel}
+                saveFunc={save}
+                disabled={!checkForChange()}
+            />
         </div>
     );
 };
