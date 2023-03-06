@@ -1,4 +1,5 @@
 import { PlusCircleIcon } from "@heroicons/react/solid";
+import EmojiPicker, { Theme } from "emoji-picker-react";
 import { useState } from "react";
 import { Channel, ExtensionProps, Role } from "../../types/typings";
 import ChannelsList from "./ChannelsList";
@@ -59,6 +60,8 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
                 />
             </div>
             <div className="mt-10" />
+
+            {/* <EmojiPicker lazyLoadEmojis theme={Theme.DARK} /> */}
 
             {reactionRoles.map((reactionRole, i) => (
                 <div key={i}></div>
