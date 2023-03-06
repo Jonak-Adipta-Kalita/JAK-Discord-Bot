@@ -12,7 +12,7 @@
         "check:version": "ncu"
     },
     "dependencies": {
-        "@badrap/bar-of-progress": "^0.1.2",
+        "@badrap/bar-of-progress": "^0.2.2",
         "axios": "^0.24.0",
         "emoji-picker-react": "^4.4.7",
         "firebase": "^9.6.7",
