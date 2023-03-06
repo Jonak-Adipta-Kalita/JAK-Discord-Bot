@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Guild } from "../src/types/typings";
+import { Guild } from "../types/typings";
 
 export const getGuild = async (guild_id: string) => {
     const res = await axios.get<Guild>(

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getGuild } from "../../../utils/getGuild";
+import { getGuild } from "../../utils/getGuild";
 import { Channel, Guild } from "../../types/typings";
 
 const getChannels = async (guild: Guild): Promise<Channel[]> => {

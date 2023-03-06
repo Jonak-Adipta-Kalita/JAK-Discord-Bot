@@ -1,6 +1,6 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getGuild } from "../../../utils/getGuild";
+import { getGuild } from "../../utils/getGuild";
 import { Guild, Role } from "../../types/typings";
 
 const getRoles = async (guild: Guild): Promise<Role[]> => {
