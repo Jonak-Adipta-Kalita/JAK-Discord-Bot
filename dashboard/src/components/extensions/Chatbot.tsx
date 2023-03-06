@@ -39,7 +39,7 @@ const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
             setSelectedChannel(
                 guildProps.channels[
                     guildProps.channels.findIndex(
-                        ({ id }) => id === chatbotData[0][0]
+                        ({ id }) => parseInt(id) === chatbotData[0][0]
                     )
                 ]
             );
@@ -59,7 +59,7 @@ const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
         });
 
         if (enabled) {
-            set(chatbotRef, [[selectedChannel.id, selectedAI.name]]);
+            set(chatbotRef, [[parseInt(selectedChannel.id), selectedAI.name]]);
             toast.success("Enabled chatbot!!", {
                 ...toastDefaultOptions,
                 id: notification,
@@ -74,10 +74,11 @@ const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
     };
 
     const checkForChange = () => {
+        if (!selectedChannel) return false;
         if (!chatbotData && !enabled) return false;
         if (chatbotData && enabled) {
             if (
-                chatbotData[0][0] === selectedChannel.id &&
+                chatbotData[0][0] === parseInt(selectedChannel.id) &&
                 chatbotData[0][1] === selectedAI.name
             )
                 return false;
@@ -102,7 +103,7 @@ const Chatbot = ({ guild, ...guildProps }: ExtensionProps) => {
             setSelectedChannel(
                 guildProps.channels[
                     guildProps.channels.findIndex(
-                        ({ id }) => id === chatbotData[0][0]
+                        ({ id }) => parseInt(id) === chatbotData[0][0]
                     )
                 ]
             );
