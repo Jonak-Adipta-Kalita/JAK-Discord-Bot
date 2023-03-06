@@ -1,8 +1,16 @@
+import { PlusCircleIcon } from "@heroicons/react/solid";
 import { useState } from "react";
-import { Channel, ExtensionProps } from "../../types/typings";
+import { Channel, ExtensionProps, Role } from "../../types/typings";
 import ChannelsList from "./ChannelsList";
 
+interface ReactionRole {
+    emoji: string;
+    role: Role;
+}
+
 const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
+    const reactionRoles: ReactionRole[] = [];
+
     const [selectedChannel, setSelectedChannel] = useState<Channel>(
         guildProps.channels[0]
     );
@@ -51,7 +59,20 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
                 />
             </div>
             <div className="mt-10" />
-            {/* Roles */}
+
+            {reactionRoles.map((reactionRole, i) => (
+                <div key={i}></div>
+            ))}
+
+            <PlusCircleIcon
+                className="h-16 w-16 cursor-pointer hover:opacity-60"
+                onClick={() =>
+                    reactionRoles.push({
+                        emoji: "",
+                        role: guildProps.roles[0],
+                    })
+                }
+            />
         </div>
     );
 };
