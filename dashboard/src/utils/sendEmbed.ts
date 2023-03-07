@@ -1,0 +1,20 @@
+import axios from "axios";
+
+export const sendEmbed = async (
+    guild_id: string,
+    channel_id: string,
+    embedTitle: string,
+    embedDescription: string
+) => {
+    const message = {
+        content: "",
+        embeds: [
+            {
+                title: embedTitle,
+                description: embedDescription,
+                color: 0x3498db,
+                timestamp: new Date().toISOString(),
+            },
+        ],
+    };
+};

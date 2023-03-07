@@ -10,6 +10,7 @@ import {
     ReactionRole,
     Role,
 } from "../../types/typings";
+import { sendEmbed } from "../../utils/sendEmbed";
 import toastDefaultOptions from "../../utils/toastDefaultOptions";
 import ChannelsList from "../ChannelsList";
 import ModifyButtons from "../ModifyButtons";
@@ -134,7 +135,18 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
         });
     };
 
-    const send = () => {};
+    const send = () => {
+        const notification = toast("Sending...", {
+            ...toastDefaultOptions,
+        });
+
+        sendEmbed(guild.id, selectedChannel.id, embedTitle, embedDescription);
+
+        toast.success("Sent!", {
+            ...toastDefaultOptions,
+            id: notification,
+        });
+    };
 
     const checkForDisabled = () => {
         return (
