@@ -490,6 +490,28 @@ class Misc(commands.Cog):
         except disnake.HTTPException:
             pass
 
+    @commands.Cog.listener()
+    async def on_message_delete(self, message: disnake.Message):
+        reaction_roles_data_ref = (
+            self.bot.db.child("guilds")
+            .child(str(message.guild.id))
+            .child("reactionRoles")
+        )
+
+        reaction_roles_data: list[list] = reaction_roles_data_ref.get()
+
+        if not reaction_roles_data:
+            return
+
+        for i, data in enumerate(reaction_roles_data):
+            if (
+                int(data["channel_id"]) == message.channel.id
+                and int(data["message_id"]) == message.id
+            ):
+                del reaction_roles_data[i]
+                reaction_roles_data_ref.set(reaction_roles_data)
+
+                break
 
 def setup(bot: JAKDiscordBot):
     bot.add_cog(Misc(bot))
