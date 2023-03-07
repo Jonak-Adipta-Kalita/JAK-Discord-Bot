@@ -1,3 +1,5 @@
+import { EmojiClickData } from "emoji-picker-react";
+
 export interface Command {
     id: number;
     name: string;
@@ -111,4 +113,9 @@ interface ExtensionProps {
     roles: Role[];
     channels: Channel[];
     session: Session | null | undefined;
+}
+
+interface ReactionRole {
+    emoji: EmojiClickData | null;
+    role: Role;
 }

@@ -1,81 +1,98 @@
 import { PlusCircleIcon } from "@heroicons/react/solid";
-import EmojiPicker, { Theme } from "emoji-picker-react";
-import { EmojiClickData } from "emoji-picker-react";
+import EmojiPicker, { Theme, EmojiClickData } from "emoji-picker-react";
 import { useState } from "react";
-import { Channel, ExtensionProps, Role } from "../../types/typings";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { reactionRolesState } from "../../atoms/reactionRoles";
+import {
+    Channel,
+    ExtensionProps,
+    ReactionRole,
+    Role,
+} from "../../types/typings";
 import ChannelsList from "../ChannelsList";
 import RolesList from "./RolesList";
-
-interface ReactionRole {
-    emoji: string | null;
-    role: Role;
-}
 
 const ReactionRole_ = ({
     roles,
     reactionRole,
+    id,
 }: {
     roles: Role[];
     reactionRole: ReactionRole;
+    id: number;
 }) => {
     const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
-    const [selectedEmoji, setSelectedEmoji] = useState<EmojiClickData | null>(
-        null
-    );
     const [selectedRole, setSelectedRole] = useState<Role>(roles[0]);
+    const setReactionRoles = useSetRecoilState(reactionRolesState);
 
-    const onEmojiClick = (emoji: EmojiClickData, e: MouseEvent) => {
-        e.preventDefault();
+    const onEmojiClick = (emoji: EmojiClickData) => {
+        setReactionRoles((prev) => {
+            const newReactionRoles = [...prev];
+            const index = newReactionRoles.findIndex(
+                (rr: ReactionRole) => rr.emoji === reactionRole.emoji
+            );
+            newReactionRoles[index] = {
+                emoji,
+                role: selectedRole,
+            };
+            return newReactionRoles;
+        });
 
-        setSelectedEmoji(emoji);
         setShowEmojiPicker(false);
     };
 
     return (
-        <div className="space-y-4">
-            <div className="flex items-center space-x-5">
-                <p className="text-sm md:text-xl">Emoji : </p>
-                <div className="relative">
-                    {showEmojiPicker && (
-                        <div className="absolute z-50">
-                            <EmojiPicker
-                                lazyLoadEmojis
-                                theme={Theme.DARK}
-                                onEmojiClick={onEmojiClick}
-                            />
-                        </div>
-                    )}
-                    {selectedEmoji ? (
-                        <p
-                            onClick={() => setShowEmojiPicker(true)}
-                            className="cursor-pointer text-2xl"
-                        >
-                            {selectedEmoji.emoji}
-                        </p>
-                    ) : (
-                        <button
-                            onClick={() => setShowEmojiPicker(true)}
-                            className="rounded-xl border-[0.8px] p-2 text-xs"
-                        >
-                            Show Emoji Picker
-                        </button>
-                    )}
+        <div className="flex space-x-4">
+            <p className="mt-1">
+                {"#"}
+                {id + 1}
+            </p>
+            <div className="space-y-4">
+                <div className="flex items-center space-x-5">
+                    <p className="text-sm md:text-xl">Emoji : </p>
+                    <div className="relative">
+                        {showEmojiPicker && (
+                            <div className="absolute z-50">
+                                <EmojiPicker
+                                    lazyLoadEmojis
+                                    theme={Theme.DARK}
+                                    onEmojiClick={onEmojiClick}
+                                />
+                            </div>
+                        )}
+                        {reactionRole.emoji ? (
+                            <p
+                                onClick={() => setShowEmojiPicker(true)}
+                                className="cursor-pointer text-2xl"
+                            >
+                                {reactionRole.emoji.emoji}
+                            </p>
+                        ) : (
+                            <button
+                                onClick={() => setShowEmojiPicker(true)}
+                                className="rounded-xl border-[0.8px] p-2 text-xs"
+                            >
+                                Show Emoji Picker
+                            </button>
+                        )}
+                    </div>
                 </div>
-            </div>
-            <div className="flex items-center space-x-5">
-                <p className="text-sm md:text-xl">Role : </p>
-                <RolesList
-                    roles={roles}
-                    selectedRole={selectedRole}
-                    setSelectedRole={setSelectedRole}
-                />
+                <div className="flex items-center space-x-5">
+                    <p className="text-sm md:text-xl">Role : </p>
+                    <RolesList
+                        roles={roles}
+                        selectedRole={selectedRole}
+                        setSelectedRole={setSelectedRole}
+                    />
+                </div>
             </div>
         </div>
     );
 };
 
 const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
-    const [reactionRoles, setReactionRoles] = useState<ReactionRole[]>([]);
+    const [reactionRoles, setReactionRoles] =
+        useRecoilState(reactionRolesState);
 
     const [selectedChannel, setSelectedChannel] = useState<Channel>(
         guildProps.channels[0]
@@ -133,18 +150,23 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
             </div>
             <div className="mt-10" />
 
-            {reactionRoles.map((reactionRole, i) => (
-                <ReactionRole_
-                    key={i}
-                    reactionRole={reactionRole}
-                    roles={guildProps.roles}
-                />
-            ))}
+            <div className="space-y-8">
+                {reactionRoles.map((reactionRole, i) => (
+                    <ReactionRole_
+                        key={i}
+                        reactionRole={reactionRole}
+                        roles={guildProps.roles}
+                        id={i}
+                    />
+                ))}
+            </div>
 
             <PlusCircleIcon
                 className="h-16 w-16 cursor-pointer hover:opacity-60"
                 onClick={addReactionRole}
             />
+
+            <div className="mb-5" />
         </div>
     );
 };
