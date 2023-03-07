@@ -10,6 +10,7 @@ import {
     Role,
 } from "../../types/typings";
 import ChannelsList from "../ChannelsList";
+import ModifyButtons from "../ModifyButtons";
 import RolesList from "./RolesList";
 
 const ReactionRole_ = ({
@@ -115,6 +116,19 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
         ]);
     };
 
+    const cancel = () => {};
+
+    const send = () => {};
+
+    const checkForDisabled = () => {
+        return (
+            !embedTitle ||
+            !embedDescription ||
+            reactionRoles.length === 0 ||
+            reactionRoles.some((rr) => !rr.emoji)
+        );
+    };
+
     return (
         <div className="guildBodyContainer flex flex-col items-center justify-center space-y-4">
             <div className="flex items-center space-x-5">
@@ -164,6 +178,13 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
             <PlusCircleIcon
                 className="h-16 w-16 cursor-pointer hover:opacity-60"
                 onClick={addReactionRole}
+            />
+
+            <ModifyButtons
+                cancelFunc={cancel}
+                saveFunc={send}
+                disabled={checkForDisabled()}
+                send
             />
 
             <div className="mb-5" />

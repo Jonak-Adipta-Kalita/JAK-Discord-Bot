@@ -2,9 +2,10 @@ type Props = {
     saveFunc: () => void;
     cancelFunc: () => void;
     disabled?: boolean;
+    send?: boolean;
 };
 
-const ModifyButtons = ({ saveFunc, cancelFunc, disabled }: Props) => {
+const ModifyButtons = ({ saveFunc, cancelFunc, disabled, send }: Props) => {
     return (
         <div className="mt-5 flex justify-center space-x-10">
             <button
@@ -27,7 +28,7 @@ const ModifyButtons = ({ saveFunc, cancelFunc, disabled }: Props) => {
                         : "bg-blue-500 hover:opacity-80"
                 }`}
             >
-                Save
+                {send ? "Send" : "Save"}
             </button>
         </div>
     );
