@@ -7,7 +7,6 @@ export const sendEmbed = async (
     embedDescription: string
 ) => {
     const message = {
-        content: "",
         embeds: [
             {
                 title: embedTitle,
@@ -17,4 +16,6 @@ export const sendEmbed = async (
             },
         ],
     };
+
+    await axios.post("/api/sendMessage", { message, channel_id });
 };
