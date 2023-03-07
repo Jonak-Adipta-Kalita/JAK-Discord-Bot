@@ -13,7 +13,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     await axios.post(
         `${process.env.DISCORD_API_BASE_URL}/channels/${channel_id}/messages`,
-        message
+        message,
+        {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bot ${process.env.TOKEN}`,
+            },
+        }
     );
 
     res.status(200).json({ message: "Message sent" });

@@ -33,5 +33,5 @@ export default async (
     const guild: Guild = await getGuild(guild_id as string);
     const channels = await getChannels(guild);
 
-    res.status(200).json(channels);
+    res.status(200).json(channels.filter((channel) => channel.type === 0));
 };
