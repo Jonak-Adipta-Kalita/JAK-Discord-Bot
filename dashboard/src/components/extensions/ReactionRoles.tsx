@@ -157,6 +157,11 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
             ...toastDefaultOptions,
             id: notification,
         });
+
+        setSelectedChannel(guildProps.channels[0]);
+        setReactionRoles([]);
+        setEmbedDescription("");
+        setEmbedTitle("");
     };
 
     const checkForDisabled = () => {
