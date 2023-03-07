@@ -12,7 +12,6 @@ export const sendEmbed = async (
                 title: embedTitle,
                 description: embedDescription,
                 color: 0x3498db,
-                timestamp: new Date().toISOString(),
             },
         ],
     };

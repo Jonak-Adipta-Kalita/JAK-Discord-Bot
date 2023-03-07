@@ -166,7 +166,7 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
             reactionRoles,
         });
 
-        const modifiedData = reactionRoles.map((reactionRole) => ({
+        const reactionRoleData = reactionRoles.map((reactionRole) => ({
             ...reactionRole,
             emoji: {
                 activeSkinTone: reactionRole.emoji!.activeSkinTone,
@@ -176,10 +176,13 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
                 unifiedWithoutSkinTone:
                     reactionRole.emoji!.unifiedWithoutSkinTone,
             },
+        }));
+
+        const modifiedData = {
             channel_id: selectedChannel.id,
             message_id: msg.id,
-            embed: msg.embeds[0],
-        }));
+            reactionRoles: reactionRoleData,
+        };
 
         const newData = reactionRolesData
             ? [...reactionRolesData, modifiedData]
@@ -208,66 +211,75 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
     };
 
     return (
-        <div className="guildBodyContainer flex flex-col items-center justify-center space-y-4">
-            <div className="flex items-center space-x-5">
-                <p className="text-sm md:text-xl">Select channel :</p>
-                <ChannelsList
-                    channels={guildProps.channels}
-                    selectedChannel={selectedChannel}
-                    setSelectedChannel={setSelectedChannel}
-                />
-            </div>
-            <div className="flex items-center space-x-5">
-                <p className="text-sm md:text-xl">Embed Title :</p>
-                <input
-                    type="text"
-                    value={embedTitle}
-                    maxLength={256}
-                    onChange={(e) => setEmbedTitle(e.target.value)}
-                    placeholder="Your Embed Title"
-                    className="rounded-lg bg-[#17181e] py-2 px-4 text-xs text-gray-100 outline-none md:text-base"
-                />
-            </div>
-            <div className="flex items-center space-x-3 md:space-x-5">
-                <p className="text-sm md:text-xl">
-                    Embed <span className="truncate">Description</span> :
-                </p>
-                <textarea
-                    value={embedDescription}
-                    maxLength={1024}
-                    onChange={(e) => setEmbedDescription(e.target.value)}
-                    placeholder="Embed Description"
-                    className="w-[200px] rounded-lg bg-[#17181e] py-2 px-4 text-xs text-gray-100 outline-none md:w-[350px] md:text-base"
-                />
-            </div>
-            <div className="mt-10" />
+        <div className="guildBodyContainer">
+            {!reactionRolesData ? (
+                <div className="flex flex-col items-center justify-center space-y-4">
+                    <div className="flex items-center space-x-5">
+                        <p className="text-sm md:text-xl">Select channel :</p>
+                        <ChannelsList
+                            channels={guildProps.channels}
+                            selectedChannel={selectedChannel}
+                            setSelectedChannel={setSelectedChannel}
+                        />
+                    </div>
+                    <div className="flex items-center space-x-5">
+                        <p className="text-sm md:text-xl">Embed Title :</p>
+                        <input
+                            type="text"
+                            value={embedTitle}
+                            maxLength={256}
+                            onChange={(e) => setEmbedTitle(e.target.value)}
+                            placeholder="Your Embed Title"
+                            className="rounded-lg bg-[#17181e] py-2 px-4 text-xs text-gray-100 outline-none md:text-base"
+                        />
+                    </div>
+                    <div className="flex items-center space-x-3 md:space-x-5">
+                        <p className="text-sm md:text-xl">
+                            Embed <span className="truncate">Description</span>{" "}
+                            :
+                        </p>
+                        <textarea
+                            value={embedDescription}
+                            maxLength={1024}
+                            onChange={(e) =>
+                                setEmbedDescription(e.target.value)
+                            }
+                            placeholder="Embed Description"
+                            className="w-[200px] rounded-lg bg-[#17181e] py-2 px-4 text-xs text-gray-100 outline-none md:w-[350px] md:text-base"
+                        />
+                    </div>
+                    <div className="mt-10" />
 
-            <div className="space-y-8">
-                {reactionRoles.map((reactionRole, i) => (
-                    <ReactionRole_
-                        key={i}
-                        reactionRole={reactionRole}
-                        roles={guildProps.roles}
-                        id={i}
+                    <div className="space-y-8">
+                        {reactionRoles.map((reactionRole, i) => (
+                            <ReactionRole_
+                                key={i}
+                                reactionRole={reactionRole}
+                                roles={guildProps.roles}
+                                id={i}
+                            />
+                        ))}
+                    </div>
+
+                    <PlusCircleIcon
+                        className="h-16 w-16 cursor-pointer hover:opacity-60"
+                        onClick={addReactionRole}
                     />
-                ))}
-            </div>
 
-            <PlusCircleIcon
-                className="h-16 w-16 cursor-pointer hover:opacity-60"
-                onClick={addReactionRole}
-            />
+                    <div className="mb-5" />
 
-            <div className="mb-5" />
+                    <ModifyButtons
+                        cancelFunc={cancel}
+                        saveFunc={send}
+                        disabled={checkForDisabled()}
+                        send
+                    />
 
-            <ModifyButtons
-                cancelFunc={cancel}
-                saveFunc={send}
-                disabled={checkForDisabled()}
-                send
-            />
-
-            <div className="mb-5" />
+                    <div className="mb-5" />
+                </div>
+            ) : (
+                <div></div>
+            )}
         </div>
     );
 };
