@@ -135,12 +135,16 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
         });
     };
 
-    const send = () => {
+    const send = async () => {
         const notification = toast("Sending...", {
             ...toastDefaultOptions,
         });
 
-        sendEmbed(guild.id, selectedChannel.id, embedTitle, embedDescription);
+        const msg = await sendEmbed(
+            selectedChannel.id,
+            embedTitle,
+            embedDescription
+        );
 
         toast.success("Sent!", {
             ...toastDefaultOptions,

@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const sendEmbed = async (
-    guild_id: string,
     channel_id: string,
     embedTitle: string,
     embedDescription: string
@@ -17,5 +16,17 @@ export const sendEmbed = async (
         ],
     };
 
-    await axios.post("/api/sendMessage", { message, channel_id });
+    const sent_message = await (
+        await axios.post(
+            "/api/sendMessage",
+            { message, channel_id },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        )
+    ).data;
+
+    return sent_message;
 };

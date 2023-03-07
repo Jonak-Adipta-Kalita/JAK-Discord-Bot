@@ -11,7 +11,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { message, channel_id } = req.body;
 
-    await axios.post(
+    const sent_message = await axios.post(
         `${process.env.DISCORD_API_BASE_URL}/channels/${channel_id}/messages`,
         message,
         {
@@ -22,5 +22,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
     );
 
-    res.status(200).json({ message: "Message sent" });
+    res.status(200).json(sent_message.data);
 };
