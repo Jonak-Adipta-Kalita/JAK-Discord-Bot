@@ -10,27 +10,42 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             .json({ error: `Method ${req.method} now allowed` });
     }
 
-    const { message_id, channel_id, reactionRoles } = req.body;
+    const {
+        message_id,
+        channel_id,
+        reactionRoles,
+    }: {
+        message_id: string;
+        channel_id: string;
+        reactionRoles: ReactionRole[];
+    } = req.body;
 
-    reactionRoles.map(async (reactionRole: ReactionRole) => {
-        await axios.put(
-            encodeURI(
-                `${
-                    process.env.DISCORD_API_BASE_URL
-                }/channels/${channel_id}/messages/${message_id}/reactions/${
-                    reactionRole.emoji!.emoji
-                }/@me`
-            ),
-            {},
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bot ${process.env.TOKEN}`,
-                },
-            }
-        );
-        await new Promise((resolve) => {
-            setTimeout(resolve, 3000);
-        });
-    });
+    const delay = (ms: number) =>
+        new Promise((resolve) => setTimeout(resolve, ms));
+
+    async function sendRequests() {
+        for (let i = 0; i < reactionRoles.length; i++) {
+            await delay(3000);
+            await axios.put(
+                encodeURI(
+                    `${
+                        process.env.DISCORD_API_BASE_URL
+                    }/channels/${channel_id}/messages/${message_id}/reactions/${
+                        reactionRoles[i].emoji!.emoji
+                    }/@me`
+                ),
+                {},
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bot ${process.env.TOKEN}`,
+                    },
+                }
+            );
+        }
+    }
+
+    sendRequests();
+
+    res.status(200).json({ message: "Reacted!!" });
 };

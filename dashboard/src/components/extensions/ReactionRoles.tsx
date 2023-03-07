@@ -147,8 +147,6 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
             embedDescription
         );
 
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
         await axios.post("/api/reactToMessage", {
             message_id: msg.id,
             channel_id: selectedChannel.id,
