@@ -1,6 +1,7 @@
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import EmojiPicker, { Theme, EmojiClickData } from "emoji-picker-react";
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { reactionRolesState } from "../../atoms/reactionRoles";
 import {
@@ -9,6 +10,7 @@ import {
     ReactionRole,
     Role,
 } from "../../types/typings";
+import toastDefaultOptions from "../../utils/toastDefaultOptions";
 import ChannelsList from "../ChannelsList";
 import ModifyButtons from "../ModifyButtons";
 import RolesList from "./RolesList";
@@ -116,7 +118,21 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
         ]);
     };
 
-    const cancel = () => {};
+    const cancel = () => {
+        const notification = toast("Cancelling...", {
+            ...toastDefaultOptions,
+        });
+
+        setSelectedChannel(guildProps.channels[0]);
+        setReactionRoles([]);
+        setEmbedDescription("");
+        setEmbedTitle("");
+
+        toast.success("Cancelled!", {
+            ...toastDefaultOptions,
+            id: notification,
+        });
+    };
 
     const send = () => {};
 
@@ -179,6 +195,8 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
                 className="h-16 w-16 cursor-pointer hover:opacity-60"
                 onClick={addReactionRole}
             />
+
+            <div className="mb-5" />
 
             <ModifyButtons
                 cancelFunc={cancel}
