@@ -95,17 +95,17 @@ export interface Message {
         public_flags: number;
         bot: booleann;
     };
-    attachments: [];
-    embeds: [];
-    mentions: [];
-    mention_roles: [];
+    attachments: Array;
+    embeds: Array;
+    mentions: Array;
+    mention_roles: Array;
     pinned: boolean;
     mention_everyone: boolean;
     tts: boolean;
     timestamp: string;
     edited_timestamp: any;
     flags: number;
-    components: [];
+    components: Array;
     referenced_message: any;
 }
 

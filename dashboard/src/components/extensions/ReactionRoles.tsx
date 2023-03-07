@@ -1,10 +1,13 @@
 import { PlusCircleIcon } from "@heroicons/react/solid";
 import axios from "axios";
 import EmojiPicker, { Theme, EmojiClickData } from "emoji-picker-react";
+import { child, ref, set } from "firebase/database";
 import { useState } from "react";
+import { useObjectVal } from "react-firebase-hooks/database";
 import { toast } from "react-hot-toast";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { reactionRolesState } from "../../atoms/reactionRoles";
+import { db } from "../../firebase";
 import {
     Channel,
     ExtensionProps,
@@ -103,10 +106,20 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
         guildProps.channels[0]
     );
 
+    const reactionRolesRef = child(
+        child(ref(db, `guilds`), guild?.id!),
+        "reactionRoles"
+    );
+    const [
+        reactionRolesData,
+        reactionRolesDataLoading,
+        reactionRolesDataError,
+    ] = useObjectVal<[]>(reactionRolesRef);
+
     const [embedTitle, setEmbedTitle] = useState<string>("");
     const [embedDescription, setEmbedDescription] = useState<string>("");
 
-    if (!guild)
+    if (!guild || reactionRolesDataLoading || reactionRolesDataError)
         return (
             <div className="guildBodyContainer">
                 <p className="">Loading...</p>
@@ -152,6 +165,27 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
             channel_id: selectedChannel.id,
             reactionRoles,
         });
+
+        const modifiedData = reactionRoles.map((reactionRole) => ({
+            ...reactionRole,
+            emoji: {
+                activeSkinTone: reactionRole.emoji!.activeSkinTone,
+                emoji: reactionRole.emoji!.emoji,
+                names: reactionRole.emoji!.names,
+                unified: reactionRole.emoji!.unified,
+                unifiedWithoutSkinTone:
+                    reactionRole.emoji!.unifiedWithoutSkinTone,
+            },
+            channel_id: selectedChannel.id,
+            message_id: msg.id,
+            embed: msg.embeds[0],
+        }));
+
+        const newData = reactionRolesData
+            ? [...reactionRolesData, modifiedData]
+            : [modifiedData];
+
+        set(reactionRolesRef, newData);
 
         toast.success("Sent!", {
             ...toastDefaultOptions,
