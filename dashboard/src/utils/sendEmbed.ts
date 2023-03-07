@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Message } from "../types/typings";
 
 export const sendEmbed = async (
     channel_id: string,
@@ -16,8 +17,8 @@ export const sendEmbed = async (
         ],
     };
 
-    const sent_message = await (
-        await axios.post(
+    const sent_message = (
+        await axios.post<Message>(
             "/api/sendMessage",
             { message, channel_id },
             {

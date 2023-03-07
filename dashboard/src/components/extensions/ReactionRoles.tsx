@@ -1,4 +1,5 @@
 import { PlusCircleIcon } from "@heroicons/react/solid";
+import axios from "axios";
 import EmojiPicker, { Theme, EmojiClickData } from "emoji-picker-react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -145,6 +146,14 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
             embedTitle,
             embedDescription
         );
+
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        await axios.post("/api/reactToMessage", {
+            message_id: msg.id,
+            channel_id: selectedChannel.id,
+            reactionRoles,
+        });
 
         toast.success("Sent!", {
             ...toastDefaultOptions,

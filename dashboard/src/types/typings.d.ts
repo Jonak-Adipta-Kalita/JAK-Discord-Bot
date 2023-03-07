@@ -80,6 +80,35 @@ export interface Channel {
     member_count: string;
 }
 
+export interface Message {
+    id: string;
+    type: number;
+    content: string;
+    channel_id: string;
+    author: {
+        id: string;
+        username: string;
+        display_name: string | null;
+        avatar: string | null;
+        avatar_decoration: string | null;
+        discriminator: string;
+        public_flags: number;
+        bot: booleann;
+    };
+    attachments: [];
+    embeds: [];
+    mentions: [];
+    mention_roles: [];
+    pinned: boolean;
+    mention_everyone: boolean;
+    tts: boolean;
+    timestamp: string;
+    edited_timestamp: any;
+    flags: number;
+    components: [];
+    referenced_message: any;
+}
+
 export type SelectedSiderbarOptions =
     | "general"
     | "welcome"
