@@ -2,10 +2,10 @@ import { PlusCircleIcon } from "@heroicons/react/solid";
 import axios from "axios";
 import EmojiPicker, { Theme, EmojiClickData } from "emoji-picker-react";
 import { child, ref, set } from "firebase/database";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useObjectVal } from "react-firebase-hooks/database";
 import { toast } from "react-hot-toast";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { reactionRolesState } from "../../atoms/reactionRoles";
 import { db } from "../../firebase";
 import {
@@ -30,8 +30,9 @@ const ReactionRole_ = ({
     id: number;
 }) => {
     const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
+    const [reactionRoles, setReactionRoles] =
+        useRecoilState(reactionRolesState);
     const [selectedRole, setSelectedRole] = useState<Role>(roles[0]);
-    const setReactionRoles = useSetRecoilState(reactionRolesState);
 
     const onEmojiClick = (emoji: EmojiClickData) => {
         setReactionRoles((prev) => {
@@ -48,6 +49,12 @@ const ReactionRole_ = ({
 
         setShowEmojiPicker(false);
     };
+
+    useEffect(() => {
+        if (Array(reactionRoles.keys()).length === 0) return;
+
+        setSelectedRole(reactionRoles[id].role);
+    }, []);
 
     return (
         <div className="flex space-x-4">
