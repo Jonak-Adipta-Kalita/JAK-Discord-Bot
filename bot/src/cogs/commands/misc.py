@@ -548,6 +548,77 @@ class Misc(commands.Cog):
         except KeyError:
             pass
 
+    @commands.Cog.listener()
+    async def on_raw_reaction_add(self, payload: disnake.RawReactionActionEvent):
+        user = await self.bot.fetch_user(payload.user_id)
+        reaction = payload.emoji
+        channel = await self.bot.fetch_channel(payload.channel_id)
+        message = await channel.fetch_message(payload.message_id)
+        guild = message.guild
+        member = guild.get_member(user.id)
+
+        if user == self.bot.user:
+            return
+
+        reaction_roles_data: list[list] = (
+            self.bot.db.child("guilds")
+            .child(str(message.guild.id))
+            .child("reactionRoles")
+            .get()
+        )
+
+        if not reaction_roles_data:
+            return
+
+        try:
+            for data in reaction_roles_data:
+                if (
+                    int(data["channel_id"]) == channel.id
+                    and int(data["message_id"]) == message.id
+                ):
+                    for reaction_role in data["reactionRoles"]:
+                        if str(reaction) == reaction_role["emoji"]["emoji"]:
+                            role = guild.get_role(int(reaction_role["role"]["id"]))
+                            await member.add_roles(role)
+        except KeyError:
+            pass
+
+    @commands.Cog.listener()
+    async def on_raw_reaction_remove(self, payload: disnake.RawReactionActionEvent):
+        user = await self.bot.fetch_user(payload.user_id)
+        reaction = payload.emoji
+        channel = await self.bot.fetch_channel(payload.channel_id)
+        message = await channel.fetch_message(payload.message_id)
+        guild = message.guild
+        member = guild.get_member(user.id)
+
+        if user == self.bot.user:
+            return
+
+        reaction_roles_data: list[list] = (
+            self.bot.db.child("guilds")
+            .child(str(message.guild.id))
+            .child("reactionRoles")
+            .get()
+        )
+
+        if not reaction_roles_data:
+            return
+
+        try:
+            for data in reaction_roles_data:
+                if (
+                    int(data["channel_id"]) == channel.id
+                    and int(data["message_id"]) == message.id
+                ):
+                    for reaction_role in data["reactionRoles"]:
+                        if str(reaction) == reaction_role["emoji"]["emoji"]:
+                            role = guild.get_role(int(reaction_role["role"]["id"]))
+                            if member.get_role(role.id):
+                                await member.remove_roles(role)
+        except KeyError:
+            pass
+
 
 def setup(bot: JAKDiscordBot):
     bot.add_cog(Misc(bot))
