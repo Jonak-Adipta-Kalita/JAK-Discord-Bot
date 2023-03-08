@@ -318,7 +318,7 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
                 </div>
             ) : (
                 <div className="space-y-4">
-                    <div className="">
+                    <div className="space-y-4">
                         {reactionRolesData.map((reactionRole: any, i) => (
                             <div
                                 className="rounded-xl border-[0.2px] p-4"
