@@ -33,20 +33,12 @@ const ReactionRole_ = ({
     const [reactionRoles, setReactionRoles] =
         useRecoilState(reactionRolesState);
     const [selectedRole, setSelectedRole] = useState<Role>(roles[0]);
+    const [selectedEmoji, setSelectedEmoji] = useState<EmojiClickData | null>(
+        null
+    );
 
     const onEmojiClick = (emoji: EmojiClickData) => {
-        setReactionRoles((prev) => {
-            const newReactionRoles = [...prev];
-            const index = newReactionRoles.findIndex(
-                (rr: ReactionRole) => rr.emoji === reactionRole.emoji
-            );
-            newReactionRoles[index] = {
-                emoji,
-                role: selectedRole,
-            };
-            return newReactionRoles;
-        });
-
+        setSelectedEmoji(emoji);
         setShowEmojiPicker(false);
     };
 
@@ -54,7 +46,22 @@ const ReactionRole_ = ({
         if (Array(reactionRoles.keys()).length === 0) return;
 
         setSelectedRole(reactionRoles[id].role);
+        setSelectedEmoji(reactionRoles[id].emoji);
     }, []);
+
+    useEffect(() => {
+        setReactionRoles((prev) => {
+            const newReactionRoles = [...prev];
+            const index = newReactionRoles.findIndex(
+                (rr: ReactionRole) => rr.emoji === reactionRole.emoji
+            );
+            newReactionRoles[index] = {
+                emoji: selectedEmoji,
+                role: selectedRole,
+            };
+            return newReactionRoles;
+        });
+    }, [selectedRole, selectedEmoji]);
 
     return (
         <div className="flex space-x-4">
