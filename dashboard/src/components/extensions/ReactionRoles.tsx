@@ -1,4 +1,4 @@
-import { PlusCircleIcon } from "@heroicons/react/solid";
+import { BackspaceIcon, PlusCircleIcon } from "@heroicons/react/solid";
 import axios from "axios";
 import EmojiPicker, { Theme, EmojiClickData } from "emoji-picker-react";
 import { child, ref, set } from "firebase/database";
@@ -120,6 +120,8 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
         guildProps.channels[0]
     );
 
+    const [addMore, setAddMore] = useState<boolean>(false);
+
     const reactionRolesRef = child(
         child(ref(db, `guilds`), guild?.id!),
         "reactionRoles"
@@ -226,8 +228,14 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
 
     return (
         <div className="guildBodyContainer">
-            {!reactionRolesData ? (
-                <div className="flex flex-col items-center justify-center space-y-4">
+            {!reactionRolesData || addMore ? (
+                <div className="relative flex flex-col items-center justify-center space-y-4">
+                    {addMore && (
+                        <BackspaceIcon
+                            className="absolute top-0 left-0 h-16 w-16 cursor-pointer hover:opacity-60"
+                            onClick={() => setAddMore(false)}
+                        />
+                    )}
                     <div className="flex items-center space-x-5">
                         <p className="text-sm md:text-xl">Select channel :</p>
                         <ChannelsList
@@ -292,7 +300,17 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
                     <div className="mb-5" />
                 </div>
             ) : (
-                <div></div>
+                <div className="flex flex-col items-center">
+                    <div className="">
+                        {reactionRoles.map((reactionRole, i) => (
+                            <div className="" key={i}></div>
+                        ))}
+                    </div>
+                    <PlusCircleIcon
+                        className="h-16 w-16 cursor-pointer hover:opacity-60"
+                        onClick={() => setAddMore(true)}
+                    />
+                </div>
             )}
         </div>
     );
