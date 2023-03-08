@@ -1,5 +1,6 @@
 import {
     BackspaceIcon,
+    PencilIcon,
     PlusCircleIcon,
     XCircleIcon,
 } from "@heroicons/react/solid";
@@ -229,6 +230,7 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
         setReactionRoles([]);
         setEmbedDescription("");
         setEmbedTitle("");
+        setAddMore(false);
     };
 
     const checkForDisabled = () => {
@@ -315,16 +317,66 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
                     <div className="mb-5" />
                 </div>
             ) : (
-                <div className="flex flex-col items-center">
+                <div className="space-y-4">
                     <div className="">
-                        {reactionRoles.map((reactionRole, i) => (
-                            <div className="" key={i}></div>
+                        {reactionRolesData.map((reactionRole: any, i) => (
+                            <div
+                                className="rounded-xl border-[0.2px] p-4"
+                                key={i}
+                            >
+                                <div className="flex justify-between text-xs md:text-base">
+                                    <div className="space-y-3 text-center">
+                                        <p className="font-bold">Channel</p>
+                                        <p className="text-gray-300/75">
+                                            {
+                                                guildProps.channels.filter(
+                                                    (channel) =>
+                                                        channel.id ===
+                                                        reactionRole[
+                                                            "channel_id"
+                                                        ]
+                                                )[0].name
+                                            }
+                                        </p>
+                                    </div>
+                                    <div className="space-y-3 text-center">
+                                        <p className="font-bold">Roles</p>
+                                        <div className="flex flex-row space-x-2">
+                                            {reactionRole.reactionRoles.map(
+                                                (rr: any, i: number) => (
+                                                    <p
+                                                        className="text-gray-300/75"
+                                                        key={rr.role.id}
+                                                    >
+                                                        {rr.role.name}
+                                                        {i + 1 !==
+                                                            reactionRole
+                                                                .reactionRoles
+                                                                .length && ","}
+                                                    </p>
+                                                )
+                                            )}
+                                        </div>
+                                    </div>
+                                    <div className="space-y-3 text-center">
+                                        <p className="font-bold">Action</p>
+                                        <div className="flex items-center justify-center">
+                                            <PencilIcon
+                                                className="h-5 cursor-pointer self-center hover:opacity-70"
+                                                onClick={() => {}}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         ))}
                     </div>
-                    <PlusCircleIcon
-                        className="h-16 w-16 cursor-pointer hover:opacity-60"
-                        onClick={() => setAddMore(true)}
-                    />
+                    <div className="flex items-center justify-center">
+                        <PlusCircleIcon
+                            className="h-16 w-16 cursor-pointer hover:opacity-60"
+                            onClick={() => setAddMore(true)}
+                        />
+                    </div>
                 </div>
             )}
         </div>
