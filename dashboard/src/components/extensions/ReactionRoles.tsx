@@ -300,10 +300,12 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
                             ))}
                     </div>
 
-                    <PlusCircleIcon
-                        className="h-16 w-16 cursor-pointer hover:opacity-60"
-                        onClick={addReactionRole}
-                    />
+                    {reactionRoles.length < 3 && (
+                        <PlusCircleIcon
+                            className="h-16 w-16 cursor-pointer hover:opacity-60"
+                            onClick={addReactionRole}
+                        />
+                    )}
 
                     <div className="mb-5" />
 
