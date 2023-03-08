@@ -75,7 +75,7 @@ const ReactionRole_ = ({
                 onClick={() => {
                     setReactionRoles((prev) => {
                         const newReactionRoles = [...prev];
-                        delete newReactionRoles[id];
+                        newReactionRoles.splice(id, 1);
                         return newReactionRoles;
                     });
                 }}
