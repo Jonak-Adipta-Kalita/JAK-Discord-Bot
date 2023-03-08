@@ -5,12 +5,26 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Current File",
+            "command": "npm run dev",
+            "name": "Dashboard",
+            "request": "launch",
+            "type": "node-terminal",
+            "cwd": "${workspaceFolder}/dashboard"
+        },
+
+        {
+            "name": "Bot",
             "type": "python",
             "request": "launch",
             "program": "main.py",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/bot"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Dashboard + Bot",
+            "configurations": ["Dashboard", "Bot"]
         }
     ]
 }
