@@ -1,4 +1,8 @@
-import { BackspaceIcon, PlusCircleIcon } from "@heroicons/react/solid";
+import {
+    BackspaceIcon,
+    PlusCircleIcon,
+    XCircleIcon,
+} from "@heroicons/react/solid";
 import axios from "axios";
 import EmojiPicker, { Theme, EmojiClickData } from "emoji-picker-react";
 import { child, ref, set } from "firebase/database";
@@ -65,6 +69,16 @@ const ReactionRole_ = ({
 
     return (
         <div className="flex space-x-4">
+            <XCircleIcon
+                className="mt-1 h-7 w-7 cursor-pointer hover:opacity-60"
+                onClick={() => {
+                    setReactionRoles((prev) => {
+                        const newReactionRoles = [...prev];
+                        delete newReactionRoles[id];
+                        return newReactionRoles;
+                    });
+                }}
+            />
             <p className="mt-1">
                 {"#"}
                 {id + 1}
@@ -232,7 +246,7 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
                 <div className="relative flex flex-col items-center justify-center space-y-4">
                     {addMore && (
                         <BackspaceIcon
-                            className="absolute top-0 left-0 h-16 w-16 cursor-pointer hover:opacity-60"
+                            className="absolute -top-5 left-10 h-12 cursor-pointer hover:opacity-60 md:top-0 md:left-0 md:h-16"
                             onClick={() => setAddMore(false)}
                         />
                     )}
@@ -273,14 +287,15 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
                     <div className="mt-10" />
 
                     <div className="space-y-8">
-                        {reactionRoles.map((reactionRole, i) => (
-                            <ReactionRole_
-                                key={i}
-                                reactionRole={reactionRole}
-                                roles={guildProps.roles}
-                                id={i}
-                            />
-                        ))}
+                        {reactionRoles.length > 0 &&
+                            reactionRoles.map((reactionRole, i) => (
+                                <ReactionRole_
+                                    key={i}
+                                    reactionRole={reactionRole}
+                                    roles={guildProps.roles}
+                                    id={i}
+                                />
+                            ))}
                     </div>
 
                     <PlusCircleIcon
