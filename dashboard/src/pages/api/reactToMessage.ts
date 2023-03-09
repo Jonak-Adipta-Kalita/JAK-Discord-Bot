@@ -25,8 +25,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     async function sendRequests() {
         for (let i = 0; i < reactionRoles.length; i++) {
-            await delay(3000);
-            console.log(i);
+            await delay(1000);
             await axios.put(
                 encodeURI(
                     `${
