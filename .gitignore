@@ -157,3 +157,4 @@ dashboard/public/sw.*
 dashboard/public/workbox-*
 
 bot/snippets
+.vercel
