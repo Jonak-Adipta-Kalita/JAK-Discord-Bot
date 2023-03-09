@@ -36,6 +36,7 @@ import General from "../../components/extensions/General";
 import Rules from "../../components/extensions/Rules";
 import Chatbot from "../../components/extensions/Chatbot";
 import ReactionRoles from "../../components/extensions/ReactionRoles";
+import TranslationAndPronunciation from "../../components/extensions/TranslationAndPronunciation";
 
 interface Props {
     id: string;
@@ -99,20 +100,6 @@ const Moderation = ({ guild }: ExtensionProps) => {
             </div>
         );
 
-    return (
-        <div className="guildBodyContainer">
-            <p className="">Still in Development</p>
-        </div>
-    );
-};
-
-const TranslationAndPronunciation = ({ guild }: ExtensionProps) => {
-    if (!guild)
-        return (
-            <div className="guildBodyContainer">
-                <p className="">Loading...</p>
-            </div>
-        );
     return (
         <div className="guildBodyContainer">
             <p className="">Still in Development</p>
