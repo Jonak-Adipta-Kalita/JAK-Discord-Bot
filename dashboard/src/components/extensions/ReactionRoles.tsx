@@ -1,6 +1,5 @@
 import {
     BackspaceIcon,
-    PencilIcon,
     PlusCircleIcon,
     XCircleIcon,
 } from "@heroicons/react/solid";
@@ -242,6 +241,23 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
         );
     };
 
+    const removeReactionRoleFromDB = async (id: number) => {
+        const notification = toast("Removing...", {
+            ...toastDefaultOptions,
+        });
+
+        reactionRolesData!.splice(id, 1);
+        set(reactionRolesRef, reactionRolesData);
+
+        toast.success(
+            "Removed!! You can now delete the message from your discord server",
+            {
+                ...toastDefaultOptions,
+                id: notification,
+            }
+        );
+    };
+
     return (
         <div className="guildBodyContainer">
             {!reactionRolesData || addMore ? (
@@ -363,9 +379,11 @@ const ReactionRoles = ({ guild, ...guildProps }: ExtensionProps) => {
                                     <div className="space-y-3 text-center">
                                         <p className="font-bold">Action</p>
                                         <div className="flex items-center justify-center">
-                                            <PencilIcon
+                                            <XCircleIcon
                                                 className="h-5 cursor-pointer self-center hover:opacity-70"
-                                                onClick={() => {}}
+                                                onClick={() =>
+                                                    removeReactionRoleFromDB(i)
+                                                }
                                             />
                                         </div>
                                     </div>
