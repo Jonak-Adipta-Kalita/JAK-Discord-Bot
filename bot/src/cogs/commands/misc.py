@@ -414,7 +414,7 @@ class Misc(commands.Cog):
                                 translated_text=translation.text,
                                 language_name=language_name,
                                 language_iso=translation.src,
-                                author=member
+                                author=member,
                             )
                         )
                         return
@@ -433,15 +433,15 @@ class Misc(commands.Cog):
                             "reaction_add", check=translation_check, timeout=60.0
                         )
                         await channel.send(
-                                embed=embeds.translation_embed(
-                                    text=msg,
-                                    translated_text=translation.text,
-                                    language_name=language_name,
-                                    language_iso=translation.src,
-                                    author=member,
-                                    author_reacted=author_reacted_translation,
-                                )
+                            embed=embeds.translation_embed(
+                                text=msg,
+                                translated_text=translation.text,
+                                language_name=language_name,
+                                language_iso=translation.src,
+                                author=member,
+                                author_reacted=author_reacted_translation,
                             )
+                        )
                     except asyncio.TimeoutError:
                         pass
 
@@ -451,11 +451,11 @@ class Misc(commands.Cog):
                         embed=embeds.pronunciation_embed(
                             text=msg,
                             pronunciation=funcs.pronunciation(msg),
-                            author=member
+                            author=member,
                         )
                     )
                     return
-                
+
                 def pronunciation_check(reaction, user):
                     global author_reacted_pronunciation
                     author_reacted_pronunciation = user
