@@ -21,7 +21,6 @@ import {
     StarIcon,
     TranslateIcon,
     SparklesIcon,
-    ClipboardListIcon,
 } from "@heroicons/react/outline";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { selectedSidebarOptionState } from "../../atoms/dashboard";
@@ -254,10 +253,6 @@ const Guild = ({ id, ...guildProps }: Props) => {
                                         <SidebarOption
                                             name="Translation and Pronunciation"
                                             Icon={TranslateIcon}
-                                        />
-                                        <SidebarOption
-                                            name="Poll"
-                                            Icon={ClipboardListIcon}
                                         />
                                     </div>
                                 </div>
