@@ -374,6 +374,19 @@ class Misc(commands.Cog):
             .get()
         )
 
+        transaltionData = (
+            self.bot.db.child("guilds")
+            .child(str(message.guild.id))
+            .child("translation")
+            .get()
+        )
+        pronunciationData = (
+            self.bot.db.child("guilds")
+            .child(str(message.guild.id))
+            .child("pronunciation")
+            .get()
+        )
+
         if guild_prefix:
             prefixes = self.bot.prefixes + [guild_prefix]
         else:
@@ -391,37 +404,58 @@ class Misc(commands.Cog):
                 language_name = ""
                 languages_dict = googletrans.LANGUAGES
 
-                def translation_check(reaction, user):
-                    global author_reacted_translation
-                    author_reacted_translation = user
-                    return (
-                        str(reaction.emoji) == emojis.abc
-                        and reaction.message == message
-                        and not user.bot
-                    )
-
                 if translation.src in languages_dict:
                     language_name = languages_dict[translation.src].title()
 
-                    try:
-                        await self.bot.wait_for(
-                            "reaction_add", check=translation_check, timeout=60.0
-                        )
+                    if int(transaltionData["id"]) == message.channel.id:
                         await channel.send(
                             embed=embeds.translation_embed(
                                 text=msg,
                                 translated_text=translation.text,
                                 language_name=language_name,
                                 language_iso=translation.src,
-                                author=member,
-                                author_reacted=author_reacted_translation,
+                                author=member
                             )
                         )
+                        return
+
+                    def translation_check(reaction, user):
+                        global author_reacted_translation
+                        author_reacted_translation = user
+                        return (
+                            str(reaction.emoji) == emojis.abc
+                            and reaction.message == message
+                            and not user.bot
+                        )
+
+                    try:
+                        await self.bot.wait_for(
+                            "reaction_add", check=translation_check, timeout=60.0
+                        )
+                        await channel.send(
+                                embed=embeds.translation_embed(
+                                    text=msg,
+                                    translated_text=translation.text,
+                                    language_name=language_name,
+                                    language_iso=translation.src,
+                                    author=member,
+                                    author_reacted=author_reacted_translation,
+                                )
+                            )
                     except asyncio.TimeoutError:
                         pass
 
             else:
-
+                if int(pronunciationData["id"]) == message.channel.id:
+                    await channel.send(
+                        embed=embeds.pronunciation_embed(
+                            text=msg,
+                            pronunciation=funcs.pronunciation(msg),
+                            author=member
+                        )
+                    )
+                    return
+                
                 def pronunciation_check(reaction, user):
                     global author_reacted_pronunciation
                     author_reacted_pronunciation = user

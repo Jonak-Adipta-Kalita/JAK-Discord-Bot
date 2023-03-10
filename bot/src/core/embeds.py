@@ -208,15 +208,16 @@ def pronunciation_embed(
     text: str,
     pronunciation: str,
     author: disnake.Member,
-    author_reacted: disnake.Member,
+    author_reacted: disnake.Member = None,
 ) -> disnake.Embed:
     embed = disnake.Embed(color=0x3498DB)
     embed.set_author(name=f"Author: {author.display_name}")
     embed.add_field(name="Text", value=f"```{text}```", inline=True)
     embed.add_field(name=f"Pronunciation", value=f"```{pronunciation}```", inline=True)
-    embed.set_footer(
-        text=f"Request: {author_reacted.display_name}",
-    )
+    if author_reacted:
+        embed.set_footer(
+            text=f"Request: {author_reacted.display_name}",
+        )
 
     return embed
 
