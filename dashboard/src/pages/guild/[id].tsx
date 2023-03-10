@@ -107,20 +107,6 @@ const Moderation = ({ guild }: ExtensionProps) => {
     );
 };
 
-const Poll = ({ guild }: ExtensionProps) => {
-    if (!guild)
-        return (
-            <div className="guildBodyContainer">
-                <p className="">Loading...</p>
-            </div>
-        );
-    return (
-        <div className="guildBodyContainer">
-            <p className="">Still in Development</p>
-        </div>
-    );
-};
-
 const Experience = ({ guild }: ExtensionProps) => {
     if (!guild)
         return (
@@ -207,8 +193,6 @@ const Guild = ({ id, ...guildProps }: Props) => {
             return (
                 <TranslationAndPronunciation guild={guild} {...guildProps} />
             );
-        } else if (selectedSidebarOption === "poll") {
-            return <Poll guild={guild} {...guildProps} />;
         } else if (selectedSidebarOption === "experience") {
             return <Experience guild={guild} {...guildProps} />;
         } else if (selectedSidebarOption === "reputation") {
