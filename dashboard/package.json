@@ -31,7 +31,7 @@
         "@typescript-eslint/eslint-plugin": "^5.10.0",
         "@typescript-eslint/parser": "^5.10.0",
         "@xxjonakadiptaxx/jak_javascript_package": "^3.0.0",
-        "autoprefixer": "^10.4.0",
+        "autoprefixer": "^10.4.14",
         "eslint": "^8.7.0",
         "eslint-plugin-react": "^7.28.0",
         "next-pwa": "^5.4.4",
