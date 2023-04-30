@@ -83,7 +83,7 @@ regex==2021.10.23
 requests==2.26.0
 rfc3986==1.5.0
 rsa==4.8
-simpleeval==0.9.11
+simpleeval==0.9.13
 simplejson==3.17.0
 six==1.16.0
 sniffio==1.2.0
